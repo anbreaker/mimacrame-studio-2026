@@ -1,0 +1,21 @@
+// Responsive breakpoints
+$breakpoints: (
+  'lg': 992px,
+  'md': 768px,
+  'sm': 576px,
+  'xl': 1200px,
+  'xs': 0,
+  'xxl': 1400px,
+);
+
+@mixin respond-to($breakpoint) {
+  $value: map-get($breakpoints, $breakpoint);
+
+  @if $value != null {
+    @media (min-width: $value) {
+      @content;
+    }
+  } @else {
+    @warn "Breakpoint `#{$breakpoint}` not found in $breakpoints map.";
+  }
+}

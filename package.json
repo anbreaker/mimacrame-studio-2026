@@ -1,0 +1,77 @@
+{
+  "commitlint": {
+    "rules": {
+      "description": "max 50 chars, imperative, no period",
+      "format": "<type>(<scope>): <description>",
+      "scope": "optional, kebab-case (e.g. auth, store, routing)",
+      "types": "feat | fix | docs | style | refactor | test | chore | perf | ci | build | revert"
+    }
+  },
+  "dependencies": {
+    "@angular/cdk": "^21.2.2",
+    "@angular/common": "^21.2.0",
+    "@angular/compiler": "^21.2.0",
+    "@angular/core": "^21.2.0",
+    "@angular/fire": "^21.0.0-rc.0",
+    "@angular/forms": "^21.2.0",
+    "@angular/material": "^21.2.2",
+    "@angular/platform-browser": "^21.2.0",
+    "@angular/platform-browser-dynamic": "^21.2.4",
+    "@angular/router": "^21.2.0",
+    "@ngx-translate/core": "^17.0.0",
+    "@ngx-translate/http-loader": "^17.0.0",
+    "@stripe/stripe-js": "^8.10.0",
+    "firebase": "^12.10.0",
+    "rxjs": "~7.8.2",
+    "tslib": "^2.3.0"
+  },
+  "devDependencies": {
+    "@analogjs/vite-plugin-angular": "^2.3.1",
+    "@angular/build": "^21.2.2",
+    "@angular/cli": "^21.2.2",
+    "@angular/compiler-cli": "^21.2.0",
+    "@vitest/ui": "^4.1.0",
+    "angular-eslint": "^21.2.0",
+    "concurrently": "^9.2.1",
+    "eslint": "^10.0.3",
+    "eslint-plugin-jsonc": "^3.1.2",
+    "eslint-plugin-playwright": "^2.9.0",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "firebase-tools": "^14.27.0",
+    "jsdom": "^28.1.0",
+    "json-server": "^1.0.0-beta.3",
+    "jsonc-eslint-parser": "^3.1.0",
+    "prettier": "^3.8.1",
+    "prettier-plugin-css-order": "^2.2.0",
+    "prettier-plugin-sort-json": "^4.2.0",
+    "typescript": "~5.9.2",
+    "typescript-eslint": "^8.54.0",
+    "vitest": "^4.1.0"
+  },
+  "engines": {
+    "node": ">=22.19.0",
+    "npm": ">=10.9.3"
+  },
+  "name": "mimacrame-studio-2026",
+  "packageManager": "npm@10.9.3",
+  "private": true,
+  "scripts": {
+    "build": "ng build",
+    "commit:validate": "node -e \"const msg = process.argv[1]; const ok = /^(feat|fix|docs|style|refactor|test|chore|perf|ci|build|revert)(\\(.+\\))?: .{1,50}/.test(msg); process.exit(ok ? 0 : 1);\" --",
+    "dev": "ng serve --configuration dev --open",
+    "dev:api": "concurrently \"npm run json-server\" \"npm run dev\"",
+    "format": "prettier --write \"src/**/*.{ts,html,scss}\" \"*.json\"",
+    "json-server": "json-server --watch server/db.json --port 3000",
+    "lint": "eslint \"src/**/*.{ts,js}\" && eslint \"*.json\"",
+    "lint:fix": "eslint \"src/**/*.{ts,js}\" --fix && eslint \"*.json\" --fix",
+    "lint:prod": "NODE_ENV=production eslint \"src/**/*.{ts,js}\" && NODE_ENV=production eslint \"*.json\"",
+    "ng": "ng",
+    "start": "ng serve",
+    "test": "vitest run",
+    "test:ui": "vitest --ui",
+    "test:watch": "vitest",
+    "watch": "ng build --watch --configuration development"
+  },
+  "type": "module",
+  "version": "0.0.0"
+}

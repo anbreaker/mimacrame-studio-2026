@@ -1,0 +1,39 @@
+// Mimacramé brand design tokens
+:root {
+  // Backgrounds
+  --color-bg-primary: #0c1b2b;
+  --color-bg-secondary: #1a0e08;
+  --color-bg-card: #261208;
+  --color-bg-surface: #1e1810;
+
+  // Accent
+  --color-accent: #e8622a;
+  --color-accent-hover: #d4531e;
+  --color-accent-light: rgb(232 98 42 / 15%);
+
+  // Text
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #c9b8a8;
+  --color-text-muted: #8b7355;
+
+  // Status
+  --color-status-new: #3b82f6;
+  --color-status-preparing: #f97316;
+  --color-status-shipped: #22c55e;
+  --color-status-draft: #6b7280;
+
+  // Special
+  --color-teal: #22d4e8;
+  --color-teal-bg: rgb(34 212 232 / 15%);
+
+  // Semantic
+  --color-danger: #ef4444;
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+
+  // Compatibility aliases
+  --color-primary: var(--color-accent);
+  --color-background: var(--color-bg-primary);
+  --color-white: #ffffff;
+  --color-black: #000000;
+}
