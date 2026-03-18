@@ -95,4 +95,51 @@ Diseño visual creado en Google Stitch (~15 pantallas: tienda pública + panel a
 
 ---
 
+## 2026-03-18 — Sesión 2 (cont.): Phase 2 — Componentes UI
+
+### Design system actualizado
+
+- `_colors.scss` — tokens alineados con DESIGN-BRIEF (dark/light mode, paleta mediterránea)
+- `_typography.scss` — Playfair Display (serif) + Inter (sans), tokens de tamaño y peso
+- `index.html` — Google Fonts, lang="es", meta description
+- `styles.scss` — tokens de body actualizados
+
+### Shared components creados
+
+- [x] `NavbarComponent` — logo serif + carrito con badge, sticky con blur
+- [x] `BottomNavComponent` — 3 items, solo mobile, safe-area-inset
+- [x] `ProductCardComponent` — imagen lifestyle, badges, quick-add, hover animado
+- [x] `FooterComponent` — logo, Instagram, links, copyright dinámico
+
+### Feature components implementados
+
+- [x] `HomeComponent` — hero mediterráneo, categorías 6-grid, productos destacados con skeleton, editorial, proceso 3 pasos
+- [x] `CatalogueComponent` — búsqueda, pills de categoría, grid 2/3/4 col, skeleton, empty state
+- [x] `CartComponent` — items, quantity selector, barra progreso envío gratis (€40), resumen sticky, empty state
+- [x] `AdminLoginComponent` — card centrada, form con Signals, claves i18n de error, loading state
+
+### AppComponent
+
+- [x] Eliminado boilerplate Angular CLI
+- [x] Estructura navbar / main / footer / bottom-nav
+- [x] padding-bottom dinámico para bottom nav en mobile
+
+### Verificación
+
+- TypeScript strict: sin errores
+- Build: problema de entorno (esbuild arm64/Rosetta2) — NO es error de código
+
+### Pendiente siguiente sesión
+
+- Phase 3: ProductDetailComponent, CheckoutComponent, OrderConfirmationComponent
+- Phase 4: Admin Dashboard, Products CRUD, Orders management
+- Resolver problema esbuild Rosetta2 (reinstalar node arm64 nativo)
+
+### Pendiente no prioritario
+
+- Cambiar favicon por el de Mimacramé Studio
+- Footer: añadir logo de RootDevs (marca del desarrollador)
+
+---
+
 > Para ver el plan completo de 39 tareas consultar Engram: `sdd/mimacrame-tienda-virtual/tasks`

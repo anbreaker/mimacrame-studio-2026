@@ -1,19 +1,43 @@
 // Typography tokens
 :root {
-  --font-size-base: 1rem;
-  --font-size-lg: 1.25rem;
-  --font-size-sm: 0.875rem;
-  --font-size-xl: 1.5rem;
-  --font-size-xs: 0.75rem;
-  --font-weight-bold: 700;
-  --font-weight-medium: 500;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+
+  --font-size-xs: 0.75rem; // 12px
+  --font-size-sm: 0.875rem; // 14px
+  --font-size-base: 1rem; // 16px
+  --font-size-lg: 1.25rem; // 20px
+  --font-size-xl: 1.5rem; // 24px
+  --font-size-2xl: 2rem; // 32px
+  --font-size-3xl: 2.25rem; // 36px
+  --font-size-4xl: 3rem; // 48px
+
   --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
   --line-height-base: 1.5;
   --line-height-tight: 1.25;
+  --line-height-heading: 1.15;
 }
 
 body {
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-sans);
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-normal);
   line-height: var(--line-height-base);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-serif);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-heading);
 }

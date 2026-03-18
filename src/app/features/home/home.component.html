@@ -1,0 +1,119 @@
+<!-- Hero -->
+<section class="hero">
+  <div class="hero__overlay"></div>
+  <div class="hero__content">
+    <p class="hero__eyebrow">Hecho a mano · Badajoz, Extremadura</p>
+    <h1 class="hero__title">
+      Joyería que cuenta
+      <br />
+      tu historia
+    </h1>
+    <p class="hero__subtitle">Macramé artesanal hecho a mano, pieza a pieza</p>
+    <a class="hero__cta" [routerLink]="['/' + routes.CATALOGO]">Ver colección</a>
+  </div>
+  <div class="hero__scroll-hint" aria-hidden="true">
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.5"
+      width="24"
+      height="24"
+    >
+      <polyline points="6 9 12 15 18 9" />
+    </svg>
+  </div>
+</section>
+
+<!-- Categories -->
+<section class="categories">
+  <div class="categories__inner">
+    <h2 class="section-title">Explora la colección</h2>
+    <div class="categories__grid">
+      @for (cat of categories; track cat.key) {
+        <a
+          class="category-card"
+          [routerLink]="['/' + routes.CATALOGO]"
+          [queryParams]="{ category: cat.key }"
+        >
+          <span class="category-card__emoji" aria-hidden="true">{{ cat.emoji }}</span>
+          <span class="category-card__label">{{ cat.label }}</span>
+        </a>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Featured products -->
+<section class="featured">
+  <div class="featured__inner">
+    <h2 class="section-title">Nuestras favoritas</h2>
+
+    @if (catalogueStore.isLoading()) {
+      <div class="featured__loading">
+        @for (_ of [1, 2, 3, 4]; track $index) {
+          <div class="product-skeleton"></div>
+        }
+      </div>
+    } @else if (featuredProducts.length > 0) {
+      <div class="featured__grid">
+        @for (product of featuredProducts; track product.id) {
+          <app-product-card [product]="product" />
+        }
+      </div>
+      <div class="featured__cta">
+        <a class="btn btn--outline" [routerLink]="['/' + routes.CATALOGO]">Ver toda la colección</a>
+      </div>
+    } @else {
+      <p class="featured__empty">Pronto llegarán nuevas piezas.</p>
+    }
+  </div>
+</section>
+
+<!-- Editorial / Look del momento -->
+<section class="editorial">
+  <div class="editorial__content">
+    <p class="editorial__quote">
+      Apila, combina,
+      <br />
+      hazlo tuyo
+    </p>
+    <a
+      class="btn btn--primary"
+      [routerLink]="['/' + routes.CATALOGO]"
+      [queryParams]="{ category: 'sets' }"
+    >
+      Ver conjuntos
+    </a>
+  </div>
+</section>
+
+<!-- About / Proceso -->
+<section class="process">
+  <div class="process__inner">
+    <h2 class="section-title">Así nace tu pieza</h2>
+    <div class="process__steps">
+      <div class="process__step">
+        <span class="process__number">01</span>
+        <h3 class="process__step-title">Elige tu pieza</h3>
+        <p class="process__step-text">
+          Explora la colección y encuentra la joya que te representa.
+        </p>
+      </div>
+      <div class="process__step">
+        <span class="process__number">02</span>
+        <h3 class="process__step-title">La tejemos para ti</h3>
+        <p class="process__step-text">
+          Cada pieza se hace a mano con hilo de algodón encerado y seda natural.
+        </p>
+      </div>
+      <div class="process__step">
+        <span class="process__number">03</span>
+        <h3 class="process__step-title">La recibes en casa</h3>
+        <p class="process__step-text">
+          Enviamos desde Badajoz a toda España y Europa con mucho cariño.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,44 @@
+<header class="navbar">
+  <div class="navbar__inner">
+    <!-- Logo -->
+    <a class="navbar__logo" [routerLink]="['/' + routes.HOME]">
+      <span class="navbar__logo-text">Mimacramé</span>
+      <span class="navbar__logo-sub">Studio</span>
+    </a>
+
+    <!-- Desktop nav links -->
+    <nav class="navbar__links" aria-label="Navegación principal">
+      <a
+        class="navbar__link"
+        [routerLink]="['/' + routes.CATALOGO]"
+        routerLinkActive="navbar__link--active"
+      >
+        Colección
+      </a>
+    </nav>
+
+    <!-- Desktop actions -->
+    <div class="navbar__actions">
+      <a
+        class="navbar__action"
+        [routerLink]="['/' + routes.CARRITO]"
+        aria-label="Carrito de compra"
+      >
+        <svg
+          class="navbar__icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+        >
+          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+          <line x1="3" y1="6" x2="21" y2="6" />
+          <path d="M16 10a4 4 0 01-8 0" />
+        </svg>
+        @if (cartStore.itemCount() > 0) {
+          <span class="navbar__badge">{{ cartStore.itemCount() }}</span>
+        }
+      </a>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,118 @@
+.product-card {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-md);
+  color: inherit;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  text-decoration: none;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+
+  &:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-4px);
+
+    .product-card__quick-add {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+.product-card__image-wrapper {
+  aspect-ratio: 1 / 1;
+  background-color: var(--color-surface-alt);
+  overflow: hidden;
+  position: relative;
+}
+
+.product-card__image {
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+  width: 100%;
+
+  .product-card:hover & {
+    transform: scale(1.04);
+  }
+}
+
+.product-card__badges {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  left: var(--space-sm);
+  position: absolute;
+  top: var(--space-sm);
+}
+
+.product-card__badge {
+  border-radius: var(--radius-pill);
+  display: inline-block;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.04em;
+  padding: 3px var(--space-sm);
+  text-transform: uppercase;
+
+  &--out {
+    background-color: var(--color-surface-alt);
+    color: var(--color-text-muted);
+  }
+
+  &--low {
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+  }
+}
+
+.product-card__quick-add {
+  align-items: center;
+  background-color: var(--color-primary);
+  border: none;
+  border-radius: 50%;
+  bottom: var(--space-sm);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  height: 36px;
+  justify-content: center;
+  opacity: 0;
+  position: absolute;
+  right: var(--space-sm);
+  transform: translateY(8px);
+  transition:
+    opacity 0.2s,
+    transform 0.2s,
+    background-color 0.2s;
+  width: 36px;
+
+  &:hover {
+    background-color: var(--color-primary-hover);
+  }
+}
+
+.product-card__info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding: var(--space-md);
+}
+
+.product-card__name {
+  color: var(--color-text);
+  font-family: var(--font-serif);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-tight);
+  margin: 0;
+}
+
+.product-card__price {
+  color: var(--color-primary);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+}

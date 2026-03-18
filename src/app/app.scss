@@ -1,6 +1,15 @@
 :host {
+  background-color: var(--color-background);
+  color: var(--color-text);
   display: block;
-  min-block-size: 100vh;
-  background-color: var(--color-bg-primary);
-  color: var(--color-text-primary);
+  min-block-size: 100svh;
+}
+
+.app-content {
+  // Bottom padding for mobile bottom nav (72px) + safe area
+  padding-bottom: calc(72px + env(safe-area-inset-bottom));
+
+  @media (min-width: 768px) {
+    padding-bottom: 0;
+  }
 }
