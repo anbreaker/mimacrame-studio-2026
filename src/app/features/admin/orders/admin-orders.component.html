@@ -1,0 +1,107 @@
+<div class="admin-layout">
+  <app-admin-nav />
+  <main class="admin-main">
+    <div class="admin-main__inner">
+      <h1 class="admin-page-title">Pedidos</h1>
+
+      <!-- Status filter pills -->
+      <div class="status-filters">
+        <button
+          class="status-pill"
+          [class.status-pill--active]="filterStatus() === 'all'"
+          (click)="filterStatus.set('all')"
+        >
+          Todos ({{ orders().length }})
+        </button>
+        @for (status of statusKeys; track status) {
+          <button
+            class="status-pill"
+            [class.status-pill--active]="filterStatus() === status"
+            (click)="filterStatus.set(status)"
+          >
+            {{ statusLabels[status] }}
+          </button>
+        }
+      </div>
+
+      @if (isLoading()) {
+        <p class="admin-loading">Cargando pedidos...</p>
+      } @else if (filteredOrders().length === 0) {
+        <p class="admin-empty">No hay pedidos con este estado.</p>
+      } @else {
+        <div class="orders-list">
+          @for (order of filteredOrders(); track order.id) {
+            <div class="order-card">
+              <div class="order-card__header" (click)="toggleExpand(order.id)">
+                <span class="order-card__ref">#{{ order.id.slice(0, 6).toUpperCase() }}</span>
+                <span class="order-card__total">
+                  {{ order.total | currency: 'EUR' : 'symbol' : '1.2-2' : 'es' }}
+                </span>
+                <span class="status-chip" [attr.data-status]="order.status">
+                  {{ statusLabels[order.status] }}
+                </span>
+                <span class="order-card__date">
+                  {{ toDate(order.createdAt) | date: 'dd/MM/yy' }}
+                </span>
+                <span
+                  class="order-card__chevron"
+                  [class.order-card__chevron--open]="expandedOrderId() === order.id"
+                >
+                  ↓
+                </span>
+              </div>
+
+              @if (expandedOrderId() === order.id) {
+                <div class="order-card__detail">
+                  <!-- Shipping info -->
+                  <div class="order-detail__address">
+                    <strong>{{ order.shippingAddress.fullName }}</strong>
+                    <span>{{ order.shippingAddress.street }}</span>
+                    <span>
+                      {{ order.shippingAddress.postalCode }} {{ order.shippingAddress.city }},
+                      {{ order.shippingAddress.province }}
+                    </span>
+                    <span>{{ order.shippingAddress.phone }}</span>
+                  </div>
+
+                  <!-- Items -->
+                  <ul class="order-detail__items">
+                    @for (item of order.items; track item.product.id) {
+                      <li class="order-detail__item">
+                        <img
+                          [src]="item.product.images[0] || 'assets/images/placeholder-product.jpg'"
+                          [alt]="item.product.name"
+                        />
+                        <span>{{ item.product.name }} × {{ item.quantity }}</span>
+                        <span>
+                          {{
+                            item.product.price * item.quantity
+                              | currency: 'EUR' : 'symbol' : '1.2-2' : 'es'
+                          }}
+                        </span>
+                      </li>
+                    }
+                  </ul>
+
+                  <!-- Status update -->
+                  <div class="order-detail__actions">
+                    <span class="form-label">Cambiar estado:</span>
+                    <select
+                      class="form-input"
+                      [value]="order.status"
+                      (change)="updateStatus(order.id, $any($event.target).value)"
+                    >
+                      @for (status of statusKeys; track status) {
+                        <option [value]="status">{{ statusLabels[status] }}</option>
+                      }
+                    </select>
+                  </div>
+                </div>
+              }
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </main>
+</div>

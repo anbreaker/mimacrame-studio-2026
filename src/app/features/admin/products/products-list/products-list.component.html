@@ -1,0 +1,138 @@
+<div class="admin-layout">
+  <app-admin-nav />
+  <main class="admin-main">
+    <div class="admin-main__inner">
+      <div class="admin-page-header">
+        <h1 class="admin-page-title">Productos</h1>
+        <a class="admin-btn admin-btn--primary" [routerLink]="['/' + routes.ADMIN_PRODUCTO_NUEVO]">
+          + Nueva pieza
+        </a>
+      </div>
+
+      <!-- Search -->
+      <div class="admin-search">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          width="16"
+          height="16"
+        >
+          <circle cx="11" cy="11" r="8" />
+          <line x1="21" y1="21" x2="16.65" y2="16.65" />
+        </svg>
+        <input
+          class="admin-search__input"
+          type="search"
+          placeholder="Buscar por nombre..."
+          [value]="searchQuery()"
+          (input)="searchQuery.set($any($event.target).value)"
+        />
+      </div>
+
+      <!-- Delete confirm modal -->
+      @if (confirmDeleteId()) {
+        <div class="admin-modal-backdrop" (click)="cancelDelete()">
+          <div class="admin-modal" (click)="$event.stopPropagation()">
+            <p class="admin-modal__text">¿Eliminar esta pieza? Esta acción no se puede deshacer.</p>
+            <div class="admin-modal__actions">
+              <button class="admin-btn admin-btn--danger" (click)="confirmDelete()">
+                Eliminar
+              </button>
+              <button class="admin-btn admin-btn--outline" (click)="cancelDelete()">
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      }
+
+      @if (isLoading()) {
+        <p class="admin-loading">Cargando productos...</p>
+      } @else if (filteredProducts.length === 0) {
+        <p class="admin-empty">No hay productos.</p>
+      } @else {
+        <div class="products-table-wrapper">
+          <table class="products-table">
+            <thead>
+              <tr>
+                <th>Producto</th>
+                <th>Categoría</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th>Estado</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (product of filteredProducts; track product.id) {
+                <tr>
+                  <td>
+                    <div class="products-table__product">
+                      <img
+                        class="products-table__img"
+                        [src]="product.images[0] || 'assets/images/placeholder-product.jpg'"
+                        [alt]="product.name"
+                      />
+                      <span>{{ product.name }}</span>
+                    </div>
+                  </td>
+                  <td>{{ categoryLabels[product.category] }}</td>
+                  <td>{{ product.price | currency: 'EUR' : 'symbol' : '1.2-2' : 'es' }}</td>
+                  <td [class.products-table__stock--low]="product.stock <= 2">
+                    {{ product.stock }}
+                  </td>
+                  <td>
+                    <span class="status-badge" [class.status-badge--active]="product.active">
+                      {{ product.active ? 'Activo' : 'Borrador' }}
+                    </span>
+                  </td>
+                  <td>
+                    <div class="products-table__actions">
+                      <a
+                        class="admin-icon-btn"
+                        [routerLink]="['/admin/productos', product.id]"
+                        aria-label="Editar"
+                      >
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="1.5"
+                          width="16"
+                          height="16"
+                        >
+                          <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" />
+                          <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
+                        </svg>
+                      </a>
+                      <button
+                        class="admin-icon-btn admin-icon-btn--danger"
+                        (click)="requestDelete(product.id)"
+                        aria-label="Eliminar"
+                      >
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="1.5"
+                          width="16"
+                          height="16"
+                        >
+                          <polyline points="3 6 5 6 21 6" />
+                          <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6" />
+                          <path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2" />
+                        </svg>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+    </div>
+  </main>
+</div>

@@ -1,0 +1,107 @@
+@if (isLoading()) {
+  <div class="detail-skeleton">
+    <div class="detail-skeleton__gallery"></div>
+    <div class="detail-skeleton__info">
+      <div class="detail-skeleton__line detail-skeleton__line--title"></div>
+      <div class="detail-skeleton__line detail-skeleton__line--price"></div>
+      <div class="detail-skeleton__line"></div>
+      <div class="detail-skeleton__line"></div>
+    </div>
+  </div>
+} @else if (product()) {
+  <div class="detail">
+    <!-- Gallery -->
+    <div class="detail__gallery">
+      <div class="detail__main-image-wrapper">
+        <img class="detail__main-image" [src]="selectedImage()" [alt]="product()!.name" />
+        @if (isOutOfStock()) {
+          <div class="detail__out-badge">Agotado</div>
+        } @else if (isLowStock()) {
+          <div class="detail__low-badge">Últimas unidades</div>
+        }
+      </div>
+
+      @if (product()!.images.length > 1) {
+        <div class="detail__thumbnails">
+          @for (img of product()!.images; track $index) {
+            <button
+              class="detail__thumb"
+              [class.detail__thumb--active]="selectedImageIndex() === $index"
+              (click)="selectImage($index)"
+              [attr.aria-label]="'Ver imagen ' + ($index + 1)"
+            >
+              <img [src]="img" [alt]="product()!.name + ' ' + ($index + 1)" />
+            </button>
+          }
+        </div>
+      }
+    </div>
+
+    <!-- Info -->
+    <div class="detail__info">
+      <a class="detail__back" [routerLink]="['/' + routes.CATALOGO]">← Volver a la colección</a>
+
+      <h1 class="detail__name">{{ product()!.name }}</h1>
+
+      <span class="detail__price">
+        {{ product()!.price | currency: 'EUR' : 'symbol' : '1.2-2' : 'es' }}
+      </span>
+
+      <p class="detail__description">{{ product()!.description }}</p>
+
+      <!-- Quantity selector -->
+      @if (!isOutOfStock()) {
+        <div class="detail__quantity-section">
+          <span class="detail__label">Cantidad</span>
+          <div class="detail__quantity">
+            <button
+              class="detail__qty-btn"
+              (click)="decreaseQuantity()"
+              [disabled]="quantity() <= 1"
+            >
+              −
+            </button>
+            <span class="detail__qty-value">{{ quantity() }}</span>
+            <button
+              class="detail__qty-btn"
+              (click)="increaseQuantity()"
+              [disabled]="quantity() >= product()!.stock"
+            >
+              +
+            </button>
+          </div>
+          @if (isLowStock()) {
+            <span class="detail__stock-hint">Solo quedan {{ product()!.stock }} unidades</span>
+          }
+        </div>
+      }
+
+      <!-- CTAs -->
+      <div class="detail__actions">
+        <button class="detail__add-btn" (click)="addToCart()" [disabled]="isOutOfStock()">
+          {{ isOutOfStock() ? 'Agotado' : 'Añadir al carrito' }}
+        </button>
+        @if (!isOutOfStock()) {
+          <button class="detail__buy-btn" (click)="buyNow()">Comprar ahora</button>
+        }
+      </div>
+
+      <!-- Details accordion -->
+      <details class="detail__accordion">
+        <summary class="detail__accordion-title">Materiales y cuidados</summary>
+        <p class="detail__accordion-content">
+          Hecho a mano con hilo de algodón encerado y seda natural. Para conservar tu pieza evita el
+          contacto con agua y guárdala en un lugar seco.
+        </p>
+      </details>
+
+      <details class="detail__accordion">
+        <summary class="detail__accordion-title">Envíos y devoluciones</summary>
+        <p class="detail__accordion-content">
+          Envío gratuito a partir de €40. Entrega en 3-5 días hábiles. Aceptamos devoluciones en los
+          14 días siguientes a la recepción.
+        </p>
+      </details>
+    </div>
+  </div>
+}

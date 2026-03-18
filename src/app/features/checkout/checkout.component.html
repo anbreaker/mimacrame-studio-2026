@@ -1,0 +1,229 @@
+@if (cartStore.isEmpty()) {
+  <div class="checkout__empty">
+    <p>Tu carrito está vacío.</p>
+    <a [routerLink]="['/' + routes.CATALOGO]">Ver colección</a>
+  </div>
+} @else {
+  <div class="checkout">
+    <h1 class="checkout__title">Finalizar pedido</h1>
+
+    <div class="checkout__layout">
+      <!-- Form column -->
+      <div class="checkout__form-col">
+        @if (error()) {
+          <div class="checkout__error" role="alert">{{ error() }}</div>
+        }
+
+        <!-- Contact -->
+        <section class="checkout__section">
+          <h2 class="checkout__section-title">Contacto</h2>
+          <div class="checkout__fields">
+            <div class="checkout__field">
+              <label class="checkout__label" for="email">Email</label>
+              <input
+                id="email"
+                class="checkout__input"
+                type="email"
+                required
+                [ngModel]="email()"
+                (ngModelChange)="email.set($event)"
+                name="email"
+                placeholder="tu@email.com"
+                autocomplete="email"
+              />
+            </div>
+            <div class="checkout__field">
+              <label class="checkout__label" for="phone">Teléfono</label>
+              <input
+                id="phone"
+                class="checkout__input"
+                type="tel"
+                [ngModel]="address().phone"
+                (ngModelChange)="updateAddress('phone', $event)"
+                name="phone"
+                placeholder="+34 600 000 000"
+                autocomplete="tel"
+              />
+            </div>
+          </div>
+        </section>
+
+        <!-- Shipping address -->
+        <section class="checkout__section">
+          <h2 class="checkout__section-title">Dirección de envío</h2>
+          <div class="checkout__fields">
+            <div class="checkout__field checkout__field--full">
+              <label class="checkout__label" for="fullName">Nombre completo</label>
+              <input
+                id="fullName"
+                class="checkout__input"
+                type="text"
+                required
+                [ngModel]="address().fullName"
+                (ngModelChange)="updateAddress('fullName', $event)"
+                name="fullName"
+                autocomplete="name"
+              />
+            </div>
+            <div class="checkout__field checkout__field--full">
+              <label class="checkout__label" for="street">Dirección</label>
+              <input
+                id="street"
+                class="checkout__input"
+                type="text"
+                required
+                [ngModel]="address().street"
+                (ngModelChange)="updateAddress('street', $event)"
+                name="street"
+                autocomplete="street-address"
+              />
+            </div>
+            <div class="checkout__field">
+              <label class="checkout__label" for="postalCode">Código postal</label>
+              <input
+                id="postalCode"
+                class="checkout__input"
+                type="text"
+                required
+                [ngModel]="address().postalCode"
+                (ngModelChange)="updateAddress('postalCode', $event)"
+                name="postalCode"
+                autocomplete="postal-code"
+              />
+            </div>
+            <div class="checkout__field">
+              <label class="checkout__label" for="city">Ciudad</label>
+              <input
+                id="city"
+                class="checkout__input"
+                type="text"
+                required
+                [ngModel]="address().city"
+                (ngModelChange)="updateAddress('city', $event)"
+                name="city"
+                autocomplete="address-level2"
+              />
+            </div>
+            <div class="checkout__field">
+              <label class="checkout__label" for="province">Provincia</label>
+              <input
+                id="province"
+                class="checkout__input"
+                type="text"
+                [ngModel]="address().province"
+                (ngModelChange)="updateAddress('province', $event)"
+                name="province"
+              />
+            </div>
+            <div class="checkout__field">
+              <label class="checkout__label" for="country">País</label>
+              <input
+                id="country"
+                class="checkout__input"
+                type="text"
+                [ngModel]="address().country"
+                (ngModelChange)="updateAddress('country', $event)"
+                name="country"
+                autocomplete="country-name"
+              />
+            </div>
+          </div>
+        </section>
+
+        <!-- Payment -->
+        <section class="checkout__section">
+          <h2 class="checkout__section-title">Método de pago</h2>
+          <div class="checkout__payment-methods">
+            <button
+              class="checkout__payment-option"
+              [class.checkout__payment-option--active]="selectedPayment() === PAYMENT_METHOD.Card"
+              (click)="selectPayment(PAYMENT_METHOD.Card)"
+              type="button"
+            >
+              <span class="checkout__payment-icon">💳</span>
+              <span>Tarjeta</span>
+            </button>
+            <button
+              class="checkout__payment-option"
+              [class.checkout__payment-option--active]="selectedPayment() === PAYMENT_METHOD.Bizum"
+              (click)="selectPayment(PAYMENT_METHOD.Bizum)"
+              type="button"
+            >
+              <span class="checkout__payment-icon">📱</span>
+              <span>Bizum</span>
+            </button>
+            <button
+              class="checkout__payment-option"
+              [class.checkout__payment-option--active]="selectedPayment() === PAYMENT_METHOD.Paypal"
+              (click)="selectPayment(PAYMENT_METHOD.Paypal)"
+              type="button"
+            >
+              <span class="checkout__payment-icon">🅿️</span>
+              <span>PayPal</span>
+            </button>
+          </div>
+          <p class="checkout__security-note">🔒 Pago 100% seguro · SSL</p>
+        </section>
+
+        <!-- Submit -->
+        <button
+          class="checkout__submit"
+          type="button"
+          (click)="submit()"
+          [disabled]="isProcessing()"
+        >
+          {{
+            isProcessing()
+              ? 'Procesando...'
+              : 'Confirmar pedido — ' + (orderTotal | currency: 'EUR' : 'symbol' : '1.2-2' : 'es')
+          }}
+        </button>
+      </div>
+
+      <!-- Summary column -->
+      <aside class="checkout__summary">
+        <h2 class="checkout__section-title">Resumen</h2>
+        <ul class="checkout__summary-items">
+          @for (item of cartStore.items(); track item.product.id) {
+            <li class="checkout__summary-item">
+              <img
+                class="checkout__summary-img"
+                [src]="item.product.images[0] || 'assets/images/placeholder-product.jpg'"
+                [alt]="item.product.name"
+              />
+              <div class="checkout__summary-info">
+                <span class="checkout__summary-name">{{ item.product.name }}</span>
+                <span class="checkout__summary-qty">× {{ item.quantity }}</span>
+              </div>
+              <span class="checkout__summary-price">
+                {{
+                  item.product.price * item.quantity | currency: 'EUR' : 'symbol' : '1.2-2' : 'es'
+                }}
+              </span>
+            </li>
+          }
+        </ul>
+        <div class="checkout__summary-totals">
+          <div class="checkout__summary-row">
+            <span>Subtotal</span>
+            <span>{{ cartStore.total() | currency: 'EUR' : 'symbol' : '1.2-2' : 'es' }}</span>
+          </div>
+          <div class="checkout__summary-row">
+            <span>Envío</span>
+            <span>
+              {{
+                shippingCost === 0
+                  ? 'Gratis'
+                  : (shippingCost | currency: 'EUR' : 'symbol' : '1.2-2' : 'es')
+              }}
+            </span>
+          </div>
+          <div class="checkout__summary-row checkout__summary-row--total">
+            <span>Total</span>
+            <span>{{ orderTotal | currency: 'EUR' : 'symbol' : '1.2-2' : 'es' }}</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+}

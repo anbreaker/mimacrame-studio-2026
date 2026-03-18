@@ -1,0 +1,98 @@
+.confirmation {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  min-height: 60svh;
+  padding: var(--space-xl) var(--space-md);
+}
+
+.confirmation__card {
+  align-items: center;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  max-width: 480px;
+  padding: var(--space-3xl) var(--space-2xl);
+  text-align: center;
+  width: 100%;
+}
+
+.confirmation__icon {
+  align-items: center;
+  border-radius: 50%;
+  display: flex;
+  height: 80px;
+  justify-content: center;
+  margin-bottom: var(--space-sm);
+  width: 80px;
+
+  &--success {
+    background-color: rgb(from var(--color-success) r g b / 15%);
+    color: var(--color-success);
+  }
+
+  &--error {
+    background-color: rgb(from var(--color-danger) r g b / 15%);
+    color: var(--color-danger);
+  }
+}
+
+.confirmation__title {
+  color: var(--color-text);
+  font-family: var(--font-serif);
+  font-size: var(--font-size-2xl);
+  line-height: var(--line-height-heading);
+  margin: 0;
+}
+
+.confirmation__subtitle {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-base);
+}
+
+.confirmation__order-ref {
+  background-color: var(--color-accent-light);
+  border-radius: var(--radius-pill);
+  color: var(--color-accent);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.08em;
+  padding: var(--space-xs) var(--space-md);
+}
+
+.confirmation__message {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  font-style: italic;
+}
+
+.confirmation__cta {
+  background-color: var(--color-primary);
+  border-radius: var(--radius-sm);
+  color: white;
+  display: inline-block;
+  font-weight: var(--font-weight-semibold);
+  margin-top: var(--space-md);
+  padding: var(--space-md) var(--space-2xl);
+  text-decoration: none;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: var(--color-primary-hover);
+  }
+
+  &--outline {
+    background-color: transparent;
+    border: 1.5px solid var(--color-border);
+    color: var(--color-text);
+
+    &:hover {
+      background-color: transparent;
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+  }
+}

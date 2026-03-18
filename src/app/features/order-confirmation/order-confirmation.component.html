@@ -1,0 +1,51 @@
+<div class="confirmation">
+  @if (isSuccess()) {
+    <!-- Success -->
+    <div class="confirmation__card">
+      <div class="confirmation__icon confirmation__icon--success" aria-hidden="true">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          width="48"
+          height="48"
+        >
+          <circle cx="12" cy="12" r="10" />
+          <polyline points="9 12 11 14 15 10" />
+        </svg>
+      </div>
+      <h1 class="confirmation__title">¡Tu pedido está en camino!</h1>
+      <p class="confirmation__subtitle">Hemos enviado la confirmación a tu email</p>
+      <p class="confirmation__order-ref">{{ orderRef }}</p>
+      <p class="confirmation__message">Empezamos a tejer tu pedido con mucho cariño 🧶</p>
+      <a class="confirmation__cta" [routerLink]="['/' + routes.CATALOGO]">Seguir comprando</a>
+    </div>
+  } @else {
+    <!-- Error -->
+    <div class="confirmation__card">
+      <div class="confirmation__icon confirmation__icon--error" aria-hidden="true">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          width="48"
+          height="48"
+        >
+          <circle cx="12" cy="12" r="10" />
+          <line x1="15" y1="9" x2="9" y2="15" />
+          <line x1="9" y1="9" x2="15" y2="15" />
+        </svg>
+      </div>
+      <h1 class="confirmation__title">El pago no se pudo completar</h1>
+      <p class="confirmation__subtitle">Por favor, inténtalo de nuevo o usa otro método de pago.</p>
+      <a
+        class="confirmation__cta confirmation__cta--outline"
+        [routerLink]="['/' + routes.CHECKOUT]"
+      >
+        Intentarlo de nuevo
+      </a>
+    </div>
+  }
+</div>

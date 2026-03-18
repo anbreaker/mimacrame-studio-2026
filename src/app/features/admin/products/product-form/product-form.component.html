@@ -1,0 +1,156 @@
+<div class="admin-layout">
+  <app-admin-nav />
+  <main class="admin-main">
+    <div class="admin-main__inner">
+      <div class="admin-page-header">
+        <h1 class="admin-page-title">{{ isEditMode() ? 'Editar pieza' : 'Nueva pieza' }}</h1>
+        <a class="admin-btn admin-btn--outline" [routerLink]="['/' + routes.ADMIN_PRODUCTOS]">
+          Cancelar
+        </a>
+      </div>
+
+      @if (error()) {
+        <div class="admin-error">{{ error() }}</div>
+      }
+
+      <div class="product-form">
+        <!-- Images -->
+        <section class="form-section">
+          <h2 class="form-section__title">Imágenes</h2>
+          <p class="form-section__hint">
+            Sube fotos con la pieza puesta — ¡quedan mucho más bonitas!
+          </p>
+
+          <div class="image-grid">
+            @for (img of images(); track $index) {
+              <div class="image-thumb">
+                <img [src]="img" alt="Imagen del producto" />
+                <button
+                  class="image-thumb__remove"
+                  (click)="removeImage($index)"
+                  type="button"
+                  aria-label="Eliminar imagen"
+                >
+                  ×
+                </button>
+              </div>
+            }
+            <label class="image-upload" [class.image-upload--loading]="isUploading()">
+              @if (isUploading()) {
+                <span>Subiendo...</span>
+              } @else {
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  width="24"
+                  height="24"
+                >
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+                <span>Añadir foto</span>
+              }
+              <input
+                type="file"
+                accept="image/*"
+                (change)="onFileChange($event)"
+                [disabled]="isUploading()"
+                hidden
+              />
+            </label>
+          </div>
+        </section>
+
+        <!-- Basic info -->
+        <section class="form-section">
+          <h2 class="form-section__title">Información básica</h2>
+          <div class="form-fields">
+            <div class="form-field form-field--full">
+              <label class="form-label">Nombre</label>
+              <input
+                class="form-input"
+                type="text"
+                [ngModel]="name()"
+                (ngModelChange)="name.set($event)"
+                name="name"
+                placeholder="Ej: Pulsera Mediterránea"
+              />
+            </div>
+            <div class="form-field form-field--full">
+              <label class="form-label">Descripción</label>
+              <textarea
+                class="form-input form-input--textarea"
+                rows="4"
+                [ngModel]="description()"
+                (ngModelChange)="description.set($event)"
+                name="description"
+                placeholder="Describe materiales, acabados, estilo..."
+              ></textarea>
+            </div>
+            <div class="form-field">
+              <label class="form-label">Precio (€)</label>
+              <input
+                class="form-input"
+                type="number"
+                min="0"
+                step="0.01"
+                [ngModel]="price()"
+                (ngModelChange)="price.set(+$event)"
+                name="price"
+              />
+            </div>
+            <div class="form-field">
+              <label class="form-label">Stock</label>
+              <input
+                class="form-input"
+                type="number"
+                min="0"
+                [ngModel]="stock()"
+                (ngModelChange)="stock.set(+$event)"
+                name="stock"
+              />
+            </div>
+            <div class="form-field">
+              <label class="form-label">Categoría</label>
+              <select
+                class="form-input"
+                [ngModel]="category()"
+                (ngModelChange)="category.set($event)"
+                name="category"
+              >
+                @for (key of categoryKeys; track key) {
+                  <option [value]="key">{{ categoryLabels[key] }}</option>
+                }
+              </select>
+            </div>
+            <div class="form-field form-field--checkbox">
+              <label class="form-label form-label--checkbox">
+                <input
+                  type="checkbox"
+                  [ngModel]="active()"
+                  (ngModelChange)="active.set($event)"
+                  name="active"
+                />
+                Activo (visible en la tienda)
+              </label>
+            </div>
+          </div>
+        </section>
+
+        <!-- Submit -->
+        <div class="form-actions">
+          <button
+            class="admin-btn admin-btn--primary"
+            type="button"
+            (click)="save()"
+            [disabled]="!isValid() || isSaving()"
+          >
+            {{ isSaving() ? 'Guardando...' : isEditMode() ? 'Guardar cambios' : 'Crear pieza' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
