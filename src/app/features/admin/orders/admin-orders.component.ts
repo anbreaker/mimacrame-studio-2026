@@ -35,7 +35,9 @@ export class AdminOrdersComponent {
 
   protected readonly filteredOrders = computed(() => {
     const filter = this.filterStatus();
-    return filter === 'all' ? this.orders() : this.orders().filter((o) => o.status === filter);
+    return filter === 'all'
+      ? this.orders()
+      : this.orders().filter((order) => order.status === filter);
   });
 
   protected readonly ORDER_STATUS = ORDER_STATUS;

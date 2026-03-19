@@ -57,7 +57,9 @@ export class ProductsListComponent {
 
   protected get filteredProducts(): Product[] {
     const q = this.searchQuery().toLowerCase().trim();
-    return q ? this.products().filter((p) => p.name.toLowerCase().includes(q)) : this.products();
+    return q
+      ? this.products().filter((product) => product.name.toLowerCase().includes(q))
+      : this.products();
   }
 
   protected requestDelete(id: string): void {

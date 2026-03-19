@@ -115,7 +115,7 @@ export class ProductFormComponent implements OnInit {
   }
 
   protected removeImage(index: number): void {
-    this.images.update((imgs) => imgs.filter((_, i) => i !== index));
+    this.images.update((images) => images.filter((_url, idx) => idx !== index));
   }
 
   protected save(): void {

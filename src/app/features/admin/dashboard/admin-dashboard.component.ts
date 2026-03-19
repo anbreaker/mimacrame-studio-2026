@@ -27,7 +27,7 @@ export class AdminDashboardComponent {
   protected readonly products = signal<Product[]>([]);
 
   protected readonly activeProductCount = computed(
-    () => this.products().filter((p) => p.active).length
+    () => this.products().filter((product) => product.active).length
   );
 
   protected readonly lowStockProducts = computed(() =>

@@ -57,7 +57,7 @@ export class ProductDetailComponent implements OnInit {
       ? this.productService
           .getActive()
           .pipe(
-            map((products) => products.find((p) => p.id === id) ?? null),
+            map((products) => products.find((product) => product.id === id) ?? null),
             takeUntilDestroyed(this.destroyRef)
           )
           .subscribe((product) =>
