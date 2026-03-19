@@ -61,7 +61,7 @@ export class CatalogueStore {
       .pipe(takeUntilDestroyed())
       .subscribe({
         error: (err: Error) => {
-          this._error.set(err.message);
+          this._error.set(error.message);
           this._isLoading.set(false);
         },
         next: (products) => {
