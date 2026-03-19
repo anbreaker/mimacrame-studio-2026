@@ -7,9 +7,32 @@
     },
     "profile": {
       "emailLabel": "Email",
-      "nameLabel": "Name",
+      "nameLabel": "Full name",
       "noName": "No name",
-      "title": "My profile"
+      "title": "My profile",
+      "subtitle": "Manage your contact and shipping information",
+      "fields": {
+        "phone": "Phone",
+        "street": "Address",
+        "postalCode": "Postal code",
+        "city": "City",
+        "province": "Province",
+        "country": "Country"
+      },
+      "placeholders": {
+        "fullName": "Ex: John Doe",
+        "phone": "Ex: +44 000 000 000",
+        "street": "Ex: Baker Street, 221B",
+        "postalCode": "Ex: NW1 6XE",
+        "city": "Ex: London",
+        "province": "Ex: Greater London",
+        "country": "Ex: United Kingdom"
+      },
+      "submit": {
+        "save": "Save changes",
+        "saving": "Saving...",
+        "success": "Profile updated!"
+      }
     },
     "shell": {
       "logout": "Sign out",
@@ -128,6 +151,8 @@
   "authErrors": {
     "default": "An error occurred. Please try again.",
     "invalidCredential": "Invalid credentials. Please check your email and password.",
+    "invalidPhone": "Please enter a valid phone number.",
+    "invalidPostalCode": "Postal code must be 5 digits.",
     "noAdmin": "You do not have administrator permissions.",
     "tooManyRequests": "Too many failed attempts. Please try again later.",
     "userNotFound": "No account exists with this email.",
@@ -320,7 +345,9 @@
   },
   "navbar": {
     "collection": "Collection",
-    "cart": "Shopping cart"
+    "cart": "Shopping cart",
+    "account": "My account",
+    "login": "Sign in"
   },
   "productCard": {
     "outOfStock": "Out of stock",

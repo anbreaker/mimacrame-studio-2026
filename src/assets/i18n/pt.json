@@ -7,9 +7,32 @@
     },
     "profile": {
       "emailLabel": "Email",
-      "nameLabel": "Nome",
+      "nameLabel": "Nome completo",
       "noName": "Sem nome",
-      "title": "Meu perfil"
+      "title": "Meu perfil",
+      "subtitle": "Gerencie suas informações de contato e envio",
+      "fields": {
+        "phone": "Telefone",
+        "street": "Endereço",
+        "postalCode": "Código postal",
+        "city": "Cidade",
+        "province": "Província",
+        "country": "País"
+      },
+      "placeholders": {
+        "fullName": "Ex: João Silva",
+        "phone": "Ex: +351 000 000 000",
+        "street": "Ex: Rua Garrett, 10",
+        "postalCode": "Ex: 1200-203",
+        "city": "Ex: Lisboa",
+        "province": "Ex: Lisboa",
+        "country": "Ex: Portugal"
+      },
+      "submit": {
+        "save": "Salvar alterações",
+        "saving": "Salvando...",
+        "success": "Perfil atualizado!"
+      }
     },
     "shell": {
       "logout": "Sair",
@@ -128,8 +151,9 @@
       "authErrors": {
         "default": "Ocorreu um erro. Tente nuevamente.",
         "invalidCredential": "Credenciais incorretas. Verifique seu e-mail e senha.",
-        "noAdmin": "Você não tem permissões de administrador.",
-        "tooManyRequests": "Muitas tentativas falhas. Tente novamente más tarde.",
+        "invalidPhone": "Insira un número de telefone válido.",
+        "invalidPostalCode": "O código postal deve ter 5 dígitos.",
+        "noAdmin": "Você não tem permissões de administrador.",        "tooManyRequests": "Muitas tentativas falhas. Tente novamente más tarde.",
     "userNotFound": "Não existe nenhuma conta com esse e-mail.",
     "wrongPassword": "Credenciais incorretas. Verifique seu e-mail e senha."
     },
@@ -319,8 +343,10 @@
     }
   },
   "navbar": {
-    "collection": "Colección",
-    "cart": "Carrinho de compras"
+    "collection": "Coleção",
+    "cart": "Carrinho de compras",
+    "account": "Minha conta",
+    "login": "Iniciar sessão"
   },
   "productCard": {
     "outOfStock": "Esgotado",

@@ -7,9 +7,32 @@
     },
     "profile": {
       "emailLabel": "Email",
-      "nameLabel": "Nombre",
+      "nameLabel": "Nombre completo",
       "noName": "Sin nombre",
-      "title": "Mi perfil"
+      "title": "Mi perfil",
+      "subtitle": "Gestiona tu información de contacto y envío",
+      "fields": {
+        "phone": "Teléfono",
+        "street": "Dirección",
+        "postalCode": "Código postal",
+        "city": "Ciudad",
+        "province": "Provincia",
+        "country": "País"
+      },
+      "placeholders": {
+        "fullName": "Ej: Francisco Javier",
+        "phone": "Ej: 600000000",
+        "street": "Ej: Calle Mayor, 1",
+        "postalCode": "Ej: 06001",
+        "city": "Ej: Badajoz",
+        "province": "Ej: Badajoz",
+        "country": "Ej: España"
+      },
+      "submit": {
+        "save": "Guardar cambios",
+        "saving": "Guardando...",
+        "success": "¡Perfil actualizado!"
+      }
     },
     "shell": {
       "logout": "Cerrar sesión",
@@ -128,6 +151,8 @@
   "authErrors": {
     "default": "Ha ocurrido un error. Inténtalo de nuevo.",
     "invalidCredential": "Credenciales incorrectas. Revisa tu email y contraseña.",
+    "invalidPhone": "Introduce un número de teléfono válido.",
+    "invalidPostalCode": "El código postal debe tener 5 dígitos.",
     "noAdmin": "No tienes permisos de administrador.",
     "tooManyRequests": "Demasiados intentos fallidos. Inténtalo más tarde.",
     "userNotFound": "No existe ninguna cuenta con ese email.",
@@ -320,7 +345,9 @@
   },
   "navbar": {
     "collection": "Colección",
-    "cart": "Carrito de compra"
+    "cart": "Carrito de compra",
+    "account": "Mi cuenta",
+    "login": "Iniciar sesión"
   },
   "productCard": {
     "outOfStock": "Agotado",
