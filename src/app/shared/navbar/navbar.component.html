@@ -1,25 +1,46 @@
 <header class="navbar">
   <div class="navbar__inner">
-    <!-- Logo -->
+    <!-- Left: Logo -->
     <a class="navbar__logo" [routerLink]="['/' + routes.HOME]">
       <span class="navbar__logo-text">Mimacramé</span>
       <span class="navbar__logo-sub">Studio</span>
     </a>
 
-    <!-- Desktop nav links -->
-    <nav class="navbar__links" aria-label="Navegación principal" *transloco="let t; read: 'navbar'">
+    <!-- Center: Main Nav (Centered) -->
+    <nav class="navbar__links" aria-label="Navegación principal" *transloco="let t">
       <a
         class="navbar__link"
         [routerLink]="['/' + routes.CATALOGUE]"
         routerLinkActive="navbar__link--active"
       >
-        {{ t('collection') }}
+        {{ t('navbar.collection') }}
       </a>
     </nav>
 
-    <!-- Desktop actions -->
+    <!-- Right: Actions -->
     <div class="navbar__actions" *transloco="let t; read: 'navbar'">
       <app-lang-selector />
+
+      <a
+        class="navbar__action"
+        [routerLink]="authStore.isLoggedIn() ? ['/' + routes.ACCOUNT] : ['/' + routes.LOGIN]"
+        [attr.aria-label]="authStore.isLoggedIn() ? t('account') : t('login')"
+      >
+        <svg
+          class="navbar__icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+        >
+          <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+          <circle cx="12" cy="7" r="4" />
+        </svg>
+        @if (authStore.isLoggedIn()) {
+          <span class="navbar__user-dot" aria-hidden="true"></span>
+        }
+      </a>
+
       <a class="navbar__action" [routerLink]="['/' + routes.CART]" [attr.aria-label]="t('cart')">
         <svg
           class="navbar__icon"

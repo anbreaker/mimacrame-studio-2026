@@ -18,6 +18,7 @@
 
   &__logo {
     display: flex;
+    flex: 1; // Ocupa espacio para centrar lo demas
     flex-direction: column;
     gap: 2px;
     line-height: 1;
@@ -43,7 +44,10 @@
 
   &__links {
     display: none;
-    gap: var(--space-xl);
+    justify-content: center;
+    position: absolute; // Centrado absoluto respecto al contenedor
+    left: 50%;
+    transform: translateX(-50%);
 
     @media (min-width: 768px) {
       display: flex;
@@ -68,7 +72,9 @@
   &__actions {
     align-items: center;
     display: flex;
+    flex: 1; // Ocupa espacio para centrar lo demas
     gap: var(--space-md);
+    justify-content: flex-end;
   }
 
   &__action {
@@ -89,6 +95,17 @@
   &__icon {
     height: 24px;
     width: 24px;
+  }
+
+  &__user-dot {
+    background-color: var(--color-success);
+    border: 2px solid var(--color-background);
+    border-radius: 50%;
+    height: 10px;
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    width: 10px;
   }
 
   &__badge {
