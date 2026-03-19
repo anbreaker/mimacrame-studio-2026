@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
-import { AuthStore } from '../../core/store/auth.store';
-import { ROUTES } from '../../core/const/routes';
+import { AuthStore } from '@core/store/auth.store';
+import { ROUTES } from '@core/const/routes';
 
 @Component({
   standalone: true,

@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import { PRODUCT_CATEGORY } from '../../core/const/product-category.const';
-import { ROUTES } from '../../core/const/routes';
-import { CatalogueStore } from '../../core/store/catalogue.store';
-import { ProductCardComponent } from '../../shared/product-card/product-card.component';
+import { PRODUCT_CATEGORY } from '@core/const/product-category.const';
+import { ROUTES } from '@core/const/routes';
+import { CatalogueStore } from '@core/store/catalogue.store';
+import { ProductCardComponent } from '@shared/product-card/product-card.component';
 
 const CATEGORY_ITEMS = [
   { key: PRODUCT_CATEGORY.Bracelets, label: 'Pulseras', emoji: '📿' },

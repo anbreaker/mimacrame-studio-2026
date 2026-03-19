@@ -9,7 +9,7 @@
       tu historia
     </h1>
     <p class="hero__subtitle">Macramé artesanal hecho a mano, pieza a pieza</p>
-    <a class="hero__cta" [routerLink]="['/' + routes.CATALOGO]">Ver colección</a>
+    <a class="hero__cta" [routerLink]="['/' + routes.CATALOGUE]">Ver colección</a>
   </div>
   <div class="hero__scroll-hint" aria-hidden="true">
     <svg
@@ -33,7 +33,7 @@
       @for (cat of categories; track cat.key) {
         <a
           class="category-card"
-          [routerLink]="['/' + routes.CATALOGO]"
+          [routerLink]="['/' + routes.CATALOGUE]"
           [queryParams]="{ category: cat.key }"
         >
           <span class="category-card__emoji" aria-hidden="true">{{ cat.emoji }}</span>
@@ -62,7 +62,7 @@
         }
       </div>
       <div class="featured__cta">
-        <a class="btn btn--outline" [routerLink]="['/' + routes.CATALOGO]">Ver toda la colección</a>
+        <a class="btn btn--outline" [routerLink]="['/' + routes.CATALOGUE]">Ver toda la colección</a>
       </div>
     } @else {
       <p class="featured__empty">Pronto llegarán nuevas piezas.</p>
@@ -80,7 +80,7 @@
     </p>
     <a
       class="btn btn--primary"
-      [routerLink]="['/' + routes.CATALOGO]"
+      [routerLink]="['/' + routes.CATALOGUE]"
       [queryParams]="{ category: 'sets' }"
     >
       Ver conjuntos

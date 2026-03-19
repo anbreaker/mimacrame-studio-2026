@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
 
-import { CartStore } from '../../core/store/cart.store';
-import { ROUTES } from '../../core/const/routes';
+import { CartStore } from '@core/store/cart.store';
+import { ROUTES } from '@core/const/routes';
 
 const FREE_SHIPPING_THRESHOLD = 40;
 

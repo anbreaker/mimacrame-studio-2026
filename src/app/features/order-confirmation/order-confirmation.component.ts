@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 
-import { ROUTES } from '../../core/const/routes';
+import { ROUTES } from '@core/const/routes';
 
 @Component({
   standalone: true,

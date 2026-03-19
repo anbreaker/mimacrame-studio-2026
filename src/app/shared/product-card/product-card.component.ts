@@ -1,10 +1,9 @@
 import { CurrencyPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { RouterLink, ROUTES } from '@angular/router';
 
-import { ROUTES } from '../../core/const/routes';
-import { Product } from '../../core/interfaces/product.interface';
-import { CartStore } from '../../core/store/cart.store';
+import { Product } from '@core/interfaces/product.interface';
+import { CartStore } from '@core/store/cart.store';
 
 @Component({
   standalone: true,

@@ -1,24 +1,23 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { CurrencyPipe, DatePipe } from '@angular/common';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-
-import { OrderService } from '../../../core/services/order.service';
-import { ProductService } from '../../../core/services/product.service';
-import { AdminNavComponent } from '../../../shared/admin-nav/admin-nav.component';
-import { Order } from '../../../core/interfaces/order.interface';
-import { Product } from '../../../core/interfaces/product.interface';
-import { ORDER_STATUS } from '../../../core/const/order-status.const';
-import { ROUTES } from '../../../core/const/routes';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { RouterLink, ROUTES } from '@angular/router';
+
+import { ORDER_STATUS } from '@core/const/order-status.const';
+import { Order } from '@core/interfaces/order.interface';
+import { Product } from '@core/interfaces/product.interface';
+import { OrderService } from '@core/services/order.service';
+import { ProductService } from '@core/services/product.service';
+import { AdminNavComponent } from '@shared/admin-nav/admin-nav.component';
 
 @Component({
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [AdminNavComponent, CurrencyPipe, DatePipe, RouterLink],
   selector: 'app-admin-dashboard',
-  imports: [RouterLink, CurrencyPipe, DatePipe, AdminNavComponent],
-  templateUrl: './admin-dashboard.component.html',
   styleUrl: './admin-dashboard.component.scss',
+  templateUrl: './admin-dashboard.component.html',
 })
 export class AdminDashboardComponent {
   private readonly orderService = inject(OrderService);

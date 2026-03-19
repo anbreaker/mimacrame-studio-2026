@@ -24,7 +24,7 @@
       </svg>
       <p class="cart__empty-text">Tu carrito está vacío</p>
       <p class="cart__empty-sub">Descubre nuestra colección artesanal</p>
-      <a class="cart__cta" [routerLink]="['/' + routes.CATALOGO]">Ver colección</a>
+      <a class="cart__cta" [routerLink]="['/' + routes.CATALOGUE]">Ver colección</a>
     </div>
   } @else {
     <div class="cart__layout">
@@ -131,7 +131,7 @@
         </div>
 
         <a class="cart__checkout-btn" [routerLink]="['/' + routes.CHECKOUT]">Proceder al pago</a>
-        <a class="cart__continue" [routerLink]="['/' + routes.CATALOGO]">Seguir comprando</a>
+        <a class="cart__continue" [routerLink]="['/' + routes.CATALOGUE]">Seguir comprando</a>
       </div>
     </div>
   }

@@ -1,3 +1,4 @@
+import { CurrencyPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -7,23 +8,22 @@ import {
   OnInit,
   signal,
 } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { CurrencyPipe } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { map } from 'rxjs';
 
-import { ProductService } from '../../core/services/product.service';
-import { CartStore } from '../../core/store/cart.store';
-import { Product } from '../../core/interfaces/product.interface';
-import { ROUTES } from '../../core/const/routes';
+import { ROUTES } from '@core/const/routes';
+import { Product } from '@core/interfaces/product.interface';
+import { ProductService } from '@core/services/product.service';
+import { CartStore } from '@core/store/cart.store';
 
 @Component({
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [CurrencyPipe, RouterLink],
   selector: 'app-product-detail',
-  imports: [RouterLink, CurrencyPipe],
-  templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.scss',
+  templateUrl: './product-detail.component.html',
 })
 export class ProductDetailComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
@@ -32,11 +32,11 @@ export class ProductDetailComponent implements OnInit {
   private readonly cartStore = inject(CartStore);
   private readonly destroyRef = inject(DestroyRef);
 
-  protected readonly routes = ROUTES;
-  protected readonly product = signal<Product | null>(null);
   protected readonly isLoading = signal(true);
-  protected readonly selectedImageIndex = signal(0);
+  protected readonly product = signal<Product | null>(null);
   protected readonly quantity = signal(1);
+  protected readonly routes = ROUTES;
+  protected readonly selectedImageIndex = signal(0);
 
   protected readonly selectedImage = computed(
     () =>
@@ -72,12 +72,12 @@ export class ProductDetailComponent implements OnInit {
   }
 
   protected decreaseQuantity(): void {
-    this.quantity.update((q) => Math.max(1, q - 1));
+    this.quantity.update((currentQuantity) => Math.max(1, currentQuantity - 1));
   }
 
   protected increaseQuantity(): void {
     const stock = this.product()?.stock ?? 1;
-    this.quantity.update((q) => Math.min(stock, q + 1));
+    this.quantity.update((currentQuantity) => Math.min(stock, currentQuantity + 1));
   }
 
   protected addToCart(): void {

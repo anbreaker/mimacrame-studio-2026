@@ -4,7 +4,7 @@
     <div class="admin-main__inner">
       <div class="admin-page-header">
         <h1 class="admin-page-title">Productos</h1>
-        <a class="admin-btn admin-btn--primary" [routerLink]="['/' + routes.ADMIN_PRODUCTO_NUEVO]">
+        <a class="admin-btn admin-btn--primary" [routerLink]="['/' + routes.ADMIN_PRODUCT_NEW]">
           + Nueva pieza
         </a>
       </div>
@@ -92,7 +92,7 @@
                     <div class="products-table__actions">
                       <a
                         class="admin-icon-btn"
-                        [routerLink]="['/admin/productos', product.id]"
+                        [routerLink]="['/admin/products', product.id]"
                         aria-label="Editar"
                       >
                         <svg

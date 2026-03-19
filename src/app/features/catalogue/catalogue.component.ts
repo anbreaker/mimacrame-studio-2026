@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { CatalogueStore } from '../../core/store/catalogue.store';
-import { ProductCardComponent } from '../../shared/product-card/product-card.component';
-import { PRODUCT_CATEGORY, ProductCategory } from '../../core/const/product-category.const';
+import { CatalogueStore } from '@core/store/catalogue.store';
+import { ProductCardComponent } from '@shared/product-card/product-card.component';
+import { PRODUCT_CATEGORY, ProductCategory } from '@core/const/product-category.const';
 
 const CATEGORY_LABELS: Record<ProductCategory, string> = {
   [PRODUCT_CATEGORY.Bracelets]: 'Pulseras',

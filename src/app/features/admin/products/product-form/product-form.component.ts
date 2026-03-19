@@ -7,17 +7,17 @@ import {
   OnInit,
   signal,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
 
-import { ProductService } from '../../../../core/services/product.service';
-import { UploadService } from '../../../../core/services/upload.service';
-import { AdminNavComponent } from '../../../../shared/admin-nav/admin-nav.component';
-import { Product } from '../../../../core/interfaces/product.interface';
-import { PRODUCT_CATEGORY, ProductCategory } from '../../../../core/const/product-category.const';
-import { ROUTES } from '../../../../core/const/routes';
+import { PRODUCT_CATEGORY, ProductCategory } from '@core/const/product-category.const';
+import { ROUTES } from '@core/const/routes';
+import { Product } from '@core/interfaces/product.interface';
+import { ProductService } from '@core/services/product.service';
+import { UploadService } from '@core/services/upload.service';
+import { AdminNavComponent } from '@shared/admin-nav/admin-nav.component';
 
 const CATEGORY_LABELS: Record<ProductCategory, string> = {
   [PRODUCT_CATEGORY.Bracelets]: 'Pulseras',
@@ -31,10 +31,10 @@ const CATEGORY_LABELS: Record<ProductCategory, string> = {
 @Component({
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [AdminNavComponent, FormsModule, RouterLink],
   selector: 'app-product-form',
-  imports: [FormsModule, RouterLink, AdminNavComponent],
-  templateUrl: './product-form.component.html',
   styleUrl: './product-form.component.scss',
+  templateUrl: './product-form.component.html',
 })
 export class ProductFormComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
@@ -48,19 +48,18 @@ export class ProductFormComponent implements OnInit {
   protected readonly categoryKeys = Object.values(PRODUCT_CATEGORY);
   protected readonly PRODUCT_CATEGORY = PRODUCT_CATEGORY;
 
+  protected readonly active = signal(true);
+  protected readonly category = signal<ProductCategory>(PRODUCT_CATEGORY.Bracelets);
+  protected readonly description = signal('');
+  protected readonly error = signal<string | null>(null);
+  protected readonly images = signal<string[]>([]);
   protected readonly isEditMode = signal(false);
-  protected readonly productId = signal<string | null>(null);
   protected readonly isSaving = signal(false);
   protected readonly isUploading = signal(false);
-  protected readonly error = signal<string | null>(null);
-
   protected readonly name = signal('');
-  protected readonly description = signal('');
   protected readonly price = signal(0);
+  protected readonly productId = signal<string | null>(null);
   protected readonly stock = signal(0);
-  protected readonly category = signal<ProductCategory>(PRODUCT_CATEGORY.Bracelets);
-  protected readonly active = signal(true);
-  protected readonly images = signal<string[]>([]);
 
   protected readonly isValid = computed(
     () => this.name().trim().length > 0 && this.price() > 0 && this.stock() >= 0
@@ -78,11 +77,11 @@ export class ProductFormComponent implements OnInit {
     this.productService
       .getAll()
       .pipe(
-        map((products) => products.find((p) => p.id === id) ?? null),
+        map((products) => products.find((product) => product.id === id) ?? null),
         takeUntilDestroyed(this.destroyRef)
       )
       .subscribe((product) =>
-        product ? this.fillForm(product) : this.router.navigate(['/' + ROUTES.ADMIN_PRODUCTOS])
+        product ? this.fillForm(product) : this.router.navigate(['/' + ROUTES.ADMIN_PRODUCTS])
       );
   }
 
@@ -140,7 +139,7 @@ export class ProductFormComponent implements OnInit {
         : this.productService.create(data).pipe(map(() => void 0));
 
     operation$.subscribe({
-      next: () => this.router.navigate(['/' + ROUTES.ADMIN_PRODUCTOS]),
+      next: () => this.router.navigate(['/' + ROUTES.ADMIN_PRODUCTS]),
       error: () => {
         this.isSaving.set(false);
         this.error.set('product.save.error');

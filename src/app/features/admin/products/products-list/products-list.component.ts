@@ -1,13 +1,12 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { RouterLink, ROUTES } from '@angular/router';
 
-import { ProductService } from '../../../../core/services/product.service';
-import { AdminNavComponent } from '../../../../shared/admin-nav/admin-nav.component';
-import { Product } from '../../../../core/interfaces/product.interface';
-import { PRODUCT_CATEGORY, ProductCategory } from '../../../../core/const/product-category.const';
-import { ROUTES } from '../../../../core/const/routes';
+import { PRODUCT_CATEGORY, ProductCategory } from '@core/const/product-category.const';
+import { Product } from '@core/interfaces/product.interface';
+import { ProductService } from '@core/services/product.service';
+import { AdminNavComponent } from '@shared/admin-nav/admin-nav.component';
 
 const CATEGORY_LABELS: Record<ProductCategory, string> = {
   [PRODUCT_CATEGORY.Bracelets]: 'Pulseras',
@@ -21,20 +20,20 @@ const CATEGORY_LABELS: Record<ProductCategory, string> = {
 @Component({
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [AdminNavComponent, CurrencyPipe, RouterLink],
   selector: 'app-products-list',
-  imports: [RouterLink, CurrencyPipe, AdminNavComponent],
-  templateUrl: './products-list.component.html',
   styleUrl: './products-list.component.scss',
+  templateUrl: './products-list.component.html',
 })
 export class ProductsListComponent {
   private readonly productService = inject(ProductService);
 
-  protected readonly routes = ROUTES;
   protected readonly categoryLabels = CATEGORY_LABELS;
-  protected readonly products = signal<Product[]>([]);
-  protected readonly isLoading = signal(true);
-  protected readonly searchQuery = signal('');
   protected readonly confirmDeleteId = signal<string | null>(null);
+  protected readonly isLoading = signal(true);
+  protected readonly products = signal<Product[]>([]);
+  protected readonly routes = ROUTES;
+  protected readonly searchQuery = signal('');
 
   protected get filteredProducts(): Product[] {
     const q = this.searchQuery().toLowerCase().trim();

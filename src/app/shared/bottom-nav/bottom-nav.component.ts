@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
-import { ROUTES } from '../../core/const/routes';
-import { CartStore } from '../../core/store/cart.store';
+import { ROUTES } from '@core/const/routes';
+import { CartStore } from '@core/store/cart.store';
 
 @Component({
   standalone: true,
