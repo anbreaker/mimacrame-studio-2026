@@ -1,4 +1,4 @@
-// @ts-check
+
 /**
  * ESLint custom rule: inject() calls must precede all other class property definitions.
  * No auto-fix — requires manual reordering.

@@ -1,4 +1,4 @@
-// @ts-check
+
 /**
  * ESLint custom rule: imports[] array in @Component must be in alphabetical order.
  * Auto-fix enabled.

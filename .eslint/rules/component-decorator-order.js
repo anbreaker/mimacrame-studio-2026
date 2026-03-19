@@ -1,4 +1,4 @@
-// @ts-check
+
 /**
  * ESLint custom rule: enforce property order in @Component decorator
  * Auto-fix enabled — reorders properties to match defined order.
@@ -6,23 +6,23 @@
  */
 
 const DEFAULT_ORDER = [
-  'standalone',
+  'animations',
   'changeDetection',
   'encapsulation',
-  'imports',
-  'providers',
-  'selector',
-  'styleUrl',
-  'styleUrls',
-  'styles',
-  'templateUrl',
-  'template',
-  'animations',
+  'exportAs',
   'host',
+  'imports',
   'inputs',
   'outputs',
-  'exportAs',
+  'providers',
   'queries',
+  'selector',
+  'standalone',
+  'styles',
+  'styleUrl',
+  'styleUrls',
+  'template',
+  'templateUrl',
 ];
 
 /** @type {import('eslint').Rule.RuleModule} */
@@ -91,9 +91,7 @@ export default {
                   const original = properties[j];
                   const replacement = sorted[j];
                   if (original !== replacement) {
-                    fixes.push(
-                      fixer.replaceText(original, sourceCode.getText(replacement))
-                    );
+                    fixes.push(fixer.replaceText(original, sourceCode.getText(replacement)));
                   }
                 }
                 return fixes;

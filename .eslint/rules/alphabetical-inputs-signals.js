@@ -1,4 +1,4 @@
-// @ts-check
+
 /**
  * ESLint custom rule: input() and signal() declarations must be in alphabetical order
  * within their respective groups.

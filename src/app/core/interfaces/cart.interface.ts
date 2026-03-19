@@ -6,7 +6,7 @@ export interface CartItem {
 }
 
 export interface Cart {
+  itemCount: number;
   items: CartItem[];
   total: number;
-  itemCount: number;
 }

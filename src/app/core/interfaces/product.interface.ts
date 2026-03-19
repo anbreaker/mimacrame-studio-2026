@@ -1,17 +1,18 @@
 import { ProductCategory } from '@core/const/product-category.const';
 
 export interface Product {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  category: ProductCategory;
-  images: string[];
-  stock: number;
   active: boolean;
+  category: ProductCategory;
   createdAt: Date;
+  description: string;
+  id: string;
+  images: string[];
+  name: string;
+  price: number;
+  stock: number;
   updatedAt: Date;
 }
 
 export type ProductCreate = Omit<Product, 'id' | 'createdAt' | 'updatedAt'>;
+
 export type ProductUpdate = Partial<ProductCreate>;

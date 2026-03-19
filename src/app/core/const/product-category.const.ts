@@ -1,9 +1,9 @@
 export const PRODUCT_CATEGORY = {
-  Bracelets: 'bracelets',
-  Pendants: 'pendants',
-  Earrings: 'earrings',
-  Rings: 'rings',
   Anklets: 'anklets',
+  Bracelets: 'bracelets',
+  Earrings: 'earrings',
+  Pendants: 'pendants',
+  Rings: 'rings',
   Sets: 'sets',
 } as const;
 
