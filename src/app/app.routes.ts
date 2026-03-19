@@ -1,114 +1,102 @@
 import { Routes } from '@angular/router';
 
-import { authGuard } from './core/auth/auth.guard';
-import { clientGuard } from './core/auth/client.guard';
+import { authGuard } from '@core/auth/auth.guard';
+import { clientGuard } from '@core/auth/client.guard';
+import { ROUTES } from '@core/const/routes';
 
 export const routes: Routes = [
   {
-    path: '',
-    loadComponent: () => import('./features/home/home.component').then((m) => m.HomeComponent),
+    path: ROUTES.HOME,
+    loadComponent: async () => (await import('./features/home/home.component')).HomeComponent,
   },
   {
-    path: 'catalogue',
-    loadComponent: () =>
-      import('./features/catalogue/catalogue.component').then((m) => m.CatalogueComponent),
+    path: ROUTES.CATALOGUE,
+    loadComponent: async () =>
+      (await import('./features/catalogue/catalogue.component')).CatalogueComponent,
   },
   {
-    path: 'product/:id',
-    loadComponent: () =>
-      import('./features/product-detail/product-detail.component').then(
-        (m) => m.ProductDetailComponent
-      ),
+    path: ROUTES.PRODUCT_ID,
+    loadComponent: async () =>
+      (await import('./features/product-detail/product-detail.component')).ProductDetailComponent,
   },
   {
-    path: 'cart',
-    loadComponent: () => import('./features/cart/cart.component').then((m) => m.CartComponent),
+    path: ROUTES.CART,
+    loadComponent: async () => (await import('./features/cart/cart.component')).CartComponent,
   },
   {
-    path: 'checkout',
-    loadComponent: () =>
-      import('./features/checkout/checkout.component').then((m) => m.CheckoutComponent),
+    path: ROUTES.CHECKOUT,
+    loadComponent: async () =>
+      (await import('./features/checkout/checkout.component')).CheckoutComponent,
   },
   {
-    path: 'order-confirmed',
-    loadComponent: () =>
-      import('./features/order-confirmation/order-confirmation.component').then(
-        (m) => m.OrderConfirmationComponent
-      ),
+    path: ROUTES.ORDER_CONFIRMED,
+    loadComponent: async () =>
+      (await import('./features/order-confirmation/order-confirmation.component'))
+        .OrderConfirmationComponent,
   },
   {
-    path: 'login',
-    loadComponent: () =>
-      import('./features/client/login/client-login.component').then((m) => m.ClientLoginComponent),
+    path: ROUTES.LOGIN,
+    loadComponent: async () =>
+      (await import('./features/client/login/client-login.component')).ClientLoginComponent,
   },
   {
-    path: 'account',
+    path: ROUTES.ACCOUNT,
     canActivate: [clientGuard],
-    loadComponent: () =>
-      import('./features/client/account/account-shell.component').then(
-        (m) => m.AccountShellComponent
-      ),
+    loadComponent: async () =>
+      (await import('./features/client/account/account-shell.component')).AccountShellComponent,
     children: [
       {
         path: 'profile',
-        loadComponent: () =>
-          import('./features/client/account/profile/account-profile.component').then(
-            (m) => m.AccountProfileComponent
-          ),
+        loadComponent: async () =>
+          (await import('./features/client/account/profile/account-profile.component'))
+            .AccountProfileComponent,
       },
       {
         path: 'orders',
-        loadComponent: () =>
-          import('./features/client/account/orders/account-orders.component').then(
-            (m) => m.AccountOrdersComponent
-          ),
+        loadComponent: async () =>
+          (await import('./features/client/account/orders/account-orders.component'))
+            .AccountOrdersComponent,
       },
       { path: '', redirectTo: 'profile', pathMatch: 'full' },
     ],
   },
   {
-    path: 'admin/login',
-    loadComponent: () =>
-      import('./features/admin/login/admin-login.component').then((m) => m.AdminLoginComponent),
+    path: ROUTES.ADMIN_LOGIN,
+    loadComponent: async () =>
+      (await import('./features/admin/login/admin-login.component')).AdminLoginComponent,
   },
   {
-    path: 'admin',
+    path: ROUTES.ADMIN,
     canActivate: [authGuard],
     children: [
       {
         path: 'dashboard',
-        loadComponent: () =>
-          import('./features/admin/dashboard/admin-dashboard.component').then(
-            (m) => m.AdminDashboardComponent
-          ),
+        loadComponent: async () =>
+          (await import('./features/admin/dashboard/admin-dashboard.component'))
+            .AdminDashboardComponent,
       },
       {
         path: 'products',
-        loadComponent: () =>
-          import('./features/admin/products/products-list/products-list.component').then(
-            (m) => m.ProductsListComponent
-          ),
+        loadComponent: async () =>
+          (await import('./features/admin/products/products-list/products-list.component'))
+            .ProductsListComponent,
       },
       {
         path: 'products/new',
-        loadComponent: () =>
-          import('./features/admin/products/product-form/product-form.component').then(
-            (m) => m.ProductFormComponent
-          ),
+        loadComponent: async () =>
+          (await import('./features/admin/products/product-form/product-form.component'))
+            .ProductFormComponent,
       },
       {
         path: 'products/:id',
-        loadComponent: () =>
-          import('./features/admin/products/product-form/product-form.component').then(
-            (m) => m.ProductFormComponent
-          ),
+        loadComponent: async () =>
+          (await import('./features/admin/products/product-form/product-form.component'))
+            .ProductFormComponent,
       },
       {
         path: 'orders',
-        loadComponent: () =>
-          import('./features/admin/orders/admin-orders.component').then(
-            (m) => m.AdminOrdersComponent
-          ),
+        loadComponent: async () =>
+          (await import('./features/admin/orders/admin-orders.component')).AdminOrdersComponent,
       },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
