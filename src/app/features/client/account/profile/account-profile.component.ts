@@ -1,25 +1,21 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 import { AuthStore } from '@core/store/auth.store';
 
 @Component({
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'app-cuenta-shell',
-  imports: [RouterOutlet, RouterLink, RouterLinkActive],
-  templateUrl: './cuenta-shell.component.html',
-  styleUrl: './cuenta-shell.component.scss',
+  selector: 'app-account-profile',
+  imports: [DatePipe],
+  templateUrl: './account-profile.component.html',
+  styleUrl: './account-profile.component.scss',
 })
-export class CuentaShellComponent {
+export class AccountProfileComponent {
   protected readonly authStore = inject(AuthStore);
 
   protected get avatarInitial(): string {
     const name = this.authStore.displayName();
     return name ? name.charAt(0).toUpperCase() : '?';
-  }
-
-  protected logout(): void {
-    this.authStore.logout();
   }
 }

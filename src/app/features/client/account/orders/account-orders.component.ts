@@ -7,11 +7,11 @@ import { Order } from '@core/interfaces/order.interface';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [DecimalPipe],
-  selector: 'app-cuenta-pedidos',
-  styleUrl: './cuenta-pedidos.component.scss',
-  templateUrl: './cuenta-pedidos.component.html',
+  selector: 'app-account-orders',
+  styleUrl: './account-orders.component.scss',
+  templateUrl: './account-orders.component.html',
 })
-export class CuentaPedidosComponent {
-  // Preparado para recibir pedidos de Firestore en el futuro
+export class AccountOrdersComponent {
+  // Ready to receive orders from Firestore
   protected readonly orders = signal<Order[]>([]);
 }

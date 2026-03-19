@@ -45,20 +45,22 @@ export const routes: Routes = [
     path: 'account',
     canActivate: [clientGuard],
     loadComponent: () =>
-      import('./features/client/cuenta/cuenta-shell.component').then((m) => m.CuentaShellComponent),
+      import('./features/client/account/account-shell.component').then(
+        (m) => m.AccountShellComponent
+      ),
     children: [
       {
         path: 'profile',
         loadComponent: () =>
-          import('./features/client/cuenta/perfil/cuenta-perfil.component').then(
-            (m) => m.CuentaPerfilComponent
+          import('./features/client/account/profile/account-profile.component').then(
+            (m) => m.AccountProfileComponent
           ),
       },
       {
         path: 'orders',
         loadComponent: () =>
-          import('./features/client/cuenta/pedidos/cuenta-pedidos.component').then(
-            (m) => m.CuentaPedidosComponent
+          import('./features/client/account/orders/account-orders.component').then(
+            (m) => m.AccountOrdersComponent
           ),
       },
       { path: '', redirectTo: 'profile', pathMatch: 'full' },

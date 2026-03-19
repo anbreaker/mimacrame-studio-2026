@@ -1,0 +1,41 @@
+<div class="account">
+  <!-- Sidebar -->
+  <aside class="account__sidebar">
+    <div class="account__avatar">
+      <span class="account__avatar-initial">{{ avatarInitial }}</span>
+    </div>
+
+    <div class="account__user-info">
+      @if (authStore.displayName()) {
+        <p class="account__user-name">{{ authStore.displayName() }}</p>
+      }
+      @if (authStore.user()?.email) {
+        <p class="account__user-email">{{ authStore.user()?.email }}</p>
+      }
+    </div>
+
+    <nav class="account__nav">
+      <a
+        class="account__nav-link"
+        routerLink="/account/profile"
+        routerLinkActive="account__nav-link--active"
+      >
+        Mi perfil
+      </a>
+      <a
+        class="account__nav-link"
+        routerLink="/account/orders"
+        routerLinkActive="account__nav-link--active"
+      >
+        Mis pedidos
+      </a>
+    </nav>
+
+    <button class="account__logout" type="button" (click)="logout()">Cerrar sesión</button>
+  </aside>
+
+  <!-- Main content -->
+  <main class="account__content">
+    <router-outlet />
+  </main>
+</div>

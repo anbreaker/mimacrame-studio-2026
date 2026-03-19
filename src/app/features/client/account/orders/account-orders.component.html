@@ -1,0 +1,20 @@
+<section class="orders">
+  <h2 class="orders__title">Mis pedidos</h2>
+
+  @if (orders().length === 0) {
+    <div class="orders__empty">
+      <p class="orders__empty-text">Aún no tienes pedidos</p>
+      <p class="orders__empty-hint">Cuando realices tu primera compra, aparecerá aquí.</p>
+    </div>
+  } @else {
+    <ul class="orders__list">
+      @for (order of orders(); track order.id) {
+        <li class="orders__item">
+          <span class="orders__item-id">#{{ order.id }}</span>
+          <span class="orders__item-status">{{ order.status }}</span>
+          <span class="orders__item-total">{{ order.total | number: '1.2-2' }} €</span>
+        </li>
+      }
+    </ul>
+  }
+</section>

@@ -1,0 +1,23 @@
+<section class="profile">
+  <h2 class="profile__title">Mi perfil</h2>
+
+  <div class="profile__avatar">
+    <span class="profile__avatar-initial">{{ avatarInitial }}</span>
+  </div>
+
+  <dl class="profile__data">
+    <div class="profile__data-row">
+      <dt class="profile__data-label">Nombre</dt>
+      <dd class="profile__data-value">
+        {{ authStore.displayName() ?? 'Sin nombre' }}
+      </dd>
+    </div>
+
+    <div class="profile__data-row">
+      <dt class="profile__data-label">Email</dt>
+      <dd class="profile__data-value">
+        {{ authStore.user()?.email ?? '—' }}
+      </dd>
+    </div>
+  </dl>
+</section>
