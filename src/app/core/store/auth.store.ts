@@ -23,7 +23,7 @@ export class AuthStore {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
 
-  private readonly _error = signal<string | null>(initialState.error);
+  private readonly _errorKey = signal<string | null>(initialState.error);
   private readonly _isLoading = signal(initialState.isLoading);
   private readonly _user = signal<AppUser | null>(initialState.user);
 
@@ -31,7 +31,7 @@ export class AuthStore {
   readonly isAdmin = computed(() => this._user()?.isAdmin ?? false);
   readonly isLoggedIn = computed(() => this._user() !== null);
 
-  readonly error = this._error.asReadonly();
+  readonly errorKey = this._errorKey.asReadonly();
   readonly isLoading = this._isLoading.asReadonly();
   readonly user = this._user.asReadonly();
 
@@ -43,37 +43,51 @@ export class AuthStore {
   }
 
   clearError(): void {
-    this._error.set(null);
+    this._errorKey.set(null);
   }
 
   login(email: string, password: string): void {
     this._isLoading.set(true);
-    this._error.set(null);
+    this._errorKey.set(null);
 
     this.authService.login(email, password).subscribe({
       error: (err: Error) => {
         this._isLoading.set(false);
-        this._error.set(toReadableError(err.message));
+        this._errorKey.set(toReadableError(err.message));
       },
-      next: () => {
-        this._isLoading.set(false);
-        this.router.navigate(['/admin/dashboard']);
+      next: (user) => {
+        if (user.isAdmin) {
+          this._isLoading.set(false);
+          this.router.navigate(['/admin/dashboard']);
+        } else {
+          this.authService.logout().subscribe(() => {
+            this._isLoading.set(false);
+            this._errorKey.set('authErrors.noAdmin');
+          });
+        }
       },
     });
   }
 
   loginWithGoogle(): void {
     this._isLoading.set(true);
-    this._error.set(null);
+    this._errorKey.set(null);
 
     this.authService.loginWithGoogle().subscribe({
       error: (err: Error) => {
         this._isLoading.set(false);
-        this._error.set(toReadableError(err.message));
+        this._errorKey.set(toReadableError(err.message));
       },
-      next: () => {
-        this._isLoading.set(false);
-        this.router.navigate(['/admin/dashboard']);
+      next: (user) => {
+        if (user.isAdmin) {
+          this._isLoading.set(false);
+          this.router.navigate(['/admin/dashboard']);
+        } else {
+          this.authService.logout().subscribe(() => {
+            this._isLoading.set(false);
+            this._errorKey.set('authErrors.noAdmin');
+          });
+        }
       },
     });
   }

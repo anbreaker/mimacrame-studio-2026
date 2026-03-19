@@ -1,20 +1,20 @@
 /**
- * Maps Firebase Auth error messages to i18n keys.
- * Mirrors the logic in AuthStore.toReadableError() for reuse outside the store.
+ * Maps Firebase Auth error messages to Transloco translation keys.
+ * Used by AuthStore and components to display multi-language errors.
  */
-const AUTH_ERROR_DEFAULT_KEY = 'auth.error.generic';
+const AUTH_ERROR_KEY_DEFAULT = 'authErrors.default';
 
-const AUTH_ERROR_MAP: Record<string, string> = {
-  'invalid-credential': 'auth.error.invalid_credentials',
-  'too-many-requests': 'auth.error.too_many_requests',
-  'user-not-found': 'auth.error.user_not_found',
-  'wrong-password': 'auth.error.invalid_credentials',
+const AUTH_ERROR_KEY_MAP: Record<string, string> = {
+  'invalid-credential': 'authErrors.invalidCredential',
+  'too-many-requests': 'authErrors.tooManyRequests',
+  'user-not-found': 'authErrors.userNotFound',
+  'wrong-password': 'authErrors.wrongPassword',
 };
 
 export function toReadableError(message: string): string {
-  const matchedEntry = Object.entries(AUTH_ERROR_MAP).find(([errorCode]) =>
+  const matchedEntry = Object.entries(AUTH_ERROR_KEY_MAP).find(([errorCode]) =>
     message.includes(errorCode)
   );
 
-  return matchedEntry?.[1] ?? AUTH_ERROR_DEFAULT_KEY;
+  return matchedEntry?.[1] ?? AUTH_ERROR_KEY_DEFAULT;
 }

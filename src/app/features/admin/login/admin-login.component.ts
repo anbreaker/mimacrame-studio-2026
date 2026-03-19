@@ -1,26 +1,20 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { TranslocoDirective } from '@jsverse/transloco';
 
 import { AuthStore } from '@core/store/auth.store';
+import { LoginFormComponent, LoginSubmitEvent } from '@shared/login-form/login-form.component';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule],
+  imports: [LoginFormComponent, TranslocoDirective],
   selector: 'app-admin-login',
   standalone: true,
-  styleUrl: './admin-login.component.scss',
   templateUrl: './admin-login.component.html',
 })
 export class AdminLoginComponent {
   protected readonly authStore = inject(AuthStore);
 
-  protected readonly email = signal('');
-  protected readonly password = signal('');
-  protected readonly showPassword = signal(false);
-
-  protected submit(): void {
-    const email = this.email().trim();
-    const password = this.password();
-    email && password && this.authStore.login(email, password);
+  protected login({ email, password }: LoginSubmitEvent): void {
+    this.authStore.login(email, password);
   }
 }
