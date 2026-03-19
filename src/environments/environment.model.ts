@@ -1,3 +1,14 @@
+export const ENV = {
+  Default: 'default',
+  Development: 'development',
+  Demo: 'demo',
+  Production: 'production',
+  Test: 'test',
+  Preproduction: 'preproduction',
+} as const;
+
+export type EnvName = (typeof ENV)[keyof typeof ENV];
+
 export interface FirebaseConfig {
   apiKey: string;
   authDomain: string;
@@ -5,12 +16,13 @@ export interface FirebaseConfig {
   storageBucket: string;
   messagingSenderId: string;
   appId: string;
+  measurementId?: string;
 }
 
 export interface Environment {
   production: boolean;
   apiUrl: string;
-  env: 'default' | 'development' | 'demo' | 'production' | 'test' | 'preproduction';
+  env: EnvName;
   enableDebug: boolean;
   userDev: string | null;
   firebase: FirebaseConfig;
