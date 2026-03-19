@@ -1,5 +1,6 @@
+import { OrderStatus } from '@core/const/order-status.const';
+
 import { CartItem } from './cart.interface';
-import { OrderStatus } from '../const/order-status.const';
 
 export interface ShippingAddress {
   fullName: string;

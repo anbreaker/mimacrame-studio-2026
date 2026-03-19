@@ -1,7 +1,7 @@
 import { computed, Injectable, signal } from '@angular/core';
 
-import { CartItem } from '../interfaces/cart.interface';
-import { Product } from '../interfaces/product.interface';
+import { CartItem } from '@core/interfaces/cart.interface';
+import { Product } from '@core/interfaces/product.interface';
 
 const CART_STORAGE_KEY = 'mimacrame_cart';
 
@@ -27,8 +27,8 @@ export class CartStore {
 
     const updated =
       existingIndex >= 0
-        ? current.map((item, i) =>
-            i === existingIndex ? { ...item, quantity: item.quantity + quantity } : item
+        ? current.map((item, index) =>
+            index === existingIndex ? { ...item, quantity: item.quantity + quantity } : item
           )
         : [...current, { product, quantity }];
 

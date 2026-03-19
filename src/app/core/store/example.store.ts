@@ -1,6 +1,6 @@
-import { Injectable, computed, signal } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Subject, catchError, of, switchMap, tap } from 'rxjs';
+import { catchError, of, Subject, switchMap, tap } from 'rxjs';
 
 // Replace with your actual service
 // import { ExampleService } from '@core/services/example.service';

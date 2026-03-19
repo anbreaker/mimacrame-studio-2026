@@ -13,8 +13,8 @@ import {
 } from '@angular/fire/firestore';
 import { from, map, Observable } from 'rxjs';
 
-import { Order, OrderCreate } from '../interfaces/order.interface';
-import { OrderStatus } from '../const/order-status.const';
+import { OrderStatus } from '@core/const/order-status.const';
+import { Order, OrderCreate } from '@core/interfaces/order.interface';
 
 const ORDERS_COLLECTION = 'orders';
 
@@ -22,7 +22,7 @@ const ORDERS_COLLECTION = 'orders';
 export class OrderService {
   private readonly firestore = inject(Firestore);
 
-  private get ordersRef() {
+  private get ordersRef(): ReturnType<typeof collection> {
     return collection(this.firestore, ORDERS_COLLECTION);
   }
 

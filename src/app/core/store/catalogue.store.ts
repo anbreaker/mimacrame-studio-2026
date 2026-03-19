@@ -1,37 +1,37 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-import { ProductService } from '../services/product.service';
-import { Product } from '../interfaces/product.interface';
-import { ProductCategory } from '../const/product-category.const';
+import { ProductCategory } from '@core/const/product-category.const';
+import { Product } from '@core/interfaces/product.interface';
+import { ProductService } from '@core/services/product.service';
 
 interface CatalogueState {
-  products: Product[];
-  selectedCategory: ProductCategory | null;
-  searchQuery: string;
-  isLoading: boolean;
   error: string | null;
+  isLoading: boolean;
+  products: Product[];
+  searchQuery: string;
+  selectedCategory: ProductCategory | null;
 }
 
 const initialState: CatalogueState = {
-  products: [],
-  selectedCategory: null,
-  searchQuery: '',
-  isLoading: true,
   error: null,
+  isLoading: true,
+  products: [],
+  searchQuery: '',
+  selectedCategory: null,
 };
 
 @Injectable({ providedIn: 'root' })
 export class CatalogueStore {
   private readonly productService = inject(ProductService);
 
+  private readonly _error = signal<string | null>(initialState.error);
+  private readonly _isLoading = signal(initialState.isLoading);
   private readonly _products = signal<Product[]>(initialState.products);
+  private readonly _searchQuery = signal(initialState.searchQuery);
   private readonly _selectedCategory = signal<ProductCategory | null>(
     initialState.selectedCategory
   );
-  private readonly _searchQuery = signal(initialState.searchQuery);
-  private readonly _isLoading = signal(initialState.isLoading);
-  private readonly _error = signal<string | null>(initialState.error);
 
   readonly products = this._products.asReadonly();
   readonly selectedCategory = this._selectedCategory.asReadonly();

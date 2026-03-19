@@ -14,8 +14,8 @@ import {
 } from '@angular/fire/firestore';
 import { from, map, Observable } from 'rxjs';
 
-import { Product, ProductCreate, ProductUpdate } from '../interfaces/product.interface';
-import { ProductCategory } from '../const/product-category.const';
+import { ProductCategory } from '@core/const/product-category.const';
+import { Product, ProductCreate, ProductUpdate } from '@core/interfaces/product.interface';
 
 const PRODUCTS_COLLECTION = 'products';
 
@@ -23,7 +23,7 @@ const PRODUCTS_COLLECTION = 'products';
 export class ProductService {
   private readonly firestore = inject(Firestore);
 
-  private get productsRef() {
+  private get productsRef(): ReturnType<typeof collection> {
     return collection(this.firestore, PRODUCTS_COLLECTION);
   }
 

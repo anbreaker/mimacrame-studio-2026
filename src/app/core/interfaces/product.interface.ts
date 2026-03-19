@@ -1,4 +1,4 @@
-import { ProductCategory } from '../const/product-category.const';
+import { ProductCategory } from '@core/const/product-category.const';
 
 export interface Product {
   id: string;
