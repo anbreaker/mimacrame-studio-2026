@@ -6,16 +6,17 @@ import { AuthStore } from '@core/store/auth.store';
 @Component({
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'app-admin-login',
   imports: [FormsModule],
-  templateUrl: './admin-login.component.html',
+  selector: 'app-admin-login',
   styleUrl: './admin-login.component.scss',
+  templateUrl: './admin-login.component.html',
 })
 export class AdminLoginComponent {
   protected readonly authStore = inject(AuthStore);
 
   protected readonly email = signal('');
   protected readonly password = signal('');
+  protected readonly showPassword = signal(false);
 
   protected submit(): void {
     const email = this.email().trim();

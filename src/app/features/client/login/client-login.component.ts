@@ -10,10 +10,10 @@ import { toReadableError } from '@core/utils/auth-error.util';
 @Component({
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'app-client-login',
   imports: [FormsModule],
-  templateUrl: './client-login.component.html',
+  selector: 'app-client-login',
   styleUrl: './client-login.component.scss',
+  templateUrl: './client-login.component.html',
 })
 export class ClientLoginComponent {
   private readonly authService = inject(AuthService);
@@ -22,9 +22,10 @@ export class ClientLoginComponent {
   private readonly currentUser = toSignal(this.authService.currentUser$);
 
   protected readonly email = signal('');
-  protected readonly password = signal('');
-  protected readonly isLoading = signal(false);
   protected readonly error = signal<string | null>(null);
+  protected readonly isLoading = signal(false);
+  protected readonly password = signal('');
+  protected readonly showPassword = signal(false);
 
   constructor() {
     effect(() => {
