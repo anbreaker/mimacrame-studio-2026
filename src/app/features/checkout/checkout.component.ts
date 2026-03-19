@@ -1,12 +1,11 @@
 import { CurrencyPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { email as emailValidator, form, FormField, required } from '@angular/forms/signals';
 import { Router, RouterLink } from '@angular/router';
-import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
+import { TranslocoDirective } from '@jsverse/transloco';
 
 import { ORDER_STATUS } from '@core/const/order-status.const';
 import { ROUTES } from '@core/const/routes';
-import { ShippingAddress } from '@core/interfaces/order.interface';
 import { OrderService } from '@core/services/order.service';
 import { PaymentService } from '@core/services/payment.service';
 import { AuthStore } from '@core/store/auth.store';
@@ -19,12 +18,23 @@ const PAYMENT_METHOD = {
 } as const;
 type PaymentMethod = (typeof PAYMENT_METHOD)[keyof typeof PAYMENT_METHOD];
 
+interface CheckoutFormData {
+  city: string;
+  country: string;
+  email: string;
+  fullName: string;
+  phone: string;
+  postalCode: string;
+  province: string;
+  street: string;
+}
+
 const FREE_SHIPPING_THRESHOLD = 40;
 const SHIPPING_COST = 4.95;
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CurrencyPipe, FormsModule, RouterLink, TranslocoDirective],
+  imports: [CurrencyPipe, FormField, RouterLink, TranslocoDirective],
   selector: 'app-checkout',
   standalone: true,
   styleUrl: './checkout.component.scss',
@@ -35,13 +45,13 @@ export class CheckoutComponent {
   private readonly orderService = inject(OrderService);
   private readonly paymentService = inject(PaymentService);
   private readonly router = inject(Router);
-  private readonly transloco = inject(TranslocoService);
 
   protected readonly cartStore = inject(CartStore);
 
-  protected readonly address = signal<ShippingAddress>({
+  private readonly checkoutModel = signal<CheckoutFormData>({
     city: '',
-    country: 'España',
+    country: '',
+    email: '',
     fullName: '',
     phone: '',
     postalCode: '',
@@ -49,25 +59,50 @@ export class CheckoutComponent {
     street: '',
   });
 
-  protected readonly email = signal('');
   protected readonly errorKey = signal<string | null>(null);
+
   protected readonly isProcessing = signal(false);
   protected readonly selectedPayment = signal<PaymentMethod>(PAYMENT_METHOD.Card);
-
-  protected readonly error = computed(() => {
-    const key = this.errorKey();
-    if (!key) return null;
-    return key.includes('.') ? this.transloco.translate(key) : key;
+  protected readonly checkoutForm = form(this.checkoutModel, (schemaPath) => {
+    required(schemaPath.email);
+    emailValidator(schemaPath.email);
+    required(schemaPath.fullName);
+    required(schemaPath.street);
+    required(schemaPath.postalCode);
+    required(schemaPath.city);
+    required(schemaPath.country);
+    required(schemaPath.phone);
   });
+
+  protected readonly isFormValid = computed(
+    () =>
+      this.checkoutForm.email().valid() &&
+      this.checkoutForm.fullName().valid() &&
+      this.checkoutForm.street().valid() &&
+      this.checkoutForm.postalCode().valid() &&
+      this.checkoutForm.city().valid() &&
+      this.checkoutForm.country().valid() &&
+      this.checkoutForm.phone().valid()
+  );
 
   protected readonly PAYMENT_METHOD = PAYMENT_METHOD;
   protected readonly routes = ROUTES;
 
   private confirmOrder(clientSecret: string): void {
+    const data = this.checkoutModel();
+
     this.orderService
       .create({
         items: this.cartStore.items(),
-        shippingAddress: this.address(),
+        shippingAddress: {
+          city: data.city,
+          country: data.country,
+          fullName: data.fullName,
+          phone: data.phone,
+          postalCode: data.postalCode,
+          province: data.province,
+          street: data.street,
+        },
         status: ORDER_STATUS.Pending,
         stripePaymentIntentId: clientSecret.split('_secret_')[0],
         total: this.orderTotal,
@@ -76,7 +111,7 @@ export class CheckoutComponent {
       .subscribe({
         error: () => {
           this.isProcessing.set(false);
-          this.errorKey.set('checkout.errors.order_creation');
+          this.errorKey.set('errors.order_creation');
         },
         next: (orderId) => {
           this.cartStore.clear();
@@ -104,19 +139,17 @@ export class CheckoutComponent {
   }
 
   protected submit(): void {
+    if (!this.isFormValid()) return;
+
     this.isProcessing.set(true);
     this.errorKey.set(null);
 
     this.paymentService.createPaymentIntent(this.orderTotalInCents).subscribe({
       error: () => {
         this.isProcessing.set(false);
-        this.errorKey.set('checkout.errors.generic');
+        this.errorKey.set('errors.generic');
       },
       next: (clientSecret) => this.confirmOrder(clientSecret),
     });
-  }
-
-  protected updateAddress(field: keyof ShippingAddress, value: string): void {
-    this.address.update((addr) => ({ ...addr, [field]: value }));
   }
 }

@@ -10,8 +10,8 @@
     <div class="checkout__layout">
       <!-- Form column -->
       <div class="checkout__form-col">
-        @if (error()) {
-          <div class="checkout__error" role="alert">{{ error() }}</div>
+        @if (errorKey()) {
+          <div class="checkout__error" role="alert">{{ t(errorKey()!) }}</div>
         }
 
         <!-- Contact -->
@@ -24,10 +24,7 @@
                 id="email"
                 class="checkout__input"
                 type="email"
-                required
-                [ngModel]="email()"
-                (ngModelChange)="email.set($event)"
-                name="email"
+                [formField]="checkoutForm.email"
                 placeholder="tu@email.com"
                 autocomplete="email"
               />
@@ -38,9 +35,7 @@
                 id="phone"
                 class="checkout__input"
                 type="tel"
-                [ngModel]="address().phone"
-                (ngModelChange)="updateAddress('phone', $event)"
-                name="phone"
+                [formField]="checkoutForm.phone"
                 placeholder="+34 600 000 000"
                 autocomplete="tel"
               />
@@ -58,10 +53,7 @@
                 id="fullName"
                 class="checkout__input"
                 type="text"
-                required
-                [ngModel]="address().fullName"
-                (ngModelChange)="updateAddress('fullName', $event)"
-                name="fullName"
+                [formField]="checkoutForm.fullName"
                 autocomplete="name"
               />
             </div>
@@ -71,10 +63,7 @@
                 id="street"
                 class="checkout__input"
                 type="text"
-                required
-                [ngModel]="address().street"
-                (ngModelChange)="updateAddress('street', $event)"
-                name="street"
+                [formField]="checkoutForm.street"
                 autocomplete="street-address"
               />
             </div>
@@ -84,10 +73,7 @@
                 id="postalCode"
                 class="checkout__input"
                 type="text"
-                required
-                [ngModel]="address().postalCode"
-                (ngModelChange)="updateAddress('postalCode', $event)"
-                name="postalCode"
+                [formField]="checkoutForm.postalCode"
                 autocomplete="postal-code"
               />
             </div>
@@ -97,10 +83,7 @@
                 id="city"
                 class="checkout__input"
                 type="text"
-                required
-                [ngModel]="address().city"
-                (ngModelChange)="updateAddress('city', $event)"
-                name="city"
+                [formField]="checkoutForm.city"
                 autocomplete="address-level2"
               />
             </div>
@@ -110,9 +93,7 @@
                 id="province"
                 class="checkout__input"
                 type="text"
-                [ngModel]="address().province"
-                (ngModelChange)="updateAddress('province', $event)"
-                name="province"
+                [formField]="checkoutForm.province"
               />
             </div>
             <div class="checkout__field">
@@ -121,9 +102,7 @@
                 id="country"
                 class="checkout__input"
                 type="text"
-                [ngModel]="address().country"
-                (ngModelChange)="updateAddress('country', $event)"
-                name="country"
+                [formField]="checkoutForm.country"
                 autocomplete="country-name"
               />
             </div>
@@ -170,12 +149,14 @@
           class="checkout__submit"
           type="button"
           (click)="submit()"
-          [disabled]="isProcessing()"
+          [disabled]="isProcessing() || !isFormValid()"
         >
           {{
             isProcessing()
               ? t('submit.processing')
-              : t('submit.confirm', { total: (orderTotal | currency: 'EUR' : 'symbol' : '1.2-2' : 'es') })
+              : t('submit.confirm', {
+                  total: (orderTotal | currency: 'EUR' : 'symbol' : '1.2-2' : 'es') ?? '',
+                })
           }}
         </button>
       </div>
