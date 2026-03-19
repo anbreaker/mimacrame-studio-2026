@@ -1,7 +1,7 @@
-<div class="confirmation" *transloco="let t; read: 'orderConfirmation'">
+<div class="confirmation" *transloco="let t">
   @if (isSuccess()) {
     <!-- Success -->
-    <div class="confirmation__card" *transloco="let ts; read: 'orderConfirmation.success'">
+    <div class="confirmation__card">
       <div class="confirmation__icon confirmation__icon--success" aria-hidden="true">
         <svg
           viewBox="0 0 24 24"
@@ -15,15 +15,17 @@
           <polyline points="9 12 11 14 15 10" />
         </svg>
       </div>
-      <h1 class="confirmation__title">{{ ts('title') }}</h1>
-      <p class="confirmation__subtitle">{{ ts('subtitle') }}</p>
+      <h1 class="confirmation__title">{{ t('orderConfirmation.success.title') }}</h1>
+      <p class="confirmation__subtitle">{{ t('orderConfirmation.success.subtitle') }}</p>
       <p class="confirmation__order-ref">{{ orderRef }}</p>
-      <p class="confirmation__message">{{ ts('message') }}</p>
-      <a class="confirmation__cta" [routerLink]="['/' + routes.CATALOGUE]">{{ ts('cta') }}</a>
+      <p class="confirmation__message">{{ t('orderConfirmation.success.message') }}</p>
+      <a class="confirmation__cta" [routerLink]="['/' + routes.CATALOGUE]">
+        {{ t('orderConfirmation.success.cta') }}
+      </a>
     </div>
   } @else {
     <!-- Error -->
-    <div class="confirmation__card" *transloco="let te; read: 'orderConfirmation.error'">
+    <div class="confirmation__card">
       <div class="confirmation__icon confirmation__icon--error" aria-hidden="true">
         <svg
           viewBox="0 0 24 24"
@@ -38,13 +40,13 @@
           <line x1="9" y1="9" x2="15" y2="15" />
         </svg>
       </div>
-      <h1 class="confirmation__title">{{ te('title') }}</h1>
-      <p class="confirmation__subtitle">{{ te('subtitle') }}</p>
+      <h1 class="confirmation__title">{{ t('orderConfirmation.error.title') }}</h1>
+      <p class="confirmation__subtitle">{{ t('orderConfirmation.error.subtitle') }}</p>
       <a
         class="confirmation__cta confirmation__cta--outline"
         [routerLink]="['/' + routes.CHECKOUT]"
       >
-        {{ te('cta') }}
+        {{ t('orderConfirmation.error.cta') }}
       </a>
     </div>
   }

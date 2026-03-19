@@ -1,11 +1,13 @@
-<div class="admin-layout" *transloco="let t; read: 'admin.productForm'">
+<div class="admin-layout" *transloco="let t">
   <app-admin-nav />
   <main class="admin-main">
     <div class="admin-main__inner">
       <div class="admin-page-header">
-        <h1 class="admin-page-title">{{ isEditMode() ? t('editTitle') : t('newTitle') }}</h1>
+        <h1 class="admin-page-title">
+          {{ isEditMode() ? t('admin.productForm.editTitle') : t('admin.productForm.newTitle') }}
+        </h1>
         <a class="admin-btn admin-btn--outline" [routerLink]="['/' + routes.ADMIN_PRODUCTS]">
-          {{ t('cancel') }}
+          {{ t('admin.productForm.cancel') }}
         </a>
       </div>
 
@@ -15,10 +17,10 @@
 
       <div class="product-form">
         <!-- Images -->
-        <section class="form-section" *transloco="let ti; read: 'admin.productForm.images'">
-          <h2 class="form-section__title">{{ ti('title') }}</h2>
+        <section class="form-section">
+          <h2 class="form-section__title">{{ t('admin.productForm.images.title') }}</h2>
           <p class="form-section__hint">
-            {{ ti('hint') }}
+            {{ t('admin.productForm.images.hint') }}
           </p>
 
           <div class="image-grid">
@@ -29,7 +31,7 @@
                   class="image-thumb__remove"
                   (click)="removeImage($index)"
                   type="button"
-                  [attr.aria-label]="ti('remove')"
+                  [attr.aria-label]="t('admin.productForm.images.remove')"
                 >
                   ×
                 </button>
@@ -37,7 +39,7 @@
             }
             <label class="image-upload" [class.image-upload--loading]="isUploading()">
               @if (isUploading()) {
-                <span>{{ ti('uploading') }}</span>
+                <span>{{ t('admin.productForm.images.uploading') }}</span>
               } @else {
                 <svg
                   viewBox="0 0 24 24"
@@ -50,7 +52,7 @@
                   <line x1="12" y1="5" x2="12" y2="19" />
                   <line x1="5" y1="12" x2="19" y2="12" />
                 </svg>
-                <span>{{ ti('add') }}</span>
+                <span>{{ t('admin.productForm.images.add') }}</span>
               }
               <input
                 type="file"
@@ -64,33 +66,33 @@
         </section>
 
         <!-- Basic info -->
-        <section class="form-section" *transloco="let tb; read: 'admin.productForm.basicInfo.fields'">
-          <h2 class="form-section__title">{{ t('basicInfo.title') }}</h2>
+        <section class="form-section">
+          <h2 class="form-section__title">{{ t('admin.productForm.basicInfo.title') }}</h2>
           <div class="form-fields">
             <div class="form-field form-field--full">
-              <label class="form-label">{{ tb('name') }}</label>
+              <label class="form-label">{{ t('admin.productForm.basicInfo.fields.name') }}</label>
               <input
                 class="form-input"
                 type="text"
                 [ngModel]="name()"
                 (ngModelChange)="name.set($event)"
                 name="name"
-                [placeholder]="tb('namePlaceholder')"
+                [placeholder]="t('admin.productForm.basicInfo.fields.namePlaceholder')"
               />
             </div>
             <div class="form-field form-field--full">
-              <label class="form-label">{{ tb('description') }}</label>
+              <label class="form-label">{{ t('admin.productForm.basicInfo.fields.description') }}</label>
               <textarea
                 class="form-input form-input--textarea"
                 rows="4"
                 [ngModel]="description()"
                 (ngModelChange)="description.set($event)"
                 name="description"
-                [placeholder]="tb('descriptionPlaceholder')"
+                [placeholder]="t('admin.productForm.basicInfo.fields.descriptionPlaceholder')"
               ></textarea>
             </div>
             <div class="form-field">
-              <label class="form-label">{{ tb('price') }}</label>
+              <label class="form-label">{{ t('admin.productForm.basicInfo.fields.price') }}</label>
               <input
                 class="form-input"
                 type="number"
@@ -102,7 +104,7 @@
               />
             </div>
             <div class="form-field">
-              <label class="form-label">{{ tb('stock') }}</label>
+              <label class="form-label">{{ t('admin.productForm.basicInfo.fields.stock') }}</label>
               <input
                 class="form-input"
                 type="number"
@@ -113,7 +115,7 @@
               />
             </div>
             <div class="form-field">
-              <label class="form-label">{{ tb('category') }}</label>
+              <label class="form-label">{{ t('admin.productForm.basicInfo.fields.category') }}</label>
               <select
                 class="form-input"
                 [ngModel]="category()"
@@ -121,7 +123,7 @@
                 name="category"
               >
                 @for (key of categoryKeys; track key) {
-                  <option [value]="key">{{ categoryLabels()[key] }}</option>
+                  <option [value]="key">{{ t('home.categories.items.' + key) }}</option>
                 }
               </select>
             </div>
@@ -133,21 +135,27 @@
                   (ngModelChange)="active.set($event)"
                   name="active"
                 />
-                {{ tb('active') }}
+                {{ t('admin.productForm.basicInfo.fields.active') }}
               </label>
             </div>
           </div>
         </section>
 
         <!-- Submit -->
-        <div class="form-actions" *transloco="let ts; read: 'admin.productForm.submit'">
+        <div class="form-actions">
           <button
             class="admin-btn admin-btn--primary"
             type="button"
             (click)="save()"
             [disabled]="!isValid() || isSaving()"
           >
-            {{ isSaving() ? ts('saving') : isEditMode() ? ts('save') : ts('create') }}
+            {{
+              isSaving()
+                ? t('admin.productForm.submit.saving')
+                : isEditMode()
+                  ? t('admin.productForm.submit.save')
+                  : t('admin.productForm.submit.create')
+            }}
           </button>
         </div>
       </div>

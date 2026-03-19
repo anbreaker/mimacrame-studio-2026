@@ -1,30 +1,30 @@
-<div class="admin-layout" *transloco="let t; read: 'admin'">
+<div class="admin-layout" *transloco="let t">
   <app-admin-nav />
 
   <main class="admin-main">
     <div class="admin-main__inner">
-      <h1 class="admin-page-title">{{ t('dashboard.title') }}</h1>
+      <h1 class="admin-page-title">{{ t('admin.dashboard.title') }}</h1>
 
       <!-- Metrics -->
-      <div class="metrics" *transloco="let tm; read: 'admin.dashboard.metrics'">
+      <div class="metrics">
         <div class="metric-card">
-          <span class="metric-card__label">{{ tm('pendingOrders') }}</span>
+          <span class="metric-card__label">{{ t('admin.dashboard.metrics.pendingOrders') }}</span>
           <span class="metric-card__value" [class.metric-card__value--alert]="pendingCount() > 0">
             {{ pendingCount() }}
           </span>
         </div>
         <div class="metric-card">
-          <span class="metric-card__label">{{ tm('monthOrders') }}</span>
+          <span class="metric-card__label">{{ t('admin.dashboard.metrics.monthOrders') }}</span>
           <span class="metric-card__value">{{ monthOrderCount() }}</span>
         </div>
         <div class="metric-card">
-          <span class="metric-card__label">{{ tm('monthRevenue') }}</span>
+          <span class="metric-card__label">{{ t('admin.dashboard.metrics.monthRevenue') }}</span>
           <span class="metric-card__value">
             {{ monthRevenue() | currency: 'EUR' : 'symbol' : '1.2-2' : 'es' }}
           </span>
         </div>
         <div class="metric-card">
-          <span class="metric-card__label">{{ tm('activeProducts') }}</span>
+          <span class="metric-card__label">{{ t('admin.dashboard.metrics.activeProducts') }}</span>
           <span class="metric-card__value">{{ activeProductCount() }}</span>
         </div>
       </div>
@@ -32,7 +32,7 @@
       <!-- Low stock alert -->
       @if (lowStockProducts().length > 0) {
         <div class="low-stock-alert">
-          <strong>⚠ {{ t('dashboard.lowStock') }}</strong>
+          <strong>⚠ {{ t('admin.dashboard.lowStock') }}</strong>
           @for (p of lowStockProducts(); track p.id) {
             <span class="low-stock-alert__item">{{ p.name }} ({{ p.stock }})</span>
           }
@@ -40,25 +40,25 @@
       }
 
       <!-- Recent orders -->
-      <section class="admin-section" *transloco="let tr; read: 'admin.dashboard.recentOrders'">
+      <section class="admin-section">
         <div class="admin-section__header">
-          <h2 class="admin-section__title">{{ tr('title') }}</h2>
+          <h2 class="admin-section__title">{{ t('admin.dashboard.recentOrders.title') }}</h2>
           <a class="admin-section__link" [routerLink]="['/' + routes.ADMIN_ORDERS]">
-            {{ tr('viewAll') }}
+            {{ t('admin.dashboard.recentOrders.viewAll') }}
           </a>
         </div>
 
         @if (recentOrders().length === 0) {
-          <p class="admin-empty">{{ tr('empty') }}</p>
+          <p class="admin-empty">{{ t('admin.dashboard.recentOrders.empty') }}</p>
         } @else {
           <div class="orders-table-wrapper">
             <table class="orders-table">
               <thead>
                 <tr>
-                  <th>{{ tr('table.order') }}</th>
-                  <th>{{ tr('table.total') }}</th>
-                  <th>{{ tr('table.status') }}</th>
-                  <th>{{ tr('table.date') }}</th>
+                  <th>{{ t('admin.dashboard.recentOrders.table.order') }}</th>
+                  <th>{{ t('admin.dashboard.recentOrders.table.total') }}</th>
+                  <th>{{ t('admin.dashboard.recentOrders.table.status') }}</th>
+                  <th>{{ t('admin.dashboard.recentOrders.table.date') }}</th>
                 </tr>
               </thead>
               <tbody>
@@ -68,7 +68,7 @@
                     <td>{{ order.total | currency: 'EUR' : 'symbol' : '1.2-2' : 'es' }}</td>
                     <td>
                       <span class="status-chip" [attr.data-status]="order.status">
-                        {{ order.status }}
+                        {{ t('admin.orders.statuses.' + order.status) }}
                       </span>
                     </td>
                     <td>{{ toDate(order.createdAt) | date: 'dd/MM/yy' }}</td>

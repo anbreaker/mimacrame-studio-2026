@@ -1,10 +1,14 @@
-<div class="cart" *transloco="let t; read: 'cart'">
+<div class="cart" *transloco="let t">
   <h1 class="cart__title">
-    {{ t('title') }}
+    {{ t('cart.title') }}
     @if (!cartStore.isEmpty()) {
       <span class="cart__count">
         · {{ cartStore.itemCount() }}
-        {{ cartStore.itemCount() === 1 ? t('itemCount.singular') : t('itemCount.plural', { count: cartStore.itemCount() }) }}
+        {{
+          cartStore.itemCount() === 1
+            ? t('cart.itemCount.singular')
+            : t('cart.itemCount.plural', { count: cartStore.itemCount() })
+        }}
       </span>
     }
   </h1>
@@ -23,9 +27,9 @@
         <line x1="3" y1="6" x2="21" y2="6" />
         <path d="M16 10a4 4 0 01-8 0" />
       </svg>
-      <p class="cart__empty-text">{{ t('empty.text') }}</p>
-      <p class="cart__empty-sub">{{ t('empty.sub') }}</p>
-      <a class="cart__cta" [routerLink]="['/' + routes.CATALOGUE]">{{ t('empty.cta') }}</a>
+      <p class="cart__empty-text">{{ t('cart.empty.text') }}</p>
+      <p class="cart__empty-sub">{{ t('cart.empty.sub') }}</p>
+      <a class="cart__cta" [routerLink]="['/' + routes.CATALOGUE]">{{ t('cart.empty.cta') }}</a>
     </div>
   } @else {
     <div class="cart__layout">
@@ -50,7 +54,7 @@
                 <button
                   class="cart__qty-btn"
                   (click)="cartStore.updateQuantity(item.product.id, item.quantity - 1)"
-                  [attr.aria-label]="t('items.decrease')"
+                  [attr.aria-label]="t('cart.items.decrease')"
                 >
                   −
                 </button>
@@ -58,7 +62,7 @@
                 <button
                   class="cart__qty-btn"
                   (click)="cartStore.updateQuantity(item.product.id, item.quantity + 1)"
-                  [attr.aria-label]="t('items.increase')"
+                  [attr.aria-label]="t('cart.items.increase')"
                   [disabled]="item.quantity >= item.product.stock"
                 >
                   +
@@ -68,7 +72,7 @@
               <button
                 class="cart__remove"
                 (click)="cartStore.removeItem(item.product.id)"
-                [attr.aria-label]="t('items.remove')"
+                [attr.aria-label]="t('cart.items.remove')"
               >
                 <svg
                   viewBox="0 0 24 24"
@@ -90,11 +94,15 @@
       </ul>
 
       <!-- Summary -->
-      <div class="cart__summary" *transloco="let ts; read: 'cart.summary'">
+      <div class="cart__summary">
         <!-- Free shipping progress -->
         @if (remainingForFreeShipping > 0) {
           <p class="cart__shipping-hint">
-            {{ ts('shippingHint', { amount: (remainingForFreeShipping | currency: 'EUR' : 'symbol' : '1.2-2' : 'es') }) }}
+            {{
+              t('cart.summary.shippingHint', {
+                amount: (remainingForFreeShipping | currency: 'EUR' : 'symbol' : '1.2-2' : 'es') ?? ''
+              })
+            }}
           </p>
           <div class="cart__shipping-bar">
             <div
@@ -103,32 +111,38 @@
             ></div>
           </div>
         } @else {
-          <p class="cart__shipping-hint cart__shipping-hint--free">{{ ts('shippingFree') }}</p>
+          <p class="cart__shipping-hint cart__shipping-hint--free">
+            {{ t('cart.summary.shippingFree') }}
+          </p>
         }
 
         <div class="cart__totals">
           <div class="cart__total-row">
-            <span>{{ ts('subtotal') }}</span>
+            <span>{{ t('cart.summary.subtotal') }}</span>
             <span>{{ cartStore.total() | currency: 'EUR' : 'symbol' : '1.2-2' : 'es' }}</span>
           </div>
           <div class="cart__total-row">
-            <span>{{ ts('shipping') }}</span>
+            <span>{{ t('cart.summary.shipping') }}</span>
             <span>
               {{
                 shippingCost === 0
-                  ? ts('free')
+                  ? t('cart.summary.free')
                   : (shippingCost | currency: 'EUR' : 'symbol' : '1.2-2' : 'es')
               }}
             </span>
           </div>
           <div class="cart__total-row cart__total-row--final">
-            <span>{{ ts('total') }}</span>
+            <span>{{ t('cart.summary.total') }}</span>
             <span>{{ orderTotal | currency: 'EUR' : 'symbol' : '1.2-2' : 'es' }}</span>
           </div>
         </div>
 
-        <a class="cart__checkout-btn" [routerLink]="['/' + routes.CHECKOUT]">{{ ts('checkout') }}</a>
-        <a class="cart__continue" [routerLink]="['/' + routes.CATALOGUE]">{{ ts('continue') }}</a>
+        <a class="cart__checkout-btn" [routerLink]="['/' + routes.CHECKOUT]">
+          {{ t('cart.summary.checkout') }}
+        </a>
+        <a class="cart__continue" [routerLink]="['/' + routes.CATALOGUE]">
+          {{ t('cart.summary.continue') }}
+        </a>
       </div>
     </div>
   }

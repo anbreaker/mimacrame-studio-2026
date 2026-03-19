@@ -1,5 +1,5 @@
 @if (isLoading()) {
-  <div class="detail-skeleton">
+  <div class="detail-skeleton" *transloco="let t">
     <div class="detail-skeleton__gallery"></div>
     <div class="detail-skeleton__info">
       <div class="detail-skeleton__line detail-skeleton__line--title"></div>
@@ -9,15 +9,15 @@
     </div>
   </div>
 } @else if (product()) {
-  <div class="detail" *transloco="let t; read: 'productDetail'">
+  <div class="detail" *transloco="let t">
     <!-- Gallery -->
     <div class="detail__gallery">
       <div class="detail__main-image-wrapper">
         <img class="detail__main-image" [src]="selectedImage()" [alt]="product()!.name" />
         @if (isOutOfStock()) {
-          <div class="detail__out-badge">{{ t('outOfStock') }}</div>
+          <div class="detail__out-badge">{{ t('productDetail.outOfStock') }}</div>
         } @else if (isLowStock()) {
-          <div class="detail__low-badge">{{ t('lowStock') }}</div>
+          <div class="detail__low-badge">{{ t('productDetail.lowStock') }}</div>
         }
       </div>
 
@@ -28,7 +28,7 @@
               class="detail__thumb"
               [class.detail__thumb--active]="selectedImageIndex() === $index"
               (click)="selectImage($index)"
-              [attr.aria-label]="t('viewImage', { index: $index + 1 })"
+              [attr.aria-label]="t('productDetail.viewImage', { index: $index + 1 })"
             >
               <img [src]="img" [alt]="product()!.name + ' ' + ($index + 1)" />
             </button>
@@ -40,7 +40,7 @@
     <!-- Info -->
     <div class="detail__info">
       <a class="detail__back" [routerLink]="['/' + routes.CATALOGUE]">
-        ← {{ t('back') }}
+        ← {{ t('productDetail.back') }}
       </a>
 
       <h1 class="detail__name">{{ product()!.name }}</h1>
@@ -54,7 +54,7 @@
       <!-- Quantity selector -->
       @if (!isOutOfStock()) {
         <div class="detail__quantity-section">
-          <span class="detail__label">{{ t('quantity') }}</span>
+          <span class="detail__label">{{ t('productDetail.quantity') }}</span>
           <div class="detail__quantity">
             <button
               class="detail__qty-btn"
@@ -74,7 +74,7 @@
           </div>
           @if (isLowStock()) {
             <span class="detail__stock-hint">
-              {{ t('stockHint', { count: product()!.stock }) }}
+              {{ t('productDetail.stockHint', { count: product()!.stock }) }}
             </span>
           }
         </div>
@@ -83,22 +83,22 @@
       <!-- CTAs -->
       <div class="detail__actions">
         <button class="detail__add-btn" (click)="addToCart()" [disabled]="isOutOfStock()">
-          {{ isOutOfStock() ? t('outOfStock') : t('addToCart') }}
+          {{ isOutOfStock() ? t('productDetail.outOfStock') : t('productDetail.addToCart') }}
         </button>
         @if (!isOutOfStock()) {
-          <button class="detail__buy-btn" (click)="buyNow()">{{ t('buyNow') }}</button>
+          <button class="detail__buy-btn" (click)="buyNow()">{{ t('productDetail.buyNow') }}</button>
         }
       </div>
 
       <!-- Details accordion -->
       <details class="detail__accordion">
-        <summary class="detail__accordion-title">{{ t('materials.title') }}</summary>
-        <p class="detail__accordion-content">{{ t('materials.content') }}</p>
+        <summary class="detail__accordion-title">{{ t('productDetail.materials.title') }}</summary>
+        <p class="detail__accordion-content">{{ t('productDetail.materials.content') }}</p>
       </details>
 
       <details class="detail__accordion">
-        <summary class="detail__accordion-title">{{ t('shipping.title') }}</summary>
-        <p class="detail__accordion-content">{{ t('shipping.content') }}</p>
+        <summary class="detail__accordion-title">{{ t('productDetail.shipping.title') }}</summary>
+        <p class="detail__accordion-content">{{ t('productDetail.shipping.content') }}</p>
       </details>
     </div>
   </div>

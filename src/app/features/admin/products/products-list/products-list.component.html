@@ -1,11 +1,11 @@
-<div class="admin-layout" *transloco="let t; read: 'admin.products'">
+<div class="admin-layout" *transloco="let t">
   <app-admin-nav />
   <main class="admin-main">
     <div class="admin-main__inner">
       <div class="admin-page-header">
-        <h1 class="admin-page-title">{{ t('title') }}</h1>
+        <h1 class="admin-page-title">{{ t('admin.products.title') }}</h1>
         <a class="admin-btn admin-btn--primary" [routerLink]="['/' + routes.ADMIN_PRODUCT_NEW]">
-          {{ t('new') }}
+          {{ t('admin.products.new') }}
         </a>
       </div>
 
@@ -25,7 +25,7 @@
         <input
           class="admin-search__input"
           type="search"
-          [placeholder]="t('search')"
+          [placeholder]="t('admin.products.search')"
           [value]="searchQuery()"
           (input)="searchQuery.set($any($event.target).value)"
         />
@@ -35,13 +35,13 @@
       @if (confirmDeleteId()) {
         <div class="admin-modal-backdrop" (click)="cancelDelete()">
           <div class="admin-modal" (click)="$event.stopPropagation()">
-            <p class="admin-modal__text">{{ t('deleteModal.text') }}</p>
+            <p class="admin-modal__text">{{ t('admin.products.deleteModal.text') }}</p>
             <div class="admin-modal__actions">
               <button class="admin-btn admin-btn--danger" (click)="confirmDelete()">
-                {{ t('deleteModal.confirm') }}
+                {{ t('admin.products.deleteModal.confirm') }}
               </button>
               <button class="admin-btn admin-btn--outline" (click)="cancelDelete()">
-                {{ t('deleteModal.cancel') }}
+                {{ t('admin.products.deleteModal.cancel') }}
               </button>
             </div>
           </div>
@@ -49,19 +49,19 @@
       }
 
       @if (isLoading()) {
-        <p class="admin-loading">{{ t('loading') }}</p>
+        <p class="admin-loading">{{ t('admin.products.loading') }}</p>
       } @else if (filteredProducts.length === 0) {
-        <p class="admin-empty">{{ t('empty') }}</p>
+        <p class="admin-empty">{{ t('admin.products.empty') }}</p>
       } @else {
         <div class="products-table-wrapper">
           <table class="products-table">
             <thead>
               <tr>
-                <th>{{ t('table.product') }}</th>
-                <th>{{ t('table.category') }}</th>
-                <th>{{ t('table.price') }}</th>
-                <th>{{ t('table.stock') }}</th>
-                <th>{{ t('table.status') }}</th>
+                <th>{{ t('admin.products.table.product') }}</th>
+                <th>{{ t('admin.products.table.category') }}</th>
+                <th>{{ t('admin.products.table.price') }}</th>
+                <th>{{ t('admin.products.table.stock') }}</th>
+                <th>{{ t('admin.products.table.status') }}</th>
                 <th></th>
               </tr>
             </thead>
@@ -85,7 +85,7 @@
                   </td>
                   <td>
                     <span class="status-badge" [class.status-badge--active]="product.active">
-                      {{ product.active ? t('table.active') : t('table.draft') }}
+                      {{ product.active ? t('admin.products.table.active') : t('admin.products.table.draft') }}
                     </span>
                   </td>
                   <td>
@@ -93,7 +93,7 @@
                       <a
                         class="admin-icon-btn"
                         [routerLink]="['/admin/products', product.id]"
-                        [attr.aria-label]="t('actions.edit')"
+                        [attr.aria-label]="t('admin.products.actions.edit')"
                       >
                         <svg
                           viewBox="0 0 24 24"
@@ -110,7 +110,7 @@
                       <button
                         class="admin-icon-btn admin-icon-btn--danger"
                         (click)="requestDelete(product.id)"
-                        [attr.aria-label]="t('actions.delete')"
+                        [attr.aria-label]="t('admin.products.actions.delete')"
                       >
                         <svg
                           viewBox="0 0 24 24"
@@ -122,6 +122,7 @@
                         >
                           <polyline points="3 6 5 6 21 6" />
                           <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6" />
+                          <path d="M10 11v6M14 11v6" />
                           <path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2" />
                         </svg>
                       </button>
