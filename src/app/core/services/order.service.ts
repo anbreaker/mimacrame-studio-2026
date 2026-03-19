@@ -22,10 +22,6 @@ const ORDERS_COLLECTION = 'orders';
 export class OrderService {
   private readonly firestore = inject(Firestore);
 
-  private get ordersRef(): ReturnType<typeof collection> {
-    return collection(this.firestore, ORDERS_COLLECTION);
-  }
-
   create(data: OrderCreate): Observable<string> {
     return from(
       addDoc(this.ordersRef, {
@@ -47,6 +43,10 @@ export class OrderService {
       query(this.ordersRef, where('userId', '==', userId), orderBy('createdAt', 'desc')),
       { idField: 'id' }
     ) as Observable<Order[]>;
+  }
+
+  private get ordersRef(): ReturnType<typeof collection> {
+    return collection(this.firestore, ORDERS_COLLECTION);
   }
 
   updateStatus(orderId: string, status: OrderStatus): Observable<void> {

@@ -26,18 +26,18 @@ const initialState: ExampleState = {
 export class ExampleStore {
   // private readonly exampleService = inject(ExampleService);
 
-  private readonly loadTrigger$ = new Subject<void>();
-
   private readonly _data = signal<ExampleData | null>(initialState.data);
   private readonly _error = signal<string | null>(initialState.error);
   private readonly _isLoading = signal(initialState.isLoading);
 
+  readonly displayName = computed(() => this._data()?.name ?? 'No data');
+  readonly hasData = computed(() => this._data() !== null);
+
+  private readonly loadTrigger$ = new Subject<void>();
+
   readonly data = this._data.asReadonly();
   readonly error = this._error.asReadonly();
   readonly isLoading = this._isLoading.asReadonly();
-
-  readonly displayName = computed(() => this._data()?.name ?? 'No data');
-  readonly hasData = computed(() => this._data() !== null);
 
   constructor() {
     this.loadTrigger$

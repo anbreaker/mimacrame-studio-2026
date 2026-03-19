@@ -25,11 +25,11 @@ export class AuthService {
             map(
               (snapshot) =>
                 ({
-                  uid: firebaseUser.uid,
-                  email: firebaseUser.email,
                   displayName: firebaseUser.displayName,
-                  photoURL: firebaseUser.photoURL,
+                  email: firebaseUser.email,
                   isAdmin: snapshot.exists() ? (snapshot.data()['isAdmin'] ?? false) : false,
+                  photoURL: firebaseUser.photoURL,
+                  uid: firebaseUser.uid,
                 }) satisfies AppUser
             )
           )

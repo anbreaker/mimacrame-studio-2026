@@ -9,8 +9,7 @@ const CART_STORAGE_KEY = 'mimacrame_cart';
 export class CartStore {
   private readonly _items = signal<CartItem[]>(this.loadFromStorage());
 
-  readonly items = this._items.asReadonly();
-
+  readonly isEmpty = computed(() => this._items().length === 0);
   readonly itemCount = computed(() =>
     this._items().reduce((total, item) => total + item.quantity, 0)
   );
@@ -19,7 +18,7 @@ export class CartStore {
     this._items().reduce((sum, item) => sum + item.product.price * item.quantity, 0)
   );
 
-  readonly isEmpty = computed(() => this._items().length === 0);
+  readonly items = this._items.asReadonly();
 
   addItem(product: Product, quantity = 1): void {
     const current = this._items();
@@ -35,6 +34,24 @@ export class CartStore {
     this.persist(updated);
   }
 
+  clear(): void {
+    this.persist([]);
+  }
+
+  private loadFromStorage(): CartItem[] {
+    try {
+      const stored = localStorage.getItem(CART_STORAGE_KEY);
+      return stored ? (JSON.parse(stored) as CartItem[]) : [];
+    } catch {
+      return [];
+    }
+  }
+
+  private persist(items: CartItem[]): void {
+    this._items.set(items);
+    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
+  }
+
   removeItem(productId: string): void {
     this.persist(this._items().filter((item) => item.product.id !== productId));
   }
@@ -48,23 +65,5 @@ export class CartStore {
           );
 
     this.persist(updated);
-  }
-
-  clear(): void {
-    this.persist([]);
-  }
-
-  private persist(items: CartItem[]): void {
-    this._items.set(items);
-    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
-  }
-
-  private loadFromStorage(): CartItem[] {
-    try {
-      const stored = localStorage.getItem(CART_STORAGE_KEY);
-      return stored ? (JSON.parse(stored) as CartItem[]) : [];
-    } catch {
-      return [];
-    }
   }
 }

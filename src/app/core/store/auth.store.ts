@@ -7,15 +7,15 @@ import { AuthService } from '@core/services/auth.service';
 import { toReadableError } from '@core/utils/auth-error.util';
 
 interface AuthState {
-  user: AppUser | null;
-  isLoading: boolean;
   error: string | null;
+  isLoading: boolean;
+  user: AppUser | null;
 }
 
 const initialState: AuthState = {
-  user: null,
-  isLoading: true,
   error: null,
+  isLoading: true,
+  user: null,
 };
 
 @Injectable({ providedIn: 'root' })
@@ -27,13 +27,13 @@ export class AuthStore {
   private readonly _isLoading = signal(initialState.isLoading);
   private readonly _user = signal<AppUser | null>(initialState.user);
 
-  readonly user = this._user.asReadonly();
-  readonly isLoading = this._isLoading.asReadonly();
-  readonly error = this._error.asReadonly();
-
-  readonly isLoggedIn = computed(() => this._user() !== null);
-  readonly isAdmin = computed(() => this._user()?.isAdmin ?? false);
   readonly displayName = computed(() => this._user()?.displayName ?? this._user()?.email ?? null);
+  readonly isAdmin = computed(() => this._user()?.isAdmin ?? false);
+  readonly isLoggedIn = computed(() => this._user() !== null);
+
+  readonly error = this._error.asReadonly();
+  readonly isLoading = this._isLoading.asReadonly();
+  readonly user = this._user.asReadonly();
 
   constructor() {
     this.authService.currentUser$.pipe(takeUntilDestroyed()).subscribe((user) => {
@@ -42,18 +42,22 @@ export class AuthStore {
     });
   }
 
+  clearError(): void {
+    this._error.set(null);
+  }
+
   login(email: string, password: string): void {
     this._isLoading.set(true);
     this._error.set(null);
 
     this.authService.login(email, password).subscribe({
-      next: () => {
-        this._isLoading.set(false);
-        this.router.navigate(['/admin/dashboard']);
-      },
       error: (err: Error) => {
         this._isLoading.set(false);
         this._error.set(toReadableError(err.message));
+      },
+      next: () => {
+        this._isLoading.set(false);
+        this.router.navigate(['/admin/dashboard']);
       },
     });
   }
@@ -63,13 +67,13 @@ export class AuthStore {
     this._error.set(null);
 
     this.authService.loginWithGoogle().subscribe({
-      next: () => {
-        this._isLoading.set(false);
-        this.router.navigate(['/admin/dashboard']);
-      },
       error: (err: Error) => {
         this._isLoading.set(false);
         this._error.set(toReadableError(err.message));
+      },
+      next: () => {
+        this._isLoading.set(false);
+        this.router.navigate(['/admin/dashboard']);
       },
     });
   }
@@ -78,9 +82,5 @@ export class AuthStore {
     this.authService.logout().subscribe({
       next: () => this.router.navigate(['/']),
     });
-  }
-
-  clearError(): void {
-    this._error.set(null);
   }
 }

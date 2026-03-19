@@ -12,6 +12,10 @@ import { from, Observable } from 'rxjs';
 export class UploadService {
   private readonly storage = inject(Storage);
 
+  deleteImage(url: string): Observable<void> {
+    return from(deleteObject(ref(this.storage, url)));
+  }
+
   uploadProductImage(file: File, productId: string): Observable<string> {
     const path = `products/${productId}/${Date.now()}_${file.name}`;
     const storageRef = ref(this.storage, path);
@@ -30,9 +34,5 @@ export class UploadService {
         }
       );
     });
-  }
-
-  deleteImage(url: string): Observable<void> {
-    return from(deleteObject(ref(this.storage, url)));
   }
 }

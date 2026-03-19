@@ -23,14 +23,18 @@ const PRODUCTS_COLLECTION = 'products';
 export class ProductService {
   private readonly firestore = inject(Firestore);
 
-  private get productsRef(): ReturnType<typeof collection> {
-    return collection(this.firestore, PRODUCTS_COLLECTION);
+  create(data: ProductCreate): Observable<string> {
+    return from(
+      addDoc(this.productsRef, {
+        ...data,
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp(),
+      })
+    ).pipe(map((ref) => ref.id));
   }
 
-  getAll(): Observable<Product[]> {
-    return collectionData(query(this.productsRef, orderBy('createdAt', 'desc')), {
-      idField: 'id',
-    }) as Observable<Product[]>;
+  delete(id: string): Observable<void> {
+    return from(deleteDoc(doc(this.firestore, PRODUCTS_COLLECTION, id)));
   }
 
   getActive(): Observable<Product[]> {
@@ -38,6 +42,12 @@ export class ProductService {
       query(this.productsRef, where('active', '==', true), orderBy('createdAt', 'desc')),
       { idField: 'id' }
     ) as Observable<Product[]>;
+  }
+
+  getAll(): Observable<Product[]> {
+    return collectionData(query(this.productsRef, orderBy('createdAt', 'desc')), {
+      idField: 'id',
+    }) as Observable<Product[]>;
   }
 
   getByCategory(category: ProductCategory): Observable<Product[]> {
@@ -52,14 +62,8 @@ export class ProductService {
     ) as Observable<Product[]>;
   }
 
-  create(data: ProductCreate): Observable<string> {
-    return from(
-      addDoc(this.productsRef, {
-        ...data,
-        createdAt: serverTimestamp(),
-        updatedAt: serverTimestamp(),
-      })
-    ).pipe(map((ref) => ref.id));
+  private get productsRef(): ReturnType<typeof collection> {
+    return collection(this.firestore, PRODUCTS_COLLECTION);
   }
 
   update(id: string, data: ProductUpdate): Observable<void> {
@@ -69,9 +73,5 @@ export class ProductService {
         updatedAt: serverTimestamp(),
       })
     );
-  }
-
-  delete(id: string): Observable<void> {
-    return from(deleteDoc(doc(this.firestore, PRODUCTS_COLLECTION, id)));
   }
 }

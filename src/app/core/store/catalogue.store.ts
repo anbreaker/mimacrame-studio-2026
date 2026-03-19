@@ -33,12 +33,6 @@ export class CatalogueStore {
     initialState.selectedCategory
   );
 
-  readonly products = this._products.asReadonly();
-  readonly selectedCategory = this._selectedCategory.asReadonly();
-  readonly searchQuery = this._searchQuery.asReadonly();
-  readonly isLoading = this._isLoading.asReadonly();
-  readonly error = this._error.asReadonly();
-
   readonly filteredProducts = computed(() => {
     const query = this._searchQuery().toLowerCase().trim();
     const category = this._selectedCategory();
@@ -55,32 +49,38 @@ export class CatalogueStore {
 
   readonly totalCount = computed(() => this.filteredProducts().length);
 
+  readonly error = this._error.asReadonly();
+  readonly isLoading = this._isLoading.asReadonly();
+  readonly products = this._products.asReadonly();
+  readonly searchQuery = this._searchQuery.asReadonly();
+  readonly selectedCategory = this._selectedCategory.asReadonly();
+
   constructor() {
     this.productService
       .getActive()
       .pipe(takeUntilDestroyed())
       .subscribe({
-        next: (products) => {
-          this._products.set(products);
-          this._isLoading.set(false);
-        },
         error: (err: Error) => {
           this._error.set(err.message);
+          this._isLoading.set(false);
+        },
+        next: (products) => {
+          this._products.set(products);
           this._isLoading.set(false);
         },
       });
   }
 
-  selectCategory(category: ProductCategory | null): void {
-    this._selectedCategory.set(category);
+  clearFilters(): void {
+    this._selectedCategory.set(null);
+    this._searchQuery.set('');
   }
 
   search(query: string): void {
     this._searchQuery.set(query);
   }
 
-  clearFilters(): void {
-    this._selectedCategory.set(null);
-    this._searchQuery.set('');
+  selectCategory(category: ProductCategory | null): void {
+    this._selectedCategory.set(category);
   }
 }
