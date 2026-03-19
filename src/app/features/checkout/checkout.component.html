@@ -1,11 +1,11 @@
 @if (cartStore.isEmpty()) {
-  <div class="checkout__empty">
-    <p>Tu carrito está vacío.</p>
-    <a [routerLink]="['/' + routes.CATALOGUE]">Ver colección</a>
+  <div class="checkout__empty" *transloco="let t; read: 'checkout.empty'">
+    <p>{{ t('text') }}</p>
+    <a [routerLink]="['/' + routes.CATALOGUE]">{{ t('cta') }}</a>
   </div>
 } @else {
-  <div class="checkout">
-    <h1 class="checkout__title">Finalizar pedido</h1>
+  <div class="checkout" *transloco="let t; read: 'checkout'">
+    <h1 class="checkout__title">{{ t('title') }}</h1>
 
     <div class="checkout__layout">
       <!-- Form column -->
@@ -16,10 +16,10 @@
 
         <!-- Contact -->
         <section class="checkout__section">
-          <h2 class="checkout__section-title">Contacto</h2>
+          <h2 class="checkout__section-title">{{ t('sections.contact') }}</h2>
           <div class="checkout__fields">
             <div class="checkout__field">
-              <label class="checkout__label" for="email">Email</label>
+              <label class="checkout__label" for="email">{{ t('fields.email') }}</label>
               <input
                 id="email"
                 class="checkout__input"
@@ -33,7 +33,7 @@
               />
             </div>
             <div class="checkout__field">
-              <label class="checkout__label" for="phone">Teléfono</label>
+              <label class="checkout__label" for="phone">{{ t('fields.phone') }}</label>
               <input
                 id="phone"
                 class="checkout__input"
@@ -50,10 +50,10 @@
 
         <!-- Shipping address -->
         <section class="checkout__section">
-          <h2 class="checkout__section-title">Dirección de envío</h2>
+          <h2 class="checkout__section-title">{{ t('sections.shipping') }}</h2>
           <div class="checkout__fields">
             <div class="checkout__field checkout__field--full">
-              <label class="checkout__label" for="fullName">Nombre completo</label>
+              <label class="checkout__label" for="fullName">{{ t('fields.fullName') }}</label>
               <input
                 id="fullName"
                 class="checkout__input"
@@ -66,7 +66,7 @@
               />
             </div>
             <div class="checkout__field checkout__field--full">
-              <label class="checkout__label" for="street">Dirección</label>
+              <label class="checkout__label" for="street">{{ t('fields.street') }}</label>
               <input
                 id="street"
                 class="checkout__input"
@@ -79,7 +79,7 @@
               />
             </div>
             <div class="checkout__field">
-              <label class="checkout__label" for="postalCode">Código postal</label>
+              <label class="checkout__label" for="postalCode">{{ t('fields.postalCode') }}</label>
               <input
                 id="postalCode"
                 class="checkout__input"
@@ -92,7 +92,7 @@
               />
             </div>
             <div class="checkout__field">
-              <label class="checkout__label" for="city">Ciudad</label>
+              <label class="checkout__label" for="city">{{ t('fields.city') }}</label>
               <input
                 id="city"
                 class="checkout__input"
@@ -105,7 +105,7 @@
               />
             </div>
             <div class="checkout__field">
-              <label class="checkout__label" for="province">Provincia</label>
+              <label class="checkout__label" for="province">{{ t('fields.province') }}</label>
               <input
                 id="province"
                 class="checkout__input"
@@ -116,7 +116,7 @@
               />
             </div>
             <div class="checkout__field">
-              <label class="checkout__label" for="country">País</label>
+              <label class="checkout__label" for="country">{{ t('fields.country') }}</label>
               <input
                 id="country"
                 class="checkout__input"
@@ -132,8 +132,8 @@
 
         <!-- Payment -->
         <section class="checkout__section">
-          <h2 class="checkout__section-title">Método de pago</h2>
-          <div class="checkout__payment-methods">
+          <h2 class="checkout__section-title">{{ t('sections.payment') }}</h2>
+          <div class="checkout__payment-methods" *transloco="let tp; read: 'checkout.payment'">
             <button
               class="checkout__payment-option"
               [class.checkout__payment-option--active]="selectedPayment() === PAYMENT_METHOD.Card"
@@ -141,7 +141,7 @@
               type="button"
             >
               <span class="checkout__payment-icon">💳</span>
-              <span>Tarjeta</span>
+              <span>{{ tp('card') }}</span>
             </button>
             <button
               class="checkout__payment-option"
@@ -150,7 +150,7 @@
               type="button"
             >
               <span class="checkout__payment-icon">📱</span>
-              <span>Bizum</span>
+              <span>{{ tp('bizum') }}</span>
             </button>
             <button
               class="checkout__payment-option"
@@ -159,10 +159,10 @@
               type="button"
             >
               <span class="checkout__payment-icon">🅿️</span>
-              <span>PayPal</span>
+              <span>{{ tp('paypal') }}</span>
             </button>
           </div>
-          <p class="checkout__security-note">🔒 Pago 100% seguro · SSL</p>
+          <p class="checkout__security-note">{{ t('payment.security') }}</p>
         </section>
 
         <!-- Submit -->
@@ -174,15 +174,15 @@
         >
           {{
             isProcessing()
-              ? 'Procesando...'
-              : 'Confirmar pedido — ' + (orderTotal | currency: 'EUR' : 'symbol' : '1.2-2' : 'es')
+              ? t('submit.processing')
+              : t('submit.confirm', { total: (orderTotal | currency: 'EUR' : 'symbol' : '1.2-2' : 'es') })
           }}
         </button>
       </div>
 
       <!-- Summary column -->
-      <aside class="checkout__summary">
-        <h2 class="checkout__section-title">Resumen</h2>
+      <aside class="checkout__summary" *transloco="let ts; read: 'checkout.summary'">
+        <h2 class="checkout__section-title">{{ t('sections.summary') }}</h2>
         <ul class="checkout__summary-items">
           @for (item of cartStore.items(); track item.product.id) {
             <li class="checkout__summary-item">
@@ -205,21 +205,21 @@
         </ul>
         <div class="checkout__summary-totals">
           <div class="checkout__summary-row">
-            <span>Subtotal</span>
+            <span>{{ ts('subtotal') }}</span>
             <span>{{ cartStore.total() | currency: 'EUR' : 'symbol' : '1.2-2' : 'es' }}</span>
           </div>
           <div class="checkout__summary-row">
-            <span>Envío</span>
+            <span>{{ ts('shipping') }}</span>
             <span>
               {{
                 shippingCost === 0
-                  ? 'Gratis'
+                  ? ts('free')
                   : (shippingCost | currency: 'EUR' : 'symbol' : '1.2-2' : 'es')
               }}
             </span>
           </div>
           <div class="checkout__summary-row checkout__summary-row--total">
-            <span>Total</span>
+            <span>{{ ts('total') }}</span>
             <span>{{ orderTotal | currency: 'EUR' : 'symbol' : '1.2-2' : 'es' }}</span>
           </div>
         </div>

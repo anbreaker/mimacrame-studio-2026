@@ -1,15 +1,11 @@
 <!-- Hero -->
-<section class="hero">
+<section class="hero" *transloco="let t; read: 'home.hero'">
   <div class="hero__overlay"></div>
   <div class="hero__content">
-    <p class="hero__eyebrow">Hecho a mano · Badajoz, Extremadura</p>
-    <h1 class="hero__title">
-      Joyería que cuenta
-      <br />
-      tu historia
-    </h1>
-    <p class="hero__subtitle">Macramé artesanal hecho a mano, pieza a pieza</p>
-    <a class="hero__cta" [routerLink]="['/' + routes.CATALOGUE]">Ver colección</a>
+    <p class="hero__eyebrow">{{ t('eyebrow') }}</p>
+    <h1 class="hero__title" [innerHTML]="t('title')"></h1>
+    <p class="hero__subtitle">{{ t('subtitle') }}</p>
+    <a class="hero__cta" [routerLink]="['/' + routes.CATALOGUE]">{{ t('cta') }}</a>
   </div>
   <div class="hero__scroll-hint" aria-hidden="true">
     <svg
@@ -27,8 +23,8 @@
 
 <!-- Categories -->
 <section class="categories">
-  <div class="categories__inner">
-    <h2 class="section-title">Explora la colección</h2>
+  <div class="categories__inner" *transloco="let t; read: 'home.categories'">
+    <h2 class="section-title">{{ t('title') }}</h2>
     <div class="categories__grid">
       @for (cat of categories; track cat.key) {
         <a
@@ -37,7 +33,7 @@
           [queryParams]="{ category: cat.key }"
         >
           <span class="category-card__emoji" aria-hidden="true">{{ cat.emoji }}</span>
-          <span class="category-card__label">{{ cat.label }}</span>
+          <span class="category-card__label">{{ t('items.' + cat.key) }}</span>
         </a>
       }
     </div>
@@ -46,8 +42,8 @@
 
 <!-- Featured products -->
 <section class="featured">
-  <div class="featured__inner">
-    <h2 class="section-title">Nuestras favoritas</h2>
+  <div class="featured__inner" *transloco="let t; read: 'home.featured'">
+    <h2 class="section-title">{{ t('title') }}</h2>
 
     @if (catalogueStore.isLoading()) {
       <div class="featured__loading">
@@ -63,57 +59,53 @@
       </div>
       <div class="featured__cta">
         <a class="btn btn--outline" [routerLink]="['/' + routes.CATALOGUE]">
-          Ver toda la colección
+          {{ t('cta') }}
         </a>
       </div>
     } @else {
-      <p class="featured__empty">Pronto llegarán nuevas piezas.</p>
+      <p class="featured__empty">{{ t('empty') }}</p>
     }
   </div>
 </section>
 
 <!-- Editorial / Look del momento -->
 <section class="editorial">
-  <div class="editorial__content">
-    <p class="editorial__quote">
-      Apila, combina,
-      <br />
-      hazlo tuyo
-    </p>
+  <div class="editorial__content" *transloco="let t; read: 'home.editorial'">
+    <p class="editorial__quote" [innerHTML]="t('quote')"></p>
     <a
       class="btn btn--primary"
       [routerLink]="['/' + routes.CATALOGUE]"
       [queryParams]="{ category: 'sets' }"
     >
-      Ver conjuntos
+      {{ t('cta') }}
     </a>
   </div>
 </section>
 
 <!-- About / Proceso -->
 <section class="process">
-  <div class="process__inner">
-    <h2 class="section-title">Así nace tu pieza</h2>
+  <div class="process__inner" *transloco="let t; read: 'home.process'">
+    <h2 class="section-title">{{ t('title') }}</h2>
     <div class="process__steps">
       <div class="process__step">
         <span class="process__number">01</span>
-        <h3 class="process__step-title">Elige tu pieza</h3>
+        <h3 class="process__step-title">{{ t('step1.title') }}</h3>
         <p class="process__step-text">
-          Explora la colección y encuentra la joya que te representa.
+          {{ t('step1.text') }}
         </p>
       </div>
       <div class="process__step">
         <span class="process__number">02</span>
-        <h3 class="process__step-title">La tejemos para ti</h3>
+        <h3 class="process__step-title">{{ t('step2.title') }}</h3>
         <p class="process__step-text">
-          Cada pieza se hace a mano con hilo de algodón encerado y seda natural.
+          {{ t('step2.text') }}
         </p>
       </div>
       <div class="process__step">
         <span class="process__number">03</span>
-        <h3 class="process__step-title">La recibes en casa</h3>
+        <h3 class="process__step-title">{{ t('step3.title') }}</h3>
         <p class="process__step-text">
-          Enviamos desde Badajoz a toda España y Europa con mucho cariño.
+          {{ t('step3.text') }}
         </p>
       </div>
     </div>

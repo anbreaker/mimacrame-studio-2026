@@ -1,7 +1,8 @@
 import { CurrencyPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
 
 import { ORDER_STATUS } from '@core/const/order-status.const';
 import { ROUTES } from '@core/const/routes';
@@ -23,7 +24,7 @@ const SHIPPING_COST = 4.95;
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CurrencyPipe, FormsModule, RouterLink],
+  imports: [CurrencyPipe, FormsModule, RouterLink, TranslocoDirective],
   selector: 'app-checkout',
   standalone: true,
   styleUrl: './checkout.component.scss',
@@ -34,6 +35,7 @@ export class CheckoutComponent {
   private readonly orderService = inject(OrderService);
   private readonly paymentService = inject(PaymentService);
   private readonly router = inject(Router);
+  private readonly transloco = inject(TranslocoService);
 
   protected readonly cartStore = inject(CartStore);
 
@@ -48,9 +50,15 @@ export class CheckoutComponent {
   });
 
   protected readonly email = signal('');
-  protected readonly error = signal<string | null>(null);
+  protected readonly errorKey = signal<string | null>(null);
   protected readonly isProcessing = signal(false);
   protected readonly selectedPayment = signal<PaymentMethod>(PAYMENT_METHOD.Card);
+
+  protected readonly error = computed(() => {
+    const key = this.errorKey();
+    if (!key) return null;
+    return key.includes('.') ? this.transloco.translate(key) : key;
+  });
 
   protected readonly PAYMENT_METHOD = PAYMENT_METHOD;
   protected readonly routes = ROUTES;
@@ -68,7 +76,7 @@ export class CheckoutComponent {
       .subscribe({
         error: () => {
           this.isProcessing.set(false);
-          this.error.set('payment.error.order_creation');
+          this.errorKey.set('checkout.errors.order_creation');
         },
         next: (orderId) => {
           this.cartStore.clear();
@@ -97,12 +105,12 @@ export class CheckoutComponent {
 
   protected submit(): void {
     this.isProcessing.set(true);
-    this.error.set(null);
+    this.errorKey.set(null);
 
     this.paymentService.createPaymentIntent(this.orderTotalInCents).subscribe({
       error: () => {
         this.isProcessing.set(false);
-        this.error.set('payment.error.generic');
+        this.errorKey.set('checkout.errors.generic');
       },
       next: (clientSecret) => this.confirmOrder(clientSecret),
     });

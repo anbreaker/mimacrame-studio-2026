@@ -1,6 +1,7 @@
 import { CurrencyPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { TranslocoDirective } from '@jsverse/transloco';
 
 import { ROUTES } from '@core/const/routes';
 import { CartStore } from '@core/store/cart.store';
@@ -9,7 +10,7 @@ const FREE_SHIPPING_THRESHOLD = 40;
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CurrencyPipe, RouterLink],
+  imports: [CurrencyPipe, RouterLink, TranslocoDirective],
   selector: 'app-cart',
   standalone: true,
   styleUrl: './cart.component.scss',

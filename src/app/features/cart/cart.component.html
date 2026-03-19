@@ -1,9 +1,10 @@
-<div class="cart">
+<div class="cart" *transloco="let t; read: 'cart'">
   <h1 class="cart__title">
-    Tu carrito
+    {{ t('title') }}
     @if (!cartStore.isEmpty()) {
       <span class="cart__count">
-        · {{ cartStore.itemCount() }} {{ cartStore.itemCount() === 1 ? 'pieza' : 'piezas' }}
+        · {{ cartStore.itemCount() }}
+        {{ cartStore.itemCount() === 1 ? t('itemCount.singular') : t('itemCount.plural', { count: cartStore.itemCount() }) }}
       </span>
     }
   </h1>
@@ -22,9 +23,9 @@
         <line x1="3" y1="6" x2="21" y2="6" />
         <path d="M16 10a4 4 0 01-8 0" />
       </svg>
-      <p class="cart__empty-text">Tu carrito está vacío</p>
-      <p class="cart__empty-sub">Descubre nuestra colección artesanal</p>
-      <a class="cart__cta" [routerLink]="['/' + routes.CATALOGUE]">Ver colección</a>
+      <p class="cart__empty-text">{{ t('empty.text') }}</p>
+      <p class="cart__empty-sub">{{ t('empty.sub') }}</p>
+      <a class="cart__cta" [routerLink]="['/' + routes.CATALOGUE]">{{ t('empty.cta') }}</a>
     </div>
   } @else {
     <div class="cart__layout">
@@ -49,7 +50,7 @@
                 <button
                   class="cart__qty-btn"
                   (click)="cartStore.updateQuantity(item.product.id, item.quantity - 1)"
-                  aria-label="Reducir cantidad"
+                  [attr.aria-label]="t('items.decrease')"
                 >
                   −
                 </button>
@@ -57,7 +58,7 @@
                 <button
                   class="cart__qty-btn"
                   (click)="cartStore.updateQuantity(item.product.id, item.quantity + 1)"
-                  aria-label="Aumentar cantidad"
+                  [attr.aria-label]="t('items.increase')"
                   [disabled]="item.quantity >= item.product.stock"
                 >
                   +
@@ -67,7 +68,7 @@
               <button
                 class="cart__remove"
                 (click)="cartStore.removeItem(item.product.id)"
-                aria-label="Eliminar del carrito"
+                [attr.aria-label]="t('items.remove')"
               >
                 <svg
                   viewBox="0 0 24 24"
@@ -89,15 +90,11 @@
       </ul>
 
       <!-- Summary -->
-      <div class="cart__summary">
+      <div class="cart__summary" *transloco="let ts; read: 'cart.summary'">
         <!-- Free shipping progress -->
         @if (remainingForFreeShipping > 0) {
           <p class="cart__shipping-hint">
-            Te faltan
-            <strong>
-              {{ remainingForFreeShipping | currency: 'EUR' : 'symbol' : '1.2-2' : 'es' }}
-            </strong>
-            para envío gratis
+            {{ ts('shippingHint', { amount: (remainingForFreeShipping | currency: 'EUR' : 'symbol' : '1.2-2' : 'es') }) }}
           </p>
           <div class="cart__shipping-bar">
             <div
@@ -106,32 +103,32 @@
             ></div>
           </div>
         } @else {
-          <p class="cart__shipping-hint cart__shipping-hint--free">Envío gratis aplicado</p>
+          <p class="cart__shipping-hint cart__shipping-hint--free">{{ ts('shippingFree') }}</p>
         }
 
         <div class="cart__totals">
           <div class="cart__total-row">
-            <span>Subtotal</span>
+            <span>{{ ts('subtotal') }}</span>
             <span>{{ cartStore.total() | currency: 'EUR' : 'symbol' : '1.2-2' : 'es' }}</span>
           </div>
           <div class="cart__total-row">
-            <span>Envío</span>
+            <span>{{ ts('shipping') }}</span>
             <span>
               {{
                 shippingCost === 0
-                  ? 'Gratis'
+                  ? ts('free')
                   : (shippingCost | currency: 'EUR' : 'symbol' : '1.2-2' : 'es')
               }}
             </span>
           </div>
           <div class="cart__total-row cart__total-row--final">
-            <span>Total</span>
+            <span>{{ ts('total') }}</span>
             <span>{{ orderTotal | currency: 'EUR' : 'symbol' : '1.2-2' : 'es' }}</span>
           </div>
         </div>
 
-        <a class="cart__checkout-btn" [routerLink]="['/' + routes.CHECKOUT]">Proceder al pago</a>
-        <a class="cart__continue" [routerLink]="['/' + routes.CATALOGUE]">Seguir comprando</a>
+        <a class="cart__checkout-btn" [routerLink]="['/' + routes.CHECKOUT]">{{ ts('checkout') }}</a>
+        <a class="cart__continue" [routerLink]="['/' + routes.CATALOGUE]">{{ ts('continue') }}</a>
       </div>
     </div>
   }

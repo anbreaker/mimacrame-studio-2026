@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { TranslocoDirective } from '@jsverse/transloco';
 import { map } from 'rxjs';
 
 import { ROUTES } from '@core/const/routes';
@@ -19,7 +20,7 @@ import { CartStore } from '@core/store/cart.store';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CurrencyPipe, RouterLink],
+  imports: [CurrencyPipe, RouterLink, TranslocoDirective],
   selector: 'app-product-detail',
   standalone: true,
   styleUrl: './product-detail.component.scss',

@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { TranslocoDirective } from '@jsverse/transloco';
 
 import { ROUTES } from '@core/const/routes';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink],
+  imports: [RouterLink, TranslocoDirective],
   selector: 'app-order-confirmation',
   standalone: true,
   styleUrl: './order-confirmation.component.scss',

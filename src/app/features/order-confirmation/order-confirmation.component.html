@@ -1,7 +1,7 @@
-<div class="confirmation">
+<div class="confirmation" *transloco="let t; read: 'orderConfirmation'">
   @if (isSuccess()) {
     <!-- Success -->
-    <div class="confirmation__card">
+    <div class="confirmation__card" *transloco="let ts; read: 'orderConfirmation.success'">
       <div class="confirmation__icon confirmation__icon--success" aria-hidden="true">
         <svg
           viewBox="0 0 24 24"
@@ -15,15 +15,15 @@
           <polyline points="9 12 11 14 15 10" />
         </svg>
       </div>
-      <h1 class="confirmation__title">¡Tu pedido está en camino!</h1>
-      <p class="confirmation__subtitle">Hemos enviado la confirmación a tu email</p>
+      <h1 class="confirmation__title">{{ ts('title') }}</h1>
+      <p class="confirmation__subtitle">{{ ts('subtitle') }}</p>
       <p class="confirmation__order-ref">{{ orderRef }}</p>
-      <p class="confirmation__message">Empezamos a tejer tu pedido con mucho cariño 🧶</p>
-      <a class="confirmation__cta" [routerLink]="['/' + routes.CATALOGUE]">Seguir comprando</a>
+      <p class="confirmation__message">{{ ts('message') }}</p>
+      <a class="confirmation__cta" [routerLink]="['/' + routes.CATALOGUE]">{{ ts('cta') }}</a>
     </div>
   } @else {
     <!-- Error -->
-    <div class="confirmation__card">
+    <div class="confirmation__card" *transloco="let te; read: 'orderConfirmation.error'">
       <div class="confirmation__icon confirmation__icon--error" aria-hidden="true">
         <svg
           viewBox="0 0 24 24"
@@ -38,13 +38,13 @@
           <line x1="9" y1="9" x2="15" y2="15" />
         </svg>
       </div>
-      <h1 class="confirmation__title">El pago no se pudo completar</h1>
-      <p class="confirmation__subtitle">Por favor, inténtalo de nuevo o usa otro método de pago.</p>
+      <h1 class="confirmation__title">{{ te('title') }}</h1>
+      <p class="confirmation__subtitle">{{ te('subtitle') }}</p>
       <a
         class="confirmation__cta confirmation__cta--outline"
         [routerLink]="['/' + routes.CHECKOUT]"
       >
-        Intentarlo de nuevo
+        {{ te('cta') }}
       </a>
     </div>
   }

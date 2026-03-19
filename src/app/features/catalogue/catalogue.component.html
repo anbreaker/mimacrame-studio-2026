@@ -1,7 +1,7 @@
-<div class="catalogue">
+<div class="catalogue" *transloco="let t; read: 'catalogue'">
   <!-- Header -->
   <div class="catalogue__header">
-    <h1 class="catalogue__title">Colección</h1>
+    <h1 class="catalogue__title">{{ t('title') }}</h1>
 
     <!-- Search -->
     <div class="catalogue__search">
@@ -20,22 +20,22 @@
       <input
         class="catalogue__search-input"
         type="search"
-        placeholder="Buscar piezas..."
+        [placeholder]="t('search.placeholder')"
         [value]="store.searchQuery()"
         (input)="onSearch($any($event.target).value)"
-        aria-label="Buscar productos"
+        [attr.aria-label]="t('search.label')"
       />
     </div>
   </div>
 
   <!-- Category pills -->
-  <div class="catalogue__filters" role="group" aria-label="Filtrar por categoría">
+  <div class="catalogue__filters" role="group" [attr.aria-label]="t('filters.label')">
     <button
       class="catalogue__pill"
       [class.catalogue__pill--active]="store.selectedCategory() === null"
       (click)="selectCategory(null)"
     >
-      Todas
+      {{ t('filters.all') }}
     </button>
     @for (cat of categoryKeys; track cat) {
       <button
@@ -43,13 +43,19 @@
         [class.catalogue__pill--active]="store.selectedCategory() === cat"
         (click)="selectCategory(cat)"
       >
-        {{ categoryLabels[cat] }}
+        {{ t('home.categories.items.' + cat) }}
       </button>
     }
   </div>
 
   <!-- Count -->
-  <p class="catalogue__count">{{ store.totalCount() }} piezas</p>
+  <p class="catalogue__count">
+    @if (store.totalCount() === 1) {
+      {{ t('count.singular') }}
+    } @else {
+      {{ t('count.plural', { count: store.totalCount() }) }}
+    }
+  </p>
 
   <!-- Grid -->
   @if (store.isLoading()) {
@@ -66,8 +72,8 @@
     </div>
   } @else {
     <div class="catalogue__empty">
-      <p class="catalogue__empty-text">No hay piezas con esos filtros.</p>
-      <button class="catalogue__clear" (click)="store.clearFilters()">Limpiar filtros</button>
+      <p class="catalogue__empty-text">{{ t('empty.text') }}</p>
+      <button class="catalogue__clear" (click)="store.clearFilters()">{{ t('empty.clear') }}</button>
     </div>
   }
 </div>
