@@ -1,7 +1,9 @@
 import { inject, Injectable } from '@angular/core';
 import {
   Auth,
+  GoogleAuthProvider,
   signInWithEmailAndPassword,
+  signInWithPopup,
   signOut,
   user,
   UserCredential,
@@ -9,7 +11,7 @@ import {
 import { doc, Firestore, getDoc } from '@angular/fire/firestore';
 import { from, map, Observable, of, switchMap } from 'rxjs';
 
-import { AppUser } from '../interfaces/user.interface';
+import { AppUser } from '@core/interfaces/user.interface';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -37,6 +39,10 @@ export class AuthService {
 
   login(email: string, password: string): Observable<UserCredential> {
     return from(signInWithEmailAndPassword(this.auth, email, password));
+  }
+
+  loginWithGoogle(): Observable<UserCredential> {
+    return from(signInWithPopup(this.auth, new GoogleAuthProvider()));
   }
 
   logout(): Observable<void> {

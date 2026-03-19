@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { AuthStore } from '../../../core/store/auth.store';
+import { AuthStore } from '@core/store/auth.store';
 
 @Component({
   standalone: true,
