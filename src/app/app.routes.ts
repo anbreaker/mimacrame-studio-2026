@@ -54,7 +54,6 @@ export const routes: Routes = [
             .AccountOrdersComponent,
         path: 'orders',
       },
-      { path: '', pathMatch: 'full', redirectTo: 'profile' },
     ],
     loadComponent: async () =>
       (await import('./features/client/account/account-shell.component')).AccountShellComponent,

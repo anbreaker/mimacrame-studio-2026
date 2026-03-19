@@ -1,6 +1,6 @@
-<div class="account" *transloco="let t; read: 'account.shell'">
-  <!-- Sidebar -->
-  <aside class="account__sidebar">
+<div class="account" [class.account--subpage]="isSubPage()" *transloco="let t">
+  <!-- Sidebar / Main Menu -->
+  <aside class="account__sidebar" [class.account__sidebar--hidden]="isSubPage()">
     <div class="account__avatar">
       <span class="account__avatar-initial">{{ avatarInitial }}</span>
     </div>
@@ -20,22 +20,35 @@
         routerLink="/account/profile"
         routerLinkActive="account__nav-link--active"
       >
-        {{ t('myProfile') }}
+        <span class="account__nav-icon">👤</span>
+        {{ t('account.shell.myProfile') }}
       </a>
       <a
         class="account__nav-link"
         routerLink="/account/orders"
         routerLinkActive="account__nav-link--active"
       >
-        {{ t('myOrders') }}
+        <span class="account__nav-icon">📦</span>
+        {{ t('account.shell.myOrders') }}
       </a>
     </nav>
 
-    <button class="account__logout" type="button" (click)="logout()">{{ t('logout') }}</button>
+    <button class="account__logout" type="button" (click)="logout()">
+      <span class="account__nav-icon">🚪</span>
+      {{ t('account.shell.logout') }}
+    </button>
   </aside>
 
-  <!-- Main content -->
-  <main class="account__content">
+  <!-- Main content / Subpages -->
+  <main class="account__content" [class.account__content--visible]="isSubPage()">
+    @if (isSubPage()) {
+      <a routerLink="/account" class="account__back-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+          <path d="M19 12H5M12 19l-7-7 7-7" />
+        </svg>
+        {{ t('account.shell.back') }}
+      </a>
+    }
     <router-outlet />
   </main>
 </div>

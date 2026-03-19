@@ -1,14 +1,15 @@
 .account {
   display: grid;
   gap: var(--space-xl);
-  grid-template-columns: 260px 1fr;
+  grid-template-columns: 1fr;
   margin: 0 auto;
   max-width: 1100px;
   min-height: calc(100svh - 80px);
-  padding: var(--space-2xl) var(--space-md);
+  padding: var(--space-xl) var(--space-md);
 
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
+  @media (min-width: 768px) {
+    grid-template-columns: 280px 1fr;
+    padding: var(--space-2xl) var(--space-md);
   }
 
   &__sidebar {
@@ -20,6 +21,12 @@
     gap: var(--space-lg);
     height: fit-content;
     padding: var(--space-xl);
+
+    &--hidden {
+      @media (max-width: 767px) {
+        display: none; // Solo ocultamos en móvil si es subpágina
+      }
+    }
   }
 
   &__avatar {
@@ -68,10 +75,13 @@
     padding-top: var(--space-lg);
 
     &-link {
+      align-items: center;
       border-radius: var(--radius-sm);
       color: var(--color-text-muted);
+      display: flex;
       font-size: var(--font-size-sm);
       font-weight: var(--font-weight-medium);
+      gap: var(--space-sm);
       padding: var(--space-sm) var(--space-md);
       text-decoration: none;
       transition:
@@ -88,17 +98,24 @@
         color: var(--color-primary);
       }
     }
+
+    &-icon {
+      font-size: 1.1rem;
+    }
   }
 
   &__logout {
+    align-items: center;
     background-color: transparent;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-sm);
     color: var(--color-text-muted);
     cursor: pointer;
+    display: flex;
     font-family: var(--font-sans);
     font-size: var(--font-size-sm);
-    margin-top: auto;
+    gap: var(--space-sm);
+    margin-top: var(--space-xl);
     padding: var(--space-sm) var(--space-md);
     transition:
       border-color 0.2s,
@@ -115,5 +132,37 @@
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
     padding: var(--space-xl);
+
+    // En móvil, si no es subpágina, ocultamos el contenedor de contenido para que solo se vea el menú
+    @media (max-width: 767px) {
+      display: none;
+      &--visible {
+        display: block;
+      }
+    }
+
+    // En escritorio siempre visible
+    @media (min-width: 768px) {
+      display: block;
+    }
+  }
+
+  &__back-btn {
+    align-items: center;
+    color: var(--color-primary);
+    display: inline-flex;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    gap: var(--space-xs);
+    margin-bottom: var(--space-lg);
+    text-decoration: none;
+
+    @media (min-width: 768px) {
+      display: none;
+    }
+
+    &:hover {
+      opacity: 0.8;
+    }
   }
 }
