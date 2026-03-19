@@ -1,46 +1,73 @@
 import { Routes } from '@angular/router';
 
 import { authGuard } from './core/auth/auth.guard';
+import { clientGuard } from './core/auth/client.guard';
 
 export const routes: Routes = [
   {
     path: '',
-    loadComponent: () =>
-      import('./features/home/home.component').then(m => m.HomeComponent),
+    loadComponent: () => import('./features/home/home.component').then((m) => m.HomeComponent),
   },
   {
-    path: 'catalogo',
+    path: 'catalogue',
     loadComponent: () =>
-      import('./features/catalogue/catalogue.component').then(m => m.CatalogueComponent),
+      import('./features/catalogue/catalogue.component').then((m) => m.CatalogueComponent),
   },
   {
-    path: 'producto/:id',
+    path: 'product/:id',
     loadComponent: () =>
       import('./features/product-detail/product-detail.component').then(
-        m => m.ProductDetailComponent,
+        (m) => m.ProductDetailComponent
       ),
   },
   {
-    path: 'carrito',
-    loadComponent: () =>
-      import('./features/cart/cart.component').then(m => m.CartComponent),
+    path: 'cart',
+    loadComponent: () => import('./features/cart/cart.component').then((m) => m.CartComponent),
   },
   {
     path: 'checkout',
     loadComponent: () =>
-      import('./features/checkout/checkout.component').then(m => m.CheckoutComponent),
+      import('./features/checkout/checkout.component').then((m) => m.CheckoutComponent),
   },
   {
-    path: 'pedido-confirmado',
+    path: 'order-confirmed',
     loadComponent: () =>
       import('./features/order-confirmation/order-confirmation.component').then(
-        m => m.OrderConfirmationComponent,
+        (m) => m.OrderConfirmationComponent
       ),
+  },
+  {
+    path: 'login',
+    loadComponent: () =>
+      import('./features/client/login/client-login.component').then((m) => m.ClientLoginComponent),
+  },
+  {
+    path: 'account',
+    canActivate: [clientGuard],
+    loadComponent: () =>
+      import('./features/client/cuenta/cuenta-shell.component').then((m) => m.CuentaShellComponent),
+    children: [
+      {
+        path: 'profile',
+        loadComponent: () =>
+          import('./features/client/cuenta/perfil/cuenta-perfil.component').then(
+            (m) => m.CuentaPerfilComponent
+          ),
+      },
+      {
+        path: 'orders',
+        loadComponent: () =>
+          import('./features/client/cuenta/pedidos/cuenta-pedidos.component').then(
+            (m) => m.CuentaPedidosComponent
+          ),
+      },
+      { path: '', redirectTo: 'profile', pathMatch: 'full' },
+    ],
   },
   {
     path: 'admin/login',
     loadComponent: () =>
-      import('./features/admin/login/admin-login.component').then(m => m.AdminLoginComponent),
+      import('./features/admin/login/admin-login.component').then((m) => m.AdminLoginComponent),
   },
   {
     path: 'admin',
@@ -50,35 +77,35 @@ export const routes: Routes = [
         path: 'dashboard',
         loadComponent: () =>
           import('./features/admin/dashboard/admin-dashboard.component').then(
-            m => m.AdminDashboardComponent,
+            (m) => m.AdminDashboardComponent
           ),
       },
       {
-        path: 'productos',
+        path: 'products',
         loadComponent: () =>
           import('./features/admin/products/products-list/products-list.component').then(
-            m => m.ProductsListComponent,
+            (m) => m.ProductsListComponent
           ),
       },
       {
-        path: 'productos/nueva',
+        path: 'products/new',
         loadComponent: () =>
           import('./features/admin/products/product-form/product-form.component').then(
-            m => m.ProductFormComponent,
+            (m) => m.ProductFormComponent
           ),
       },
       {
-        path: 'productos/:id',
+        path: 'products/:id',
         loadComponent: () =>
           import('./features/admin/products/product-form/product-form.component').then(
-            m => m.ProductFormComponent,
+            (m) => m.ProductFormComponent
           ),
       },
       {
-        path: 'pedidos',
+        path: 'orders',
         loadComponent: () =>
           import('./features/admin/orders/admin-orders.component').then(
-            m => m.AdminOrdersComponent,
+            (m) => m.AdminOrdersComponent
           ),
       },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
