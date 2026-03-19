@@ -1,5 +1,5 @@
-<section class="profile">
-  <h2 class="profile__title">Mi perfil</h2>
+<section class="profile" *transloco="let t; read: 'account.profile'">
+  <h2 class="profile__title">{{ t('title') }}</h2>
 
   <div class="profile__avatar">
     <span class="profile__avatar-initial">{{ avatarInitial }}</span>
@@ -7,14 +7,14 @@
 
   <dl class="profile__data">
     <div class="profile__data-row">
-      <dt class="profile__data-label">Nombre</dt>
+      <dt class="profile__data-label">{{ t('nameLabel') }}</dt>
       <dd class="profile__data-value">
-        {{ authStore.displayName() ?? 'Sin nombre' }}
+        {{ authStore.displayName() ?? t('noName') }}
       </dd>
     </div>
 
     <div class="profile__data-row">
-      <dt class="profile__data-label">Email</dt>
+      <dt class="profile__data-label">{{ t('emailLabel') }}</dt>
       <dd class="profile__data-value">
         {{ authStore.user()?.email ?? '—' }}
       </dd>

@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/c
 import { signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterLink, ROUTES } from '@angular/router';
+import { TranslocoDirective } from '@jsverse/transloco';
 
 import { ORDER_STATUS } from '@core/const/order-status.const';
 import { Order } from '@core/interfaces/order.interface';
@@ -13,7 +14,7 @@ import { AdminNavComponent } from '@shared/admin-nav/admin-nav.component';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [AdminNavComponent, CurrencyPipe, DatePipe, RouterLink],
+  imports: [AdminNavComponent, CurrencyPipe, DatePipe, RouterLink, TranslocoDirective],
   selector: 'app-admin-dashboard',
   standalone: true,
   styleUrl: './admin-dashboard.component.scss',

@@ -1,4 +1,4 @@
-<div class="account">
+<div class="account" *transloco="let t; read: 'account.shell'">
   <!-- Sidebar -->
   <aside class="account__sidebar">
     <div class="account__avatar">
@@ -20,18 +20,18 @@
         routerLink="/account/profile"
         routerLinkActive="account__nav-link--active"
       >
-        Mi perfil
+        {{ t('myProfile') }}
       </a>
       <a
         class="account__nav-link"
         routerLink="/account/orders"
         routerLinkActive="account__nav-link--active"
       >
-        Mis pedidos
+        {{ t('myOrders') }}
       </a>
     </nav>
 
-    <button class="account__logout" type="button" (click)="logout()">Cerrar sesión</button>
+    <button class="account__logout" type="button" (click)="logout()">{{ t('logout') }}</button>
   </aside>
 
   <!-- Main content -->

@@ -1,11 +1,11 @@
-<div class="admin-layout">
+<div class="admin-layout" *transloco="let t; read: 'admin.products'">
   <app-admin-nav />
   <main class="admin-main">
     <div class="admin-main__inner">
       <div class="admin-page-header">
-        <h1 class="admin-page-title">Productos</h1>
+        <h1 class="admin-page-title">{{ t('title') }}</h1>
         <a class="admin-btn admin-btn--primary" [routerLink]="['/' + routes.ADMIN_PRODUCT_NEW]">
-          + Nueva pieza
+          {{ t('new') }}
         </a>
       </div>
 
@@ -25,7 +25,7 @@
         <input
           class="admin-search__input"
           type="search"
-          placeholder="Buscar por nombre..."
+          [placeholder]="t('search')"
           [value]="searchQuery()"
           (input)="searchQuery.set($any($event.target).value)"
         />
@@ -35,13 +35,13 @@
       @if (confirmDeleteId()) {
         <div class="admin-modal-backdrop" (click)="cancelDelete()">
           <div class="admin-modal" (click)="$event.stopPropagation()">
-            <p class="admin-modal__text">¿Eliminar esta pieza? Esta acción no se puede deshacer.</p>
+            <p class="admin-modal__text">{{ t('deleteModal.text') }}</p>
             <div class="admin-modal__actions">
               <button class="admin-btn admin-btn--danger" (click)="confirmDelete()">
-                Eliminar
+                {{ t('deleteModal.confirm') }}
               </button>
               <button class="admin-btn admin-btn--outline" (click)="cancelDelete()">
-                Cancelar
+                {{ t('deleteModal.cancel') }}
               </button>
             </div>
           </div>
@@ -49,19 +49,19 @@
       }
 
       @if (isLoading()) {
-        <p class="admin-loading">Cargando productos...</p>
+        <p class="admin-loading">{{ t('loading') }}</p>
       } @else if (filteredProducts.length === 0) {
-        <p class="admin-empty">No hay productos.</p>
+        <p class="admin-empty">{{ t('empty') }}</p>
       } @else {
         <div class="products-table-wrapper">
           <table class="products-table">
             <thead>
               <tr>
-                <th>Producto</th>
-                <th>Categoría</th>
-                <th>Precio</th>
-                <th>Stock</th>
-                <th>Estado</th>
+                <th>{{ t('table.product') }}</th>
+                <th>{{ t('table.category') }}</th>
+                <th>{{ t('table.price') }}</th>
+                <th>{{ t('table.stock') }}</th>
+                <th>{{ t('table.status') }}</th>
                 <th></th>
               </tr>
             </thead>
@@ -78,14 +78,14 @@
                       <span>{{ product.name }}</span>
                     </div>
                   </td>
-                  <td>{{ categoryLabels[product.category] }}</td>
+                  <td>{{ t('home.categories.items.' + product.category) }}</td>
                   <td>{{ product.price | currency: 'EUR' : 'symbol' : '1.2-2' : 'es' }}</td>
                   <td [class.products-table__stock--low]="product.stock <= 2">
                     {{ product.stock }}
                   </td>
                   <td>
                     <span class="status-badge" [class.status-badge--active]="product.active">
-                      {{ product.active ? 'Activo' : 'Borrador' }}
+                      {{ product.active ? t('table.active') : t('table.draft') }}
                     </span>
                   </td>
                   <td>
@@ -93,7 +93,7 @@
                       <a
                         class="admin-icon-btn"
                         [routerLink]="['/admin/products', product.id]"
-                        aria-label="Editar"
+                        [attr.aria-label]="t('actions.edit')"
                       >
                         <svg
                           viewBox="0 0 24 24"
@@ -110,7 +110,7 @@
                       <button
                         class="admin-icon-btn admin-icon-btn--danger"
                         (click)="requestDelete(product.id)"
-                        aria-label="Eliminar"
+                        [attr.aria-label]="t('actions.delete')"
                       >
                         <svg
                           viewBox="0 0 24 24"

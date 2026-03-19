@@ -1,6 +1,7 @@
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
 
 import { ORDER_STATUS, OrderStatus } from '@core/const/order-status.const';
 import { Order } from '@core/interfaces/order.interface';
@@ -10,19 +11,9 @@ import { AdminNavComponent } from '@shared/admin-nav/admin-nav.component';
 const FILTER_ALL = 'all' as const;
 type FilterStatus = OrderStatus | typeof FILTER_ALL;
 
-const ORDER_STATUS_LABELS: Record<OrderStatus, string> = {
-  [ORDER_STATUS.Cancelled]: 'Cancelado',
-  [ORDER_STATUS.Delivered]: 'Entregado',
-  [ORDER_STATUS.Paid]: 'Pagado',
-  [ORDER_STATUS.Pending]: 'Pendiente',
-  [ORDER_STATUS.Processing]: 'Preparando',
-  [ORDER_STATUS.Refunded]: 'Reembolsado',
-  [ORDER_STATUS.Shipped]: 'Enviado',
-};
-
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [AdminNavComponent, CurrencyPipe, DatePipe],
+  imports: [AdminNavComponent, CurrencyPipe, DatePipe, TranslocoDirective],
   selector: 'app-admin-orders',
   standalone: true,
   styleUrl: './admin-orders.component.scss',
@@ -46,7 +37,6 @@ export class AdminOrdersComponent {
   protected readonly FILTER_ALL = FILTER_ALL;
   protected readonly ORDER_STATUS = ORDER_STATUS;
   protected readonly statusKeys = Object.values(ORDER_STATUS);
-  protected readonly statusLabels = ORDER_STATUS_LABELS;
 
   constructor() {
     this.orderService

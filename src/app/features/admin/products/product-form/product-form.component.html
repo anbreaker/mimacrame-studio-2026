@@ -1,11 +1,11 @@
-<div class="admin-layout">
+<div class="admin-layout" *transloco="let t; read: 'admin.productForm'">
   <app-admin-nav />
   <main class="admin-main">
     <div class="admin-main__inner">
       <div class="admin-page-header">
-        <h1 class="admin-page-title">{{ isEditMode() ? 'Editar pieza' : 'Nueva pieza' }}</h1>
+        <h1 class="admin-page-title">{{ isEditMode() ? t('editTitle') : t('newTitle') }}</h1>
         <a class="admin-btn admin-btn--outline" [routerLink]="['/' + routes.ADMIN_PRODUCTS]">
-          Cancelar
+          {{ t('cancel') }}
         </a>
       </div>
 
@@ -15,10 +15,10 @@
 
       <div class="product-form">
         <!-- Images -->
-        <section class="form-section">
-          <h2 class="form-section__title">Imágenes</h2>
+        <section class="form-section" *transloco="let ti; read: 'admin.productForm.images'">
+          <h2 class="form-section__title">{{ ti('title') }}</h2>
           <p class="form-section__hint">
-            Sube fotos con la pieza puesta — ¡quedan mucho más bonitas!
+            {{ ti('hint') }}
           </p>
 
           <div class="image-grid">
@@ -29,7 +29,7 @@
                   class="image-thumb__remove"
                   (click)="removeImage($index)"
                   type="button"
-                  aria-label="Eliminar imagen"
+                  [attr.aria-label]="ti('remove')"
                 >
                   ×
                 </button>
@@ -37,7 +37,7 @@
             }
             <label class="image-upload" [class.image-upload--loading]="isUploading()">
               @if (isUploading()) {
-                <span>Subiendo...</span>
+                <span>{{ ti('uploading') }}</span>
               } @else {
                 <svg
                   viewBox="0 0 24 24"
@@ -50,7 +50,7 @@
                   <line x1="12" y1="5" x2="12" y2="19" />
                   <line x1="5" y1="12" x2="19" y2="12" />
                 </svg>
-                <span>Añadir foto</span>
+                <span>{{ ti('add') }}</span>
               }
               <input
                 type="file"
@@ -64,33 +64,33 @@
         </section>
 
         <!-- Basic info -->
-        <section class="form-section">
-          <h2 class="form-section__title">Información básica</h2>
+        <section class="form-section" *transloco="let tb; read: 'admin.productForm.basicInfo.fields'">
+          <h2 class="form-section__title">{{ t('basicInfo.title') }}</h2>
           <div class="form-fields">
             <div class="form-field form-field--full">
-              <label class="form-label">Nombre</label>
+              <label class="form-label">{{ tb('name') }}</label>
               <input
                 class="form-input"
                 type="text"
                 [ngModel]="name()"
                 (ngModelChange)="name.set($event)"
                 name="name"
-                placeholder="Ej: Pulsera Mediterránea"
+                [placeholder]="tb('namePlaceholder')"
               />
             </div>
             <div class="form-field form-field--full">
-              <label class="form-label">Descripción</label>
+              <label class="form-label">{{ tb('description') }}</label>
               <textarea
                 class="form-input form-input--textarea"
                 rows="4"
                 [ngModel]="description()"
                 (ngModelChange)="description.set($event)"
                 name="description"
-                placeholder="Describe materiales, acabados, estilo..."
+                [placeholder]="tb('descriptionPlaceholder')"
               ></textarea>
             </div>
             <div class="form-field">
-              <label class="form-label">Precio (€)</label>
+              <label class="form-label">{{ tb('price') }}</label>
               <input
                 class="form-input"
                 type="number"
@@ -102,7 +102,7 @@
               />
             </div>
             <div class="form-field">
-              <label class="form-label">Stock</label>
+              <label class="form-label">{{ tb('stock') }}</label>
               <input
                 class="form-input"
                 type="number"
@@ -113,7 +113,7 @@
               />
             </div>
             <div class="form-field">
-              <label class="form-label">Categoría</label>
+              <label class="form-label">{{ tb('category') }}</label>
               <select
                 class="form-input"
                 [ngModel]="category()"
@@ -121,7 +121,7 @@
                 name="category"
               >
                 @for (key of categoryKeys; track key) {
-                  <option [value]="key">{{ categoryLabels[key] }}</option>
+                  <option [value]="key">{{ categoryLabels()[key] }}</option>
                 }
               </select>
             </div>
@@ -133,21 +133,21 @@
                   (ngModelChange)="active.set($event)"
                   name="active"
                 />
-                Activo (visible en la tienda)
+                {{ tb('active') }}
               </label>
             </div>
           </div>
         </section>
 
         <!-- Submit -->
-        <div class="form-actions">
+        <div class="form-actions" *transloco="let ts; read: 'admin.productForm.submit'">
           <button
             class="admin-btn admin-btn--primary"
             type="button"
             (click)="save()"
             [disabled]="!isValid() || isSaving()"
           >
-            {{ isSaving() ? 'Guardando...' : isEditMode() ? 'Guardar cambios' : 'Crear pieza' }}
+            {{ isSaving() ? ts('saving') : isEditMode() ? ts('save') : ts('create') }}
           </button>
         </div>
       </div>

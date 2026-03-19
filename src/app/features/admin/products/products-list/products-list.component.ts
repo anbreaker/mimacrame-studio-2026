@@ -1,25 +1,17 @@
 import { CurrencyPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterLink, ROUTES } from '@angular/router';
+import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
 
 import { PRODUCT_CATEGORY, ProductCategory } from '@core/const/product-category.const';
 import { Product } from '@core/interfaces/product.interface';
 import { ProductService } from '@core/services/product.service';
 import { AdminNavComponent } from '@shared/admin-nav/admin-nav.component';
 
-const CATEGORY_LABELS: Record<ProductCategory, string> = {
-  [PRODUCT_CATEGORY.Anklets]: 'Tobilleras',
-  [PRODUCT_CATEGORY.Bracelets]: 'Pulseras',
-  [PRODUCT_CATEGORY.Earrings]: 'Pendientes',
-  [PRODUCT_CATEGORY.Pendants]: 'Colgantes',
-  [PRODUCT_CATEGORY.Rings]: 'Anillos',
-  [PRODUCT_CATEGORY.Sets]: 'Conjuntos',
-};
-
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [AdminNavComponent, CurrencyPipe, RouterLink],
+  imports: [AdminNavComponent, CurrencyPipe, RouterLink, TranslocoDirective],
   selector: 'app-products-list',
   standalone: true,
   styleUrl: './products-list.component.scss',
@@ -33,7 +25,6 @@ export class ProductsListComponent {
   protected readonly products = signal<Product[]>([]);
   protected readonly searchQuery = signal('');
 
-  protected readonly categoryLabels = CATEGORY_LABELS;
   protected readonly routes = ROUTES;
 
   constructor() {

@@ -6,13 +6,15 @@
     flex-direction: row;
   }
 }
+
 .admin-main {
   background-color: var(--color-background);
   flex: 1;
-}
-.admin-main__inner {
-  max-width: 1000px;
-  padding: var(--space-xl) var(--space-md) var(--space-3xl);
+
+  &__inner {
+    max-width: 1000px;
+    padding: var(--space-xl) var(--space-md) var(--space-3xl);
+  }
 }
 
 .admin-page-header {
@@ -108,24 +110,24 @@
     top: 50%;
     transform: translateY(-50%);
   }
-}
 
-.admin-search__input {
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-pill);
-  color: var(--color-text);
-  font-family: var(--font-sans);
-  font-size: var(--font-size-sm);
-  max-width: 320px;
-  outline: none;
-  padding: var(--space-sm) var(--space-md) var(--space-sm) calc(var(--space-md) + 24px);
-  width: 100%;
-  &:focus {
-    border-color: var(--color-primary);
-  }
-  &::placeholder {
-    color: var(--color-text-muted);
+  &__input {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    font-size: var(--font-size-sm);
+    max-width: 320px;
+    outline: none;
+    padding: var(--space-sm) var(--space-md) var(--space-sm) calc(var(--space-md) + 24px);
+    width: 100%;
+    &:focus {
+      border-color: var(--color-primary);
+    }
+    &::placeholder {
+      color: var(--color-text-muted);
+    }
   }
 }
 
@@ -169,27 +171,27 @@
   tr:last-child td {
     border-bottom: none;
   }
-}
 
-.products-table__product {
-  align-items: center;
-  display: flex;
-  gap: var(--space-md);
-}
-.products-table__img {
-  border-radius: var(--radius-sm);
-  flex-shrink: 0;
-  height: 44px;
-  object-fit: cover;
-  width: 44px;
-}
-.products-table__stock--low {
-  color: var(--color-warning);
-  font-weight: var(--font-weight-semibold);
-}
-.products-table__actions {
-  display: flex;
-  gap: var(--space-xs);
+  &__product {
+    align-items: center;
+    display: flex;
+    gap: var(--space-md);
+  }
+  &__img {
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+    height: 44px;
+    object-fit: cover;
+    width: 44px;
+  }
+  &__stock--low {
+    color: var(--color-warning);
+    font-weight: var(--font-weight-semibold);
+  }
+  &__actions {
+    display: flex;
+    gap: var(--space-xs);
+  }
 }
 
 // Status badge
@@ -229,13 +231,13 @@
   max-width: 400px;
   padding: var(--space-2xl);
   width: 100%;
-}
 
-.admin-modal__text {
-  color: var(--color-text);
-  font-size: var(--font-size-base);
-}
-.admin-modal__actions {
-  display: flex;
-  gap: var(--space-md);
+  &__text {
+    color: var(--color-text);
+    font-size: var(--font-size-base);
+  }
+  &__actions {
+    display: flex;
+    gap: var(--space-md);
+  }
 }

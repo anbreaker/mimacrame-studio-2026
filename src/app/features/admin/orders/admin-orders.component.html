@@ -1,8 +1,8 @@
-<div class="admin-layout">
+<div class="admin-layout" *transloco="let t; read: 'admin.orders'">
   <app-admin-nav />
   <main class="admin-main">
     <div class="admin-main__inner">
-      <h1 class="admin-page-title">Pedidos</h1>
+      <h1 class="admin-page-title">{{ t('title') }}</h1>
 
       <!-- Status filter pills -->
       <div class="status-filters">
@@ -11,7 +11,7 @@
           [class.status-pill--active]="filterStatus() === FILTER_ALL"
           (click)="filterStatus.set(FILTER_ALL)"
         >
-          Todos ({{ orders().length }})
+          {{ t('filterAll', { count: orders().length }) }}
         </button>
         @for (status of statusKeys; track status) {
           <button
@@ -19,15 +19,15 @@
             [class.status-pill--active]="filterStatus() === status"
             (click)="filterStatus.set(status)"
           >
-            {{ statusLabels[status] }}
+            {{ t('statuses.' + status) }}
           </button>
         }
       </div>
 
       @if (isLoading()) {
-        <p class="admin-loading">Cargando pedidos...</p>
+        <p class="admin-loading">{{ t('loading') }}</p>
       } @else if (filteredOrders().length === 0) {
-        <p class="admin-empty">No hay pedidos con este estado.</p>
+        <p class="admin-empty">{{ t('empty') }}</p>
       } @else {
         <div class="orders-list">
           @for (order of filteredOrders(); track order.id) {
@@ -38,7 +38,7 @@
                   {{ order.total | currency: 'EUR' : 'symbol' : '1.2-2' : 'es' }}
                 </span>
                 <span class="status-chip" [attr.data-status]="order.status">
-                  {{ statusLabels[order.status] }}
+                  {{ t('statuses.' + order.status) }}
                 </span>
                 <span class="order-card__date">
                   {{ toDate(order.createdAt) | date: 'dd/MM/yy' }}
@@ -85,14 +85,14 @@
 
                   <!-- Status update -->
                   <div class="order-detail__actions">
-                    <span class="form-label">Cambiar estado:</span>
+                    <span class="form-label">{{ t('changeStatus') }}</span>
                     <select
                       class="form-input"
                       [value]="order.status"
                       (change)="updateStatus(order.id, $any($event.target).value)"
                     >
                       @for (status of statusKeys; track status) {
-                        <option [value]="status">{{ statusLabels[status] }}</option>
+                        <option [value]="status">{{ t('statuses.' + status) }}</option>
                       }
                     </select>
                   </div>

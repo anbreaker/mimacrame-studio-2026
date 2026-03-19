@@ -1,9 +1,11 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { TranslocoDirective } from '@jsverse/transloco';
 
 import { AuthStore } from '@core/store/auth.store';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [TranslocoDirective],
   selector: 'app-account-profile',
   standalone: true,
   styleUrl: './account-profile.component.scss',

@@ -1,11 +1,12 @@
-import { DecimalPipe } from '@angular/common';
+import { CurrencyPipe, DecimalPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { TranslocoDirective } from '@jsverse/transloco';
 
 import { Order } from '@core/interfaces/order.interface';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [DecimalPipe],
+  imports: [CurrencyPipe, DecimalPipe, TranslocoDirective],
   selector: 'app-account-orders',
   standalone: true,
   styleUrl: './account-orders.component.scss',
