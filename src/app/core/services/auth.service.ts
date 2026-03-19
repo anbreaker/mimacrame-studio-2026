@@ -5,11 +5,12 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  User,
   user,
   UserCredential,
 } from '@angular/fire/auth';
-import { doc, Firestore, getDoc } from '@angular/fire/firestore';
-import { from, map, Observable, of, switchMap } from 'rxjs';
+import { doc, Firestore, getDoc, setDoc } from '@angular/fire/firestore';
+import { from, map, Observable, of, switchMap, tap } from 'rxjs';
 
 import { AppUser } from '@core/interfaces/user.interface';
 
@@ -38,14 +39,36 @@ export class AuthService {
   );
 
   login(email: string, password: string): Observable<UserCredential> {
-    return from(signInWithEmailAndPassword(this.auth, email, password));
+    return from(signInWithEmailAndPassword(this.auth, email, password)).pipe(
+      tap((credential) => this.syncUser(credential.user))
+    );
   }
 
   loginWithGoogle(): Observable<UserCredential> {
-    return from(signInWithPopup(this.auth, new GoogleAuthProvider()));
+    return from(signInWithPopup(this.auth, new GoogleAuthProvider())).pipe(
+      tap((credential) => this.syncUser(credential.user))
+    );
   }
 
   logout(): Observable<void> {
     return from(signOut(this.auth));
+  }
+
+  updateProfile(uid: string, data: Partial<AppUser>): Observable<void> {
+    return from(setDoc(doc(this.firestore, `users/${uid}`), data, { merge: true }));
+  }
+
+  private syncUser(user: User): void {
+    const userDoc = doc(this.firestore, `users/${user.uid}`);
+    getDoc(userDoc).then((snapshot) => {
+      if (!snapshot.exists()) {
+        setDoc(userDoc, {
+          displayName: user.displayName,
+          email: user.email,
+          isAdmin: false,
+          photoURL: user.photoURL,
+        });
+      }
+    });
   }
 }

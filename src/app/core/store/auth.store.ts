@@ -1,4 +1,4 @@
-import { computed, inject, Injectable, signal } from '@angular/core';
+import { computed, effect, inject, Injectable, signal, untracked } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 
@@ -24,6 +24,7 @@ export class AuthStore {
   private readonly router = inject(Router);
 
   private readonly _errorKey = signal<string | null>(initialState.error);
+  private readonly _isCheckingAdmin = signal(false);
   private readonly _isLoading = signal(initialState.isLoading);
   private readonly _user = signal<AppUser | null>(initialState.user);
 
@@ -40,6 +41,27 @@ export class AuthStore {
       this._user.set(user);
       this._isLoading.set(false);
     });
+
+    effect(() => {
+      const user = this.user();
+      const isChecking = this._isCheckingAdmin();
+
+      if (isChecking && user) {
+        untracked(() => {
+          this._isCheckingAdmin.set(false);
+
+          if (user.isAdmin) {
+            this._isLoading.set(false);
+            this.router.navigate(['/admin/dashboard']);
+          } else {
+            this.authService.logout().subscribe(() => {
+              this._isLoading.set(false);
+              this._errorKey.set('authErrors.noAdmin');
+            });
+          }
+        });
+      }
+    });
   }
 
   clearError(): void {
@@ -49,22 +71,13 @@ export class AuthStore {
   login(email: string, password: string): void {
     this._isLoading.set(true);
     this._errorKey.set(null);
+    this._isCheckingAdmin.set(true);
 
     this.authService.login(email, password).subscribe({
       error: (err: Error) => {
         this._isLoading.set(false);
+        this._isCheckingAdmin.set(false);
         this._errorKey.set(toReadableError(err.message));
-      },
-      next: (user) => {
-        if (user.isAdmin) {
-          this._isLoading.set(false);
-          this.router.navigate(['/admin/dashboard']);
-        } else {
-          this.authService.logout().subscribe(() => {
-            this._isLoading.set(false);
-            this._errorKey.set('authErrors.noAdmin');
-          });
-        }
       },
     });
   }
@@ -72,22 +85,13 @@ export class AuthStore {
   loginWithGoogle(): void {
     this._isLoading.set(true);
     this._errorKey.set(null);
+    this._isCheckingAdmin.set(true);
 
     this.authService.loginWithGoogle().subscribe({
       error: (err: Error) => {
         this._isLoading.set(false);
+        this._isCheckingAdmin.set(false);
         this._errorKey.set(toReadableError(err.message));
-      },
-      next: (user) => {
-        if (user.isAdmin) {
-          this._isLoading.set(false);
-          this.router.navigate(['/admin/dashboard']);
-        } else {
-          this.authService.logout().subscribe(() => {
-            this._isLoading.set(false);
-            this._errorKey.set('authErrors.noAdmin');
-          });
-        }
       },
     });
   }
