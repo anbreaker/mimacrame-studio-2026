@@ -58,7 +58,7 @@
   "scripts": {
     "build": "ng build",
     "commit:validate": "node -e \"const msg = process.argv[1]; const ok = /^(feat|fix|docs|style|refactor|test|chore|perf|ci|build|revert)(\\(.+\\))?: .{1,50}/.test(msg); process.exit(ok ? 0 : 1);\" --",
-    "dev": "ng serve --configuration dev --open",
+    "dev": "vite --mode dev --open",
     "dev:api": "concurrently \"npm run json-server\" \"npm run dev\"",
     "format": "prettier --write \"src/**/*.{ts,html,scss}\" \"*.json\"",
     "json-server": "json-server --watch server/db.json --port 3000",
@@ -66,7 +66,7 @@
     "lint:fix": "eslint \"src/**/*.{ts,js}\" --fix && eslint \"*.json\" --fix",
     "lint:prod": "NODE_ENV=production eslint \"src/**/*.{ts,js}\" && NODE_ENV=production eslint \"*.json\"",
     "ng": "ng",
-    "start": "ng serve",
+    "start": "vite --mode dev",
     "test": "vitest run",
     "test:ui": "vitest --ui",
     "test:watch": "vitest",

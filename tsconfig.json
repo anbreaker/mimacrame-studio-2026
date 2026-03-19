@@ -35,5 +35,5 @@
     "target": "ES2022",
     "types": ["vitest/globals", "vite/client"]
   },
-  "include": ["src/**/*.ts", "vitest.config.ts"]
+  "include": ["src/**/*.ts", "vitest.config.ts", "vite.config.ts"]
 }
