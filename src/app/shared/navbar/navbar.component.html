@@ -7,19 +7,20 @@
     </a>
 
     <!-- Desktop nav links -->
-    <nav class="navbar__links" aria-label="Navegación principal">
+    <nav class="navbar__links" aria-label="Navegación principal" *transloco="let t; read: 'navbar'">
       <a
         class="navbar__link"
         [routerLink]="['/' + routes.CATALOGUE]"
         routerLinkActive="navbar__link--active"
       >
-        Colección
+        {{ t('collection') }}
       </a>
     </nav>
 
     <!-- Desktop actions -->
-    <div class="navbar__actions">
-      <a class="navbar__action" [routerLink]="['/' + routes.CART]" aria-label="Carrito de compra">
+    <div class="navbar__actions" *transloco="let t; read: 'navbar'">
+      <app-lang-selector />
+      <a class="navbar__action" [routerLink]="['/' + routes.CART]" [attr.aria-label]="t('cart')">
         <svg
           class="navbar__icon"
           viewBox="0 0 24 24"

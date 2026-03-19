@@ -1,15 +1,15 @@
-<footer class="footer">
+<footer class="footer" *transloco="let t; read: 'footer'">
   <div class="footer__inner">
     <!-- Brand -->
     <div class="footer__brand">
       <span class="footer__logo">Mimacramé</span>
-      <p class="footer__tagline">Joyería artesanal de macramé hecha a mano, pieza a pieza.</p>
+      <p class="footer__tagline">{{ t('tagline') }}</p>
       <a
         class="footer__instagram"
         href="https://instagram.com"
         target="_blank"
         rel="noopener"
-        aria-label="Instagram de Mimacramé Studio"
+        [attr.aria-label]="t('instagram')"
       >
         <svg
           viewBox="0 0 24 24"
@@ -29,15 +29,15 @@
 
     <!-- Links -->
     <nav class="footer__links" aria-label="Enlaces del pie de página">
-      <a class="footer__link" routerLink="/catalogue">Colección</a>
-      <a class="footer__link" routerLink="/">Envíos y devoluciones</a>
-      <a class="footer__link" routerLink="/">Cuidados de tu pieza</a>
-      <a class="footer__link" routerLink="/">Política de privacidad</a>
-      <a class="footer__link" routerLink="/">Contacto</a>
+      <a class="footer__link" routerLink="/catalogue">{{ t('links.collection') }}</a>
+      <a class="footer__link" routerLink="/">{{ t('links.shipping') }}</a>
+      <a class="footer__link" routerLink="/">{{ t('links.care') }}</a>
+      <a class="footer__link" routerLink="/">{{ t('links.privacy') }}</a>
+      <a class="footer__link" routerLink="/">{{ t('links.contact') }}</a>
     </nav>
   </div>
 
   <div class="footer__bottom">
-    <p class="footer__copy">&copy; {{ currentYear }} Mimacramé Studio · Badajoz, Extremadura</p>
+    <p class="footer__copy">&copy; {{ currentYear }} {{ t('copy') }}</p>
   </div>
 </footer>

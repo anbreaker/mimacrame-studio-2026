@@ -1,4 +1,8 @@
-<article class="product-card" [routerLink]="['/producto', product().id]">
+<article
+  class="product-card"
+  [routerLink]="['/producto', product().id]"
+  *transloco="let t; read: 'productCard'"
+>
   <!-- Image -->
   <div class="product-card__image-wrapper">
     <img
@@ -11,9 +15,9 @@
     <!-- Badges -->
     <div class="product-card__badges">
       @if (isOutOfStock) {
-        <span class="product-card__badge product-card__badge--out">Agotado</span>
+        <span class="product-card__badge product-card__badge--out">{{ t('outOfStock') }}</span>
       } @else if (isLowStock) {
-        <span class="product-card__badge product-card__badge--low">Últimas unidades</span>
+        <span class="product-card__badge product-card__badge--low">{{ t('lowStock') }}</span>
       }
     </div>
 
@@ -22,7 +26,7 @@
       <button
         class="product-card__quick-add"
         (click)="addToCart($event)"
-        aria-label="Añadir al carrito"
+        [attr.aria-label]="t('quickAdd')"
       >
         <svg
           viewBox="0 0 24 24"
