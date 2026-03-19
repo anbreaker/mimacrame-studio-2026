@@ -6,100 +6,100 @@ import { ROUTES } from '@core/const/routes';
 
 export const routes: Routes = [
   {
-    path: ROUTES.HOME,
     loadComponent: async () => (await import('./features/home/home.component')).HomeComponent,
+    path: ROUTES.HOME,
   },
   {
-    path: ROUTES.CATALOGUE,
     loadComponent: async () =>
       (await import('./features/catalogue/catalogue.component')).CatalogueComponent,
+    path: ROUTES.CATALOGUE,
   },
   {
-    path: ROUTES.PRODUCT_ID,
     loadComponent: async () =>
       (await import('./features/product-detail/product-detail.component')).ProductDetailComponent,
+    path: ROUTES.PRODUCT_ID,
   },
   {
-    path: ROUTES.CART,
     loadComponent: async () => (await import('./features/cart/cart.component')).CartComponent,
+    path: ROUTES.CART,
   },
   {
-    path: ROUTES.CHECKOUT,
     loadComponent: async () =>
       (await import('./features/checkout/checkout.component')).CheckoutComponent,
+    path: ROUTES.CHECKOUT,
   },
   {
-    path: ROUTES.ORDER_CONFIRMED,
     loadComponent: async () =>
       (await import('./features/order-confirmation/order-confirmation.component'))
         .OrderConfirmationComponent,
+    path: ROUTES.ORDER_CONFIRMED,
   },
   {
-    path: ROUTES.LOGIN,
     loadComponent: async () =>
       (await import('./features/client/login/client-login.component')).ClientLoginComponent,
+    path: ROUTES.LOGIN,
   },
   {
-    path: ROUTES.ACCOUNT,
     canActivate: [clientGuard],
-    loadComponent: async () =>
-      (await import('./features/client/account/account-shell.component')).AccountShellComponent,
     children: [
       {
-        path: 'profile',
         loadComponent: async () =>
           (await import('./features/client/account/profile/account-profile.component'))
             .AccountProfileComponent,
+        path: 'profile',
       },
       {
-        path: 'orders',
         loadComponent: async () =>
           (await import('./features/client/account/orders/account-orders.component'))
             .AccountOrdersComponent,
+        path: 'orders',
       },
-      { path: '', redirectTo: 'profile', pathMatch: 'full' },
+      { path: '', pathMatch: 'full', redirectTo: 'profile' },
     ],
+    loadComponent: async () =>
+      (await import('./features/client/account/account-shell.component')).AccountShellComponent,
+    path: ROUTES.ACCOUNT,
   },
   {
-    path: ROUTES.ADMIN_LOGIN,
     loadComponent: async () =>
       (await import('./features/admin/login/admin-login.component')).AdminLoginComponent,
+    path: ROUTES.ADMIN_LOGIN,
   },
   {
-    path: ROUTES.ADMIN,
     canActivate: [authGuard],
     children: [
       {
-        path: 'dashboard',
         loadComponent: async () =>
           (await import('./features/admin/dashboard/admin-dashboard.component'))
             .AdminDashboardComponent,
+        path: 'dashboard',
       },
       {
-        path: 'products',
         loadComponent: async () =>
           (await import('./features/admin/products/products-list/products-list.component'))
             .ProductsListComponent,
+        path: 'products',
       },
       {
+        loadComponent: async () =>
+          (await import('./features/admin/products/product-form/product-form.component'))
+            .ProductFormComponent,
         path: 'products/new',
+      },
+      {
         loadComponent: async () =>
           (await import('./features/admin/products/product-form/product-form.component'))
             .ProductFormComponent,
-      },
-      {
         path: 'products/:id',
-        loadComponent: async () =>
-          (await import('./features/admin/products/product-form/product-form.component'))
-            .ProductFormComponent,
       },
       {
-        path: 'orders',
         loadComponent: async () =>
           (await import('./features/admin/orders/admin-orders.component')).AdminOrdersComponent,
+        path: 'orders',
       },
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
     ],
+    path: ROUTES.ADMIN,
   },
   { path: '**', redirectTo: '' },
 ];
