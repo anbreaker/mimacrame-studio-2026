@@ -1,7 +1,7 @@
-<div class="catalogue" *transloco="let t; read: 'catalogue'">
+<div class="catalogue" *transloco="let t">
   <!-- Header -->
   <div class="catalogue__header">
-    <h1 class="catalogue__title">{{ t('title') }}</h1>
+    <h1 class="catalogue__title">{{ t('catalogue.title') }}</h1>
 
     <!-- Search -->
     <div class="catalogue__search">
@@ -20,22 +20,22 @@
       <input
         class="catalogue__search-input"
         type="search"
-        [placeholder]="t('search.placeholder')"
-        [value]="store.searchQuery()"
+        [placeholder]="t('catalogue.search.placeholder')"
+        [value]="localSearchQuery()"
         (input)="onSearch($any($event.target).value)"
-        [attr.aria-label]="t('search.label')"
+        [attr.aria-label]="t('catalogue.search.label')"
       />
     </div>
   </div>
 
   <!-- Category pills -->
-  <div class="catalogue__filters" role="group" [attr.aria-label]="t('filters.label')">
+  <div class="catalogue__filters" role="group" [attr.aria-label]="t('catalogue.filters.label')">
     <button
       class="catalogue__pill"
       [class.catalogue__pill--active]="store.selectedCategory() === null"
       (click)="selectCategory(null)"
     >
-      {{ t('filters.all') }}
+      {{ t('catalogue.filters.all') }}
     </button>
     @for (cat of categoryKeys; track cat) {
       <button
@@ -51,9 +51,9 @@
   <!-- Count -->
   <p class="catalogue__count">
     @if (store.totalCount() === 1) {
-      {{ t('count.singular') }}
+      {{ t('catalogue.count.singular') }}
     } @else {
-      {{ t('count.plural', { count: store.totalCount() }) }}
+      {{ t('catalogue.count.plural', { count: store.totalCount() }) }}
     }
   </p>
 
@@ -72,8 +72,10 @@
     </div>
   } @else {
     <div class="catalogue__empty">
-      <p class="catalogue__empty-text">{{ t('empty.text') }}</p>
-      <button class="catalogue__clear" (click)="store.clearFilters()">{{ t('empty.clear') }}</button>
+      <p class="catalogue__empty-text">{{ t('catalogue.empty.text') }}</p>
+      <button class="catalogue__clear" (click)="store.clearFilters()">
+        {{ t('catalogue.empty.clear') }}
+      </button>
     </div>
   }
 </div>

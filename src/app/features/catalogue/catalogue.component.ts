@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslocoDirective } from '@jsverse/transloco';
 
@@ -17,15 +17,31 @@ import { ProductCardComponent } from '@shared/product-card/product-card.componen
 export class CatalogueComponent implements OnInit {
   protected readonly store = inject(CatalogueStore);
 
+  // Signal local para el input de búsqueda (para el debounce)
+  protected readonly localSearchQuery = signal('');
   protected readonly categoryKeys = Object.values(PRODUCT_CATEGORY);
+
   protected readonly PRODUCT_CATEGORY = PRODUCT_CATEGORY;
+
+  constructor() {
+    // Sincronizamos la búsqueda local con el store con un pequeño debounce
+    effect((onCleanup) => {
+      const query = this.localSearchQuery();
+
+      const timeout = setTimeout(() => {
+        this.store.search(query);
+      }, 300);
+
+      onCleanup(() => clearTimeout(timeout));
+    });
+  }
 
   ngOnInit(): void {
     this.store.clearFilters();
   }
 
   protected onSearch(query: string): void {
-    this.store.search(query);
+    this.localSearchQuery.set(query);
   }
 
   protected selectCategory(category: ProductCategory | null): void {

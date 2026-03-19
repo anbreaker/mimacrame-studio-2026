@@ -93,6 +93,12 @@
       background-color: var(--color-primary);
       border-color: var(--color-primary);
       color: white;
+      cursor: default;
+
+      &:hover {
+        background-color: var(--color-primary);
+        color: white;
+      }
     }
   }
 
