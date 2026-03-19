@@ -1,4 +1,3 @@
-// CSS Reset
 *,
 *::before,
 *::after {
@@ -7,15 +6,24 @@
   padding: 0;
 }
 
+*:not(dialog) {
+  margin: 0;
+}
+
 html {
   font-size: 16px;
   scroll-behavior: smooth;
+
+  @media (prefers-reduced-motion: no-preference) {
+    interpolate-size: allow-keywords;
+  }
 }
 
 body {
-  font-family: sans-serif;
-  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  font-family: var(--font-sans, sans-serif);
+  line-height: 1.5;
+  min-height: 100svh;
 }
 
 img,
@@ -32,4 +40,32 @@ button,
 textarea,
 select {
   font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+
+app-root {
+  display: block;
+  isolation: isolate;
 }

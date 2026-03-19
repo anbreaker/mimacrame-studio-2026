@@ -3,9 +3,7 @@
   "cli": {
     "analytics": false,
     "packageManager": "npm",
-    "schematicCollections": [
-      "angular-eslint"
-    ]
+    "schematicCollections": ["angular-eslint"]
   },
   "newProjectRoot": "projects",
   "projects": {
@@ -99,13 +97,9 @@
             "inlineStyleLanguage": "scss",
             "outputPath": "www",
             "stylePreprocessorOptions": {
-              "includePaths": [
-                "src/styles"
-              ]
+              "includePaths": ["src/styles"]
             },
-            "styles": [
-              "src/styles/styles.scss"
-            ],
+            "styles": ["src/styles/styles.scss"],
             "tsConfig": "tsconfig.app.json"
           }
         },

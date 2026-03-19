@@ -2,10 +2,10 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterLink],
   selector: 'app-footer',
+  standalone: true,
   styleUrl: './footer.component.scss',
   templateUrl: './footer.component.html',
 })
