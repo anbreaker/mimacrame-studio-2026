@@ -4,10 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { AuthStore } from '@core/store/auth.store';
 
 @Component({
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FormsModule],
   selector: 'app-admin-login',
+  standalone: true,
   styleUrl: './admin-login.component.scss',
   templateUrl: './admin-login.component.html',
 })

@@ -18,36 +18,37 @@ import { ProductService } from '@core/services/product.service';
 import { CartStore } from '@core/store/cart.store';
 
 @Component({
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CurrencyPipe, RouterLink],
   selector: 'app-product-detail',
+  standalone: true,
   styleUrl: './product-detail.component.scss',
   templateUrl: './product-detail.component.html',
 })
 export class ProductDetailComponent implements OnInit {
-  private readonly route = inject(ActivatedRoute);
-  private readonly router = inject(Router);
-  private readonly productService = inject(ProductService);
   private readonly cartStore = inject(CartStore);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly productService = inject(ProductService);
+  private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
 
   protected readonly isLoading = signal(true);
   protected readonly product = signal<Product | null>(null);
   protected readonly quantity = signal(1);
-  protected readonly routes = ROUTES;
   protected readonly selectedImageIndex = signal(0);
 
+  protected readonly isLowStock = computed(() => {
+    const stock = this.product()?.stock ?? 0;
+    return stock > 0 && stock <= 2;
+  });
+
+  protected readonly isOutOfStock = computed(() => (this.product()?.stock ?? 0) === 0);
   protected readonly selectedImage = computed(
     () =>
       this.product()?.images[this.selectedImageIndex()] ?? 'assets/images/placeholder-product.jpg'
   );
 
-  protected readonly isOutOfStock = computed(() => (this.product()?.stock ?? 0) === 0);
-  protected readonly isLowStock = computed(() => {
-    const stock = this.product()?.stock ?? 0;
-    return stock > 0 && stock <= 2;
-  });
+  protected readonly routes = ROUTES;
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
@@ -67,8 +68,14 @@ export class ProductDetailComponent implements OnInit {
       : this.router.navigate(['/']);
   }
 
-  protected selectImage(index: number): void {
-    this.selectedImageIndex.set(index);
+  protected addToCart(): void {
+    const product = this.product();
+    !this.isOutOfStock() && product && this.cartStore.addItem(product, this.quantity());
+  }
+
+  protected buyNow(): void {
+    this.addToCart();
+    this.router.navigate(['/' + ROUTES.CHECKOUT]);
   }
 
   protected decreaseQuantity(): void {
@@ -80,13 +87,7 @@ export class ProductDetailComponent implements OnInit {
     this.quantity.update((currentQuantity) => Math.min(stock, currentQuantity + 1));
   }
 
-  protected addToCart(): void {
-    const product = this.product();
-    !this.isOutOfStock() && product && this.cartStore.addItem(product, this.quantity());
-  }
-
-  protected buyNow(): void {
-    this.addToCart();
-    this.router.navigate(['/' + ROUTES.CHECKOUT]);
+  protected selectImage(index: number): void {
+    this.selectedImageIndex.set(index);
   }
 }

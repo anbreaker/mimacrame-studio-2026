@@ -8,10 +8,10 @@ import { AuthService } from '@core/services/auth.service';
 import { toReadableError } from '@core/utils/auth-error.util';
 
 @Component({
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FormsModule],
   selector: 'app-client-login',
+  standalone: true,
   styleUrl: './client-login.component.scss',
   templateUrl: './client-login.component.html',
 })
@@ -19,13 +19,13 @@ export class ClientLoginComponent {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
 
-  private readonly currentUser = toSignal(this.authService.currentUser$);
-
   protected readonly email = signal('');
   protected readonly error = signal<string | null>(null);
   protected readonly isLoading = signal(false);
   protected readonly password = signal('');
   protected readonly showPassword = signal(false);
+
+  private readonly currentUser = toSignal(this.authService.currentUser$);
 
   constructor() {
     effect(() => {
@@ -44,13 +44,13 @@ export class ClientLoginComponent {
     this.error.set(null);
 
     this.authService.login(email, password).subscribe({
-      next: () => {
-        this.isLoading.set(false);
-        this.router.navigate(['/' + ROUTES.ACCOUNT]);
-      },
       error: (err: Error) => {
         this.isLoading.set(false);
         this.error.set(toReadableError(err.message));
+      },
+      next: () => {
+        this.isLoading.set(false);
+        this.router.navigate(['/' + ROUTES.ACCOUNT]);
       },
     });
   }
@@ -60,13 +60,13 @@ export class ClientLoginComponent {
     this.error.set(null);
 
     this.authService.loginWithGoogle().subscribe({
-      next: () => {
-        this.isLoading.set(false);
-        this.router.navigate(['/' + ROUTES.ACCOUNT]);
-      },
       error: (err: Error) => {
         this.isLoading.set(false);
         this.error.set(toReadableError(err.message));
+      },
+      next: () => {
+        this.isLoading.set(false);
+        this.router.navigate(['/' + ROUTES.ACCOUNT]);
       },
     });
   }

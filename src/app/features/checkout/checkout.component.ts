@@ -12,8 +12,8 @@ import { AuthStore } from '@core/store/auth.store';
 import { CartStore } from '@core/store/cart.store';
 
 const PAYMENT_METHOD = {
-  Card: 'card',
   Bizum: 'bizum',
+  Card: 'card',
   Paypal: 'paypal',
 } as const;
 type PaymentMethod = (typeof PAYMENT_METHOD)[keyof typeof PAYMENT_METHOD];
@@ -22,19 +22,20 @@ const FREE_SHIPPING_THRESHOLD = 40;
 const SHIPPING_COST = 4.95;
 
 @Component({
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CurrencyPipe, FormsModule, RouterLink],
   selector: 'app-checkout',
+  standalone: true,
   styleUrl: './checkout.component.scss',
   templateUrl: './checkout.component.html',
 })
 export class CheckoutComponent {
-  private readonly router = inject(Router);
-  protected readonly cartStore = inject(CartStore);
+  private readonly authStore = inject(AuthStore);
   private readonly orderService = inject(OrderService);
   private readonly paymentService = inject(PaymentService);
-  private readonly authStore = inject(AuthStore);
+  private readonly router = inject(Router);
+
+  protected readonly cartStore = inject(CartStore);
 
   protected readonly address = signal<ShippingAddress>({
     city: '',
@@ -45,6 +46,7 @@ export class CheckoutComponent {
     province: '',
     street: '',
   });
+
   protected readonly email = signal('');
   protected readonly error = signal<string | null>(null);
   protected readonly isProcessing = signal(false);
@@ -53,8 +55,28 @@ export class CheckoutComponent {
   protected readonly PAYMENT_METHOD = PAYMENT_METHOD;
   protected readonly routes = ROUTES;
 
-  protected get shippingCost(): number {
-    return this.cartStore.total() >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_COST;
+  private confirmOrder(clientSecret: string): void {
+    this.orderService
+      .create({
+        items: this.cartStore.items(),
+        shippingAddress: this.address(),
+        status: ORDER_STATUS.Pending,
+        stripePaymentIntentId: clientSecret.split('_secret_')[0],
+        total: this.orderTotal,
+        userId: this.authStore.user()?.uid ?? null,
+      })
+      .subscribe({
+        error: () => {
+          this.isProcessing.set(false);
+          this.error.set('payment.error.order_creation');
+        },
+        next: (orderId) => {
+          this.cartStore.clear();
+          this.router.navigate(['/' + ROUTES.ORDER_CONFIRMED], {
+            queryParams: { orderId, success: true },
+          });
+        },
+      });
   }
 
   protected get orderTotal(): number {
@@ -69,8 +91,8 @@ export class CheckoutComponent {
     this.selectedPayment.set(method);
   }
 
-  protected updateAddress(field: keyof ShippingAddress, value: string): void {
-    this.address.update((addr) => ({ ...addr, [field]: value }));
+  protected get shippingCost(): number {
+    return this.cartStore.total() >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_COST;
   }
 
   protected submit(): void {
@@ -78,35 +100,15 @@ export class CheckoutComponent {
     this.error.set(null);
 
     this.paymentService.createPaymentIntent(this.orderTotalInCents).subscribe({
-      next: (clientSecret) => this.confirmOrder(clientSecret),
       error: () => {
         this.isProcessing.set(false);
         this.error.set('payment.error.generic');
       },
+      next: (clientSecret) => this.confirmOrder(clientSecret),
     });
   }
 
-  private confirmOrder(clientSecret: string): void {
-    this.orderService
-      .create({
-        userId: this.authStore.user()?.uid ?? null,
-        items: this.cartStore.items(),
-        total: this.orderTotal,
-        shippingAddress: this.address(),
-        status: ORDER_STATUS.Pending,
-        stripePaymentIntentId: clientSecret.split('_secret_')[0],
-      })
-      .subscribe({
-        next: (orderId) => {
-          this.cartStore.clear();
-          this.router.navigate(['/' + ROUTES.ORDER_CONFIRMED], {
-            queryParams: { orderId, success: true },
-          });
-        },
-        error: () => {
-          this.isProcessing.set(false);
-          this.error.set('payment.error.order_creation');
-        },
-      });
+  protected updateAddress(field: keyof ShippingAddress, value: string): void {
+    this.address.update((addr) => ({ ...addr, [field]: value }));
   }
 }

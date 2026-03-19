@@ -4,12 +4,12 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { AuthStore } from '@core/store/auth.store';
 
 @Component({
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [RouterLink, RouterLinkActive, RouterOutlet],
   selector: 'app-account-shell',
-  imports: [RouterOutlet, RouterLink, RouterLinkActive],
-  templateUrl: './account-shell.component.html',
+  standalone: true,
   styleUrl: './account-shell.component.scss',
+  templateUrl: './account-shell.component.html',
 })
 export class AccountShellComponent {
   protected readonly authStore = inject(AuthStore);

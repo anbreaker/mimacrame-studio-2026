@@ -12,10 +12,10 @@ import { ProductService } from '@core/services/product.service';
 import { AdminNavComponent } from '@shared/admin-nav/admin-nav.component';
 
 @Component({
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [AdminNavComponent, CurrencyPipe, DatePipe, RouterLink],
   selector: 'app-admin-dashboard',
+  standalone: true,
   styleUrl: './admin-dashboard.component.scss',
   templateUrl: './admin-dashboard.component.html',
 })
@@ -23,54 +23,54 @@ export class AdminDashboardComponent {
   private readonly orderService = inject(OrderService);
   private readonly productService = inject(ProductService);
 
-  protected readonly routes = ROUTES;
-  protected readonly ORDER_STATUS = ORDER_STATUS;
-
   protected readonly orders = signal<Order[]>([]);
   protected readonly products = signal<Product[]>([]);
-
-  protected readonly pendingCount = computed(
-    () => this.orders().filter((o) => o.status === ORDER_STATUS.Pending).length
-  );
-
-  protected readonly monthRevenue = computed(() => {
-    const now = new Date();
-    return this.orders()
-      .filter((o) => {
-        const date =
-          o.createdAt instanceof Date
-            ? o.createdAt
-            : new Date((o.createdAt as unknown as { seconds: number }).seconds * 1000);
-        return (
-          date.getMonth() === now.getMonth() &&
-          date.getFullYear() === now.getFullYear() &&
-          o.status !== ORDER_STATUS.Cancelled &&
-          o.status !== ORDER_STATUS.Refunded
-        );
-      })
-      .reduce((sum, o) => sum + o.total, 0);
-  });
-
-  protected readonly monthOrderCount = computed(() => {
-    const now = new Date();
-    return this.orders().filter((o) => {
-      const date =
-        o.createdAt instanceof Date
-          ? o.createdAt
-          : new Date((o.createdAt as unknown as { seconds: number }).seconds * 1000);
-      return date.getMonth() === now.getMonth() && date.getFullYear() === now.getFullYear();
-    }).length;
-  });
 
   protected readonly activeProductCount = computed(
     () => this.products().filter((p) => p.active).length
   );
 
   protected readonly lowStockProducts = computed(() =>
-    this.products().filter((p) => p.stock > 0 && p.stock <= 2)
+    this.products().filter((product) => product.stock > 0 && product.stock <= 2)
+  );
+
+  protected readonly monthOrderCount = computed(() => {
+    const now = new Date();
+    return this.orders().filter((order) => {
+      const date =
+        order.createdAt instanceof Date
+          ? order.createdAt
+          : new Date((order.createdAt as unknown as { seconds: number }).seconds * 1000);
+      return date.getMonth() === now.getMonth() && date.getFullYear() === now.getFullYear();
+    }).length;
+  });
+
+  protected readonly monthRevenue = computed(() => {
+    const now = new Date();
+    return this.orders()
+      .filter((order) => {
+        const date =
+          order.createdAt instanceof Date
+            ? order.createdAt
+            : new Date((order.createdAt as unknown as { seconds: number }).seconds * 1000);
+        return (
+          date.getMonth() === now.getMonth() &&
+          date.getFullYear() === now.getFullYear() &&
+          order.status !== ORDER_STATUS.Cancelled &&
+          order.status !== ORDER_STATUS.Refunded
+        );
+      })
+      .reduce((sum, order) => sum + order.total, 0);
+  });
+
+  protected readonly pendingCount = computed(
+    () => this.orders().filter((order) => order.status === ORDER_STATUS.Pending).length
   );
 
   protected readonly recentOrders = computed(() => this.orders().slice(0, 5));
+
+  protected readonly ORDER_STATUS = ORDER_STATUS;
+  protected readonly routes = ROUTES;
 
   constructor() {
     this.orderService

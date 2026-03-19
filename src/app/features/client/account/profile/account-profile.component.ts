@@ -1,15 +1,13 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { DatePipe } from '@angular/common';
 
 import { AuthStore } from '@core/store/auth.store';
 
 @Component({
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-account-profile',
-  imports: [DatePipe],
-  templateUrl: './account-profile.component.html',
+  standalone: true,
   styleUrl: './account-profile.component.scss',
+  templateUrl: './account-profile.component.html',
 })
 export class AccountProfileComponent {
   protected readonly authStore = inject(AuthStore);

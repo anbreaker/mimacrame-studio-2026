@@ -4,19 +4,20 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ROUTES } from '@core/const/routes';
 
 @Component({
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'app-order-confirmation',
   imports: [RouterLink],
-  templateUrl: './order-confirmation.component.html',
+  selector: 'app-order-confirmation',
+  standalone: true,
   styleUrl: './order-confirmation.component.scss',
+  templateUrl: './order-confirmation.component.html',
 })
 export class OrderConfirmationComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
 
-  protected readonly routes = ROUTES;
-  protected readonly orderId = signal<string | null>(null);
   protected readonly isSuccess = signal(true);
+  protected readonly orderId = signal<string | null>(null);
+
+  protected readonly routes = ROUTES;
 
   ngOnInit(): void {
     const params = this.route.snapshot.queryParamMap;

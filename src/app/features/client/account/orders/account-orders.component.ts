@@ -4,10 +4,10 @@ import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { Order } from '@core/interfaces/order.interface';
 
 @Component({
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [DecimalPipe],
   selector: 'app-account-orders',
+  standalone: true,
   styleUrl: './account-orders.component.scss',
   templateUrl: './account-orders.component.html',
 })

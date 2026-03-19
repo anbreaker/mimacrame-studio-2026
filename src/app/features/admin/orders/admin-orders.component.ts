@@ -8,20 +8,20 @@ import { OrderService } from '@core/services/order.service';
 import { AdminNavComponent } from '@shared/admin-nav/admin-nav.component';
 
 const ORDER_STATUS_LABELS: Record<OrderStatus, string> = {
-  [ORDER_STATUS.Pending]: 'Pendiente',
-  [ORDER_STATUS.Paid]: 'Pagado',
-  [ORDER_STATUS.Processing]: 'Preparando',
-  [ORDER_STATUS.Shipped]: 'Enviado',
-  [ORDER_STATUS.Delivered]: 'Entregado',
   [ORDER_STATUS.Cancelled]: 'Cancelado',
+  [ORDER_STATUS.Delivered]: 'Entregado',
+  [ORDER_STATUS.Paid]: 'Pagado',
+  [ORDER_STATUS.Pending]: 'Pendiente',
+  [ORDER_STATUS.Processing]: 'Preparando',
   [ORDER_STATUS.Refunded]: 'Reembolsado',
+  [ORDER_STATUS.Shipped]: 'Enviado',
 };
 
 @Component({
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [AdminNavComponent, CurrencyPipe, DatePipe],
   selector: 'app-admin-orders',
+  standalone: true,
   styleUrl: './admin-orders.component.scss',
   templateUrl: './admin-orders.component.html',
 })
@@ -33,14 +33,14 @@ export class AdminOrdersComponent {
   protected readonly isLoading = signal(true);
   protected readonly orders = signal<Order[]>([]);
 
-  protected readonly ORDER_STATUS = ORDER_STATUS;
-  protected readonly statusLabels = ORDER_STATUS_LABELS;
-  protected readonly statusKeys = Object.values(ORDER_STATUS);
-
   protected readonly filteredOrders = computed(() => {
     const filter = this.filterStatus();
     return filter === 'all' ? this.orders() : this.orders().filter((o) => o.status === filter);
   });
+
+  protected readonly ORDER_STATUS = ORDER_STATUS;
+  protected readonly statusKeys = Object.values(ORDER_STATUS);
+  protected readonly statusLabels = ORDER_STATUS_LABELS;
 
   constructor() {
     this.orderService
@@ -52,15 +52,15 @@ export class AdminOrdersComponent {
       });
   }
 
+  protected toDate(value: unknown): Date {
+    return value instanceof Date ? value : new Date((value as { seconds: number }).seconds * 1000);
+  }
+
   protected toggleExpand(orderId: string): void {
     this.expandedOrderId.update((id) => (id === orderId ? null : orderId));
   }
 
   protected updateStatus(orderId: string, status: OrderStatus): void {
     this.orderService.updateStatus(orderId, status).subscribe();
-  }
-
-  protected toDate(value: unknown): Date {
-    return value instanceof Date ? value : new Date((value as { seconds: number }).seconds * 1000);
   }
 }
