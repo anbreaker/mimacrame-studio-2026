@@ -24,6 +24,7 @@
           type="email"
           [value]="authStore.user()?.email"
           readonly
+          autocomplete="email"
         />
       </div>
 
@@ -34,6 +35,7 @@
           type="text"
           [formField]="profileForm.fullName"
           [placeholder]="tp('placeholders.fullName')"
+          autocomplete="name"
         />
         @if (profileForm.fullName().touched() && profileForm.fullName().invalid()) {
           <span class="profile__error">{{ t('shared.loginForm.errors.nameRequired') }}</span>
@@ -47,6 +49,7 @@
           type="tel"
           [formField]="profileForm.phone"
           [placeholder]="tp('placeholders.phone')"
+          autocomplete="tel"
         />
         @if (profileForm.phone().touched() && profileForm.phone().invalid()) {
           <span class="profile__error">{{ t('authErrors.invalidPhone') }}</span>
@@ -65,6 +68,7 @@
           type="text"
           [formField]="profileForm.street"
           [placeholder]="tp('placeholders.street')"
+          autocomplete="street-address"
         />
       </div>
 
@@ -76,6 +80,7 @@
             type="text"
             [formField]="profileForm.postalCode"
             [placeholder]="tp('placeholders.postalCode')"
+            autocomplete="postal-code"
           />
           @if (profileForm.postalCode().touched() && profileForm.postalCode().invalid()) {
             <span class="profile__error">{{ t('authErrors.invalidPostalCode') }}</span>
@@ -89,6 +94,7 @@
             type="text"
             [formField]="profileForm.city"
             [placeholder]="tp('placeholders.city')"
+            autocomplete="address-level2"
           />
         </div>
 
@@ -99,6 +105,7 @@
             type="text"
             [formField]="profileForm.province"
             [placeholder]="tp('placeholders.province')"
+            autocomplete="address-level1"
           />
         </div>
 
@@ -109,6 +116,7 @@
             type="text"
             [formField]="profileForm.country"
             [placeholder]="tp('placeholders.country')"
+            autocomplete="country-name"
           />
         </div>
       </div>

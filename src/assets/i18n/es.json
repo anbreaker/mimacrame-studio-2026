@@ -7,136 +7,73 @@
     },
     "profile": {
       "emailLabel": "Email",
+      "fields": {
+        "city": "Ciudad",
+        "country": "País",
+        "phone": "Teléfono",
+        "postalCode": "Código postal",
+        "province": "Provincia",
+        "street": "Dirección"
+      },
       "nameLabel": "Nombre completo",
       "noName": "Sin nombre",
-      "title": "Mi perfil",
-      "subtitle": "Gestiona tu información de contacto y envío",
-      "fields": {
-        "phone": "Teléfono",
-        "street": "Dirección",
-        "postalCode": "Código postal",
-        "city": "Ciudad",
-        "province": "Provincia",
-        "country": "País"
-      },
       "placeholders": {
+        "city": "Ej: Badajoz",
+        "country": "Ej: España",
         "fullName": "Ej: Francisco Javier",
         "phone": "Ej: 600000000",
-        "street": "Ej: Calle Mayor, 1",
         "postalCode": "Ej: 06001",
-        "city": "Ej: Badajoz",
         "province": "Ej: Badajoz",
-        "country": "Ej: España"
+        "street": "Ej: Calle Mayor, 1"
       },
       "submit": {
         "save": "Guardar cambios",
         "saving": "Guardando...",
         "success": "¡Perfil actualizado!"
-      }
+      },
+      "subtitle": "Gestiona tu información de contacto y envío",
+      "title": "Mi perfil"
     },
     "shell": {
+      "back": "Volver",
       "logout": "Cerrar sesión",
       "myOrders": "Mis pedidos",
       "myProfile": "Mi perfil"
     }
   },
-  "adminLogin": {
-    "emailPlaceholder": "admin@mimacrame.com",
-    "subtitle": "Studio · Admin"
-  },
   "admin": {
     "dashboard": {
-      "title": "Dashboard",
+      "lowStock": "Stock bajo:",
       "metrics": {
-        "pendingOrders": "Pedidos pendientes",
+        "activeProducts": "Piezas activas",
         "monthOrders": "Pedidos este mes",
         "monthRevenue": "Ingresos este mes",
-        "activeProducts": "Piezas activas"
+        "pendingOrders": "Pedidos pendientes"
       },
-      "lowStock": "Stock bajo:",
       "recentOrders": {
-        "title": "Últimos pedidos",
-        "viewAll": "Ver todos →",
         "empty": "No hay pedidos aún.",
         "table": {
+          "date": "Fecha",
           "order": "Pedido",
-          "total": "Total",
           "status": "Estado",
-          "date": "Fecha"
-        }
-      }
+          "total": "Total"
+        },
+        "title": "Últimos pedidos",
+        "viewAll": "Ver todos →"
+      },
+      "title": "Dashboard"
     },
     "nav": {
+      "backToStore": "Volver a la tienda",
       "dashboard": "Dashboard",
       "orders": "Pedidos",
-      "products": "Productos",
-      "backToStore": "Volver a la tienda"
-    },
-    "products": {
-      "title": "Productos",
-      "new": "+ Nueva pieza",
-      "search": "Buscar por nombre...",
-      "loading": "Cargando productos...",
-      "empty": "No hay productos.",
-      "deleteModal": {
-        "text": "¿Eliminar esta pieza? Esta acción no se puede deshacer.",
-        "confirm": "Eliminar",
-        "cancel": "Cancelar"
-      },
-      "table": {
-        "product": "Producto",
-        "category": "Categoría",
-        "price": "Precio",
-        "stock": "Stock",
-        "status": "Estado",
-        "active": "Activo",
-        "draft": "Borrador"
-      },
-      "actions": {
-        "edit": "Editar",
-        "delete": "Eliminar"
-      }
-    },
-    "productForm": {
-      "editTitle": "Editar pieza",
-      "newTitle": "Nueva pieza",
-      "cancel": "Cancelar",
-      "images": {
-        "title": "Imágenes",
-        "hint": "Sube fotos con la pieza puesta — ¡quedan mucho más bonitas!",
-        "remove": "Eliminar imagen",
-        "uploading": "Subiendo...",
-        "add": "Añadir foto"
-      },
-      "basicInfo": {
-        "title": "Información básica",
-        "fields": {
-          "name": "Nombre",
-          "namePlaceholder": "Ej: Pulsera Mediterránea",
-          "description": "Descripción",
-          "descriptionPlaceholder": "Describe materiales, acabados, estilo...",
-          "price": "Precio (€)",
-          "stock": "Stock",
-          "category": "Categoría",
-          "active": "Activo (visible en la tienda)"
-        }
-      },
-      "submit": {
-        "saving": "Guardando...",
-        "save": "Guardar cambios",
-        "create": "Crear pieza"
-      },
-      "errors": {
-        "upload": "Error al subir la imagen.",
-        "save": "Error al guardar el producto."
-      }
+      "products": "Productos"
     },
     "orders": {
-      "title": "Pedidos",
+      "changeStatus": "Cambiar estado:",
+      "empty": "No hay pedidos con este estado.",
       "filterAll": "Todos ({{ count }})",
       "loading": "Cargando pedidos...",
-      "empty": "No hay pedidos con este estado.",
-      "changeStatus": "Cambiar estado:",
       "statuses": {
         "cancelled": "Cancelado",
         "delivered": "Entregado",
@@ -145,8 +82,72 @@
         "processing": "Preparando",
         "refunded": "Reembolsado",
         "shipped": "Enviado"
+      },
+      "title": "Pedidos"
+    },
+    "productForm": {
+      "basicInfo": {
+        "fields": {
+          "active": "Activo (visible en la tienda)",
+          "category": "Categoría",
+          "description": "Descripción",
+          "descriptionPlaceholder": "Describe materiales, acabados, estilo...",
+          "name": "Nombre",
+          "namePlaceholder": "Ej: Pulsera Mediterránea",
+          "price": "Precio (€)",
+          "stock": "Stock"
+        },
+        "title": "Información básica"
+      },
+      "cancel": "Cancelar",
+      "editTitle": "Editar pieza",
+      "errors": {
+        "save": "Error al guardar el producto.",
+        "upload": "Error al subir la imagen."
+      },
+      "images": {
+        "add": "Añadir foto",
+        "hint": "Sube fotos con la pieza puesta — ¡quedan mucho más bonitas!",
+        "remove": "Eliminar imagen",
+        "title": "Imágenes",
+        "uploading": "Subiendo..."
+      },
+      "newTitle": "Nueva pieza",
+      "submit": {
+        "create": "Crear pieza",
+        "save": "Guardar cambios",
+        "saving": "Guardando..."
       }
+    },
+    "products": {
+      "actions": {
+        "delete": "Eliminar",
+        "edit": "Editar"
+      },
+      "deleteModal": {
+        "cancel": "Cancelar",
+        "confirm": "Eliminar",
+        "text": "¿Eliminar esta pieza? Esta acción no se puede deshacer."
+      },
+      "empty": "No hay productos.",
+      "loading": "Cargando productos...",
+      "new": "+ Nueva pieza",
+      "search": "Buscar por nombre...",
+      "table": {
+        "active": "Activo",
+        "category": "Categoría",
+        "draft": "Borrador",
+        "price": "Precio",
+        "product": "Producto",
+        "status": "Estado",
+        "stock": "Stock"
+      },
+      "title": "Productos"
     }
+  },
+  "adminLogin": {
+    "emailPlaceholder": "admin@mimacrame.com",
+    "subtitle": "Studio · Admin"
   },
   "authErrors": {
     "default": "Ha ocurrido un error. Inténtalo de nuevo.",
@@ -158,53 +159,20 @@
     "userNotFound": "No existe ninguna cuenta con ese email.",
     "wrongPassword": "Credenciales incorrectas. Revisa tu email y contraseña."
   },
-  "catalogue": {
-    "title": "Colección",
-    "search": {
-      "placeholder": "Buscar piezas...",
-      "label": "Buscar productos"
-    },
-    "filters": {
-      "all": "Todas",
-      "label": "Filtrar por categoría"
-    },
-    "count": {
-      "singular": "1 pieza",
-      "plural": "{{ count }} piezas"
-    },
-    "empty": {
-      "text": "No hay piezas con esos filtros.",
-      "clear": "Limpiar filtros"
-    }
-  },
-  "productDetail": {
-    "back": "Volver a la colección",
-    "viewImage": "Ver imagen {{ index }}",
-    "quantity": "Cantidad",
-    "stockHint": "Solo quedan {{ count }} unidades",
-    "addToCart": "Añadir al carrito",
-    "buyNow": "Comprar ahora",
-    "outOfStock": "Agotado",
-    "lowStock": "Últimas unidades",
-    "materials": {
-      "title": "Materiales y cuidados",
-      "content": "Hecho a mano con hilo de algodón encerado y seda natural. Para conservar tu pieza evita el contacto con agua y guárdala en un lugar seco."
-    },
-    "shipping": {
-      "title": "Envíos y devoluciones",
-      "content": "Envío gratuito a partir de €40. Entrega en 3-5 días hábiles. Aceptamos devoluciones en los 14 días siguientes a la recepción."
-    }
+  "bottomNav": {
+    "cart": "Carrito",
+    "collection": "Colección",
+    "home": "Inicio"
   },
   "cart": {
-    "title": "Tu carrito",
-    "itemCount": {
-      "singular": "1 pieza",
-      "plural": "{{ count }} piezas"
-    },
     "empty": {
-      "text": "Tu carrito está vacío",
+      "cta": "Ver colección",
       "sub": "Descubre nuestra colección artesanal",
-      "cta": "Ver colección"
+      "text": "Tu carrito está vacío"
+    },
+    "itemCount": {
+      "plural": "{{ count }} piezas",
+      "singular": "1 pieza"
     },
     "items": {
       "decrease": "Reducir cantidad",
@@ -212,71 +180,78 @@
       "remove": "Eliminar del carrito"
     },
     "summary": {
-      "shippingHint": "Te faltan {{ amount }} para envío gratis",
-      "shippingFree": "Envío gratis aplicado",
-      "subtotal": "Subtotal",
-      "shipping": "Envío",
-      "total": "Total",
-      "free": "Gratis",
       "checkout": "Proceder al pago",
-      "continue": "Seguir comprando"
-    }
+      "continue": "Seguir comprando",
+      "free": "Gratis",
+      "shipping": "Envío",
+      "shippingFree": "Envío gratis aplicado",
+      "shippingHint": "Te faltan {{ amount }} para envío gratis",
+      "subtotal": "Subtotal",
+      "total": "Total"
+    },
+    "title": "Tu carrito"
+  },
+  "catalogue": {
+    "count": {
+      "plural": "{{ count }} piezas",
+      "singular": "1 pieza"
+    },
+    "empty": {
+      "clear": "Limpiar filtros",
+      "text": "No hay piezas con esos filtros."
+    },
+    "filters": {
+      "all": "Todas",
+      "label": "Filtrar por categoría"
+    },
+    "search": {
+      "label": "Buscar productos",
+      "placeholder": "Buscar piezas..."
+    },
+    "title": "Colección"
   },
   "checkout": {
-    "title": "Finalizar pedido",
     "empty": {
-      "text": "Tu carrito está vacío.",
-      "cta": "Ver colección"
+      "cta": "Ver colección",
+      "text": "Tu carrito está vacío."
     },
-    "sections": {
-      "contact": "Contacto",
-      "shipping": "Dirección de envío",
-      "payment": "Método de pago",
-      "summary": "Resumen"
+    "errors": {
+      "generic": "Error en el pago. Revisa tus datos.",
+      "order_creation": "Error al crear el pedido. Inténtalo de nuevo."
     },
     "fields": {
-      "email": "Email",
-      "phone": "Teléfono",
-      "fullName": "Nombre completo",
-      "street": "Dirección",
-      "postalCode": "Código postal",
       "city": "Ciudad",
+      "country": "País",
+      "email": "Email",
+      "fullName": "Nombre completo",
+      "phone": "Teléfono",
+      "postalCode": "Código postal",
       "province": "Provincia",
-      "country": "País"
+      "street": "Dirección"
     },
     "payment": {
-      "card": "Tarjeta",
       "bizum": "Bizum",
+      "card": "Tarjeta",
       "paypal": "PayPal",
       "security": "Pago 100% seguro · SSL"
     },
+    "sections": {
+      "contact": "Contacto",
+      "payment": "Método de pago",
+      "shipping": "Dirección de envío",
+      "summary": "Resumen"
+    },
     "submit": {
-      "processing": "Procesando...",
-      "confirm": "Confirmar pedido — {{ total }}"
+      "confirm": "Confirmar pedido — {{ total }}",
+      "processing": "Procesando..."
     },
     "summary": {
-      "subtotal": "Subtotal",
+      "free": "Gratis",
       "shipping": "Envío",
-      "total": "Total",
-      "free": "Gratis"
+      "subtotal": "Subtotal",
+      "total": "Total"
     },
-    "errors": {
-      "order_creation": "Error al crear el pedido. Inténtalo de nuevo.",
-      "generic": "Error en el pago. Revisa tus datos."
-    }
-  },
-  "orderConfirmation": {
-    "success": {
-      "title": "¡Tu pedido está en camino!",
-      "subtitle": "Hemos enviado la confirmación a tu email",
-      "message": "Empezamos a tejer tu pedido con mucho cariño 🧶",
-      "cta": "Seguir comprando"
-    },
-    "error": {
-      "title": "El pago no se pudo completar",
-      "subtitle": "Por favor, inténtalo de nuevo o usa otro método de pago.",
-      "cta": "Intentarlo de nuevo"
-    }
+    "title": "Finalizar pedido"
   },
   "clientLogin": {
     "emailPlaceholder": "tu@email.com",
@@ -289,70 +264,101 @@
     "loading": "Cargando..."
   },
   "footer": {
-    "tagline": "Joyería artesanal de macramé hecha a mano, pieza a pieza.",
+    "copy": "Mimacramé Studio · Badajoz, Extremadura",
     "instagram": "Instagram de Mimacramé Studio",
     "links": {
-      "collection": "Colección",
-      "shipping": "Envíos y devoluciones",
       "care": "Cuidados de tu pieza",
+      "collection": "Colección",
+      "contact": "Contacto",
       "privacy": "Política de privacidad",
-      "contact": "Contacto"
+      "shipping": "Envíos y devoluciones"
     },
-    "copy": "Mimacramé Studio · Badajoz, Extremadura"
+    "tagline": "Joyería artesanal de macramé hecha a mano, pieza a pieza."
   },
   "home": {
-    "hero": {
-      "eyebrow": "Hecho a mano · Badajoz, Extremadura",
-      "title": "Joyería que cuenta\ntu historia",
-      "subtitle": "Macramé artesanal hecho a mano, pieza a pieza",
-      "cta": "Ver colección"
-    },
     "categories": {
-      "title": "Explora la colección",
       "items": {
-        "bracelets": "Pulseras",
-        "pendants": "Colgantes",
-        "earrings": "Pendientes",
-        "rings": "Anillos",
         "anklets": "Tobilleras",
+        "bracelets": "Pulseras",
+        "earrings": "Pendientes",
+        "pendants": "Colgantes",
+        "rings": "Anillos",
         "sets": "Conjuntos"
-      }
-    },
-    "featured": {
-      "title": "Nuestras favoritas",
-      "cta": "Ver toda la colección",
-      "empty": "Pronto llegarán nuevas piezas."
+      },
+      "title": "Explora la colección"
     },
     "editorial": {
-      "quote": "Apila, combina,\nhazlo tuyo",
-      "cta": "Ver conjuntos"
+      "cta": "Ver conjuntos",
+      "quote": "Apila, combina,\nhazlo tuyo"
+    },
+    "featured": {
+      "cta": "Ver toda la colección",
+      "empty": "Pronto llegarán nuevas piezas.",
+      "title": "Nuestras favoritas"
+    },
+    "hero": {
+      "cta": "Ver colección",
+      "eyebrow": "Hecho a mano · Badajoz, Extremadura",
+      "subtitle": "Macramé artesanal hecho a mano, pieza a pieza",
+      "title": "Joyería que cuenta\ntu historia"
     },
     "process": {
-      "title": "Así nace tu pieza",
       "step1": {
-        "title": "Elige tu pieza",
-        "text": "Explora la colección y encuentra la joya que te representa."
+        "text": "Explora la colección y encuentra la joya que te representa.",
+        "title": "Elige tu pieza"
       },
       "step2": {
-        "title": "La tejemos para ti",
-        "text": "Cada pieza se hace a mano con hilo de algodón encerado y seda natural."
+        "text": "Cada pieza se hace a mano con hilo de algodón encerado y seda natural.",
+        "title": "La tejemos para ti"
       },
       "step3": {
-        "title": "La recibes en casa",
-        "text": "Enviamos desde Badajoz a toda España y Europa con mucho cariño."
-      }
+        "text": "Enviamos desde Badajoz a toda España y Europa con mucho cariño.",
+        "title": "La recibes en casa"
+      },
+      "title": "Así nace tu pieza"
     }
   },
   "navbar": {
-    "collection": "Colección",
-    "cart": "Carrito de compra",
     "account": "Mi cuenta",
+    "cart": "Carrito de compra",
+    "collection": "Colección",
     "login": "Iniciar sesión"
   },
+  "orderConfirmation": {
+    "error": {
+      "cta": "Intentarlo de nuevo",
+      "subtitle": "Por favor, inténtalo de nuevo o usa otro método de pago.",
+      "title": "El pago no se pudo completar"
+    },
+    "success": {
+      "cta": "Seguir comprando",
+      "message": "Empezamos a tejer tu pedido con mucho cariño 🧶",
+      "subtitle": "Hemos enviado la confirmación a tu email",
+      "title": "¡Tu pedido está en camino!"
+    }
+  },
   "productCard": {
-    "outOfStock": "Agotado",
     "lowStock": "Últimas unidades",
+    "outOfStock": "Agotado",
     "quickAdd": "Añadir al carrito"
+  },
+  "productDetail": {
+    "addToCart": "Añadir al carrito",
+    "back": "Volver a la colección",
+    "buyNow": "Comprar ahora",
+    "lowStock": "Últimas unidades",
+    "materials": {
+      "content": "Hecho a mano con hilo de algodón encerado y seda natural. Para conservar tu pieza evita el contacto con agua y guárdala en un lugar seco.",
+      "title": "Materiales y cuidados"
+    },
+    "outOfStock": "Agotado",
+    "quantity": "Cantidad",
+    "shipping": {
+      "content": "Envío gratuito a partir de €40. Entrega en 3-5 días hábiles. Aceptamos devoluciones en los 14 días siguientes a la recepción.",
+      "title": "Envíos y devoluciones"
+    },
+    "stockHint": "Solo quedan {{ count }} unidades",
+    "viewImage": "Ver imagen {{ index }}"
   },
   "shared": {
     "loginForm": {

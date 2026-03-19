@@ -7,136 +7,73 @@
     },
     "profile": {
       "emailLabel": "Email",
+      "fields": {
+        "city": "City",
+        "country": "Country",
+        "phone": "Phone",
+        "postalCode": "Postal code",
+        "province": "Province",
+        "street": "Address"
+      },
       "nameLabel": "Full name",
       "noName": "No name",
-      "title": "My profile",
-      "subtitle": "Manage your contact and shipping information",
-      "fields": {
-        "phone": "Phone",
-        "street": "Address",
-        "postalCode": "Postal code",
-        "city": "City",
-        "province": "Province",
-        "country": "Country"
-      },
       "placeholders": {
+        "city": "Ex: London",
+        "country": "Ex: United Kingdom",
         "fullName": "Ex: John Doe",
         "phone": "Ex: +44 000 000 000",
-        "street": "Ex: Baker Street, 221B",
         "postalCode": "Ex: NW1 6XE",
-        "city": "Ex: London",
         "province": "Ex: Greater London",
-        "country": "Ex: United Kingdom"
+        "street": "Ex: Baker Street, 221B"
       },
       "submit": {
         "save": "Save changes",
         "saving": "Saving...",
         "success": "Profile updated!"
-      }
+      },
+      "subtitle": "Manage your contact and shipping information",
+      "title": "My profile"
     },
     "shell": {
+      "back": "Back",
       "logout": "Sign out",
       "myOrders": "My orders",
       "myProfile": "My profile"
     }
   },
-  "adminLogin": {
-    "emailPlaceholder": "admin@mimacrame.com",
-    "subtitle": "Studio · Admin"
-  },
   "admin": {
     "dashboard": {
-      "title": "Dashboard",
+      "lowStock": "Low stock:",
       "metrics": {
-        "pendingOrders": "Pending orders",
+        "activeProducts": "Active pieces",
         "monthOrders": "Orders this month",
         "monthRevenue": "Revenue this month",
-        "activeProducts": "Active pieces"
+        "pendingOrders": "Pending orders"
       },
-      "lowStock": "Low stock:",
       "recentOrders": {
-        "title": "Recent orders",
-        "viewAll": "View all →",
         "empty": "No orders yet.",
         "table": {
+          "date": "Date",
           "order": "Order",
-          "total": "Total",
           "status": "Status",
-          "date": "Date"
-        }
-      }
+          "total": "Total"
+        },
+        "title": "Recent orders",
+        "viewAll": "View all →"
+      },
+      "title": "Dashboard"
     },
     "nav": {
+      "backToStore": "Back to store",
       "dashboard": "Dashboard",
       "orders": "Orders",
-      "products": "Products",
-      "backToStore": "Back to store"
-    },
-    "products": {
-      "title": "Products",
-      "new": "+ New piece",
-      "search": "Search by name...",
-      "loading": "Loading products...",
-      "empty": "No products found.",
-      "deleteModal": {
-        "text": "Delete this piece? This action cannot be undone.",
-        "confirm": "Delete",
-        "cancel": "Cancel"
-      },
-      "table": {
-        "product": "Product",
-        "category": "Category",
-        "price": "Price",
-        "stock": "Stock",
-        "status": "Status",
-        "active": "Active",
-        "draft": "Draft"
-      },
-      "actions": {
-        "edit": "Edit",
-        "delete": "Delete"
-      }
-    },
-    "productForm": {
-      "editTitle": "Edit piece",
-      "newTitle": "New piece",
-      "cancel": "Cancel",
-      "images": {
-        "title": "Images",
-        "hint": "Upload photos with the piece on — they look much nicer!",
-        "remove": "Remove image",
-        "uploading": "Uploading...",
-        "add": "Add photo"
-      },
-      "basicInfo": {
-        "title": "Basic information",
-        "fields": {
-          "name": "Name",
-          "namePlaceholder": "Ex: Mediterranean Bracelet",
-          "description": "Description",
-          "descriptionPlaceholder": "Describe materials, finishes, style...",
-          "price": "Price (€)",
-          "stock": "Stock",
-          "category": "Category",
-          "active": "Active (visible in store)"
-        }
-      },
-      "submit": {
-        "saving": "Saving...",
-        "save": "Save changes",
-        "create": "Create piece"
-      },
-      "errors": {
-        "upload": "Error uploading image.",
-        "save": "Error saving product."
-      }
+      "products": "Products"
     },
     "orders": {
-      "title": "Orders",
+      "changeStatus": "Change status:",
+      "empty": "No orders with this status.",
       "filterAll": "All ({{ count }})",
       "loading": "Loading orders...",
-      "empty": "No orders with this status.",
-      "changeStatus": "Change status:",
       "statuses": {
         "cancelled": "Cancelled",
         "delivered": "Delivered",
@@ -145,8 +82,72 @@
         "processing": "Processing",
         "refunded": "Refunded",
         "shipped": "Shipped"
+      },
+      "title": "Orders"
+    },
+    "productForm": {
+      "basicInfo": {
+        "fields": {
+          "active": "Active (visible in store)",
+          "category": "Category",
+          "description": "Description",
+          "descriptionPlaceholder": "Describe materials, finishes, style...",
+          "name": "Name",
+          "namePlaceholder": "Ex: Mediterranean Bracelet",
+          "price": "Price (€)",
+          "stock": "Stock"
+        },
+        "title": "Basic information"
+      },
+      "cancel": "Cancel",
+      "editTitle": "Edit piece",
+      "errors": {
+        "save": "Error saving product.",
+        "upload": "Error uploading image."
+      },
+      "images": {
+        "add": "Add photo",
+        "hint": "Upload photos with the piece on — they look much nicer!",
+        "remove": "Remove image",
+        "title": "Images",
+        "uploading": "Uploading..."
+      },
+      "newTitle": "New piece",
+      "submit": {
+        "create": "Create piece",
+        "save": "Save changes",
+        "saving": "Saving..."
       }
+    },
+    "products": {
+      "actions": {
+        "delete": "Delete",
+        "edit": "Edit"
+      },
+      "deleteModal": {
+        "cancel": "Cancel",
+        "confirm": "Delete",
+        "text": "Delete this piece? This action cannot be undone."
+      },
+      "empty": "No products found.",
+      "loading": "Loading products...",
+      "new": "+ New piece",
+      "search": "Search by name...",
+      "table": {
+        "active": "Active",
+        "category": "Category",
+        "draft": "Draft",
+        "price": "Price",
+        "product": "Product",
+        "status": "Status",
+        "stock": "Stock"
+      },
+      "title": "Products"
     }
+  },
+  "adminLogin": {
+    "emailPlaceholder": "admin@mimacrame.com",
+    "subtitle": "Studio · Admin"
   },
   "authErrors": {
     "default": "An error occurred. Please try again.",
@@ -158,53 +159,20 @@
     "userNotFound": "No account exists with this email.",
     "wrongPassword": "Invalid credentials. Please check your email and password."
   },
-  "catalogue": {
-    "title": "Collection",
-    "search": {
-      "placeholder": "Search pieces...",
-      "label": "Search products"
-    },
-    "filters": {
-      "all": "All",
-      "label": "Filter by category"
-    },
-    "count": {
-      "singular": "1 piece",
-      "plural": "{{ count }} pieces"
-    },
-    "empty": {
-      "text": "No pieces found with those filters.",
-      "clear": "Clear filters"
-    }
-  },
-  "productDetail": {
-    "back": "Back to collection",
-    "viewImage": "View image {{ index }}",
-    "quantity": "Quantity",
-    "stockHint": "Only {{ count }} units left",
-    "addToCart": "Add to cart",
-    "buyNow": "Buy now",
-    "outOfStock": "Out of stock",
-    "lowStock": "Last units",
-    "materials": {
-      "title": "Materials and care",
-      "content": "Handmade with waxed cotton thread and natural silk. To preserve your piece, avoid contact with water and store it in a dry place."
-    },
-    "shipping": {
-      "title": "Shipping and returns",
-      "content": "Free shipping on orders over €40. Delivery in 3-5 business days. We accept returns within 14 days of receipt."
-    }
+  "bottomNav": {
+    "cart": "Cart",
+    "collection": "Collection",
+    "home": "Home"
   },
   "cart": {
-    "title": "Your cart",
-    "itemCount": {
-      "singular": "1 piece",
-      "plural": "{{ count }} pieces"
-    },
     "empty": {
-      "text": "Your cart is empty",
+      "cta": "View collection",
       "sub": "Discover our handcrafted collection",
-      "cta": "View collection"
+      "text": "Your cart is empty"
+    },
+    "itemCount": {
+      "plural": "{{ count }} pieces",
+      "singular": "1 piece"
     },
     "items": {
       "decrease": "Decrease quantity",
@@ -212,71 +180,78 @@
       "remove": "Remove from cart"
     },
     "summary": {
-      "shippingHint": "You need {{ amount }} more for free shipping",
-      "shippingFree": "Free shipping applied",
-      "subtotal": "Subtotal",
-      "shipping": "Shipping",
-      "total": "Total",
-      "free": "Free",
       "checkout": "Proceed to checkout",
-      "continue": "Continue shopping"
-    }
+      "continue": "Continue shopping",
+      "free": "Free",
+      "shipping": "Shipping",
+      "shippingFree": "Free shipping applied",
+      "shippingHint": "You need {{ amount }} more for free shipping",
+      "subtotal": "Subtotal",
+      "total": "Total"
+    },
+    "title": "Your cart"
+  },
+  "catalogue": {
+    "count": {
+      "plural": "{{ count }} pieces",
+      "singular": "1 piece"
+    },
+    "empty": {
+      "clear": "Clear filters",
+      "text": "No pieces found with those filters."
+    },
+    "filters": {
+      "all": "All",
+      "label": "Filter by category"
+    },
+    "search": {
+      "label": "Search products",
+      "placeholder": "Search pieces..."
+    },
+    "title": "Collection"
   },
   "checkout": {
-    "title": "Complete order",
     "empty": {
-      "text": "Your cart is empty.",
-      "cta": "View collection"
+      "cta": "View collection",
+      "text": "Your cart is empty."
     },
-    "sections": {
-      "contact": "Contact",
-      "shipping": "Shipping address",
-      "payment": "Payment method",
-      "summary": "Summary"
+    "errors": {
+      "generic": "Payment error. Please check your details.",
+      "order_creation": "Error creating order. Please try again."
     },
     "fields": {
-      "email": "Email",
-      "phone": "Phone",
-      "fullName": "Full name",
-      "street": "Address",
-      "postalCode": "Postal code",
       "city": "City",
+      "country": "Country",
+      "email": "Email",
+      "fullName": "Full name",
+      "phone": "Phone",
+      "postalCode": "Postal code",
       "province": "Province",
-      "country": "Country"
+      "street": "Address"
     },
     "payment": {
-      "card": "Card",
       "bizum": "Bizum",
+      "card": "Card",
       "paypal": "PayPal",
       "security": "100% secure payment · SSL"
     },
+    "sections": {
+      "contact": "Contact",
+      "payment": "Payment method",
+      "shipping": "Shipping address",
+      "summary": "Summary"
+    },
     "submit": {
-      "processing": "Processing...",
-      "confirm": "Confirm order — {{ total }}"
+      "confirm": "Confirm order — {{ total }}",
+      "processing": "Processing..."
     },
     "summary": {
-      "subtotal": "Subtotal",
+      "free": "Free",
       "shipping": "Shipping",
-      "total": "Total",
-      "free": "Free"
+      "subtotal": "Subtotal",
+      "total": "Total"
     },
-    "errors": {
-      "order_creation": "Error creating order. Please try again.",
-      "generic": "Payment error. Please check your details."
-    }
-  },
-  "orderConfirmation": {
-    "success": {
-      "title": "Your order is on its way!",
-      "subtitle": "We've sent the confirmation to your email",
-      "message": "We're starting to weave your order with much love 🧶",
-      "cta": "Continue shopping"
-    },
-    "error": {
-      "title": "Payment could not be completed",
-      "subtitle": "Please try again or use another payment method.",
-      "cta": "Try again"
-    }
+    "title": "Complete order"
   },
   "clientLogin": {
     "emailPlaceholder": "you@email.com",
@@ -289,70 +264,101 @@
     "loading": "Loading..."
   },
   "footer": {
-    "tagline": "Handcrafted macramé jewelry, piece by piece.",
+    "copy": "Mimacramé Studio · Badajoz, Spain",
     "instagram": "Mimacramé Studio Instagram",
     "links": {
-      "collection": "Collection",
-      "shipping": "Shipping & Returns",
       "care": "Jewelry Care",
+      "collection": "Collection",
+      "contact": "Contact",
       "privacy": "Privacy Policy",
-      "contact": "Contact"
+      "shipping": "Shipping & Returns"
     },
-    "copy": "Mimacramé Studio · Badajoz, Spain"
+    "tagline": "Handcrafted macramé jewelry, piece by piece."
   },
   "home": {
-    "hero": {
-      "eyebrow": "Handmade · Badajoz, Spain",
-      "title": "Jewelry that tells\nyour story",
-      "subtitle": "Handcrafted macramé, piece by piece",
-      "cta": "View collection"
-    },
     "categories": {
-      "title": "Explore the collection",
       "items": {
-        "bracelets": "Bracelets",
-        "pendants": "Pendants",
-        "earrings": "Earrings",
-        "rings": "Rings",
         "anklets": "Anklets",
+        "bracelets": "Bracelets",
+        "earrings": "Earrings",
+        "pendants": "Pendants",
+        "rings": "Rings",
         "sets": "Sets"
-      }
-    },
-    "featured": {
-      "title": "Our favorites",
-      "cta": "View full collection",
-      "empty": "New pieces coming soon."
+      },
+      "title": "Explore the collection"
     },
     "editorial": {
-      "quote": "Stack, mix,\nmake it yours",
-      "cta": "View sets"
+      "cta": "View sets",
+      "quote": "Stack, mix,\nmake it yours"
+    },
+    "featured": {
+      "cta": "View full collection",
+      "empty": "New pieces coming soon.",
+      "title": "Our favorites"
+    },
+    "hero": {
+      "cta": "View collection",
+      "eyebrow": "Handmade · Badajoz, Spain",
+      "subtitle": "Handcrafted macramé, piece by piece",
+      "title": "Jewelry that tells\nyour story"
     },
     "process": {
-      "title": "How your piece is born",
       "step1": {
-        "title": "Choose your piece",
-        "text": "Explore the collection and find the jewelry that represents you."
+        "text": "Explore the collection and find the jewelry that represents you.",
+        "title": "Choose your piece"
       },
       "step2": {
-        "title": "We weave it for you",
-        "text": "Each piece is handmade with waxed cotton thread and natural silk."
+        "text": "Each piece is handmade with waxed cotton thread and natural silk.",
+        "title": "We weave it for you"
       },
       "step3": {
-        "title": "Receive it at home",
-        "text": "We ship from Badajoz to all of Spain and Europe with love."
-      }
+        "text": "We ship from Badajoz to all of Spain and Europe with love.",
+        "title": "Receive it at home"
+      },
+      "title": "How your piece is born"
     }
   },
   "navbar": {
-    "collection": "Collection",
-    "cart": "Shopping cart",
     "account": "My account",
+    "cart": "Shopping cart",
+    "collection": "Collection",
     "login": "Sign in"
   },
+  "orderConfirmation": {
+    "error": {
+      "cta": "Try again",
+      "subtitle": "Please try again or use another payment method.",
+      "title": "Payment could not be completed"
+    },
+    "success": {
+      "cta": "Continue shopping",
+      "message": "We're starting to weave your order with much love 🧶",
+      "subtitle": "We've sent the confirmation to your email",
+      "title": "Your order is on its way!"
+    }
+  },
   "productCard": {
-    "outOfStock": "Out of stock",
     "lowStock": "Last units",
+    "outOfStock": "Out of stock",
     "quickAdd": "Add to cart"
+  },
+  "productDetail": {
+    "addToCart": "Add to cart",
+    "back": "Back to collection",
+    "buyNow": "Buy now",
+    "lowStock": "Last units",
+    "materials": {
+      "content": "Handmade with waxed cotton thread and natural silk. To preserve your piece, avoid contact with water and store it in a dry place.",
+      "title": "Materials and care"
+    },
+    "outOfStock": "Out of stock",
+    "quantity": "Quantity",
+    "shipping": {
+      "content": "Free shipping on orders over €40. Delivery in 3-5 business days. We accept returns within 14 days of receipt.",
+      "title": "Shipping and returns"
+    },
+    "stockHint": "Only {{ count }} units left",
+    "viewImage": "View image {{ index }}"
   },
   "shared": {
     "loginForm": {
