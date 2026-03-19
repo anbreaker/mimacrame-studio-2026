@@ -8,8 +8,8 @@
       <div class="status-filters">
         <button
           class="status-pill"
-          [class.status-pill--active]="filterStatus() === 'all'"
-          (click)="filterStatus.set('all')"
+          [class.status-pill--active]="filterStatus() === FILTER_ALL"
+          (click)="filterStatus.set(FILTER_ALL)"
         >
           Todos ({{ orders().length }})
         </button>
