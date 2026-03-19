@@ -1,23 +1,128 @@
-<section class="profile" *transloco="let t; read: 'account.profile'">
-  <h2 class="profile__title">{{ t('title') }}</h2>
-
-  <div class="profile__avatar">
-    <span class="profile__avatar-initial">{{ avatarInitial }}</span>
+<section class="profile" *transloco="let t">
+  <div class="profile__header">
+    <h2 class="profile__title">{{ t('account.profile.title') }}</h2>
+    <p class="profile__subtitle">{{ t('account.profile.subtitle') }}</p>
   </div>
 
-  <dl class="profile__data">
-    <div class="profile__data-row">
-      <dt class="profile__data-label">{{ t('nameLabel') }}</dt>
-      <dd class="profile__data-value">
-        {{ authStore.displayName() ?? t('noName') }}
-      </dd>
+  <div class="profile__avatar">
+    <span class="profile__avatar-initial">{{ avatarInitial() }}</span>
+  </div>
+
+  <form
+    class="profile__form"
+    (submit)="$event.preventDefault(); save()"
+    *transloco="let tp; read: 'account.profile'"
+  >
+    <!-- Contact Group -->
+    <div class="profile__group">
+      <h3 class="profile__group-title">{{ t('checkout.sections.contact') }}</h3>
+
+      <div class="profile__field">
+        <label class="profile__label">{{ tp('emailLabel') }}</label>
+        <input
+          class="profile__input profile__input--readonly"
+          type="email"
+          [value]="authStore.user()?.email"
+          readonly
+        />
+      </div>
+
+      <div class="profile__field">
+        <label class="profile__label">{{ tp('nameLabel') }}</label>
+        <input
+          class="profile__input"
+          type="text"
+          [formField]="profileForm.fullName"
+          [placeholder]="tp('placeholders.fullName')"
+        />
+        @if (profileForm.fullName().touched() && profileForm.fullName().invalid()) {
+          <span class="profile__error">{{ t('shared.loginForm.errors.nameRequired') }}</span>
+        }
+      </div>
+
+      <div class="profile__field">
+        <label class="profile__label">{{ tp('fields.phone') }}</label>
+        <input
+          class="profile__input"
+          type="tel"
+          [formField]="profileForm.phone"
+          [placeholder]="tp('placeholders.phone')"
+        />
+        @if (profileForm.phone().touched() && profileForm.phone().invalid()) {
+          <span class="profile__error">{{ t('authErrors.invalidPhone') }}</span>
+        }
+      </div>
     </div>
 
-    <div class="profile__data-row">
-      <dt class="profile__data-label">{{ t('emailLabel') }}</dt>
-      <dd class="profile__data-value">
-        {{ authStore.user()?.email ?? '—' }}
-      </dd>
+    <!-- Address Group -->
+    <div class="profile__group">
+      <h3 class="profile__group-title">{{ t('checkout.sections.shipping') }}</h3>
+
+      <div class="profile__field profile__field--full">
+        <label class="profile__label">{{ tp('fields.street') }}</label>
+        <input
+          class="profile__input"
+          type="text"
+          [formField]="profileForm.street"
+          [placeholder]="tp('placeholders.street')"
+        />
+      </div>
+
+      <div class="profile__grid">
+        <div class="profile__field">
+          <label class="profile__label">{{ tp('fields.postalCode') }}</label>
+          <input
+            class="profile__input"
+            type="text"
+            [formField]="profileForm.postalCode"
+            [placeholder]="tp('placeholders.postalCode')"
+          />
+          @if (profileForm.postalCode().touched() && profileForm.postalCode().invalid()) {
+            <span class="profile__error">{{ t('authErrors.invalidPostalCode') }}</span>
+          }
+        </div>
+
+        <div class="profile__field">
+          <label class="profile__label">{{ tp('fields.city') }}</label>
+          <input
+            class="profile__input"
+            type="text"
+            [formField]="profileForm.city"
+            [placeholder]="tp('placeholders.city')"
+          />
+        </div>
+
+        <div class="profile__field">
+          <label class="profile__label">{{ tp('fields.province') }}</label>
+          <input
+            class="profile__input"
+            type="text"
+            [formField]="profileForm.province"
+            [placeholder]="tp('placeholders.province')"
+          />
+        </div>
+
+        <div class="profile__field">
+          <label class="profile__label">{{ tp('fields.country') }}</label>
+          <input
+            class="profile__input"
+            type="text"
+            [formField]="profileForm.country"
+            [placeholder]="tp('placeholders.country')"
+          />
+        </div>
+      </div>
     </div>
-  </dl>
+
+    <!-- Actions -->
+    <div class="profile__actions">
+      <button class="profile__submit" type="submit" [disabled]="isSaving() || !isFormValid()">
+        {{ isSaving() ? tp('submit.saving') : tp('submit.save') }}
+      </button>
+
+      @if (showSuccess()) {
+        <span class="profile__success-msg">✅ {{ tp('submit.success') }}</span>
+      }
+    </div>
+  </form>
 </section>
