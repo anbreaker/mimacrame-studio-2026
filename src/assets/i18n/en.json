@@ -1,8 +1,347 @@
 {
-  "COMMON": {
-    "CANCEL": "Cancel",
-    "CONFIRM": "Confirm",
-    "ERROR": "An error has occurred",
-    "LOADING": "Loading..."
+  "account": {
+    "orders": {
+      "emptyHint": "When you make your first purchase, it will appear here.",
+      "emptyMessage": "You have no orders yet",
+      "title": "My orders"
+    },
+    "profile": {
+      "emailLabel": "Email",
+      "nameLabel": "Name",
+      "noName": "No name",
+      "title": "My profile"
+    },
+    "shell": {
+      "logout": "Sign out",
+      "myOrders": "My orders",
+      "myProfile": "My profile"
+    }
+  },
+  "adminLogin": {
+    "emailPlaceholder": "admin@mimacrame.com",
+    "subtitle": "Studio · Admin"
+  },
+  "admin": {
+    "dashboard": {
+      "title": "Dashboard",
+      "metrics": {
+        "pendingOrders": "Pending orders",
+        "monthOrders": "Orders this month",
+        "monthRevenue": "Revenue this month",
+        "activeProducts": "Active pieces"
+      },
+      "lowStock": "Low stock:",
+      "recentOrders": {
+        "title": "Recent orders",
+        "viewAll": "View all →",
+        "empty": "No orders yet.",
+        "table": {
+          "order": "Order",
+          "total": "Total",
+          "status": "Status",
+          "date": "Date"
+        }
+      }
+    },
+    "nav": {
+      "dashboard": "Dashboard",
+      "orders": "Orders",
+      "products": "Products",
+      "backToStore": "Back to store"
+    },
+    "products": {
+      "title": "Products",
+      "new": "+ New piece",
+      "search": "Search by name...",
+      "loading": "Loading products...",
+      "empty": "No products found.",
+      "deleteModal": {
+        "text": "Delete this piece? This action cannot be undone.",
+        "confirm": "Delete",
+        "cancel": "Cancel"
+      },
+      "table": {
+        "product": "Product",
+        "category": "Category",
+        "price": "Price",
+        "stock": "Stock",
+        "status": "Status",
+        "active": "Active",
+        "draft": "Draft"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+      }
+    },
+    "productForm": {
+      "editTitle": "Edit piece",
+      "newTitle": "New piece",
+      "cancel": "Cancel",
+      "images": {
+        "title": "Images",
+        "hint": "Upload photos with the piece on — they look much nicer!",
+        "remove": "Remove image",
+        "uploading": "Uploading...",
+        "add": "Add photo"
+      },
+      "basicInfo": {
+        "title": "Basic information",
+        "fields": {
+          "name": "Name",
+          "namePlaceholder": "Ex: Mediterranean Bracelet",
+          "description": "Description",
+          "descriptionPlaceholder": "Describe materials, finishes, style...",
+          "price": "Price (€)",
+          "stock": "Stock",
+          "category": "Category",
+          "active": "Active (visible in store)"
+        }
+      },
+      "submit": {
+        "saving": "Saving...",
+        "save": "Save changes",
+        "create": "Create piece"
+      },
+      "errors": {
+        "upload": "Error uploading image.",
+        "save": "Error saving product."
+      }
+    },
+    "orders": {
+      "title": "Orders",
+      "filterAll": "All ({{ count }})",
+      "loading": "Loading orders...",
+      "empty": "No orders with this status.",
+      "changeStatus": "Change status:",
+      "statuses": {
+        "cancelled": "Cancelled",
+        "delivered": "Delivered",
+        "paid": "Paid",
+        "pending": "Pending",
+        "processing": "Processing",
+        "refunded": "Refunded",
+        "shipped": "Shipped"
+      }
+    }
+  },
+  "authErrors": {
+    "default": "An error occurred. Please try again.",
+    "invalidCredential": "Invalid credentials. Please check your email and password.",
+    "noAdmin": "You do not have administrator permissions.",
+    "tooManyRequests": "Too many failed attempts. Please try again later.",
+    "userNotFound": "No account exists with this email.",
+    "wrongPassword": "Invalid credentials. Please check your email and password."
+  },
+  "catalogue": {
+    "title": "Collection",
+    "search": {
+      "placeholder": "Search pieces...",
+      "label": "Search products"
+    },
+    "filters": {
+      "all": "All",
+      "label": "Filter by category"
+    },
+    "count": {
+      "singular": "1 piece",
+      "plural": "{{ count }} pieces"
+    },
+    "empty": {
+      "text": "No pieces found with those filters.",
+      "clear": "Clear filters"
+    }
+  },
+  "productDetail": {
+    "back": "Back to collection",
+    "viewImage": "View image {{ index }}",
+    "quantity": "Quantity",
+    "stockHint": "Only {{ count }} units left",
+    "addToCart": "Add to cart",
+    "buyNow": "Buy now",
+    "outOfStock": "Out of stock",
+    "lowStock": "Last units",
+    "materials": {
+      "title": "Materials and care",
+      "content": "Handmade with waxed cotton thread and natural silk. To preserve your piece, avoid contact with water and store it in a dry place."
+    },
+    "shipping": {
+      "title": "Shipping and returns",
+      "content": "Free shipping on orders over €40. Delivery in 3-5 business days. We accept returns within 14 days of receipt."
+    }
+  },
+  "cart": {
+    "title": "Your cart",
+    "itemCount": {
+      "singular": "1 piece",
+      "plural": "{{ count }} pieces"
+    },
+    "empty": {
+      "text": "Your cart is empty",
+      "sub": "Discover our handcrafted collection",
+      "cta": "View collection"
+    },
+    "items": {
+      "decrease": "Decrease quantity",
+      "increase": "Increase quantity",
+      "remove": "Remove from cart"
+    },
+    "summary": {
+      "shippingHint": "You need {{ amount }} more for free shipping",
+      "shippingFree": "Free shipping applied",
+      "subtotal": "Subtotal",
+      "shipping": "Shipping",
+      "total": "Total",
+      "free": "Free",
+      "checkout": "Proceed to checkout",
+      "continue": "Continue shopping"
+    }
+  },
+  "checkout": {
+    "title": "Complete order",
+    "empty": {
+      "text": "Your cart is empty.",
+      "cta": "View collection"
+    },
+    "sections": {
+      "contact": "Contact",
+      "shipping": "Shipping address",
+      "payment": "Payment method",
+      "summary": "Summary"
+    },
+    "fields": {
+      "email": "Email",
+      "phone": "Phone",
+      "fullName": "Full name",
+      "street": "Address",
+      "postalCode": "Postal code",
+      "city": "City",
+      "province": "Province",
+      "country": "Country"
+    },
+    "payment": {
+      "card": "Card",
+      "bizum": "Bizum",
+      "paypal": "PayPal",
+      "security": "100% secure payment · SSL"
+    },
+    "submit": {
+      "processing": "Processing...",
+      "confirm": "Confirm order — {{ total }}"
+    },
+    "summary": {
+      "subtotal": "Subtotal",
+      "shipping": "Shipping",
+      "total": "Total",
+      "free": "Free"
+    },
+    "errors": {
+      "order_creation": "Error creating order. Please try again.",
+      "generic": "Payment error. Please check your details."
+    }
+  },
+  "orderConfirmation": {
+    "success": {
+      "title": "Your order is on its way!",
+      "subtitle": "We've sent the confirmation to your email",
+      "message": "We're starting to weave your order with much love 🧶",
+      "cta": "Continue shopping"
+    },
+    "error": {
+      "title": "Payment could not be completed",
+      "subtitle": "Please try again or use another payment method.",
+      "cta": "Try again"
+    }
+  },
+  "clientLogin": {
+    "emailPlaceholder": "you@email.com",
+    "subtitle": "My account"
+  },
+  "common": {
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "error": "An error occurred",
+    "loading": "Loading..."
+  },
+  "footer": {
+    "tagline": "Handcrafted macramé jewelry, piece by piece.",
+    "instagram": "Mimacramé Studio Instagram",
+    "links": {
+      "collection": "Collection",
+      "shipping": "Shipping & Returns",
+      "care": "Jewelry Care",
+      "privacy": "Privacy Policy",
+      "contact": "Contact"
+    },
+    "copy": "Mimacramé Studio · Badajoz, Spain"
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Handmade · Badajoz, Spain",
+      "title": "Jewelry that tells\nyour story",
+      "subtitle": "Handcrafted macramé, piece by piece",
+      "cta": "View collection"
+    },
+    "categories": {
+      "title": "Explore the collection",
+      "items": {
+        "bracelets": "Bracelets",
+        "pendants": "Pendants",
+        "earrings": "Earrings",
+        "rings": "Rings",
+        "anklets": "Anklets",
+        "sets": "Sets"
+      }
+    },
+    "featured": {
+      "title": "Our favorites",
+      "cta": "View full collection",
+      "empty": "New pieces coming soon."
+    },
+    "editorial": {
+      "quote": "Stack, mix,\nmake it yours",
+      "cta": "View sets"
+    },
+    "process": {
+      "title": "How your piece is born",
+      "step1": {
+        "title": "Choose your piece",
+        "text": "Explore the collection and find the jewelry that represents you."
+      },
+      "step2": {
+        "title": "We weave it for you",
+        "text": "Each piece is handmade with waxed cotton thread and natural silk."
+      },
+      "step3": {
+        "title": "Receive it at home",
+        "text": "We ship from Badajoz to all of Spain and Europe with love."
+      }
+    }
+  },
+  "navbar": {
+    "collection": "Collection",
+    "cart": "Shopping cart"
+  },
+  "productCard": {
+    "outOfStock": "Out of stock",
+    "lowStock": "Last units",
+    "quickAdd": "Add to cart"
+  },
+  "shared": {
+    "loginForm": {
+      "divider": "or continue with",
+      "emailLabel": "Email",
+      "errors": {
+        "emailInvalid": "Enter a valid email",
+        "emailRequired": "Email is required",
+        "passwordRequired": "Password is required"
+      },
+      "googleButton": "Sign in with Google",
+      "hidePassword": "Hide password",
+      "passwordLabel": "Password",
+      "showPassword": "Show password",
+      "submitButton": "Sign in",
+      "submitButtonLoading": "Signing in..."
+    }
   }
 }

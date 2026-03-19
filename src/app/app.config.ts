@@ -1,8 +1,6 @@
 import { provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
 import {
   ApplicationConfig,
-  inject,
-  provideAppInitializer,
   provideBrowserGlobalErrorListeners,
   provideZonelessChangeDetection,
 } from '@angular/core';
@@ -13,10 +11,10 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { getFunctions, provideFunctions } from '@angular/fire/functions';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { provideRouter } from '@angular/router';
-import { provideTranslateService, TranslateService } from '@ngx-translate/core';
-import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
+import { provideTransloco } from '@jsverse/transloco';
 
 import { authInterceptor } from '@core/interceptor/auth.interceptor';
+import { I18nTranslationService } from '@core/services/i18n-loader.service';
 import { environment } from '@environments/environment';
 
 import { routes } from './app.routes';
@@ -26,19 +24,15 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideHttpClient(withInterceptors([authInterceptor]), withInterceptorsFromDi()),
-    provideTranslateService({
-      loader: provideTranslateHttpLoader({
-        prefix: './assets/i18n/',
-        suffix: '.json',
-      }),
-    }),
-    provideAppInitializer(() => {
-      const translate = inject(TranslateService);
-      const supportedLangs = ['en', 'es', 'pt'];
-      translate.addLangs(supportedLangs);
-      const browserLang = translate.getBrowserLang();
-      const langToUse = browserLang && supportedLangs.includes(browserLang) ? browserLang : 'es';
-      translate.use(langToUse);
+    provideTransloco({
+      config: {
+        availableLangs: ['es', 'en', 'pt'],
+        defaultLang: 'es',
+        fallbackLang: 'es',
+        prodMode: environment.production,
+        reRenderOnLangChange: true,
+      },
+      loader: I18nTranslationService,
     }),
     provideRouter(routes),
     provideFirebaseApp(() => initializeApp(environment.firebase)),

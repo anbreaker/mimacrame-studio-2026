@@ -1,8 +1,347 @@
 {
-  "COMMON": {
-    "CANCEL": "Cancelar",
-    "CONFIRM": "Confirmar",
-    "ERROR": "Ocorreu um erro",
-    "LOADING": "Carregando..."
+  "account": {
+    "orders": {
+      "emptyHint": "Quando fizer sua primeira compra, ela aparecerá aqui.",
+      "emptyMessage": "Você ainda não tem pedidos",
+      "title": "Meus pedidos"
+    },
+    "profile": {
+      "emailLabel": "Email",
+      "nameLabel": "Nome",
+      "noName": "Sem nome",
+      "title": "Meu perfil"
+    },
+    "shell": {
+      "logout": "Sair",
+      "myOrders": "Meus pedidos",
+      "myProfile": "Meu perfil"
+    }
+  },
+  "adminLogin": {
+    "emailPlaceholder": "admin@mimacrame.com",
+    "subtitle": "Studio · Admin"
+  },
+  "admin": {
+    "dashboard": {
+      "title": "Dashboard",
+      "metrics": {
+        "pendingOrders": "Pedidos pendentes",
+        "monthOrders": "Pedidos este mês",
+        "monthRevenue": "Receita este mês",
+        "activeProducts": "Peças ativas"
+      },
+      "lowStock": "Stock baixo:",
+      "recentOrders": {
+        "title": "Pedidos recentes",
+        "viewAll": "Ver todos →",
+        "empty": "Ainda não há pedidos.",
+        "table": {
+          "order": "Pedido",
+          "total": "Total",
+          "status": "Estado",
+          "date": "Data"
+        }
+      }
+    },
+    "nav": {
+      "dashboard": "Dashboard",
+      "orders": "Pedidos",
+      "products": "Produtos",
+      "backToStore": "Voltar à loja"
+    },
+    "products": {
+      "title": "Produtos",
+      "new": "+ Nova peça",
+      "search": "Buscar por nome...",
+      "loading": "Carregando produtos...",
+      "empty": "Não há produtos.",
+      "deleteModal": {
+        "text": "Excluir esta peça? Esta ação não pode ser desfeita.",
+        "confirm": "Excluir",
+        "cancel": "Cancelar"
+      },
+      "table": {
+        "product": "Produto",
+        "category": "Categoria",
+        "price": "Preço",
+        "stock": "Stock",
+        "status": "Estado",
+        "active": "Ativo",
+        "draft": "Rascunho"
+      },
+      "actions": {
+        "edit": "Editar",
+        "delete": "Excluir"
+      }
+    },
+    "productForm": {
+      "editTitle": "Editar peça",
+      "newTitle": "Nova peça",
+      "cancel": "Cancelar",
+      "images": {
+        "title": "Imagens",
+        "hint": "Carregue fotos com a peça colocada — elas ficam muito mais bonitas!",
+        "remove": "Excluir imagem",
+        "uploading": "Carregando...",
+        "add": "Adicionar foto"
+      },
+      "basicInfo": {
+        "title": "Informação básica",
+        "fields": {
+          "name": "Nome",
+          "namePlaceholder": "Ex: Pulseira Mediterrânea",
+          "description": "Descrição",
+          "descriptionPlaceholder": "Descreva materiais, acabamentos, estilo...",
+          "price": "Preço (€)",
+          "stock": "Stock",
+          "category": "Categoria",
+          "active": "Ativo (visível na loja)"
+        }
+      },
+      "submit": {
+        "saving": "Salvando...",
+        "save": "Salvar alterações",
+        "create": "Criar peça"
+      },
+      "errors": {
+        "upload": "Erro ao carregar a imagem.",
+        "save": "Erro ao salvar o produto."
+      }
+      },
+      "orders": {
+      "title": "Pedidos",
+      "filterAll": "Todos ({{ count }})",
+      "loading": "Carregando pedidos...",
+      "empty": "Não há pedidos com este estado.",
+      "changeStatus": "Alterar estado:",
+      "statuses": {
+        "cancelled": "Cancelado",
+        "delivered": "Entregue",
+        "paid": "Pago",
+        "pending": "Pendente",
+        "processing": "Preparando",
+        "refunded": "Reembolsado",
+        "shipped": "Enviado"
+      }
+      }
+      },
+      "authErrors": {
+        "default": "Ocorreu um erro. Tente nuevamente.",
+        "invalidCredential": "Credenciais incorretas. Verifique seu e-mail e senha.",
+        "noAdmin": "Você não tem permissões de administrador.",
+        "tooManyRequests": "Muitas tentativas falhas. Tente novamente más tarde.",
+    "userNotFound": "Não existe nenhuma conta com esse e-mail.",
+    "wrongPassword": "Credenciais incorretas. Verifique seu e-mail e senha."
+    },
+    "catalogue": {
+    "title": "Coleção",
+    "search": {
+      "placeholder": "Buscar peças...",
+      "label": "Buscar productos"
+    },
+    "filters": {
+      "all": "Todas",
+      "label": "Filtrar por categoria"
+    },
+    "count": {
+      "singular": "1 peça",
+      "plural": "{{ count }} peças"
+    },
+    "empty": {
+      "text": "Não há peças com esses filtros.",
+      "clear": "Limpar filtros"
+    }
+    },
+    "productDetail": {
+    "back": "Voltar para a coleção",
+    "viewImage": "Ver imagem {{ index }}",
+    "quantity": "Quantidade",
+    "stockHint": "Restam apenas {{ count }} unidades",
+    "addToCart": "Adicionar ao carrinho",
+    "buyNow": "Comprar agora",
+    "outOfStock": "Esgotado",
+    "lowStock": "Últimas unidades",
+    "materials": {
+      "title": "Materiais e cuidados",
+      "content": "Feito à mão com fio de algodão encerado e seda natural. Para conservar a sua peça evite o contacto com água e guarde-a num local seco."
+    },
+    "shipping": {
+      "title": "Envios e devoluções",
+      "content": "Envio gratuito a partir de €40. Entrega em 3-5 dias úteis. Aceitamos devoluções nos 14 dias seguintes à receção."
+    }
+    },
+  "cart": {
+    "title": "Seu carrinho",
+    "itemCount": {
+      "singular": "1 peça",
+      "plural": "{{ count }} peças"
+    },
+    "empty": {
+      "text": "Seu carrinho está vazio",
+      "sub": "Descubra nossa coleção artesanal",
+      "cta": "Ver coleção"
+    },
+    "items": {
+      "decrease": "Diminuir quantidade",
+      "increase": "Aumentar quantidade",
+      "remove": "Remover do carrinho"
+    },
+    "summary": {
+      "shippingHint": "Faltam {{ amount }} para frete grátis",
+      "shippingFree": "Frete grátis aplicado",
+      "subtotal": "Subtotal",
+      "shipping": "Frete",
+      "total": "Total",
+      "free": "Grátis",
+      "checkout": "Finalizar compra",
+      "continue": "Continuar comprando"
+    }
+  },
+  "checkout": {
+    "title": "Finalizar pedido",
+    "empty": {
+      "text": "Seu carrinho está vazio.",
+      "cta": "Ver coleção"
+    },
+    "sections": {
+      "contact": "Contato",
+      "shipping": "Endereço de entrega",
+      "payment": "Método de pagamento",
+      "summary": "Resumo"
+    },
+    "fields": {
+      "email": "Email",
+      "phone": "Telefone",
+      "fullName": "Nome completo",
+      "street": "Endereço",
+      "postalCode": "Código postal",
+      "city": "Cidade",
+      "province": "Província",
+      "country": "País"
+    },
+    "payment": {
+      "card": "Cartão",
+      "bizum": "Bizum",
+      "paypal": "PayPal",
+      "security": "Pagamento 100% seguro · SSL"
+    },
+    "submit": {
+      "processing": "Processando...",
+      "confirm": "Confirmar pedido — {{ total }}"
+    },
+    "summary": {
+      "subtotal": "Subtotal",
+      "shipping": "Frete",
+      "total": "Total",
+      "free": "Grátis"
+    },
+    "errors": {
+      "order_creation": "Erro ao criar o pedido. Tente novamente.",
+      "generic": "Erro no pagamento. Verifique seus datos."
+    }
+    },
+    "orderConfirmation": {
+    "success": {
+      "title": "Seu pedido está a caminho!",
+      "subtitle": "Enviamos a confirmação para seu e-mail",
+      "message": "Começamos a tecer seu pedido com muito carinho 🧶",
+      "cta": "Continuar comprando"
+    },
+    "error": {
+      "title": "O pagamento não pôde ser concluído",
+      "subtitle": "Por favor, tente novamente ou use outro método de pagamento.",
+      "cta": "Tentar novamente"
+    }
+    },
+    "clientLogin": {
+    "emailPlaceholder": "voce@email.com",
+    "subtitle": "Minha conta"
+  },
+  "common": {
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "error": "Ocorreu um erro",
+    "loading": "Carregando..."
+  },
+  "footer": {
+    "tagline": "Joalharia de macramé artesanal feita à mão, peça por peça.",
+    "instagram": "Instagram de Mimacramé Studio",
+    "links": {
+      "collection": "Coleção",
+      "shipping": "Envios e devoluções",
+      "care": "Cuidados de sua peça",
+      "privacy": "Política de privacidade",
+      "contact": "Contato"
+    },
+    "copy": "Mimacramé Studio · Badajoz, Espanha"
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Feito à mão · Badajoz, Espanha",
+      "title": "Joalharia que conta\na sua história",
+      "subtitle": "Macramé artesanal feito à mão, peça por peça",
+      "cta": "Ver coleção"
+    },
+    "categories": {
+      "title": "Explore a coleção",
+      "items": {
+        "bracelets": "Pulseiras",
+        "pendants": "Pingentes",
+        "earrings": "Brincos",
+        "rings": "Anéis",
+        "anklets": "Tornozeleiras",
+        "sets": "Conjuntos"
+      }
+    },
+    "featured": {
+      "title": "Nossas favoritas",
+      "cta": "Ver toda a coleção",
+      "empty": "Novas peças chegarão em breve."
+    },
+    "editorial": {
+      "quote": "Empilhe, misture,\nfaça-o seu",
+      "cta": "Ver conjuntos"
+    },
+    "process": {
+      "title": "Como nasce a sua peça",
+      "step1": {
+        "title": "Escolha a sua peça",
+        "text": "Explore a coleção e encontre a joia que o representa."
+      },
+      "step2": {
+        "title": "Tecemos para você",
+        "text": "Cada peça é feita à mão com fio de algodão encerado e seda natural."
+      },
+      "step3": {
+        "title": "Receba em casa",
+        "text": "Enviamos de Badajoz para toda a Espanha e Europa com muito carinho."
+      }
+    }
+  },
+  "navbar": {
+    "collection": "Colección",
+    "cart": "Carrinho de compras"
+  },
+  "productCard": {
+    "outOfStock": "Esgotado",
+    "lowStock": "Últimas unidades",
+    "quickAdd": "Adicionar ao carrinho"
+  },
+  "shared": {
+    "loginForm": {
+      "divider": "ou continue com",
+      "emailLabel": "Email",
+      "errors": {
+        "emailInvalid": "Introduza um email válido",
+        "emailRequired": "O email é obrigatório",
+        "passwordRequired": "A senha é obrigatória"
+      },
+      "googleButton": "Entrar com Google",
+      "hidePassword": "Ocultar senha",
+      "passwordLabel": "Senha",
+      "showPassword": "Mostrar senha",
+      "submitButton": "Entrar",
+      "submitButtonLoading": "Entrando..."
+    }
   }
 }
