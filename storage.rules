@@ -1,0 +1,18 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    
+    // Helper to check if user is admin via Firestore (Firestore rules must allow this lookup)
+    // Note: Admin check in storage can be tricky without Custom Claims,
+    // but we can at least protect the paths.
+    
+    match /products/{allPaths=**} {
+      allow read: if true;
+      allow write: if request.auth != null; // Ideally restrict to admin via Custom Claims
+    }
+    
+    match /users/{userId}/{allPaths=**} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+  }
+}
