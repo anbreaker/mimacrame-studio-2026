@@ -1,16 +1,9 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  inject,
-  OnInit,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { form, FormField, required } from '@angular/forms/signals';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { email as emailValidator, form, FormField, required } from '@angular/forms/signals';
+import { map, Observable, of, switchMap } from 'rxjs';
 import { TranslocoDirective } from '@jsverse/transloco';
-import { map, of, switchMap } from 'rxjs';
 
 import { PRODUCT_CATEGORY, ProductCategory } from '@core/const/product-category.const';
 import { ROUTES } from '@core/const/routes';
@@ -43,28 +36,6 @@ export class ProductFormComponent {
   private readonly router = inject(Router);
   protected readonly uploadService = inject(UploadService);
 
-  protected readonly errorKey = signal<string | null>(null);
-  protected readonly isSaving = signal(false);
-
-  private readonly _productId = toSignal(
-    this.route.paramMap.pipe(map((params) => params.get('id')))
-  );
-
-  protected readonly isEditMode = computed(() => !!this._productId());
-
-  private readonly _productData = toSignal(
-    this.route.paramMap.pipe(
-      map((params) => params.get('id')),
-      switchMap((id) =>
-        id
-          ? this.productService
-              .getAll()
-              .pipe(map((products) => products.find((p) => p.id === id) ?? null))
-          : of(null)
-      )
-    )
-  );
-
   private readonly productModel = signal<ProductFormData>({
     active: true,
     category: PRODUCT_CATEGORY.Bracelets,
@@ -74,6 +45,15 @@ export class ProductFormComponent {
     price: 0,
     stock: 0,
   });
+
+  protected readonly productResponseError = signal<string | null>(null);
+  protected readonly saving = signal(false);
+
+  private readonly _productId = toSignal(
+    this.route.paramMap.pipe(map((params) => params.get('id')))
+  );
+
+  protected readonly isEditMode = computed(() => !!this._productId());
 
   protected readonly productForm = form(this.productModel, (schemaPath) => {
     required(schemaPath.name, { message: 'admin.productForm.basicInfo.fields.name' });
@@ -89,11 +69,23 @@ export class ProductFormComponent {
       this.productModel().images.length > 0
   );
 
+  private readonly _productData = toSignal(
+    this.route.paramMap.pipe(
+      map((params) => params.get('id')),
+      switchMap((id) =>
+        id
+          ? this.productService
+              .getAll()
+              .pipe(map((products) => products.find((p) => p.id === id) ?? null))
+          : of(null)
+      )
+    )
+  );
+
   protected readonly categoryKeys = Object.values(PRODUCT_CATEGORY);
   protected readonly routes = ROUTES;
 
   constructor() {
-    // Sync model when product data is loaded in edit mode
     const data = this._productData();
     if (data) {
       this.productModel.set({
@@ -112,42 +104,43 @@ export class ProductFormComponent {
     const files = (event.target as HTMLInputElement).files;
     if (!files?.length) return;
 
-    this.errorKey.set(null);
+    this.productResponseError.set(null);
     const tempId = this._productId() ?? `temp_${Date.now()}`;
 
     try {
       const url = await this.uploadService.uploadProductImage(files[0], tempId);
       this.productModel.update((m) => ({ ...m, images: [...m.images, url] }));
     } catch (error) {
-      this.errorKey.set('admin.productForm.errors.upload');
+      this.productResponseError.set('admin.productForm.errors.upload');
+      console.error(error);
     }
   }
 
   protected removeImage(index: number): void {
-    this.productModel.update((m) => ({
-      ...m,
-      images: m.images.filter((_, i) => i !== index),
+    this.productModel.update((product) => ({
+      ...product,
+      images: product.images.filter((_unusedImage, imageIndex) => imageIndex !== index),
     }));
   }
 
   protected save(): void {
     if (!this.isFormValid()) return;
 
-    this.isSaving.set(true);
-    this.errorKey.set(null);
+    this.saving.set(true);
+    this.productResponseError.set(null);
 
     const id = this._productId();
     const data = this.productModel();
 
-    const obs$ =
+    const obs$: Observable<string | void> =
       this.isEditMode() && id
         ? this.productService.update(id, data as ProductUpdate)
         : this.productService.create(data as ProductCreate);
 
     obs$.subscribe({
       error: () => {
-        this.isSaving.set(false);
-        this.errorKey.set('admin.productForm.errors.save');
+        this.saving.set(false);
+        this.productResponseError.set('admin.productForm.errors.save');
       },
       next: () => this.router.navigate(['/' + ROUTES.ADMIN_PRODUCTS]),
     });

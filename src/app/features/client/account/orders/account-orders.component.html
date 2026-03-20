@@ -1,20 +1,35 @@
 <section class="orders" *transloco="let t">
-  <h2 class="orders__title">{{ t('account.orders.title') }}</h2>
+  <h2 class="orders__title">
+    {{ t('account.orders.title') }}
+  </h2>
 
-  @if (orders().length === 0) {
+  @if (orders() === undefined) {
+    <p class="orders__loading">
+      {{ t('common.loading') }}
+    </p>
+  } @else if (orders()!.length === 0) {
     <div class="orders__empty">
-      <p class="orders__empty-text">{{ t('account.orders.emptyMessage') }}</p>
-      <p class="orders__empty-hint">{{ t('account.orders.emptyHint') }}</p>
+      <p class="orders__empty-text">
+        {{ t('account.orders.emptyMessage') }}
+      </p>
+      <p class="orders__empty-hint">
+        {{ t('account.orders.emptyHint') }}
+      </p>
     </div>
   } @else {
     <ul class="orders__list">
-      @for (order of orders(); track order.id) {
+      @for (order of orders()!; track order.id) {
         <li class="orders__item">
           <span class="orders__item-id">#{{ order.id }}</span>
-          <span class="orders__item-status">{{ t('admin.orders.statuses.' + order.status) }}</span>
-          <span class="orders__item-total">{{
-            order.total | currency: 'EUR' : 'symbol' : '1.2-2' : 'es'
-          }}</span>
+          <span class="orders__item-date">
+            {{ order.createdAt | date: 'dd/MM/yyyy' }}
+          </span>
+          <span class="orders__item-status orders__item-status--{{ order.status }}">
+            {{ t('admin.orders.statuses.' + order.status) }}
+          </span>
+          <span class="orders__item-total">
+            {{ order.total | currency: 'EUR' : 'symbol' : '1.2-2' : 'es' }}
+          </span>
         </li>
       }
     </ul>

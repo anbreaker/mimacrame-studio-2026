@@ -60,11 +60,38 @@
       font-size: var(--font-size-sm);
     }
 
-    &-status {
-      color: var(--color-text);
+    &-date {
+      color: var(--color-text-muted);
       font-size: var(--font-size-sm);
+    }
+
+    &-status {
+      border-radius: var(--radius-pill);
+      font-size: var(--font-size-xs);
       font-weight: var(--font-weight-medium);
+      padding: 2px var(--space-sm);
       text-transform: capitalize;
+
+      &--pending {
+        background-color: var(--color-accent-light);
+        color: var(--color-accent);
+      }
+      &--processing {
+        background-color: rgb(255 184 48 / 15%);
+        color: var(--color-warning);
+      }
+      &--shipped {
+        background-color: rgb(124 158 248 / 15%);
+        color: #7c9ef8;
+      }
+      &--delivered {
+        background-color: rgb(46 204 138 / 15%);
+        color: var(--color-success);
+      }
+      &--cancelled {
+        background-color: rgb(155 170 184 / 15%);
+        color: var(--color-text-muted);
+      }
     }
 
     &-total {
@@ -72,5 +99,11 @@
       font-size: var(--font-size-sm);
       font-weight: var(--font-weight-semibold);
     }
+  }
+
+  &__loading {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+    text-align: center;
   }
 }

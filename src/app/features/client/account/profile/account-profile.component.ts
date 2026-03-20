@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, signal, untracked } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  inject,
+  signal,
+  untracked,
+} from '@angular/core';
 import { form, FormField, minLength, pattern, required } from '@angular/forms/signals';
 import { TranslocoDirective } from '@jsverse/transloco';
 
@@ -28,10 +36,6 @@ export class AccountProfileComponent {
   private readonly authService = inject(AuthService);
   protected readonly authStore = inject(AuthStore);
 
-  protected readonly isSaving = signal(false);
-  protected readonly showSuccess = signal(false);
-
-  // Model Signal para el formulario
   private readonly profileModel = signal<ProfileFormData>({
     city: '',
     country: '',
@@ -42,20 +46,27 @@ export class AccountProfileComponent {
     street: '',
   });
 
-  // Definición del formulario con validaciones robustas
+  protected readonly saving = signal(false);
+  protected readonly showSuccess = signal(false);
+
+  protected readonly avatarInitial = computed(() => {
+    const name = this.authStore.displayName();
+    return name ? name.charAt(0).toUpperCase() : '?';
+  });
+
   protected readonly profileForm = form(this.profileModel, (schemaPath) => {
     required(schemaPath.fullName);
     minLength(schemaPath.fullName, 3);
-    
+
     required(schemaPath.street);
     required(schemaPath.postalCode);
-    pattern(schemaPath.postalCode, /^[0-9]{5}$/); // CP español estándar
-    
+    pattern(schemaPath.postalCode, /^[0-9]{5}$/);
+
     required(schemaPath.city);
     required(schemaPath.country);
-    
+
     required(schemaPath.phone);
-    pattern(schemaPath.phone, /^[0-9]{9,15}$/); // Números de 9 a 15 dígitos
+    pattern(schemaPath.phone, /^[0-9]{9,15}$/);
   });
 
   protected readonly isFormValid = computed(
@@ -68,25 +79,19 @@ export class AccountProfileComponent {
       this.profileForm.phone().valid()
   );
 
-  protected readonly avatarInitial = computed(() => {
-    const name = this.authStore.displayName();
-    return name ? name.charAt(0).toUpperCase() : '?';
-  });
-
   constructor() {
-    // Sincronizamos los datos del usuario logueado con el formulario
     effect(() => {
       const user = this.authStore.user();
       if (user) {
         untracked(() => {
           this.profileModel.set({
-            city: user.city ?? '',
-            country: user.country ?? '',
+            city: user.address?.city ?? '',
+            country: user.address?.country ?? '',
             fullName: user.displayName ?? '',
-            phone: user.phone ?? '',
-            postalCode: user.postalCode ?? '',
-            province: user.province ?? '',
-            street: user.street ?? '',
+            phone: user.address?.phone ?? '',
+            postalCode: user.address?.postalCode ?? '',
+            province: user.address?.province ?? '',
+            street: user.address?.street ?? '',
           });
         });
       }
@@ -97,29 +102,31 @@ export class AccountProfileComponent {
     const user = this.authStore.user();
     if (!user || !this.isFormValid()) return;
 
-    this.isSaving.set(true);
+    this.saving.set(true);
     this.showSuccess.set(false);
 
     const data = this.profileModel();
-    
-    // Mapeamos los datos del formulario a las propiedades de AppUser
+
     const updateData: Partial<AppUser> = {
-      city: data.city,
-      country: data.country,
+      address: {
+        city: data.city,
+        country: data.country,
+        fullName: data.fullName,
+        phone: data.phone,
+        postalCode: data.postalCode,
+        province: data.province,
+        street: data.street,
+      },
       displayName: data.fullName,
-      phone: data.phone,
-      postalCode: data.postalCode,
-      province: data.province,
-      street: data.street,
     };
 
     this.authService.updateProfile(user.uid, updateData).subscribe({
       complete: () => {
-        this.isSaving.set(false);
+        this.saving.set(false);
         this.showSuccess.set(true);
         setTimeout(() => this.showSuccess.set(false), 3000);
       },
-      error: () => this.isSaving.set(false),
+      error: () => this.saving.set(false),
     });
   }
 }
