@@ -25,7 +25,7 @@ export const createPaymentIntent = functions.https.onCall(
     }
 
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: Math.round(amount * 100), // Convert to cents
+      amount, // Already in cents (converted by the client)
       currency,
       metadata: {
         orderId,
