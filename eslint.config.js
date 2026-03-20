@@ -23,7 +23,7 @@ const customRules = {
 export default tseslint.config(
   // Block 1: Global ignores
   {
-    ignores: ['www/', 'dist/', 'node_modules/', 'reports/', '.stryker-tmp/'],
+    ignores: ['www/', 'dist/', 'node_modules/', 'reports/', '.stryker-tmp/', 'functions/'],
   },
 
   // Block 1.5: JS files (Global config files, ESLint rules, etc)
