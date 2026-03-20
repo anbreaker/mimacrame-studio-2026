@@ -1,0 +1,133 @@
+<section class="register" *transloco="let t">
+  <div class="register__card">
+    <div class="register__header">
+      <h1 class="register__title">
+        {{ t('clientRegister.title') }}
+      </h1>
+      <p class="register__subtitle">
+        {{ t('clientRegister.subtitle') }}
+      </p>
+    </div>
+
+    <form class="register__form" (submit)="$event.preventDefault(); register()">
+      @if (errorKey()) {
+        <div class="register__error" role="alert">
+          {{ t(errorKey()!) }}
+        </div>
+      }
+
+      <div class="register__field">
+        <label class="register__label" for="displayName">
+          {{ t('account.profile.nameLabel') }}
+        </label>
+        <input
+          id="displayName"
+          class="register__input"
+          type="text"
+          [placeholder]="t('account.profile.placeholders.fullName')"
+          [formField]="registerForm.displayName"
+        />
+        @if (registerForm.displayName().touched() && registerForm.displayName().invalid()) {
+          @for (validationError of registerForm.displayName().errors(); track validationError) {
+            <span class="register__field-error">
+              {{ t(validationError.message ?? '') }}
+            </span>
+          }
+        }
+      </div>
+
+      <div class="register__field">
+        <label class="register__label" for="email">{{ t('shared.loginForm.emailLabel') }}</label>
+        <input
+          id="email"
+          class="register__input"
+          type="email"
+          [placeholder]="t('clientLogin.emailPlaceholder')"
+          [formField]="registerForm.email"
+        />
+        @if (registerForm.email().touched() && registerForm.email().invalid()) {
+          @for (validationError of registerForm.email().errors(); track validationError) {
+            <span class="register__field-error">
+              {{ t(validationError.message ?? '') }}
+            </span>
+          }
+        }
+      </div>
+
+      <div class="register__field">
+        <label class="register__label" for="password">
+          {{ t('shared.loginForm.passwordLabel') }}
+        </label>
+        <div class="register__input-wrapper">
+          <input
+            id="password"
+            class="register__input"
+            [type]="showPassword() ? 'text' : 'password'"
+            [placeholder]="t('shared.loginForm.passwordLabel')"
+            [formField]="registerForm.password"
+          />
+          <button
+            type="button"
+            class="register__toggle-password"
+            (click)="showPassword.set(!showPassword())"
+            [attr.aria-label]="
+              showPassword()
+                ? t('shared.loginForm.hidePassword')
+                : t('shared.loginForm.showPassword')
+            "
+          >
+            @if (showPassword()) {
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M17.94 17.94A10.07 10.07 0 0 1 12 19c-7 0-11-7-11-7a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 7 11 7a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"
+                ></path>
+                <line x1="1" y1="1" x2="23" y2="23"></line>
+              </svg>
+            } @else {
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+            }
+          </button>
+        </div>
+        @if (registerForm.password().touched() && registerForm.password().invalid()) {
+          @for (validationError of registerForm.password().errors(); track validationError) {
+            <span class="register__field-error">
+              {{ t(validationError.message ?? '') }}
+            </span>
+          }
+        }
+      </div>
+
+      <button
+        class="register__submit btn btn--primary btn--full"
+        type="submit"
+        [disabled]="isLoading() || !isFormValid()"
+        [attr.aria-busy]="isLoading()"
+      >
+        {{ isLoading() ? t('clientRegister.submit.loading') : t('clientRegister.submit.button') }}
+      </button>
+
+      <div class="register__footer">
+        <a [routerLink]="['/' + routes.LOGIN]" class="link">
+          {{ t('clientRegister.loginLink') }}
+        </a>
+      </div>
+    </form>
+  </div>
+</section>

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { TranslocoDirective } from '@jsverse/transloco';
 
 import { ROUTES } from '@core/const/routes';
@@ -10,9 +10,10 @@ import { LoginFormComponent, LoginSubmitEvent } from '@shared/login-form/login-f
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [LoginFormComponent, TranslocoDirective],
+  imports: [LoginFormComponent, RouterLink, TranslocoDirective],
   selector: 'app-client-login',
   standalone: true,
+  styleUrl: './client-login.component.scss',
   templateUrl: './client-login.component.html',
 })
 export class ClientLoginComponent {
@@ -23,6 +24,8 @@ export class ClientLoginComponent {
   protected readonly isLoading = signal(false);
 
   private readonly currentUser = toSignal(this.authService.currentUser$);
+
+  protected readonly routes = ROUTES;
 
   constructor() {
     effect(() => {
@@ -37,9 +40,9 @@ export class ClientLoginComponent {
     this.errorKey.set(null);
 
     this.authService.login(email, password).subscribe({
-      error: (err: Error) => {
+      error: (error: Error) => {
         this.isLoading.set(false);
-        this.errorKey.set(toReadableError(err.message));
+        this.errorKey.set(toReadableError(error.message));
       },
       next: () => {
         this.isLoading.set(false);
@@ -53,9 +56,9 @@ export class ClientLoginComponent {
     this.errorKey.set(null);
 
     this.authService.loginWithGoogle().subscribe({
-      error: (err: Error) => {
+      error: (error: Error) => {
         this.isLoading.set(false);
-        this.errorKey.set(toReadableError(err.message));
+        this.errorKey.set(toReadableError(error.message));
       },
       next: () => {
         this.isLoading.set(false);

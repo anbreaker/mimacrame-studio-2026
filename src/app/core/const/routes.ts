@@ -17,6 +17,7 @@ export const ROUTES = {
   ORDER_CONFIRMED: 'order-confirmed',
   PRODUCT: 'product',
   PRODUCT_ID: 'product/:id',
+  REGISTER: 'register',
 } as const;
 
 export type RouteKey = keyof typeof ROUTES;

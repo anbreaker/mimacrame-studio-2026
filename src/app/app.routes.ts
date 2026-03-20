@@ -40,6 +40,11 @@ export const routes: Routes = [
     path: ROUTES.LOGIN,
   },
   {
+    loadComponent: async () =>
+      (await import('./features/client/register/client-register.component')).ClientRegisterComponent,
+    path: ROUTES.REGISTER,
+  },
+  {
     canActivate: [clientGuard],
     children: [
       {

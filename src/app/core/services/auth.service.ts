@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import {
   Auth,
+  createUserWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithEmailAndPassword,
   signInWithPopup,
@@ -9,7 +10,7 @@ import {
   user,
   UserCredential,
 } from '@angular/fire/auth';
-import { doc, Firestore, getDoc, setDoc } from '@angular/fire/firestore';
+import { doc, Firestore, getDoc, setDoc, updateDoc } from '@angular/fire/firestore';
 import { from, map, Observable, of, switchMap, tap } from 'rxjs';
 
 import { AppUser } from '@core/interfaces/user.interface';
@@ -23,16 +24,19 @@ export class AuthService {
     switchMap((firebaseUser) =>
       firebaseUser
         ? from(getDoc(doc(this.firestore, `users/${firebaseUser.uid}`))).pipe(
-            map(
-              (snapshot) =>
-                ({
-                  displayName: firebaseUser.displayName,
-                  email: firebaseUser.email,
-                  isAdmin: snapshot.exists() ? (snapshot.data()['isAdmin'] ?? false) : false,
-                  photoURL: firebaseUser.photoURL,
-                  uid: firebaseUser.uid,
-                }) satisfies AppUser
-            )
+            map((snapshot) => {
+              const data = snapshot.data();
+              return {
+                address: data?.['address'],
+                createdAt: data?.['createdAt'],
+                displayName: firebaseUser.displayName || data?.['displayName'],
+                email: firebaseUser.email,
+                isAdmin: data?.['isAdmin'] ?? false,
+                photoURL: firebaseUser.photoURL || data?.['photoURL'],
+                uid: firebaseUser.uid,
+                updatedAt: data?.['updatedAt'],
+              } satisfies AppUser;
+            })
           )
         : of(null)
     )
@@ -54,8 +58,21 @@ export class AuthService {
     return from(signOut(this.auth));
   }
 
-  updateProfile(uid: string, data: Partial<AppUser>): Observable<void> {
-    return from(setDoc(doc(this.firestore, `users/${uid}`), data, { merge: true }));
+  register(email: string, password: string, displayName: string): Observable<UserCredential> {
+    return from(createUserWithEmailAndPassword(this.auth, email, password)).pipe(
+      tap((credential) => {
+        const userDoc = doc(this.firestore, `users/${credential.user.uid}`);
+        return setDoc(userDoc, {
+          createdAt: new Date().toISOString(),
+          displayName,
+          email,
+          isAdmin: false,
+          photoURL: null,
+          uid: credential.user.uid,
+          updatedAt: new Date().toISOString(),
+        });
+      })
+    );
   }
 
   private syncUser(user: User): void {
@@ -63,12 +80,24 @@ export class AuthService {
     getDoc(userDoc).then((snapshot) => {
       if (!snapshot.exists()) {
         setDoc(userDoc, {
+          createdAt: new Date().toISOString(),
           displayName: user.displayName,
           email: user.email,
           isAdmin: false,
           photoURL: user.photoURL,
+          uid: user.uid,
+          updatedAt: new Date().toISOString(),
         });
       }
     });
+  }
+
+  updateProfile(uid: string, data: Partial<AppUser>): Observable<void> {
+    return from(
+      updateDoc(doc(this.firestore, `users/${uid}`), {
+        ...data,
+        updatedAt: new Date().toISOString(),
+      })
+    );
   }
 }

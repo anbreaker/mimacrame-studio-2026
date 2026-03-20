@@ -255,7 +255,17 @@
   },
   "clientLogin": {
     "emailPlaceholder": "tu@email.com",
+    "registerLink": "¿No tienes cuenta? Regístrate aquí",
     "subtitle": "Mi cuenta"
+  },
+  "clientRegister": {
+    "loginLink": "¿Ya tienes cuenta? Inicia sesión",
+    "submit": {
+      "button": "Crear cuenta",
+      "loading": "Creando cuenta..."
+    },
+    "subtitle": "Crea tu cuenta",
+    "title": "Registro"
   },
   "common": {
     "cancel": "Cancelar",

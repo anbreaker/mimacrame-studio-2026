@@ -1,9 +1,16 @@
-<app-login-form
-  *transloco="let t"
-  [subtitle]="t('clientLogin.subtitle')"
-  [emailPlaceholder]="t('clientLogin.emailPlaceholder')"
-  [error]="errorKey() ? t(errorKey()!) : null"
-  [isLoading]="isLoading()"
-  (emailSubmit)="loginWithEmail($event)"
-  (googleSubmit)="loginWithGoogle()"
-/>
+<div class="login-page" *transloco="let t">
+  <app-login-form
+    [subtitle]="t('clientLogin.subtitle')"
+    [emailPlaceholder]="t('clientLogin.emailPlaceholder')"
+    [error]="errorKey() ? t(errorKey()!) : null"
+    [isLoading]="isLoading()"
+    (emailSubmit)="loginWithEmail($event)"
+    (googleSubmit)="loginWithGoogle()"
+  />
+
+  <div class="login-footer">
+    <a [routerLink]="['/' + routes.REGISTER]" class="link">
+      {{ t('clientLogin.registerLink') }}
+    </a>
+  </div>
+</div>
