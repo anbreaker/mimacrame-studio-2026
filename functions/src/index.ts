@@ -5,7 +5,7 @@ import Stripe from 'stripe';
 admin.initializeApp();
 
 const stripe = new Stripe(process.env['STRIPE_SECRET_KEY'] ?? '', {
-  apiVersion: '2024-12-18.acacia',
+  apiVersion: '2025-02-24.acacia',
 });
 
 /**
@@ -14,14 +14,11 @@ const stripe = new Stripe(process.env['STRIPE_SECRET_KEY'] ?? '', {
  * Expects body: { amount: number, currency: string, orderId: string }
  */
 export const createPaymentIntent = functions.https.onCall(
-  async (data: { amount: number; currency: string; orderId: string }) => {
-    const { amount, currency = 'eur', orderId } = data;
+  async (request: functions.https.CallableRequest<{ amount: number; currency: string; orderId: string }>) => {
+    const { amount, currency = 'eur', orderId } = request.data;
 
     if (!amount || amount <= 0) {
-      throw new functions.https.HttpsError(
-        'invalid-argument',
-        'Amount must be a positive number'
-      );
+      throw new functions.https.HttpsError('invalid-argument', 'Amount must be a positive number');
     }
 
     const paymentIntent = await stripe.paymentIntents.create({
