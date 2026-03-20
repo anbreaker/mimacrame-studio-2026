@@ -14,7 +14,9 @@ const stripe = new Stripe(process.env['STRIPE_SECRET_KEY'] ?? '', {
  * Expects body: { amount: number, currency: string, orderId: string }
  */
 export const createPaymentIntent = functions.https.onCall(
-  async (request: functions.https.CallableRequest<{ amount: number; currency: string; orderId: string }>) => {
+  async (
+    request: functions.https.CallableRequest<{ amount: number; currency: string; orderId: string }>
+  ) => {
     const { amount, currency = 'eur', orderId } = request.data;
 
     if (!amount || amount <= 0) {
