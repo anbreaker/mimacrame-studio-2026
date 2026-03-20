@@ -16,7 +16,7 @@ export class CatalogueStore {
   private readonly _productsState = toSignal(
     this.productService.getActive().pipe(
       map((products) => ({ error: null, isLoading: false, products })),
-      catchError((err: Error) => of({ error: err.message, isLoading: false, products: [] })),
+      catchError((error: Error) => of({ error: error.message, isLoading: false, products: [] })),
       startWith({ error: null, isLoading: true, products: [] })
     ),
     { initialValue: { error: null, isLoading: true, products: [] } }

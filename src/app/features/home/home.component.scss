@@ -1,4 +1,3 @@
-// ---- Shared section layout ----
 .section-title {
   color: var(--color-text);
   font-family: var(--font-serif);
@@ -8,7 +7,6 @@
   text-align: center;
 }
 
-// ---- Hero ----
 .hero {
   align-items: center;
   background: linear-gradient(135deg, var(--color-background) 0%, #1a2d42 100%);
@@ -111,7 +109,6 @@
   }
 }
 
-// ---- Categories ----
 .categories {
   background-color: var(--color-surface);
   padding: var(--space-3xl) var(--space-md);
@@ -165,7 +162,6 @@
   }
 }
 
-// ---- Featured ----
 .featured {
   padding: var(--space-3xl) var(--space-md);
 
@@ -228,7 +224,6 @@
   }
 }
 
-// ---- Buttons ----
 .btn {
   border: none;
   border-radius: var(--radius-sm);
@@ -260,7 +255,6 @@
   }
 }
 
-// ---- Editorial ----
 .editorial {
   align-items: center;
   background: linear-gradient(135deg, #1a2d42 0%, var(--color-background) 100%);
@@ -304,7 +298,6 @@
   }
 }
 
-// ---- Process ----
 .process {
   background-color: var(--color-surface-alt);
   padding: var(--space-3xl) var(--space-md);

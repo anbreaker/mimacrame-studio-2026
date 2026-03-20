@@ -52,7 +52,7 @@ export class ExampleStore {
               this._data.set(data);
               this._isLoading.set(false);
             }),
-            catchError((err: Error) => {
+            catchError((error: Error) => {
               this._error.set(error.message ?? 'Error loading data');
               this._isLoading.set(false);
               return of(null);
