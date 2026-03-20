@@ -1,11 +1,10 @@
 import { CurrencyPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { RouterLink, ROUTES } from '@angular/router';
-import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { RouterLink } from '@angular/router';
+import { TranslocoDirective } from '@jsverse/transloco';
 
-import { PRODUCT_CATEGORY, ProductCategory } from '@core/const/product-category.const';
-import { Product } from '@core/interfaces/product.interface';
+import { ROUTES } from '@core/const/routes';
 import { ProductService } from '@core/services/product.service';
 import { AdminNavComponent } from '@shared/admin-nav/admin-nav.component';
 
@@ -21,21 +20,21 @@ export class ProductsListComponent {
   private readonly productService = inject(ProductService);
 
   protected readonly confirmDeleteId = signal<string | null>(null);
-  protected readonly isLoading = signal(true);
-  protected readonly products = signal<Product[]>([]);
   protected readonly searchQuery = signal('');
 
-  protected readonly routes = ROUTES;
+  private readonly _products = toSignal(this.productService.getAll(), { initialValue: [] });
 
-  constructor() {
-    this.productService
-      .getAll()
-      .pipe(takeUntilDestroyed())
-      .subscribe((products) => {
-        this.products.set(products);
-        this.isLoading.set(false);
-      });
-  }
+  protected readonly filteredProducts = computed(() => {
+    const products = this._products();
+    const query = this.searchQuery().toLowerCase().trim();
+
+    return query
+      ? products.filter((p) => p.name.toLowerCase().includes(query))
+      : products;
+  });
+
+  protected readonly isLoading = computed(() => this._products() === undefined);
+  protected readonly routes = ROUTES;
 
   protected cancelDelete(): void {
     this.confirmDeleteId.set(null);
@@ -43,17 +42,19 @@ export class ProductsListComponent {
 
   protected confirmDelete(): void {
     const id = this.confirmDeleteId();
-    id && this.productService.delete(id).subscribe(() => this.confirmDeleteId.set(null));
-  }
+    if (!id) return;
 
-  protected get filteredProducts(): Product[] {
-    const q = this.searchQuery().toLowerCase().trim();
-    return q
-      ? this.products().filter((product) => product.name.toLowerCase().includes(q))
-      : this.products();
+    this.productService.delete(id).subscribe({
+      next: () => this.confirmDeleteId.set(null),
+    });
   }
 
   protected requestDelete(id: string): void {
     this.confirmDeleteId.set(id);
+  }
+
+  protected updateSearch(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.searchQuery.set(input.value);
   }
 }
