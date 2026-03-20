@@ -85,8 +85,32 @@ export class CheckoutComponent {
       this.checkoutForm.phone().valid()
   );
 
+  protected readonly shippingCost = computed(() =>
+    this.cartStore.total() >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_COST
+  );
+
+  protected readonly orderTotal = computed(() => this.cartStore.total() + this.shippingCost());
+
+  protected readonly orderTotalInCents = computed(() => Math.round(this.orderTotal() * 100));
+
   protected readonly PAYMENT_METHOD = PAYMENT_METHOD;
   protected readonly routes = ROUTES;
+
+  constructor() {
+    const user = this.authStore.user();
+    if (user) {
+      this.checkoutModel.set({
+        city: user.address?.city ?? '',
+        country: user.address?.country ?? '',
+        email: user.email ?? '',
+        fullName: user.address?.fullName ?? user.displayName ?? '',
+        phone: user.address?.phone ?? '',
+        postalCode: user.address?.postalCode ?? '',
+        province: user.address?.province ?? '',
+        street: user.address?.street ?? '',
+      });
+    }
+  }
 
   private confirmOrder(clientSecret: string): void {
     const data = this.checkoutModel();
@@ -105,7 +129,7 @@ export class CheckoutComponent {
         },
         status: ORDER_STATUS.Pending,
         stripePaymentIntentId: clientSecret.split('_secret_')[0],
-        total: this.orderTotal,
+        total: this.orderTotal(),
         userId: this.authStore.user()?.uid ?? null,
       })
       .subscribe({
@@ -122,20 +146,8 @@ export class CheckoutComponent {
       });
   }
 
-  protected get orderTotal(): number {
-    return this.cartStore.total() + this.shippingCost;
-  }
-
-  protected get orderTotalInCents(): number {
-    return Math.round(this.orderTotal * 100);
-  }
-
   protected selectPayment(method: PaymentMethod): void {
     this.selectedPayment.set(method);
-  }
-
-  protected get shippingCost(): number {
-    return this.cartStore.total() >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_COST;
   }
 
   protected submit(): void {
@@ -144,7 +156,7 @@ export class CheckoutComponent {
     this.isProcessing.set(true);
     this.errorKey.set(null);
 
-    this.paymentService.createPaymentIntent(this.orderTotalInCents).subscribe({
+    this.paymentService.createPaymentIntent(this.orderTotalInCents()).subscribe({
       error: () => {
         this.isProcessing.set(false);
         this.errorKey.set('errors.generic');

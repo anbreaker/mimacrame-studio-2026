@@ -74,10 +74,10 @@ export class AuthStore {
     this._isCheckingAdmin.set(true);
 
     this.authService.login(email, password).subscribe({
-      error: (err: Error) => {
+      error: (error: Error) => {
         this._isLoading.set(false);
         this._isCheckingAdmin.set(false);
-        this._errorKey.set(toReadableError(err.message));
+        this._errorKey.set(toReadableError(error.message));
       },
     });
   }
@@ -88,10 +88,10 @@ export class AuthStore {
     this._isCheckingAdmin.set(true);
 
     this.authService.loginWithGoogle().subscribe({
-      error: (err: Error) => {
+      error: (error: Error) => {
         this._isLoading.set(false);
         this._isCheckingAdmin.set(false);
-        this._errorKey.set(toReadableError(err.message));
+        this._errorKey.set(toReadableError(error.message));
       },
     });
   }
