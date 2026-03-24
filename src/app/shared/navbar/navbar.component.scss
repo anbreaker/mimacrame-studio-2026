@@ -17,12 +17,28 @@
   }
 
   &__logo {
+    align-items: center;
     display: flex;
-    flex: 1; // Ocupa espacio para centrar lo demas
-    flex-direction: column;
-    gap: 2px;
+    flex: 1;
+    gap: var(--space-sm);
     line-height: 1;
     text-decoration: none;
+
+    &-img {
+      display: none;
+      object-fit: contain;
+      width: 48px;
+
+      @media (min-width: 768px) {
+        display: block;
+      }
+    }
+
+    &-texts {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
 
     &-text {
       color: var(--color-text);
@@ -45,8 +61,8 @@
   &__links {
     display: none;
     justify-content: center;
-    position: absolute; // Centrado absoluto respecto al contenedor
     left: 50%;
+    position: absolute; // Centrado absoluto respecto al contenedor
     transform: translateX(-50%);
 
     @media (min-width: 768px) {
