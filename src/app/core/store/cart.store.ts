@@ -1,9 +1,8 @@
 import { computed, Injectable, signal } from '@angular/core';
 
+import { STORAGE_KEYS } from '@core/const/storage-keys.const';
 import { CartItem } from '@core/interfaces/cart.interface';
 import { Product } from '@core/interfaces/product.interface';
-
-const CART_STORAGE_KEY = 'mimacrame_cart';
 
 @Injectable({ providedIn: 'root' })
 export class CartStore {
@@ -40,7 +39,7 @@ export class CartStore {
 
   private loadFromStorage(): CartItem[] {
     try {
-      const stored = localStorage.getItem(CART_STORAGE_KEY);
+      const stored = localStorage.getItem(STORAGE_KEYS.Cart);
       return stored ? (JSON.parse(stored) as CartItem[]) : [];
     } catch {
       return [];
@@ -49,7 +48,7 @@ export class CartStore {
 
   private persist(items: CartItem[]): void {
     this._items.set(items);
-    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
+    localStorage.setItem(STORAGE_KEYS.Cart, JSON.stringify(items));
   }
 
   removeItem(productId: string): void {

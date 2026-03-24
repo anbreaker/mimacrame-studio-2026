@@ -1,6 +1,8 @@
 import { provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
 import {
   ApplicationConfig,
+  inject,
+  provideAppInitializer,
   provideBrowserGlobalErrorListeners,
   provideZonelessChangeDetection,
 } from '@angular/core';
@@ -13,7 +15,9 @@ import { getStorage, provideStorage } from '@angular/fire/storage';
 import { provideRouter } from '@angular/router';
 import { provideTransloco } from '@jsverse/transloco';
 
+import { AVAILABLE_LANGS, DEFAULT_LANG } from '@core/const/lang.const';
 import { authInterceptor } from '@core/interceptor/auth.interceptor';
+import { I18nService } from '@core/services/i18n.service';
 import { I18nTranslationService } from '@core/services/i18n-loader.service';
 import { environment } from '@environments/environment';
 
@@ -23,12 +27,13 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
+    provideAppInitializer(() => inject(I18nService).initialize()),
     provideHttpClient(withInterceptors([authInterceptor]), withInterceptorsFromDi()),
     provideTransloco({
       config: {
-        availableLangs: ['es', 'en', 'pt'],
-        defaultLang: 'es',
-        fallbackLang: 'es',
+        availableLangs: AVAILABLE_LANGS,
+        defaultLang: DEFAULT_LANG,
+        fallbackLang: DEFAULT_LANG,
         prodMode: environment.production,
         reRenderOnLangChange: true,
       },

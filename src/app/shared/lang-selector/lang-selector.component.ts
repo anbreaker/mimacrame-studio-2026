@@ -1,5 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { TranslocoService } from '@jsverse/transloco';
+
+import { I18nService } from '@core/services/i18n.service';
 
 interface Language {
   code: string;
@@ -15,18 +18,21 @@ const LANGUAGES: Language[] = [
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [TranslocoDirective],
   selector: 'app-lang-selector',
   standalone: true,
   styleUrl: './lang-selector.component.scss',
   templateUrl: './lang-selector.component.html',
 })
 export class LangSelectorComponent {
+  private readonly i18n = inject(I18nService);
   private readonly transloco = inject(TranslocoService);
 
   protected readonly languages = LANGUAGES;
+  protected readonly activeLang = toSignal(this.transloco.langChanges$, {
+    initialValue: this.transloco.getActiveLang(),
+  });
 
   protected setLang(code: string): void {
-    this.transloco.setActiveLang(code);
+    this.i18n.setLang(code);
   }
 }

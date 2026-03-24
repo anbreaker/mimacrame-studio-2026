@@ -1,10 +1,10 @@
-<div class="lang-selector" *transloco="let t; let activeLang = lang">
+<div class="lang-selector">
   @for (lang of languages; track lang.code) {
     <button
       class="lang-selector__btn"
-      [class.lang-selector__btn--active]="activeLang === lang.code"
+      [class.lang-selector__btn--active]="activeLang() === lang.code"
       [attr.aria-label]="lang.label"
-      [attr.aria-pressed]="activeLang === lang.code"
+      [attr.aria-pressed]="activeLang() === lang.code"
       (click)="setLang(lang.code)"
     >
       {{ lang.flag }}
