@@ -216,6 +216,7 @@
       "text": "Tu carrito está vacío."
     },
     "errors": {
+      "card_declined": "Tu tarjeta fue rechazada. Prueba con otro método de pago.",
       "generic": "Error en el pago. Revisa tus datos.",
       "order_creation": "Error al crear el pedido. Inténtalo de nuevo."
     },
@@ -230,9 +231,7 @@
       "street": "Dirección"
     },
     "payment": {
-      "bizum": "Bizum",
-      "card": "Tarjeta",
-      "paypal": "PayPal",
+      "loading": "Cargando métodos de pago...",
       "security": "Pago 100% seguro · SSL"
     },
     "sections": {

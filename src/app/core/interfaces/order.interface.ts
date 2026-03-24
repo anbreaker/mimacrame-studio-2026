@@ -14,6 +14,7 @@ export interface ShippingAddress {
 
 export interface Order {
   createdAt: Date;
+  customerEmail: string;
   id: string;
   items: CartItem[];
   shippingAddress: ShippingAddress;

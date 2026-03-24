@@ -109,37 +109,16 @@
           </div>
         </section>
 
-        <!-- Payment -->
+        <!-- Payment — Stripe Payment Element -->
         <section class="checkout__section">
           <h2 class="checkout__section-title">{{ t('checkout.sections.payment') }}</h2>
-          <div class="checkout__payment-methods">
-            <button
-              class="checkout__payment-option"
-              [class.checkout__payment-option--active]="selectedPayment() === PAYMENT_METHOD.Card"
-              (click)="selectPayment(PAYMENT_METHOD.Card)"
-              type="button"
-            >
-              <span class="checkout__payment-icon">💳</span>
-              <span>{{ t('checkout.payment.card') }}</span>
-            </button>
-            <button
-              class="checkout__payment-option"
-              [class.checkout__payment-option--active]="selectedPayment() === PAYMENT_METHOD.Bizum"
-              (click)="selectPayment(PAYMENT_METHOD.Bizum)"
-              type="button"
-            >
-              <span class="checkout__payment-icon">📱</span>
-              <span>{{ t('checkout.payment.bizum') }}</span>
-            </button>
-            <button
-              class="checkout__payment-option"
-              [class.checkout__payment-option--active]="selectedPayment() === PAYMENT_METHOD.Paypal"
-              (click)="selectPayment(PAYMENT_METHOD.Paypal)"
-              type="button"
-            >
-              <span class="checkout__payment-icon">🅿️</span>
-              <span>{{ t('checkout.payment.paypal') }}</span>
-            </button>
+          <div class="checkout__stripe-container">
+            @if (stripeService.isLoading() && !isPaymentReady()) {
+              <div class="checkout__stripe-loading">
+                <span>{{ t('checkout.payment.loading') }}</span>
+              </div>
+            }
+            <div #paymentElement class="checkout__stripe-element"></div>
           </div>
           <p class="checkout__security-note">{{ t('checkout.payment.security') }}</p>
         </section>
@@ -149,13 +128,13 @@
           class="checkout__submit"
           type="button"
           (click)="submit()"
-          [disabled]="isProcessing() || !isFormValid()"
+          [disabled]="!canSubmit()"
         >
           {{
             isProcessing()
               ? t('checkout.submit.processing')
               : t('checkout.submit.confirm', {
-                  total: (orderTotal | currency: 'EUR' : 'symbol' : '1.2-2' : 'es') ?? '',
+                  total: (orderTotal() | currency: 'EUR' : 'symbol' : '1.2-2' : 'es') ?? '',
                 })
           }}
         </button>
@@ -174,7 +153,7 @@
               />
               <div class="checkout__summary-info">
                 <span class="checkout__summary-name">{{ item.product.name }}</span>
-                <span class="checkout__summary-qty">× {{ item.quantity }}</span>
+                <span class="checkout__summary-qty">x {{ item.quantity }}</span>
               </div>
               <span class="checkout__summary-price">
                 {{
@@ -193,15 +172,15 @@
             <span>{{ t('checkout.summary.shipping') }}</span>
             <span>
               {{
-                shippingCost === 0
+                shippingCost() === 0
                   ? t('checkout.summary.free')
-                  : (shippingCost | currency: 'EUR' : 'symbol' : '1.2-2' : 'es')
+                  : (shippingCost() | currency: 'EUR' : 'symbol' : '1.2-2' : 'es')
               }}
             </span>
           </div>
           <div class="checkout__summary-row checkout__summary-row--total">
             <span>{{ t('checkout.summary.total') }}</span>
-            <span>{{ orderTotal | currency: 'EUR' : 'symbol' : '1.2-2' : 'es' }}</span>
+            <span>{{ orderTotal() | currency: 'EUR' : 'symbol' : '1.2-2' : 'es' }}</span>
           </div>
         </div>
       </aside>

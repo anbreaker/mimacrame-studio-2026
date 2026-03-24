@@ -216,6 +216,7 @@
       "text": "Seu carrinho está vazio."
     },
     "errors": {
+      "card_declined": "Seu cartao foi recusado. Tente outro método de pagamento.",
       "generic": "Erro no pagamento. Verifique seus datos.",
       "order_creation": "Erro ao criar o pedido. Tente novamente."
     },
@@ -230,9 +231,7 @@
       "street": "Endereço"
     },
     "payment": {
-      "bizum": "Bizum",
-      "card": "Cartão",
-      "paypal": "PayPal",
+      "loading": "Carregando métodos de pagamento...",
       "security": "Pagamento 100% seguro · SSL"
     },
     "sections": {

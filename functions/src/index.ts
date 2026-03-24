@@ -11,13 +11,19 @@ const stripe = new Stripe(process.env['STRIPE_SECRET_KEY'] ?? '', {
 /**
  * Cloud Function: createPaymentIntent
  * Creates a Stripe PaymentIntent for an order.
- * Expects body: { amount: number, currency: string, orderId: string }
+ * Expects body: { amount: number, currency: string, orderId: string, receiptEmail?: string, userId?: string }
  */
 export const createPaymentIntent = functions.https.onCall(
   async (
-    request: functions.https.CallableRequest<{ amount: number; currency: string; orderId: string }>
+    request: functions.https.CallableRequest<{
+      amount: number;
+      currency: string;
+      orderId: string;
+      receiptEmail?: string;
+      userId?: string;
+    }>
   ) => {
-    const { amount, currency = 'eur', orderId } = request.data;
+    const { amount, currency = 'eur', orderId, receiptEmail, userId } = request.data;
 
     if (!amount || amount <= 0) {
       throw new functions.https.HttpsError('invalid-argument', 'Amount must be a positive number');
@@ -28,7 +34,9 @@ export const createPaymentIntent = functions.https.onCall(
       currency,
       metadata: {
         orderId,
+        ...(userId && { userId }),
       },
+      ...(receiptEmail && { receipt_email: receiptEmail }),
     });
 
     return {

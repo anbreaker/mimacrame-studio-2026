@@ -80,44 +80,24 @@
     }
   }
 
-  // Payment methods
-  &__payment {
-    &-methods {
-      display: grid;
-      gap: var(--space-sm);
-      grid-template-columns: repeat(3, 1fr);
+  // Stripe Payment Element
+  &__stripe {
+    &-container {
+      min-height: 100px;
+      position: relative;
     }
 
-    &-option {
+    &-element {
+      min-height: 50px;
+    }
+
+    &-loading {
       align-items: center;
-      background: transparent;
-      border: 1.5px solid var(--color-border);
-      border-radius: var(--radius-md);
       color: var(--color-text-muted);
-      cursor: pointer;
       display: flex;
-      flex-direction: column;
-      font-family: var(--font-sans);
       font-size: var(--font-size-sm);
-      gap: var(--space-xs);
-      padding: var(--space-md);
-      transition: all 0.2s;
-
-      &:hover {
-        border-color: var(--color-primary);
-        color: var(--color-text);
-      }
-
-      &--active {
-        background-color: var(--color-primary-light);
-        border-color: var(--color-primary);
-        color: var(--color-text);
-      }
-    }
-
-    &-icon {
-      font-size: 24px;
-      line-height: 1;
+      justify-content: center;
+      padding: var(--space-xl);
     }
   }
 

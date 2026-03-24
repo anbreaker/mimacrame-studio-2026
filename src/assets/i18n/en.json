@@ -216,6 +216,7 @@
       "text": "Your cart is empty."
     },
     "errors": {
+      "card_declined": "Your card was declined. Please try another payment method.",
       "generic": "Payment error. Please check your details.",
       "order_creation": "Error creating order. Please try again."
     },
@@ -230,9 +231,7 @@
       "street": "Address"
     },
     "payment": {
-      "bizum": "Bizum",
-      "card": "Card",
-      "paypal": "PayPal",
+      "loading": "Loading payment methods...",
       "security": "100% secure payment · SSL"
     },
     "sections": {
