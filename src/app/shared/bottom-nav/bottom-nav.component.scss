@@ -9,61 +9,77 @@
   right: 0;
   z-index: 100;
 
-  // Hidden on desktop
   @media (min-width: 768px) {
     display: none;
   }
-}
 
-.bottom-nav__item {
-  align-items: center;
-  color: var(--color-text-muted);
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  gap: 4px;
-  justify-content: center;
-  padding: var(--space-sm) 0;
-  text-decoration: none;
-  transition: color 0.2s;
+  &__item {
+    align-items: center;
+    color: var(--color-text-muted);
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 4px;
+    justify-content: center;
+    padding: var(--space-sm) 0;
+    text-decoration: none;
+    transition: color 0.2s;
 
-  &--active,
-  &:hover {
-    color: var(--color-primary);
+    &--active,
+    &:hover {
+      color: var(--color-primary);
+    }
   }
-}
 
-.bottom-nav__icon {
-  flex-shrink: 0;
-  height: 24px;
-  width: 24px;
-}
+  &__icon {
+    flex-shrink: 0;
+    height: 24px;
+    width: 24px;
+  }
 
-.bottom-nav__label {
-  font-size: 10px;
-  font-weight: var(--font-weight-medium);
-  letter-spacing: 0.04em;
-}
+  &__logo {
+    display: block;
+    height: 24px;
+    object-fit: contain;
+    opacity: 0.4;
+    transition:
+      opacity 0.2s,
+      transform 0.2s;
+    width: 24px;
+  }
 
-.bottom-nav__cart-wrapper {
-  display: flex;
-  position: relative;
-}
+  &__item--active &__logo,
+  &__item:hover &__logo {
+    opacity: 1;
+    transform: scale(1.2);
+  }
 
-.bottom-nav__badge {
-  align-items: center;
-  background-color: var(--color-primary);
-  border-radius: var(--radius-pill);
-  color: white;
-  display: flex;
-  font-size: 9px;
-  font-weight: var(--font-weight-bold);
-  height: 16px;
-  justify-content: center;
-  line-height: 1;
-  min-width: 16px;
-  padding: 0 3px;
-  position: absolute;
-  right: -8px;
-  top: -6px;
+  &__label {
+    font-size: 10px;
+    font-weight: var(--font-weight-medium);
+    letter-spacing: 0.04em;
+  }
+
+  &__cart-wrapper {
+    display: flex;
+    position: relative;
+  }
+
+  &__badge {
+    align-items: center;
+    background-color: var(--color-primary);
+    border-radius: var(--radius-pill);
+    color: white;
+    display: flex;
+    font-size: 9px;
+    font-weight: var(--font-weight-bold);
+    height: 16px;
+    justify-content: center;
+    line-height: 1;
+    min-width: 16px;
+    padding: 0 3px;
+    position: absolute;
+    right: -8px;
+    top: -6px;
+  }
 }
