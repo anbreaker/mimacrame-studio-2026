@@ -59,12 +59,40 @@ functions/node_modules/
 functions/lib/
 functions/.env
 functions/.env.local
+functions/.env.*          # cualquier variante: .env.test, .env.staging, etc.
+functions/.secret.*
+
+# Firebase emulator exports
+firebase-export-*/
+.firebase/emulator-data/
 
 # Environment & secrets — NUNCA commitear claves reales
 .env
 .env.local
 .env.*.local
 *.env.local
+.env.development
+.env.test
+.env.staging
+.env.production
+
+# Claves privadas y certificados
+*.pem
+*.key
+*.p12
+*.p8
+*.pfx
+
+# Firebase / Google service account keys
+serviceAccount*.json
+*-service-account*.json
+*-firebase-adminsdk-*.json
+google-services.json
+GoogleService-Info.plist
 
 # Stripe CLI
 .stripe/
+
+# Logs
+*.log
+logs/
