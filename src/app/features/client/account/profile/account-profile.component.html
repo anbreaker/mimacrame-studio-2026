@@ -124,8 +124,8 @@
 
     <!-- Actions -->
     <div class="profile__actions">
-      <button class="profile__submit" type="submit" [disabled]="isSaving() || !isFormValid()">
-        {{ isSaving() ? tp('submit.saving') : tp('submit.save') }}
+      <button class="profile__submit" type="submit" [disabled]="saving() || !isFormValid()">
+        {{ saving() ? tp('submit.saving') : tp('submit.save') }}
       </button>
 
       @if (showSuccess()) {
