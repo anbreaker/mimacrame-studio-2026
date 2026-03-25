@@ -43,7 +43,6 @@
   },
   "admin": {
     "dashboard": {
-      "lowStock": "Stock baixo:",
       "metrics": {
         "activeProducts": "Peças ativas",
         "monthOrders": "Pedidos este mês",
@@ -92,10 +91,10 @@
           "category": "Categoria",
           "description": "Descrição",
           "descriptionPlaceholder": "Descreva materiais, acabamentos, estilo...",
+          "estimatedDays": "Dias de fabricação",
           "name": "Nome",
           "namePlaceholder": "Ex: Pulseira Mediterrânea",
-          "price": "Preço (€)",
-          "stock": "Stock"
+          "price": "Preço (€)"
         },
         "title": "Informação básica"
       },
@@ -139,8 +138,7 @@
         "draft": "Rascunho",
         "price": "Preço",
         "product": "Produto",
-        "status": "Estado",
-        "stock": "Stock"
+        "status": "Estado"
       },
       "title": "Produtos"
     }
@@ -272,6 +270,12 @@
     "error": "Ocorreu um erro",
     "loading": "Carregando..."
   },
+  "errors": {
+    "forbidden": "Você não tem permissão para realizar esta ação.",
+    "network": "Sem conexão. Verifique sua internet.",
+    "notFound": "O recurso não foi encontrado.",
+    "server": "Erro do servidor. Tente novamente."
+  },
   "footer": {
     "copy": "Mimacramé Studio · Badajoz, Espanha",
     "instagram": "Instagram de Mimacramé Studio",
@@ -333,6 +337,11 @@
     "collection": "Coleção",
     "login": "Iniciar sessão"
   },
+  "notFound": {
+    "cta": "Voltar ao início",
+    "subtitle": "A página que você procura não existe.",
+    "title": "Página não encontrada"
+  },
   "orderConfirmation": {
     "error": {
       "cta": "Tentar novamente",
@@ -347,27 +356,29 @@
     }
   },
   "productCard": {
-    "lowStock": "Últimas unidades",
-    "outOfStock": "Esgotado",
     "quickAdd": "Adicionar ao carrinho"
   },
   "productDetail": {
     "addToCart": "Adicionar ao carrinho",
     "back": "Voltar para a coleção",
     "buyNow": "Comprar agora",
-    "lowStock": "Últimas unidades",
+    "estimatedDays": "Artesanato: {{ count }} dias úteis",
     "materials": {
       "content": "Feito à mão com fio de algodão encerado e seda natural. Para conservar a sua peça evite o contacto com água e guarde-a num local seco.",
       "title": "Materiais e cuidados"
     },
-    "outOfStock": "Esgotado",
     "quantity": "Quantidade",
     "shipping": {
       "content": "Envio gratuito a partir de €40. Entrega em 3-5 dias úteis. Aceitamos devoluções nos 14 dias seguintes à receção.",
       "title": "Envios e devoluções"
     },
-    "stockHint": "Restam apenas {{ count }} unidades",
     "viewImage": "Ver imagem {{ index }}"
+  },
+  "seo": {
+    "catalogueDescription": "Explore nossa coleção de joalharia artesanal de macramé.",
+    "catalogueTitle": "Coleção",
+    "homeDescription": "Joalharia artesanal de macramé feita em Badajoz. Pulseiras, pingentes, brincos, tornozeleiras e conjuntos únicos.",
+    "homeTitle": "Mimacramé Studio — Joalharia Artesanal"
   },
   "shared": {
     "loginForm": {

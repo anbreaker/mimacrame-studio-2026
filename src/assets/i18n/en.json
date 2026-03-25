@@ -43,7 +43,6 @@
   },
   "admin": {
     "dashboard": {
-      "lowStock": "Low stock:",
       "metrics": {
         "activeProducts": "Active pieces",
         "monthOrders": "Orders this month",
@@ -92,10 +91,10 @@
           "category": "Category",
           "description": "Description",
           "descriptionPlaceholder": "Describe materials, finishes, style...",
+          "estimatedDays": "Production days",
           "name": "Name",
           "namePlaceholder": "Ex: Mediterranean Bracelet",
-          "price": "Price (€)",
-          "stock": "Stock"
+          "price": "Price (€)"
         },
         "title": "Basic information"
       },
@@ -139,8 +138,7 @@
         "draft": "Draft",
         "price": "Price",
         "product": "Product",
-        "status": "Status",
-        "stock": "Stock"
+        "status": "Status"
       },
       "title": "Products"
     }
@@ -272,6 +270,12 @@
     "error": "An error occurred",
     "loading": "Loading..."
   },
+  "errors": {
+    "forbidden": "You don't have permission to perform this action.",
+    "network": "No connection. Please check your internet.",
+    "notFound": "The resource was not found.",
+    "server": "Server error. Please try again."
+  },
   "footer": {
     "copy": "Mimacramé Studio · Badajoz, Spain",
     "instagram": "Mimacramé Studio Instagram",
@@ -333,6 +337,11 @@
     "collection": "Collection",
     "login": "Sign in"
   },
+  "notFound": {
+    "cta": "Back to home",
+    "subtitle": "The page you're looking for doesn't exist.",
+    "title": "Page not found"
+  },
   "orderConfirmation": {
     "error": {
       "cta": "Try again",
@@ -347,27 +356,29 @@
     }
   },
   "productCard": {
-    "lowStock": "Last units",
-    "outOfStock": "Out of stock",
     "quickAdd": "Add to cart"
   },
   "productDetail": {
     "addToCart": "Add to cart",
     "back": "Back to collection",
     "buyNow": "Buy now",
-    "lowStock": "Last units",
+    "estimatedDays": "Handcrafted: {{ count }} business days",
     "materials": {
       "content": "Handmade with waxed cotton thread and natural silk. To preserve your piece, avoid contact with water and store it in a dry place.",
       "title": "Materials and care"
     },
-    "outOfStock": "Out of stock",
     "quantity": "Quantity",
     "shipping": {
       "content": "Free shipping on orders over €40. Delivery in 3-5 business days. We accept returns within 14 days of receipt.",
       "title": "Shipping and returns"
     },
-    "stockHint": "Only {{ count }} units left",
     "viewImage": "View image {{ index }}"
+  },
+  "seo": {
+    "catalogueDescription": "Explore our collection of handcrafted macramé jewelry.",
+    "catalogueTitle": "Collection",
+    "homeDescription": "Handcrafted macramé jewelry made in Badajoz. Bracelets, pendants, earrings, anklets and unique sets.",
+    "homeTitle": "Mimacramé Studio — Handcrafted Jewelry"
   },
   "shared": {
     "loginForm": {
