@@ -41,7 +41,8 @@ export const routes: Routes = [
   },
   {
     loadComponent: async () =>
-      (await import('./features/client/register/client-register.component')).ClientRegisterComponent,
+      (await import('./features/client/register/client-register.component'))
+        .ClientRegisterComponent,
     path: ROUTES.REGISTER,
   },
   {
@@ -105,5 +106,9 @@ export const routes: Routes = [
     ],
     path: ROUTES.ADMIN,
   },
-  { path: '**', redirectTo: '' },
+  {
+    loadComponent: async () =>
+      (await import('./features/not-found/not-found.component')).NotFoundComponent,
+    path: '**',
+  },
 ];
