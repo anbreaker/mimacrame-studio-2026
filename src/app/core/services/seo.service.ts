@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
-import { TranslocoService } from '@jsverse/transloco';
+import { TranslocoEvents, TranslocoService } from '@jsverse/transloco';
+import { filter } from 'rxjs';
 
 /** Use titleKey/descriptionKey for i18n pages (reactive to language changes).
  *  Use title/description for dynamic DB content (product name, etc.). */
@@ -29,14 +30,17 @@ export class SeoService {
   private currentConfig: SeoConfig | null = null;
 
   constructor() {
-    this.transloco.langChanges$.subscribe((lang) => {
-      document.documentElement.lang = lang;
-      this.meta.updateTag({ content: LOCALE_MAP[lang] ?? lang, property: 'og:locale' });
+    this.transloco.events$
+      .pipe(filter((e: TranslocoEvents) => e.type === 'translationLoadSuccess'))
+      .subscribe(() => {
+        const lang = this.transloco.getActiveLang();
+        document.documentElement.lang = lang;
+        this.meta.updateTag({ content: LOCALE_MAP[lang] ?? lang, property: 'og:locale' });
 
-      if (this.currentConfig) {
-        this.applyConfig(this.currentConfig);
-      }
-    });
+        if (this.currentConfig) {
+          this.applyConfig(this.currentConfig);
+        }
+      });
   }
 
   resetToDefaults(): void {
