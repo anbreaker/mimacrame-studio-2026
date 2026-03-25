@@ -1,0 +1,14 @@
+{
+  "buildCommand": "vite build",
+  "outputDirectory": "www",
+  "rewrites": [
+    {
+      "destination": "/api/$1",
+      "source": "/api/(.*)"
+    },
+    {
+      "destination": "/index.html",
+      "source": "/((?!api).*)"
+    }
+  ]
+}

@@ -213,6 +213,17 @@ export default tseslint.config(
     },
   },
 
+  // Block 2.5: API serverless functions — override tsconfig project
+  {
+    files: ['api/**/*.ts'],
+    languageOptions: {
+      parser: tseslint.parser,
+      parserOptions: {
+        project: ['tsconfig.api.json'],
+      },
+    },
+  },
+
   // Block 3: Store files — relax member-ordering
   {
     files: ['**/*.store.ts'],

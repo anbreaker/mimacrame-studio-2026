@@ -93,6 +93,9 @@ GoogleService-Info.plist
 # Stripe CLI
 .stripe/
 
+# Vercel
+.vercel/
+
 # Logs
 *.log
 logs/

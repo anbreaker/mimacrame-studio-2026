@@ -10,7 +10,6 @@ import { getAnalytics, provideAnalytics, ScreenTrackingService } from '@angular/
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-import { getFunctions, provideFunctions } from '@angular/fire/functions';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { provideRouter } from '@angular/router';
 import { provideTransloco } from '@jsverse/transloco';
@@ -48,7 +47,6 @@ export const appConfig: ApplicationConfig = {
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage()),
-    provideFunctions(() => getFunctions()),
     provideAnalytics(() => getAnalytics()),
     ScreenTrackingService,
   ],
