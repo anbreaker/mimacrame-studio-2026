@@ -29,16 +29,6 @@
         </div>
       </div>
 
-      <!-- Low stock alert -->
-      @if (lowStockProducts().length > 0) {
-        <div class="low-stock-alert">
-          <strong>⚠ {{ t('admin.dashboard.lowStock') }}</strong>
-          @for (p of lowStockProducts(); track p.id) {
-            <span class="low-stock-alert__item">{{ p.name }} ({{ p.stock }})</span>
-          }
-        </div>
-      }
-
       <!-- Recent orders -->
       <section class="admin-section">
         <div class="admin-section__header">

@@ -25,14 +25,6 @@ export class ProductCardComponent {
   protected addToCart(event: Event): void {
     event.preventDefault();
     event.stopPropagation();
-    !this.isOutOfStock && this.cartStore.addItem(this.product());
-  }
-
-  protected get isLowStock(): boolean {
-    return this.product().stock > 0 && this.product().stock <= 2;
-  }
-
-  protected get isOutOfStock(): boolean {
-    return this.product().stock === 0;
+    this.cartStore.addItem(this.product());
   }
 }

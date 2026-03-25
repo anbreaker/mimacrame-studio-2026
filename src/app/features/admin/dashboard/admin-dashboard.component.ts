@@ -22,16 +22,12 @@ export class AdminDashboardComponent {
   private readonly orderService = inject(OrderService);
   private readonly productService = inject(ProductService);
 
-  private readonly _orders = toSignal(this.orderService.getAll(), { initialValue: [] });
   private readonly _products = toSignal(this.productService.getAll(), { initialValue: [] });
-
   protected readonly activeProductCount = computed(
     () => this._products().filter((product) => product.active).length
   );
 
-  protected readonly lowStockProducts = computed(() =>
-    this._products().filter((product) => product.stock > 0 && product.stock <= 2)
-  );
+  private readonly _orders = toSignal(this.orderService.getAll(), { initialValue: [] });
 
   protected readonly monthOrderCount = computed(() => {
     const now = new Date();
@@ -67,10 +63,13 @@ export class AdminDashboardComponent {
 
   protected toDate(value: unknown): Date {
     if (value instanceof Date) return value;
+
     if (typeof value === 'string') return new Date(value);
+
     if (value && typeof value === 'object' && 'seconds' in value) {
       return new Date((value as { seconds: number }).seconds * 1000);
     }
+
     return new Date();
   }
 }

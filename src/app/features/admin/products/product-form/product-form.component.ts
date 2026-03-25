@@ -1,3 +1,4 @@
+import { DecimalPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { form, FormField, required } from '@angular/forms/signals';
@@ -16,15 +17,15 @@ interface ProductFormData {
   active: boolean;
   category: ProductCategory;
   description: string;
+  estimatedDays: number;
   images: string[];
   name: string;
   price: number;
-  stock: number;
 }
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [AdminNavComponent, FormField, RouterLink, TranslocoDirective],
+  imports: [AdminNavComponent, DecimalPipe, FormField, RouterLink, TranslocoDirective],
   selector: 'app-product-form',
   standalone: true,
   styleUrl: './product-form.component.scss',
@@ -36,14 +37,14 @@ export class ProductFormComponent {
   private readonly router = inject(Router);
   protected readonly uploadService = inject(UploadService);
 
-  private readonly productModel = signal<ProductFormData>({
+  protected readonly productModel = signal<ProductFormData>({
     active: true,
     category: PRODUCT_CATEGORY.Bracelets,
     description: '',
+    estimatedDays: 7,
     images: [],
     name: '',
     price: 0,
-    stock: 0,
   });
 
   protected readonly productResponseError = signal<string | null>(null);
@@ -56,16 +57,18 @@ export class ProductFormComponent {
   protected readonly isEditMode = computed(() => !!this._productId());
 
   protected readonly productForm = form(this.productModel, (schemaPath) => {
+    required(schemaPath.estimatedDays, {
+      message: 'admin.productForm.basicInfo.fields.estimatedDays',
+    });
     required(schemaPath.name, { message: 'admin.productForm.basicInfo.fields.name' });
     required(schemaPath.price, { message: 'admin.productForm.basicInfo.fields.price' });
-    required(schemaPath.stock, { message: 'admin.productForm.basicInfo.fields.stock' });
   });
 
   protected readonly isFormValid = computed(
     () =>
+      this.productForm.estimatedDays().valid() &&
       this.productForm.name().valid() &&
       this.productForm.price().valid() &&
-      this.productForm.stock().valid() &&
       this.productModel().images.length > 0
   );
 
@@ -92,10 +95,10 @@ export class ProductFormComponent {
         active: data.active,
         category: data.category,
         description: data.description,
+        estimatedDays: data.estimatedDays ?? 7,
         images: data.images,
         name: data.name,
         price: data.price,
-        stock: data.stock,
       });
     }
   }

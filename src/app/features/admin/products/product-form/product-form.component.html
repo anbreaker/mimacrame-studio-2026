@@ -41,7 +41,9 @@
                 [formField]="productForm.name"
               />
               @if (productForm.name().touched() && productForm.name().invalid()) {
-              <span class="admin-error-text">{{ t('admin.productForm.errors.fieldRequired') }}</span>
+                <span class="admin-error-text">
+                  {{ t('admin.productForm.errors.fieldRequired') }}
+                </span>
               }
             </div>
 
@@ -72,14 +74,14 @@
               </div>
 
               <div class="admin-form-group">
-                <label class="admin-label" for="stock">
-                  {{ t('admin.productForm.basicInfo.fields.stock') }}
+                <label class="admin-label" for="estimatedDays">
+                  {{ t('admin.productForm.basicInfo.fields.estimatedDays') }}
                 </label>
                 <input
-                  id="stock"
+                  id="estimatedDays"
                   class="admin-input"
                   type="number"
-                  [formField]="productForm.stock"
+                  [formField]="productForm.estimatedDays"
                 />
               </div>
             </div>
@@ -90,7 +92,7 @@
               </label>
               <select id="category" class="admin-select" [formField]="productForm.category">
                 @for (key of categoryKeys; track key) {
-                <option [value]="key">{{ t('home.categories.items.' + key) }}</option>
+                  <option [value]="key">{{ t('home.categories.items.' + key) }}</option>
                 }
               </select>
             </div>
@@ -112,64 +114,82 @@
             <p class="product-form__section-hint">{{ t('admin.productForm.images.hint') }}</p>
 
             <div class="image-grid">
-              @for (image of productForm.images().value; track image; let i = $index) {
-              <div class="image-card">
-                <img [src]="image" [alt]="'Image ' + i" class="image-card__img" />
-                <button
-                  type="button"
-                  class="image-card__remove"
-                  (click)="removeImage(i)"
-                  [title]="t('admin.productForm.images.remove')"
-                >
+              @for (image of productModel().images; track image; let i = $index) {
+                <div class="image-card">
+                  <img [src]="image" [alt]="'Image ' + i" class="image-card__img" />
+                  <button
+                    type="button"
+                    class="image-card__remove"
+                    (click)="removeImage(i)"
+                    [title]="t('admin.productForm.images.remove')"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      width="16"
+                      height="16"
+                    >
+                      <path d="M18 6L6 18M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+              }
+
+              <label
+                class="image-upload-card"
+                [class.image-upload-card--loading]="uploadService.isUploading()"
+              >
+                <input
+                  type="file"
+                  class="hidden"
+                  (change)="onFileChange($event)"
+                  accept="image/*"
+                />
+                @if (uploadService.isUploading()) {
+                  <span class="image-upload-card__progress">
+                    {{ uploadService.percentage() | number: '1.0-0' }}%
+                  </span>
+                } @else {
                   <svg
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
                     stroke-width="1.5"
-                    width="16"
-                    height="16"
+                    width="24"
+                    height="24"
                   >
-                    <path d="M18 6L6 18M6 6l12 12" />
+                    <path d="M12 5v14M5 12h14" />
                   </svg>
-                </button>
-              </div>
-              }
-
-              <label class="image-upload-card" [class.image-upload-card--loading]="uploadService.isUploading()">
-                <input type="file" class="hidden" (change)="onFileChange($event)" accept="image/*" />
-                @if (uploadService.isUploading()) {
-                <span class="image-upload-card__progress">{{ uploadService.percentage() | number: '1.0-0' }}%</span>
-                } @else {
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  width="24"
-                  height="24"
-                >
-                  <path d="M12 5v14M5 12h14" />
-                </svg>
-                <span class="image-upload-card__text">{{ t('admin.productForm.images.add') }}</span>
+                  <span class="image-upload-card__text">
+                    {{ t('admin.productForm.images.add') }}
+                  </span>
                 }
               </label>
             </div>
           </div>
         </div>
 
-        @if (errorKey()) {
-        <div class="admin-error-banner" role="alert">
-          {{ t(errorKey()!) }}
-        </div>
+        @if (productResponseError()) {
+          <div class="admin-error-banner" role="alert">
+            {{ t(productResponseError()!) }}
+          </div>
         }
 
         <div class="product-form__actions">
           <button
             type="submit"
             class="admin-btn admin-btn--primary"
-            [disabled]="!isFormValid() || isSaving() || uploadService.isUploading()"
+            [disabled]="!isFormValid() || saving() || uploadService.isUploading()"
           >
-            {{ isSaving() ? t('admin.productForm.submit.saving') : (isEditMode() ? t('admin.productForm.submit.save') : t('admin.productForm.submit.create')) }}
+            {{
+              saving()
+                ? t('admin.productForm.submit.saving')
+                : isEditMode()
+                  ? t('admin.productForm.submit.save')
+                  : t('admin.productForm.submit.create')
+            }}
           </button>
           <a class="admin-btn admin-btn--outline" [routerLink]="['/' + routes.ADMIN_PRODUCTS]">
             {{ t('admin.productForm.cancel') }}

@@ -5,11 +5,11 @@ export interface Product {
   category: ProductCategory;
   createdAt: Date;
   description: string;
+  estimatedDays: number;
   id: string;
   images: string[];
   name: string;
   price: number;
-  stock: number;
   updatedAt: Date;
 }
 

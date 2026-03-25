@@ -12,35 +12,24 @@
       loading="lazy"
     />
 
-    <!-- Badges -->
-    <div class="product-card__badges">
-      @if (isOutOfStock) {
-        <span class="product-card__badge product-card__badge--out">{{ t('outOfStock') }}</span>
-      } @else if (isLowStock) {
-        <span class="product-card__badge product-card__badge--low">{{ t('lowStock') }}</span>
-      }
-    </div>
-
     <!-- Quick add -->
-    @if (!isOutOfStock) {
-      <button
-        class="product-card__quick-add"
-        (click)="addToCart($event)"
-        [attr.aria-label]="t('quickAdd')"
+    <button
+      class="product-card__quick-add"
+      (click)="addToCart($event)"
+      [attr.aria-label]="t('quickAdd')"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        width="18"
+        height="18"
       >
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.5"
-          width="18"
-          height="18"
-        >
-          <line x1="12" y1="5" x2="12" y2="19" />
-          <line x1="5" y1="12" x2="19" y2="12" />
-        </svg>
-      </button>
-    }
+        <line x1="12" y1="5" x2="12" y2="19" />
+        <line x1="5" y1="12" x2="19" y2="12" />
+      </svg>
+    </button>
   </div>
 
   <!-- Info -->
