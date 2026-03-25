@@ -1,16 +1,23 @@
 import * as admin from 'firebase-admin';
-import * as functions from 'firebase-functions';
-import { onRequest } from 'firebase-functions/v2/https';
+import { defineSecret } from 'firebase-functions/params';
+import { HttpsError, onCall, onRequest } from 'firebase-functions/v2/https';
 import { Resend } from 'resend';
 import Stripe from 'stripe';
 
+// Secret declarations — Firebase injects these at runtime
+const secretStripeKey = defineSecret('STRIPE_SECRET_KEY');
+const secretWebhookSecret = defineSecret('STRIPE_WEBHOOK_SECRET');
+const secretResendApiKey = defineSecret('RESEND_API_KEY');
+const secretResendFromEmail = defineSecret('RESEND_FROM_EMAIL');
+const secretAdminEmail = defineSecret('ADMIN_EMAIL');
+
 admin.initializeApp();
 
-const stripe = new Stripe(process.env['STRIPE_SECRET_KEY'] ?? '', {
-  apiVersion: '2025-02-24.acacia',
-});
+// Lazily initialized so secrets are available at request time
+const getStripe = (): Stripe =>
+  new Stripe(process.env['STRIPE_SECRET_KEY'] ?? '', { apiVersion: '2025-02-24.acacia' });
 
-const resend = new Resend(process.env['RESEND_API_KEY'] ?? '');
+const getResend = (): Resend => new Resend(process.env['RESEND_API_KEY'] ?? '');
 
 const ORDERS_COLLECTION = 'orders';
 const PAYMENT_INTENT_SUCCEEDED = 'payment_intent.succeeded';
@@ -22,23 +29,27 @@ const STRIPE_SIGNATURE_HEADER = 'stripe-signature';
  * Creates a Stripe PaymentIntent for an order.
  * Expects body: { amount: number, currency: string, orderId: string, receiptEmail?: string, userId?: string }
  */
-export const createPaymentIntent = functions.https.onCall(
-  async (
-    request: functions.https.CallableRequest<{
+/**
+ * Cloud Function: createPaymentIntent
+ * Creates a Stripe PaymentIntent for an order.
+ * Expects data: { amount: number, currency: string, orderId: string, receiptEmail?: string, userId?: string }
+ */
+export const createPaymentIntent = onCall(
+  { region: 'europe-west1', secrets: [secretStripeKey] },
+  async (request) => {
+    const { amount, currency = 'eur', orderId, receiptEmail, userId } = request.data as {
       amount: number;
       currency: string;
       orderId: string;
       receiptEmail?: string;
       userId?: string;
-    }>
-  ) => {
-    const { amount, currency = 'eur', orderId, receiptEmail, userId } = request.data;
+    };
 
     if (!amount || amount <= 0) {
-      throw new functions.https.HttpsError('invalid-argument', 'Amount must be a positive number');
+      throw new HttpsError('invalid-argument', 'Amount must be a positive number');
     }
 
-    const paymentIntent = await stripe.paymentIntents.create({
+    const paymentIntent = await getStripe().paymentIntents.create({
       amount, // Already in cents (converted by the client)
       currency,
       metadata: {
@@ -61,7 +72,11 @@ export const createPaymentIntent = functions.https.onCall(
  * updates order status to 'paid' and sends confirmation emails.
  */
 export const stripeWebhook = onRequest(
-  { cors: false, region: 'europe-west1' },
+  {
+    cors: false,
+    region: 'europe-west1',
+    secrets: [secretStripeKey, secretWebhookSecret, secretResendApiKey, secretResendFromEmail, secretAdminEmail],
+  },
   async (req, res) => {
     const webhookSecret = process.env['STRIPE_WEBHOOK_SECRET'] ?? '';
     const sig = req.headers[STRIPE_SIGNATURE_HEADER] as string;
@@ -75,7 +90,7 @@ export const stripeWebhook = onRequest(
     let event: Stripe.Event;
 
     try {
-      event = stripe.webhooks.constructEvent(rawBody, sig, webhookSecret);
+      event = getStripe().webhooks.constructEvent(rawBody, sig, webhookSecret);
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Unknown error';
       console.error('Webhook signature verification failed:', message);
@@ -137,7 +152,7 @@ async function sendCustomerEmail(
 
   const fromEmail = process.env['RESEND_FROM_EMAIL'] ?? 'noreply@mimacrame.com';
 
-  await resend.emails.send({
+  await getResend().emails.send({
     from: `Mimacramé Studio <${fromEmail}>`,
     html: buildCustomerEmailHtml(order, orderRef),
     subject: `Tu pedido está confirmado — ${orderRef}`,
@@ -159,7 +174,7 @@ async function sendAdminEmail(
 
   const fromEmail = process.env['RESEND_FROM_EMAIL'] ?? 'noreply@mimacrame.com';
 
-  await resend.emails.send({
+  await getResend().emails.send({
     from: `Mimacramé Studio <${fromEmail}>`,
     html: buildAdminEmailHtml(order, orderRef),
     subject: `Nuevo pedido recibido — ${orderRef}`,
