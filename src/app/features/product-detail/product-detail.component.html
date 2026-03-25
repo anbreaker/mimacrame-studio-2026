@@ -14,11 +14,6 @@
     <div class="detail__gallery">
       <div class="detail__main-image-wrapper">
         <img class="detail__main-image" [src]="selectedImage()" [alt]="product()!.name" />
-        @if (isOutOfStock()) {
-          <div class="detail__out-badge">{{ t('productDetail.outOfStock') }}</div>
-        } @else if (isLowStock()) {
-          <div class="detail__low-badge">{{ t('productDetail.lowStock') }}</div>
-        }
       </div>
 
       @if (product()!.images.length > 1) {
@@ -51,43 +46,36 @@
 
       <p class="detail__description">{{ product()!.description }}</p>
 
-      <!-- Quantity selector -->
-      @if (!isOutOfStock()) {
-        <div class="detail__quantity-section">
-          <span class="detail__label">{{ t('productDetail.quantity') }}</span>
-          <div class="detail__quantity">
-            <button
-              class="detail__qty-btn"
-              (click)="decreaseQuantity()"
-              [disabled]="quantity() <= 1"
-            >
-              −
-            </button>
-            <span class="detail__qty-value">{{ quantity() }}</span>
-            <button
-              class="detail__qty-btn"
-              (click)="increaseQuantity()"
-              [disabled]="quantity() >= product()!.stock"
-            >
-              +
-            </button>
-          </div>
-          @if (isLowStock()) {
-            <span class="detail__stock-hint">
-              {{ t('productDetail.stockHint', { count: product()!.stock }) }}
-            </span>
-          }
-        </div>
+      @if (product()!.estimatedDays) {
+        <p class="detail__estimated-days">
+          {{ t('productDetail.estimatedDays', { count: product()!.estimatedDays }) }}
+        </p>
       }
+
+      <!-- Quantity selector -->
+      <div class="detail__quantity-section">
+        <span class="detail__label">{{ t('productDetail.quantity') }}</span>
+        <div class="detail__quantity">
+          <button class="detail__qty-btn" (click)="decreaseQuantity()" [disabled]="quantity() <= 1">
+            −
+          </button>
+          <span class="detail__qty-value">{{ quantity() }}</span>
+          <button
+            class="detail__qty-btn"
+            (click)="increaseQuantity()"
+            [disabled]="quantity() >= 10"
+          >
+            +
+          </button>
+        </div>
+      </div>
 
       <!-- CTAs -->
       <div class="detail__actions">
-        <button class="detail__add-btn" (click)="addToCart()" [disabled]="isOutOfStock()">
-          {{ isOutOfStock() ? t('productDetail.outOfStock') : t('productDetail.addToCart') }}
+        <button class="detail__add-btn" (click)="addToCart()">
+          {{ t('productDetail.addToCart') }}
         </button>
-        @if (!isOutOfStock()) {
-          <button class="detail__buy-btn" (click)="buyNow()">{{ t('productDetail.buyNow') }}</button>
-        }
+        <button class="detail__buy-btn" (click)="buyNow()">{{ t('productDetail.buyNow') }}</button>
       </div>
 
       <!-- Details accordion -->

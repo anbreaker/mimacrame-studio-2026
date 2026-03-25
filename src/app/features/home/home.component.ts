@@ -4,6 +4,7 @@ import { TranslocoDirective } from '@jsverse/transloco';
 
 import { PRODUCT_CATEGORY } from '@core/const/product-category.const';
 import { ROUTES } from '@core/const/routes';
+import { SeoService } from '@core/services/seo.service';
 import { CatalogueStore } from '@core/store/catalogue.store';
 import { ProductCardComponent } from '@shared/product-card/product-card.component';
 
@@ -25,10 +26,16 @@ const CATEGORY_ITEMS = [
   templateUrl: './home.component.html',
 })
 export class HomeComponent {
+  private readonly seoService = inject(SeoService);
+
   protected readonly catalogueStore = inject(CatalogueStore);
 
   protected readonly categories = CATEGORY_ITEMS;
   protected readonly routes = ROUTES;
+
+  constructor() {
+    this.seoService.update({ descriptionKey: 'seo.homeDescription', titleKey: 'seo.homeTitle' });
+  }
 
   protected get featuredProducts(): ReturnType<CatalogueStore['products']> {
     return this.catalogueStore.products().slice(0, 4);

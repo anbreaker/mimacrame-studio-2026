@@ -18,6 +18,7 @@ import { ORDER_STATUS } from '@core/const/order-status.const';
 import { ROUTES } from '@core/const/routes';
 import { OrderService } from '@core/services/order.service';
 import { PaymentService } from '@core/services/payment.service';
+import { SeoService } from '@core/services/seo.service';
 import { StripeService } from '@core/services/stripe.service';
 import { AuthStore } from '@core/store/auth.store';
 import { CartStore } from '@core/store/cart.store';
@@ -51,6 +52,7 @@ export class CheckoutComponent implements OnDestroy {
   private readonly orderService = inject(OrderService);
   private readonly paymentService = inject(PaymentService);
   private readonly router = inject(Router);
+  private readonly seoService = inject(SeoService);
 
   protected readonly cartStore = inject(CartStore);
   protected readonly stripeService = inject(StripeService);
@@ -110,6 +112,8 @@ export class CheckoutComponent implements OnDestroy {
   protected readonly routes = ROUTES;
 
   constructor() {
+    this.seoService.update({ titleKey: 'checkout.title' });
+
     const user = this.authStore.user();
     if (user) {
       this.checkoutModel.set({
