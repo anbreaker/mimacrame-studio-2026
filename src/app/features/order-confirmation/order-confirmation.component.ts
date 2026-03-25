@@ -1,33 +1,43 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
+import { CurrencyPipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { of, switchMap } from 'rxjs';
 import { TranslocoDirective } from '@jsverse/transloco';
 
 import { ROUTES } from '@core/const/routes';
+import { Order } from '@core/interfaces/order.interface';
+import { OrderService } from '@core/services/order.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, TranslocoDirective],
+  imports: [CurrencyPipe, RouterLink, TranslocoDirective],
   selector: 'app-order-confirmation',
   standalone: true,
   styleUrl: './order-confirmation.component.scss',
   templateUrl: './order-confirmation.component.html',
 })
-export class OrderConfirmationComponent implements OnInit {
-  private readonly route = inject(ActivatedRoute);
+export class OrderConfirmationComponent {
+  private readonly orderService = inject(OrderService);
 
-  protected readonly isSuccess = signal(true);
+  protected readonly isSuccess = signal(false);
   protected readonly orderId = signal<string | null>(null);
+
+  protected readonly order = toSignal(
+    toObservable(this.orderId).pipe(
+      switchMap((id) => (id ? this.orderService.getById(id) : of(null)))
+    )
+  );
 
   protected readonly routes = ROUTES;
 
-  ngOnInit(): void {
-    const params = this.route.snapshot.queryParamMap;
+  constructor() {
+    const params = inject(ActivatedRoute).snapshot.queryParamMap;
     this.orderId.set(params.get('orderId'));
     this.isSuccess.set(params.get('success') === 'true');
   }
 
-  protected get orderRef(): string {
-    const id = this.orderId();
-    return id ? `#MIM-${id.slice(0, 6).toUpperCase()}` : '#MIM-000000';
+  protected orderRef(order: Order): string {
+    return `#MIM-${order.id.slice(0, 6).toUpperCase()}`;
   }
 }

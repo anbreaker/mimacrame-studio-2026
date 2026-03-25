@@ -14,10 +14,9 @@ import {
 } from '@angular/fire/firestore';
 import { from, map, Observable } from 'rxjs';
 
+import { COLLECTIONS } from '@core/const/collections.const';
 import { ProductCategory } from '@core/const/product-category.const';
 import { Product, ProductCreate, ProductUpdate } from '@core/interfaces/product.interface';
-
-const PRODUCTS_COLLECTION = 'products';
 
 @Injectable({ providedIn: 'root' })
 export class ProductService {
@@ -34,7 +33,7 @@ export class ProductService {
   }
 
   delete(id: string): Observable<void> {
-    return from(deleteDoc(doc(this.firestore, PRODUCTS_COLLECTION, id)));
+    return from(deleteDoc(doc(this.firestore, COLLECTIONS.Products, id)));
   }
 
   getActive(): Observable<Product[]> {
@@ -63,12 +62,12 @@ export class ProductService {
   }
 
   private get productsRef(): ReturnType<typeof collection> {
-    return collection(this.firestore, PRODUCTS_COLLECTION);
+    return collection(this.firestore, COLLECTIONS.Products);
   }
 
   update(id: string, data: ProductUpdate): Observable<void> {
     return from(
-      updateDoc(doc(this.firestore, PRODUCTS_COLLECTION, id), {
+      updateDoc(doc(this.firestore, COLLECTIONS.Products, id), {
         ...data,
         updatedAt: serverTimestamp(),
       })

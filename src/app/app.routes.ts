@@ -24,6 +24,7 @@ export const routes: Routes = [
     path: ROUTES.CART,
   },
   {
+    canActivate: [clientGuard],
     loadComponent: async () =>
       (await import('./features/checkout/checkout.component')).CheckoutComponent,
     path: ROUTES.CHECKOUT,

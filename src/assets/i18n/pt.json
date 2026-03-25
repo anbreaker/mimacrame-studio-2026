@@ -343,6 +343,11 @@
     "title": "Página não encontrada"
   },
   "orderConfirmation": {
+    "details": {
+      "address": "Endereço de entrega",
+      "items": "Seu pedido",
+      "total": "Total"
+    },
     "error": {
       "cta": "Tentar novamente",
       "subtitle": "Por favor, tente novamente ou use outro método de pagamento.",

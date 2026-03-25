@@ -15,10 +15,71 @@
           <polyline points="9 12 11 14 15 10" />
         </svg>
       </div>
-      <h1 class="confirmation__title">{{ t('orderConfirmation.success.title') }}</h1>
-      <p class="confirmation__subtitle">{{ t('orderConfirmation.success.subtitle') }}</p>
-      <p class="confirmation__order-ref">{{ orderRef }}</p>
-      <p class="confirmation__message">{{ t('orderConfirmation.success.message') }}</p>
+      <h1 class="confirmation__title">
+        {{ t('orderConfirmation.success.title') }}
+      </h1>
+      <p class="confirmation__subtitle">
+        {{ t('orderConfirmation.success.subtitle') }}
+      </p>
+
+      @if (order(); as ord) {
+        <p class="confirmation__order-ref">{{ orderRef(ord) }}</p>
+
+        <div class="confirmation__details">
+          <h2 class="confirmation__details-title">
+            {{ t('orderConfirmation.details.items') }}
+          </h2>
+          <ul class="confirmation__items">
+            @for (item of ord.items; track item.product.id) {
+              <li class="confirmation__item">
+                <span class="confirmation__item-name">
+                  {{ item.product.name }}
+                  <span class="confirmation__item-qty">× {{ item.quantity }}</span>
+                </span>
+                <span class="confirmation__item-price">
+                  {{ item.product.price * item.quantity | currency: 'EUR' }}
+                </span>
+              </li>
+            }
+          </ul>
+
+          <div class="confirmation__totals">
+            <div class="confirmation__totals-row confirmation__totals-row--total">
+              <span>
+                {{ t('orderConfirmation.details.total') }}
+              </span>
+              <span>
+                {{ ord.total | currency: 'EUR' }}
+              </span>
+            </div>
+          </div>
+
+          <div class="confirmation__address">
+            <p class="confirmation__address-label">
+              {{ t('orderConfirmation.details.address') }}
+            </p>
+            <address class="confirmation__address-value">
+              <span>
+                {{ ord.shippingAddress.fullName }}
+              </span>
+              <span>
+                {{ ord.shippingAddress.street }}
+              </span>
+              <span>
+                {{ ord.shippingAddress.postalCode }} {{ ord.shippingAddress.city }},
+                {{ ord.shippingAddress.province }}
+              </span>
+              <span>{{ ord.shippingAddress.country }}</span>
+            </address>
+          </div>
+        </div>
+      } @else {
+        <p class="confirmation__order-ref">#MIM-······</p>
+      }
+
+      <p class="confirmation__message">
+        {{ t('orderConfirmation.success.message') }}
+      </p>
       <a class="confirmation__cta" [routerLink]="['/' + routes.CATALOGUE]">
         {{ t('orderConfirmation.success.cta') }}
       </a>
@@ -40,8 +101,12 @@
           <line x1="9" y1="9" x2="15" y2="15" />
         </svg>
       </div>
-      <h1 class="confirmation__title">{{ t('orderConfirmation.error.title') }}</h1>
-      <p class="confirmation__subtitle">{{ t('orderConfirmation.error.subtitle') }}</p>
+      <h1 class="confirmation__title">
+        {{ t('orderConfirmation.error.title') }}
+      </h1>
+      <p class="confirmation__subtitle">
+        {{ t('orderConfirmation.error.subtitle') }}
+      </p>
       <a
         class="confirmation__cta confirmation__cta--outline"
         [routerLink]="['/' + routes.CHECKOUT]"

@@ -343,6 +343,11 @@
     "title": "Page not found"
   },
   "orderConfirmation": {
+    "details": {
+      "address": "Shipping address",
+      "items": "Your order",
+      "total": "Total"
+    },
     "error": {
       "cta": "Try again",
       "subtitle": "Please try again or use another payment method.",
