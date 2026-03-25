@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
-import { TranslocoEvents, TranslocoService } from '@jsverse/transloco';
 import { filter } from 'rxjs';
+import { TranslocoEvents, TranslocoService } from '@jsverse/transloco';
 
 /** Use titleKey/descriptionKey for i18n pages (reactive to language changes).
  *  Use title/description for dynamic DB content (product name, etc.). */
@@ -14,6 +14,9 @@ export interface SeoConfig {
 }
 
 const BASE_TITLE = 'Mimacramé Studio';
+const TRANSLATION_LOAD_SUCCESS = 'translationLoadSuccess';
+const DEFAULT_TITLE_KEY = 'seo.homeTitle';
+const DEFAULT_DESCRIPTION_KEY = 'seo.homeDescription';
 
 const LOCALE_MAP: Record<string, string> = {
   en: 'en_GB',
@@ -31,7 +34,7 @@ export class SeoService {
 
   constructor() {
     this.transloco.events$
-      .pipe(filter((e: TranslocoEvents) => e.type === 'translationLoadSuccess'))
+      .pipe(filter((event: TranslocoEvents) => event.type === TRANSLATION_LOAD_SUCCESS))
       .subscribe(() => {
         const lang = this.transloco.getActiveLang();
         document.documentElement.lang = lang;
@@ -43,15 +46,6 @@ export class SeoService {
       });
   }
 
-  resetToDefaults(): void {
-    this.update({ descriptionKey: 'seo.homeDescription', titleKey: 'seo.homeTitle' });
-  }
-
-  update(config: SeoConfig): void {
-    this.currentConfig = config;
-    this.applyConfig(config);
-  }
-
   private applyConfig(config: SeoConfig): void {
     const rawTitle: string = config.titleKey
       ? (this.transloco.translate(config.titleKey) as string)
@@ -59,11 +53,9 @@ export class SeoService {
 
     const rawDescription: string = config.descriptionKey
       ? (this.transloco.translate(config.descriptionKey) as string)
-      : (config.description ?? (this.transloco.translate('seo.homeDescription') as string));
+      : (config.description ?? (this.transloco.translate(DEFAULT_DESCRIPTION_KEY) as string));
 
-    const fullTitle = rawTitle.includes(BASE_TITLE)
-      ? rawTitle
-      : `${rawTitle} — ${BASE_TITLE}`;
+    const fullTitle = rawTitle.includes(BASE_TITLE) ? rawTitle : `${rawTitle} — ${BASE_TITLE}`;
 
     this.titleService.setTitle(fullTitle);
     this.meta.updateTag({ content: rawDescription, name: 'description' });
@@ -73,5 +65,14 @@ export class SeoService {
     if (config.image) {
       this.meta.updateTag({ content: config.image, property: 'og:image' });
     }
+  }
+
+  resetToDefaults(): void {
+    this.update({ descriptionKey: DEFAULT_DESCRIPTION_KEY, titleKey: DEFAULT_TITLE_KEY });
+  }
+
+  update(config: SeoConfig): void {
+    this.currentConfig = config;
+    this.applyConfig(config);
   }
 }
