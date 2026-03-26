@@ -89,6 +89,7 @@
         "fields": {
           "active": "Activo (visible en la tienda)",
           "category": "Categoría",
+          "categoryPlaceholder": "Selecciona una categoría",
           "description": "Descripción",
           "descriptionPlaceholder": "Describe materiales, acabados, estilo...",
           "estimatedDays": "Días de fabricación",
@@ -368,19 +369,19 @@
     "addToCart": "Añadir al carrito",
     "back": "Volver a la colección",
     "buyNow": "Comprar ahora",
+    "closeImage": "Cerrar imagen",
     "estimatedDays": "Fabricación artesanal: {{ count }} días hábiles",
     "materials": {
       "content": "Hecho a mano con hilo de algodón encerado y seda natural. Para conservar tu pieza evita el contacto con agua y guárdala en un lugar seco.",
       "title": "Materiales y cuidados"
     },
+    "nextImage": "Imagen siguiente",
+    "prevImage": "Imagen anterior",
     "quantity": "Cantidad",
     "shipping": {
       "content": "Envío gratuito a partir de €40. Entrega en 3-5 días hábiles. Aceptamos devoluciones en los 14 días siguientes a la recepción.",
       "title": "Envíos y devoluciones"
     },
-    "closeImage": "Cerrar imagen",
-    "nextImage": "Imagen siguiente",
-    "prevImage": "Imagen anterior",
     "viewImage": "Ver imagen {{ index }}"
   },
   "seo": {

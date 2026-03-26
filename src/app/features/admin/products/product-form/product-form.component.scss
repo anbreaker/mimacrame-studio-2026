@@ -111,8 +111,7 @@
 }
 
 .admin-input,
-.admin-textarea,
-.admin-select {
+.admin-textarea {
   background-color: var(--color-surface-alt);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
@@ -134,16 +133,85 @@
   resize: vertical;
 }
 
-.admin-select {
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
-  background-position: right var(--space-md) center;
-  background-repeat: no-repeat;
-  cursor: pointer;
-  padding-right: var(--space-2xl);
+// Custom dropdown
+.admin-dropdown {
+  position: relative;
 
-  option {
+  &__backdrop {
+    inset: 0;
+    position: fixed;
+    z-index: 10;
+  }
+
+  &__trigger {
+    align-items: center;
+    background-color: var(--color-surface-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    color: var(--color-text);
+    cursor: pointer;
+    display: flex;
+    font-family: var(--font-sans);
+    font-size: var(--font-size-sm);
+    justify-content: space-between;
+    outline: none;
+    padding: var(--space-sm) var(--space-md);
+    transition: border-color 0.2s;
+    width: 100%;
+
+    &:focus {
+      border-color: var(--color-primary);
+    }
+  }
+
+  &--open &__trigger {
+    border-color: var(--color-primary);
+  }
+
+  &__placeholder {
+    color: var(--color-text-muted);
+  }
+
+  &__chevron {
+    color: var(--color-text-muted);
+    flex-shrink: 0;
+    transition: transform 0.2s;
+  }
+
+  &--open &__chevron {
+    transform: rotate(180deg);
+  }
+
+  &__menu {
     background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    box-shadow: 0 4px 16px rgb(0 0 0 / 20%);
+    left: 0;
+    list-style: none;
+    margin-top: 4px;
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    z-index: 11;
+  }
+
+  &__option {
+    color: var(--color-text);
+    cursor: pointer;
+    font-size: var(--font-size-sm);
+    padding: var(--space-sm) var(--space-md);
+    transition: background-color 0.15s;
+
+    &:hover {
+      background-color: var(--color-surface-alt);
+    }
+
+    &--selected {
+      color: var(--color-primary);
+      font-weight: var(--font-weight-semibold);
+    }
   }
 }
 

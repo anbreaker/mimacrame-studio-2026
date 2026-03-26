@@ -55,11 +55,11 @@ export class UploadService {
     });
   }
 
-  uploadProductImage(file: File, productId: string): Promise<string> {
-    return this.uploadFile(file, `products/${productId}`);
+  uploadProductImage(file: File, productId: string, category: string): Promise<string> {
+    return this.uploadFile(file, `mimacrame/products/${category}/${productId}`);
   }
 
   uploadProfileImage(file: File, userId: string): Promise<string> {
-    return this.uploadFile(file, `users/${userId}`);
+    return this.uploadFile(file, `mimacrame/users/${userId}`);
   }
 }

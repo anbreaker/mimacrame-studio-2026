@@ -12,7 +12,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { form, FormField, required } from '@angular/forms/signals';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { filter, map, Observable, of, switchMap, take } from 'rxjs';
-import { TranslocoDirective } from '@jsverse/transloco';
+import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
 
 import { AVAILABLE_LANGS, LANG, Lang } from '@core/const/lang.const';
 import { PRODUCT_CATEGORY, ProductCategory } from '@core/const/product-category.const';
@@ -24,7 +24,7 @@ import { AdminNavComponent } from '@shared/admin-nav/admin-nav.component';
 
 interface ProductFormData {
   active: boolean;
-  category: ProductCategory;
+  category: ProductCategory | null;
   estimatedDays: number;
   images: string[];
   price: number;
@@ -44,22 +44,40 @@ export class ProductFormComponent {
   private readonly productService = inject(ProductService);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
+  private readonly transloco = inject(TranslocoService);
   protected readonly uploadService = inject(UploadService);
 
   protected readonly activeLang = signal<Lang>(LANG.Es);
 
   protected readonly descriptionByLang = signal<LocalizedString>({ ...EMPTY_LOCALIZED });
+  protected readonly descriptionTouchedByLang = signal<Record<Lang, boolean>>({
+    en: false,
+    es: false,
+    pt: false,
+  });
+
+  protected readonly isCategoryDropdownOpen = signal(false);
+
   protected readonly nameByLang = signal<LocalizedString>({ ...EMPTY_LOCALIZED });
+
+  protected readonly nameTouchedByLang = signal<Record<Lang, boolean>>({
+    en: false,
+    es: false,
+    pt: false,
+  });
+
   protected readonly productModel = signal<ProductFormData>({
     active: true,
-    category: PRODUCT_CATEGORY.Bracelets,
+    category: null,
     estimatedDays: 7,
     images: [],
     price: 0,
   });
 
   protected readonly productResponseError = signal<string | null>(null);
+
   protected readonly saving = signal(false);
+  protected readonly submitAttempted = signal(false);
 
   private readonly _productId = toSignal(
     this.route.paramMap.pipe(map((params) => params.get('id')))
@@ -85,6 +103,7 @@ export class ProductFormComponent {
     return (
       allNamesFilledIn &&
       allDescriptionsFilledIn &&
+      this.productModel().category !== null &&
       this.productForm.estimatedDays().valid() &&
       this.productForm.price().valid() &&
       this.productModel().images.length > 0
@@ -107,8 +126,21 @@ export class ProductFormComponent {
   );
 
   protected readonly availableLangs = AVAILABLE_LANGS;
-  protected readonly categoryKeys = Object.values(PRODUCT_CATEGORY);
+  private readonly categoryKeys = Object.values(PRODUCT_CATEGORY);
   protected readonly routes = ROUTES;
+
+  private readonly uiLang = toSignal(this.transloco.langChanges$, {
+    initialValue: this.transloco.getActiveLang(),
+  });
+
+  protected readonly sortedCategoryKeys = computed(() => {
+    const lang = this.uiLang();
+    return [...this.categoryKeys].sort((keyA, keyB) => {
+      const labelA = this.transloco.translate(`home.categories.items.${keyA}`);
+      const labelB = this.transloco.translate(`home.categories.items.${keyB}`);
+      return labelA.localeCompare(labelB, lang);
+    });
+  });
 
   constructor() {
     effect(() => {
@@ -137,6 +169,11 @@ export class ProductFormComponent {
     });
   }
 
+  protected onDescriptionBlur(): void {
+    const lang = this.activeLang();
+    this.descriptionTouchedByLang.update((current) => ({ ...current, [lang]: true }));
+  }
+
   protected async onFileChange(event: Event): Promise<void> {
     const files = (event.target as HTMLInputElement).files;
     if (!files?.length) return;
@@ -145,12 +182,18 @@ export class ProductFormComponent {
     const tempId = this._productId() ?? `temp_${Date.now()}`;
 
     try {
-      const url = await this.uploadService.uploadProductImage(files[0], tempId);
+      const category = this.productModel().category ?? 'uncategorized';
+      const url = await this.uploadService.uploadProductImage(files[0], tempId, category);
       this.productModel.update((model) => ({ ...model, images: [...model.images, url] }));
     } catch (error) {
       this.productResponseError.set('admin.productForm.errors.upload');
       console.error(error);
     }
+  }
+
+  protected onNameBlur(): void {
+    const lang = this.activeLang();
+    this.nameTouchedByLang.update((current) => ({ ...current, [lang]: true }));
   }
 
   protected removeImage(index: number): void {
@@ -161,6 +204,7 @@ export class ProductFormComponent {
   }
 
   protected save(): void {
+    this.submitAttempted.set(true);
     if (!this.isFormValid()) return;
 
     this.saving.set(true);
@@ -186,6 +230,11 @@ export class ProductFormComponent {
       },
       next: () => this.router.navigate(['/' + ROUTES.ADMIN_PRODUCTS]),
     });
+  }
+
+  protected selectCategory(category: ProductCategory): void {
+    this.productModel.update((model) => ({ ...model, category }));
+    this.isCategoryDropdownOpen.set(false);
   }
 
   protected updateDescription(event: Event): void {

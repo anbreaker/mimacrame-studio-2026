@@ -89,6 +89,7 @@
         "fields": {
           "active": "Active (visible in store)",
           "category": "Category",
+          "categoryPlaceholder": "Select a category",
           "description": "Description",
           "descriptionPlaceholder": "Describe materials, finishes, style...",
           "estimatedDays": "Production days",
@@ -368,19 +369,19 @@
     "addToCart": "Add to cart",
     "back": "Back to collection",
     "buyNow": "Buy now",
+    "closeImage": "Close image",
     "estimatedDays": "Handcrafted: {{ count }} business days",
     "materials": {
       "content": "Handmade with waxed cotton thread and natural silk. To preserve your piece, avoid contact with water and store it in a dry place.",
       "title": "Materials and care"
     },
+    "nextImage": "Next image",
+    "prevImage": "Previous image",
     "quantity": "Quantity",
     "shipping": {
       "content": "Free shipping on orders over €40. Delivery in 3-5 business days. We accept returns within 14 days of receipt.",
       "title": "Shipping and returns"
     },
-    "closeImage": "Close image",
-    "nextImage": "Next image",
-    "prevImage": "Previous image",
     "viewImage": "View image {{ index }}"
   },
   "seo": {

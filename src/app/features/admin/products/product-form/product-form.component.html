@@ -39,11 +39,64 @@
                   (click)="activeLang.set(lang)"
                 >
                   {{ lang.toUpperCase() }}
-                  @if (nameByLang()[lang].trim() === '' || descriptionByLang()[lang].trim() === '') {
+                  @if (
+                    nameByLang()[lang].trim() === '' || descriptionByLang()[lang].trim() === ''
+                  ) {
                     <span class="lang-tabs__dot"></span>
                   }
                 </button>
               }
+            </div>
+
+            <!-- Category -->
+            <div class="admin-form-group">
+              <label class="admin-label">
+                {{ t('admin.productForm.basicInfo.fields.category') }}
+              </label>
+              <div class="admin-dropdown" [class.admin-dropdown--open]="isCategoryDropdownOpen()">
+                @if (isCategoryDropdownOpen()) {
+                  <div
+                    class="admin-dropdown__backdrop"
+                    (click)="isCategoryDropdownOpen.set(false)"
+                  ></div>
+                }
+                <button
+                  type="button"
+                  class="admin-dropdown__trigger"
+                  (click)="isCategoryDropdownOpen.update(open => !open)"
+                >
+                  @if (productModel().category) {
+                    <span>{{ t('home.categories.items.' + productModel().category) }}</span>
+                  } @else {
+                    <span class="admin-dropdown__placeholder">{{ t('admin.productForm.basicInfo.fields.categoryPlaceholder') }}</span>
+                  }
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    width="14"
+                    height="14"
+                    class="admin-dropdown__chevron"
+                  >
+                    <path d="M6 9l6 6 6-6" />
+                  </svg>
+                </button>
+                @if (isCategoryDropdownOpen()) {
+                  <ul class="admin-dropdown__menu" role="listbox">
+                    @for (key of sortedCategoryKeys(); track key) {
+                      <li
+                        class="admin-dropdown__option"
+                        [class.admin-dropdown__option--selected]="productModel().category === key"
+                        role="option"
+                        (click)="selectCategory(key)"
+                      >
+                        {{ t('home.categories.items.' + key) }}
+                      </li>
+                    }
+                  </ul>
+                }
+              </div>
             </div>
 
             <div class="admin-form-group">
@@ -57,8 +110,12 @@
                 [placeholder]="t('admin.productForm.basicInfo.fields.namePlaceholder')"
                 [value]="nameByLang()[activeLang()]"
                 (input)="updateName($event)"
+                (blur)="onNameBlur()"
               />
-              @if (nameByLang()[activeLang()].trim() === '') {
+              @if (
+                (nameTouchedByLang()[activeLang()] || submitAttempted()) &&
+                nameByLang()[activeLang()].trim() === ''
+              ) {
                 <span class="admin-error-text">
                   {{ t('admin.productForm.errors.fieldRequired') }}
                 </span>
@@ -75,8 +132,12 @@
                 [placeholder]="t('admin.productForm.basicInfo.fields.descriptionPlaceholder')"
                 [value]="descriptionByLang()[activeLang()]"
                 (input)="updateDescription($event)"
+                (blur)="onDescriptionBlur()"
               ></textarea>
-              @if (descriptionByLang()[activeLang()].trim() === '') {
+              @if (
+                (descriptionTouchedByLang()[activeLang()] || submitAttempted()) &&
+                descriptionByLang()[activeLang()].trim() === ''
+              ) {
                 <span class="admin-error-text">
                   {{ t('admin.productForm.errors.fieldRequired') }}
                 </span>
@@ -108,17 +169,6 @@
                   [formField]="productForm.estimatedDays"
                 />
               </div>
-            </div>
-
-            <div class="admin-form-group">
-              <label class="admin-label" for="category">
-                {{ t('admin.productForm.basicInfo.fields.category') }}
-              </label>
-              <select id="category" class="admin-select" [formField]="productForm.category">
-                @for (key of categoryKeys; track key) {
-                  <option [value]="key">{{ t('home.categories.items.' + key) }}</option>
-                }
-              </select>
             </div>
 
             <div class="admin-checkbox-group">

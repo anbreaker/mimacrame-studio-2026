@@ -89,6 +89,7 @@
         "fields": {
           "active": "Ativo (visível na loja)",
           "category": "Categoria",
+          "categoryPlaceholder": "Selecione uma categoria",
           "description": "Descrição",
           "descriptionPlaceholder": "Descreva materiais, acabamentos, estilo...",
           "estimatedDays": "Dias de fabricação",
@@ -368,19 +369,19 @@
     "addToCart": "Adicionar ao carrinho",
     "back": "Voltar para a coleção",
     "buyNow": "Comprar agora",
+    "closeImage": "Fechar imagem",
     "estimatedDays": "Artesanato: {{ count }} dias úteis",
     "materials": {
       "content": "Feito à mão com fio de algodão encerado e seda natural. Para conservar a sua peça evite o contacto com água e guarde-a num local seco.",
       "title": "Materiais e cuidados"
     },
+    "nextImage": "Imagem seguinte",
+    "prevImage": "Imagem anterior",
     "quantity": "Quantidade",
     "shipping": {
       "content": "Envio gratuito a partir de €40. Entrega em 3-5 dias úteis. Aceitamos devoluções nos 14 dias seguintes à receção.",
       "title": "Envios e devoluções"
     },
-    "closeImage": "Fechar imagem",
-    "nextImage": "Imagem seguinte",
-    "prevImage": "Imagem anterior",
     "viewImage": "Ver imagem {{ index }}"
   },
   "seo": {
