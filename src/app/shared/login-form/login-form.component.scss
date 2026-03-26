@@ -3,8 +3,12 @@
   background-color: var(--color-background);
   display: flex;
   justify-content: center;
-  min-height: 100svh;
-  padding: var(--space-xl) var(--space-md);
+  min-height: calc(100svh - 80px);
+  padding: var(--space-lg) var(--space-md);
+
+  @media (min-width: 768px) {
+    min-width: 500px;
+  }
 
   &__card {
     background-color: var(--color-surface);
@@ -12,10 +16,14 @@
     border-radius: var(--radius-lg);
     display: flex;
     flex-direction: column;
-    gap: var(--space-xl);
-    max-width: 400px;
+    gap: var(--space-lg);
+    max-width: 480px;
     padding: var(--space-2xl);
     width: 100%;
+
+    @media (min-width: 768px) {
+      max-width: 600px;
+    }
   }
 
   &__logo {
@@ -117,6 +125,7 @@
     outline: none;
     padding: var(--space-md);
     transition: border-color 0.2s;
+    width: 100%;
 
     &::placeholder {
       color: var(--color-text-muted);
@@ -150,6 +159,20 @@
     }
   }
 
+  &__footer-link {
+    border-top: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+    padding-top: var(--space-lg);
+    text-align: center;
+    text-decoration: none;
+    transition: color 0.2s;
+
+    &:hover {
+      color: var(--color-primary);
+    }
+  }
+
   &__divider {
     align-items: center;
     display: flex;
@@ -164,7 +187,7 @@
     }
 
     &-text {
-      color: var(--color-text-muted);
+      color: var(--color-primary);
       font-size: var(--font-size-xs);
       white-space: nowrap;
     }
@@ -176,6 +199,7 @@
     border: 1px solid var(--color-border);
     border-radius: var(--radius-sm);
     color: aliceblue;
+    color: var(--color-text);
     cursor: pointer;
     display: flex;
     font-family: var(--font-sans);
@@ -190,6 +214,7 @@
 
     &:hover:not(:disabled) {
       background-color: var(--color-border);
+      color: var(--color-text);
     }
     &:disabled {
       cursor: not-allowed;

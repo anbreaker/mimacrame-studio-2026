@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, input, output, signal } from '@angular/core';
 import { email as emailValidator, form, FormField, required } from '@angular/forms/signals';
+import { RouterLink } from '@angular/router';
 import { TranslocoDirective } from '@jsverse/transloco';
 
 export interface LoginSubmitEvent {
@@ -14,7 +15,7 @@ interface LoginFormData {
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormField, TranslocoDirective],
+  imports: [FormField, RouterLink, TranslocoDirective],
   selector: 'app-login-form',
   standalone: true,
   styleUrl: './login-form.component.scss',
@@ -35,9 +36,9 @@ export class LoginFormComponent {
 
   readonly emailPlaceholder = input('');
   readonly error = input<string | null>(null);
-
+  readonly footerRoute = input<string | null>(null);
+  readonly footerText = input<string | null>(null);
   readonly isLoading = input(false);
-
   readonly subtitle = input.required<string>();
 
   readonly emailSubmit = output<LoginSubmitEvent>();

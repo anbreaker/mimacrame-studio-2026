@@ -4,13 +4,9 @@
     [emailPlaceholder]="t('clientLogin.emailPlaceholder')"
     [error]="errorKey() ? t(errorKey()!) : null"
     [isLoading]="isLoading()"
+    [footerText]="t('clientLogin.registerLink')"
+    [footerRoute]="routes.REGISTER"
     (emailSubmit)="loginWithEmail($event)"
     (googleSubmit)="loginWithGoogle()"
   />
-
-  <div class="login-footer">
-    <a [routerLink]="['/' + routes.REGISTER]" class="link">
-      {{ t('clientLogin.registerLink') }}
-    </a>
-  </div>
 </div>

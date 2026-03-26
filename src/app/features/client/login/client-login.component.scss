@@ -1,25 +1,8 @@
 .login-page {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
   min-height: calc(100vh - 80px);
   padding: 2rem 1rem;
-}
-
-.login-footer {
-  margin-top: 1.5rem;
-  text-align: center;
-
-  .link {
-    color: var(--navy-light);
-    font-size: 0.95rem;
-    text-decoration: none;
-    transition: color 0.2s ease;
-
-    &:hover {
-      color: var(--coral);
-      text-decoration: underline;
-    }
-  }
 }
