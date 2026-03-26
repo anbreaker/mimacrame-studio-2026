@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, Injector, runInInjectionContext } from '@angular/core';
 import {
   addDoc,
   collection,
@@ -21,6 +21,7 @@ import { Order, OrderCreate } from '@core/interfaces/order.interface';
 @Injectable({ providedIn: 'root' })
 export class OrderService {
   private readonly firestore = inject(Firestore);
+  private readonly injector = inject(Injector);
 
   create(data: OrderCreate): Observable<string> {
     return from(
@@ -33,22 +34,28 @@ export class OrderService {
   }
 
   getAll(): Observable<Order[]> {
-    return collectionData(query(this.ordersRef, orderBy('createdAt', 'desc')), {
-      idField: 'id',
-    }) as Observable<Order[]>;
+    return runInInjectionContext(this.injector, () =>
+      collectionData(query(this.ordersRef, orderBy('createdAt', 'desc')), {
+        idField: 'id',
+      }) as Observable<Order[]>
+    );
   }
 
   getById(orderId: string): Observable<Order | null> {
-    return docData(doc(this.firestore, COLLECTIONS.Orders, orderId), {
-      idField: 'id',
-    }) as Observable<Order | null>;
+    return runInInjectionContext(this.injector, () =>
+      docData(doc(this.firestore, COLLECTIONS.Orders, orderId), {
+        idField: 'id',
+      }) as Observable<Order | null>
+    );
   }
 
   getByUser(userId: string): Observable<Order[]> {
-    return collectionData(
-      query(this.ordersRef, where('userId', '==', userId), orderBy('createdAt', 'desc')),
-      { idField: 'id' }
-    ) as Observable<Order[]>;
+    return runInInjectionContext(this.injector, () =>
+      collectionData(
+        query(this.ordersRef, where('userId', '==', userId), orderBy('createdAt', 'desc')),
+        { idField: 'id' }
+      ) as Observable<Order[]>
+    );
   }
 
   private get ordersRef(): ReturnType<typeof collection> {

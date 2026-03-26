@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, Injector, runInInjectionContext } from '@angular/core';
 import {
   addDoc,
   collection,
@@ -21,6 +21,7 @@ import { Product, ProductCreate, ProductUpdate } from '@core/interfaces/product.
 @Injectable({ providedIn: 'root' })
 export class ProductService {
   private readonly firestore = inject(Firestore);
+  private readonly injector = inject(Injector);
 
   create(data: ProductCreate): Observable<string> {
     return from(
@@ -37,28 +38,34 @@ export class ProductService {
   }
 
   getActive(): Observable<Product[]> {
-    return collectionData(
-      query(this.productsRef, where('active', '==', true), orderBy('createdAt', 'desc')),
-      { idField: 'id' }
-    ) as Observable<Product[]>;
+    return runInInjectionContext(this.injector, () =>
+      collectionData(
+        query(this.productsRef, where('active', '==', true), orderBy('createdAt', 'desc')),
+        { idField: 'id' }
+      ) as Observable<Product[]>
+    );
   }
 
   getAll(): Observable<Product[]> {
-    return collectionData(query(this.productsRef, orderBy('createdAt', 'desc')), {
-      idField: 'id',
-    }) as Observable<Product[]>;
+    return runInInjectionContext(this.injector, () =>
+      collectionData(query(this.productsRef, orderBy('createdAt', 'desc')), {
+        idField: 'id',
+      }) as Observable<Product[]>
+    );
   }
 
   getByCategory(category: ProductCategory): Observable<Product[]> {
-    return collectionData(
-      query(
-        this.productsRef,
-        where('category', '==', category),
-        where('active', '==', true),
-        orderBy('createdAt', 'desc')
-      ),
-      { idField: 'id' }
-    ) as Observable<Product[]>;
+    return runInInjectionContext(this.injector, () =>
+      collectionData(
+        query(
+          this.productsRef,
+          where('category', '==', category),
+          where('active', '==', true),
+          orderBy('createdAt', 'desc')
+        ),
+        { idField: 'id' }
+      ) as Observable<Product[]>
+    );
   }
 
   private get productsRef(): ReturnType<typeof collection> {

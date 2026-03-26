@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, Injector, runInInjectionContext } from '@angular/core';
 import {
   Auth,
   createUserWithEmailAndPassword,
@@ -19,11 +19,18 @@ import { AppUser } from '@core/interfaces/user.interface';
 export class AuthService {
   private readonly auth = inject(Auth);
   private readonly firestore = inject(Firestore);
+  private readonly injector = inject(Injector);
 
-  readonly currentUser$: Observable<AppUser | null> = user(this.auth).pipe(
+  readonly currentUser$: Observable<AppUser | null> = runInInjectionContext(this.injector, () =>
+    user(this.auth)
+  ).pipe(
     switchMap((firebaseUser) =>
       firebaseUser
-        ? from(getDoc(doc(this.firestore, `users/${firebaseUser.uid}`))).pipe(
+        ? from(
+            runInInjectionContext(this.injector, () =>
+              getDoc(doc(this.firestore, `users/${firebaseUser.uid}`))
+            )
+          ).pipe(
             map((snapshot) => {
               const data = snapshot.data();
               return {
