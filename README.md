@@ -8,7 +8,11 @@ High-end handcrafted e-commerce platform specializing in handmade macramé jewel
 - **Build Tool / Dev Server:** [Vite](https://vitejs.dev/) for instantaneous development.
 - **State & Reactivity:** **Signal-First** architecture (Signals, Computed, Effects).
 - **Internationalization:** [Transloco](https://ngneat.github.io/transloco/) with support for **English, Spanish, and Portuguese**.
-- **Backend & Auth:** [Firebase](https://firebase.google.com/) (Firestore, Authentication, Storage).
+- **Backend & Auth:** [Firebase](https://firebase.google.com/) (Firestore, Authentication).
+- **Serverless API:** [Vercel](https://vercel.com/) serverless functions (`api/` directory).
+- **Payments:** [Stripe](https://stripe.com/) with Payment Element and webhook verification.
+- **Image Storage:** [Cloudinary](https://cloudinary.com/) — uploads organized under `mimacrame/products/{category}/{id}` and `mimacrame/users/{id}`.
+- **Transactional Email:** [Resend](https://resend.com/) for order confirmations.
 - **Forms:** `@angular/forms/signals` (Signal Forms).
 - **Styling:** SCSS following **BEM Nested** methodology.
 - **Testing:** [Vitest](https://vitest.dev/) for high-speed unit testing.
@@ -19,6 +23,7 @@ High-end handcrafted e-commerce platform specializing in handmade macramé jewel
 - **Mobile First:** Optimized design for mobile devices with adaptive navigation.
 - **Zoneless Performance:** Elimination of `zone.js` to minimize change detection cycles and improve performance.
 - **Type Safety:** Strict use of TypeScript and interfaces for all data models.
+- **Multi-language content:** Products store `name` and `description` as `LocalizedString { es, en, pt }`. Consumers use `LocalizePipe` or reactive `activeLang` signal.
 
 ## 🛠️ Development
 
@@ -28,13 +33,33 @@ High-end handcrafted e-commerce platform specializing in handmade macramé jewel
 npm install
 ```
 
-### Development Server (Vite)
+### Development Server (Vite + Vercel dev)
+
+To run the full stack locally (Angular + serverless API):
+
+```bash
+npm run dev:full
+```
+
+This starts both Vite (port 4200) and `vercel dev` (port 3000) concurrently. Vite proxies `/api/*` requests to Vercel.
+
+To run the Angular frontend only:
 
 ```bash
 npm run dev
 ```
 
 Navigate to `http://localhost:4200/`. The server supports HMR (Hot Module Replacement).
+
+### Environment Variables
+
+Copy `.env.example` to `.env.local` and fill in the required values:
+
+```bash
+cp .env.example .env.local
+```
+
+Required variables: `NG_APP_STRIPE_PUBLIC_KEY`, `STRIPE_SECRET_KEY`, `RESEND_API_KEY`, `ALLOWED_ORIGIN`, and the `NG_APP_FIREBASE_*` set.
 
 ### Production Build
 
@@ -62,6 +87,9 @@ The application supports multiple languages natively and reactively. Dictionarie
 ## 📦 Project Structure
 
 ```sh
+api/                       # Vercel serverless functions
+├── create-payment-intent.ts   # POST /api/create-payment-intent
+└── stripe-webhook.ts          # POST /api/stripe-webhook
 src/
 ├── app/
 │   ├── core/          # Global services, guards, interceptors, and stores
@@ -84,7 +112,11 @@ Plataforma de e-commerce artesanal de alta gama, especializada en joyería de ma
 - **Build Tool / Dev Server:** [Vite](https://vitejs.dev/) para un desarrollo instantáneo.
 - **Estado y Reactividad:** Arquitectura **Signal-First** (Signals, Computed, Effects).
 - **Internacionalización:** [Transloco](https://ngneat.github.io/transloco/) con soporte para **Español, Inglés y Portugués**.
-- **Backend & Auth:** [Firebase](https://firebase.google.com/) (Firestore, Authentication, Storage).
+- **Backend & Auth:** [Firebase](https://firebase.google.com/) (Firestore, Authentication).
+- **API Serverless:** Funciones serverless de [Vercel](https://vercel.com/) (directorio `api/`).
+- **Pagos:** [Stripe](https://stripe.com/) con Payment Element y verificación de webhooks.
+- **Almacenamiento de imágenes:** [Cloudinary](https://cloudinary.com/) — subidas organizadas bajo `mimacrame/products/{category}/{id}` y `mimacrame/users/{id}`.
+- **Email transaccional:** [Resend](https://resend.com/) para confirmaciones de pedido.
 - **Formularios:** `@angular/forms/signals` (Signal Forms).
 - **Estilos:** SCSS siguiendo la metodología **BEM Nested**.
 - **Testing:** [Vitest](https://vitest.dev/) para unit testing de alta velocidad.
@@ -95,6 +127,7 @@ Plataforma de e-commerce artesanal de alta gama, especializada en joyería de ma
 - **Mobile First:** Diseño optimizado para dispositivos móviles con navegación adaptativa.
 - **Zoneless Performance:** Eliminación de `zone.js` para minimizar los ciclos de detección de cambios y mejorar el rendimiento.
 - **Type Safety:** Uso estricto de TypeScript e interfaces para todos los modelos de datos.
+- **Contenido multiidioma:** Los productos almacenan `name` y `description` como `LocalizedString { es, en, pt }`. Los consumidores usan `LocalizePipe` o el signal reactivo `activeLang`.
 
 ## 🛠️ Desarrollo
 
@@ -104,13 +137,33 @@ Plataforma de e-commerce artesanal de alta gama, especializada en joyería de ma
 npm install
 ```
 
-### Servidor de desarrollo (Vite)
+### Servidor de desarrollo (Vite + Vercel dev)
+
+Para ejecutar el stack completo en local (Angular + API serverless):
+
+```bash
+npm run dev:full
+```
+
+Arranca Vite (puerto 4200) y `vercel dev` (puerto 3000) de forma concurrente. Vite redirige las peticiones `/api/*` a Vercel.
+
+Para ejecutar solo el frontend Angular:
 
 ```bash
 npm run dev
 ```
 
 Navega a `http://localhost:4200/`. El servidor soporta HMR (Hot Module Replacement).
+
+### Variables de entorno
+
+Copia `.env.example` a `.env.local` y rellena los valores requeridos:
+
+```bash
+cp .env.example .env.local
+```
+
+Variables necesarias: `NG_APP_STRIPE_PUBLIC_KEY`, `STRIPE_SECRET_KEY`, `RESEND_API_KEY`, `ALLOWED_ORIGIN` y el conjunto `NG_APP_FIREBASE_*`.
 
 ### Construcción para producción
 
@@ -138,6 +191,9 @@ La aplicación soporta múltiples idiomas de forma nativa y reactiva. Los diccio
 ## 📦 Estructura del Proyecto
 
 ```sh
+api/                           # Funciones serverless de Vercel
+├── create-payment-intent.ts   # POST /api/create-payment-intent
+└── stripe-webhook.ts          # POST /api/stripe-webhook
 src/
 ├── app/
 │   ├── core/          # Servicios globales, guards, interceptores y stores
