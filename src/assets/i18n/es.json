@@ -65,6 +65,7 @@
     "nav": {
       "backToStore": "Volver a la tienda",
       "dashboard": "Dashboard",
+      "logout": "Cerrar sesión",
       "orders": "Pedidos",
       "products": "Productos"
     },

@@ -65,6 +65,7 @@
     "nav": {
       "backToStore": "Voltar à loja",
       "dashboard": "Dashboard",
+      "logout": "Sair",
       "orders": "Pedidos",
       "products": "Produtos"
     },

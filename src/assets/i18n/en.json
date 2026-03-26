@@ -65,6 +65,7 @@
     "nav": {
       "backToStore": "Back to store",
       "dashboard": "Dashboard",
+      "logout": "Sign out",
       "orders": "Orders",
       "products": "Products"
     },
