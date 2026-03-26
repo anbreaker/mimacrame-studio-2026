@@ -2,6 +2,7 @@ import { ENV, Environment } from './environment.model';
 
 export const environment: Environment = {
   apiUrl: 'http://localhost:3000',
+  cloudinary: { cloudName: '', uploadPreset: '' },
   enableDebug: false,
   env: ENV.Test,
   firebase: {

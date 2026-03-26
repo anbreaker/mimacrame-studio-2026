@@ -1,5 +1,6 @@
 {
   "buildCommand": "vite build",
+  "devCommand": "node -e \"require('http').createServer((req,res)=>res.end('')).listen(process.env.PORT)\"",
   "outputDirectory": "www",
   "rewrites": [
     {

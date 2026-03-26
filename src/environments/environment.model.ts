@@ -19,8 +19,14 @@ export interface FirebaseConfig {
   storageBucket: string;
 }
 
+export interface CloudinaryConfig {
+  cloudName: string;
+  uploadPreset: string;
+}
+
 export interface Environment {
   apiUrl: string;
+  cloudinary: CloudinaryConfig;
   enableDebug: boolean;
   env: EnvName;
   firebase: FirebaseConfig;

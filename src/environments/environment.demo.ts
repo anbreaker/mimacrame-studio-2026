@@ -2,6 +2,7 @@ import { ENV, Environment } from './environment.model';
 
 export const environment: Environment = {
   apiUrl: import.meta.env['NG_APP_API_URL'] ?? 'https://demo-api.example.com',
+  cloudinary: { cloudName: '', uploadPreset: '' },
   enableDebug: false,
   env: ENV.Demo,
   firebase: {

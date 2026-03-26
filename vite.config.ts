@@ -37,6 +37,14 @@ export default defineConfig(({ mode }) => ({
     port: 4200,
     open: true,
     hmr: true,
+    ...(mode === 'dev' && {
+      proxy: {
+        '/api': {
+          target: 'http://localhost:3000',
+          changeOrigin: true,
+        },
+      },
+    }),
   },
 
   resolve: {

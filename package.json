@@ -65,6 +65,7 @@
     "commit:validate": "node -e \"const msg = process.argv[1]; const ok = /^(feat|fix|docs|style|refactor|test|chore|perf|ci|build|revert)(\\(.+\\))?: .{1,50}/.test(msg); process.exit(ok ? 0 : 1);\" --",
     "dev": "vite --mode dev --open",
     "dev:api": "concurrently \"npm run json-server\" \"npm run dev\"",
+    "dev:full": "concurrently --kill-others \"vercel dev --listen 3000 --yes\" \"npm run dev\"",
     "format": "prettier --write \"src/**/*.{ts,html,scss}\" \"*.json\"",
     "json-server": "json-server --watch server/db.json --port 3000",
     "lint": "eslint \"src/**/*.{ts,js}\" && eslint \"*.json\"",
