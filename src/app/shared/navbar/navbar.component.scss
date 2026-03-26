@@ -113,15 +113,21 @@
     width: 24px;
   }
 
-  &__user-dot {
-    background-color: var(--color-success);
-    border: 2px solid var(--color-background);
-    border-radius: 50%;
-    height: 10px;
+  &__role-badge {
+    background-color: var(--color-primary);
+    border-radius: var(--radius-pill);
+    bottom: -6px;
+    color: var(--color-text);
+    font-size: 9px;
+    font-weight: var(--font-weight-bold);
+    left: 50%;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    padding: 2px 5px;
     position: absolute;
-    right: 4px;
-    top: 4px;
-    width: 10px;
+    text-transform: uppercase;
+    transform: translateX(-50%);
+    white-space: nowrap;
   }
 
   &__badge {

@@ -24,3 +24,23 @@ body {
   background-color: var(--color-background);
   color: var(--color-text);
 }
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+::view-transition-old(root) {
+  animation: 150ms ease fade-out;
+}
+
+::view-transition-new(root) {
+  animation: 200ms ease fade-in;
+}

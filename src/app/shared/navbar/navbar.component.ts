@@ -9,7 +9,7 @@ import { LangSelectorComponent } from '@shared/lang-selector/lang-selector.compo
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, RouterLinkActive, LangSelectorComponent, TranslocoDirective],
+  imports: [LangSelectorComponent, RouterLink, RouterLinkActive, TranslocoDirective],
   selector: 'app-navbar',
   standalone: true,
   styleUrl: './navbar.component.scss',
