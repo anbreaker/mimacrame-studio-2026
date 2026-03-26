@@ -101,6 +101,7 @@
       "cancel": "Cancelar",
       "editTitle": "Editar peça",
       "errors": {
+        "fieldRequired": "Este campo é obrigatório",
         "save": "Erro ao salvar o produto.",
         "upload": "Erro ao carregar a imagem."
       },
@@ -377,6 +378,9 @@
       "content": "Envio gratuito a partir de €40. Entrega em 3-5 dias úteis. Aceitamos devoluções nos 14 dias seguintes à receção.",
       "title": "Envios e devoluções"
     },
+    "closeImage": "Fechar imagem",
+    "nextImage": "Imagem seguinte",
+    "prevImage": "Imagem anterior",
     "viewImage": "Ver imagem {{ index }}"
   },
   "seo": {

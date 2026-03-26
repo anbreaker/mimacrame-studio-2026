@@ -1,14 +1,23 @@
 import { DecimalPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  inject,
+  signal,
+  untracked,
+} from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { form, FormField, required } from '@angular/forms/signals';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { map, Observable, of, switchMap } from 'rxjs';
+import { filter, map, Observable, of, switchMap, take } from 'rxjs';
 import { TranslocoDirective } from '@jsverse/transloco';
 
+import { AVAILABLE_LANGS, LANG, Lang } from '@core/const/lang.const';
 import { PRODUCT_CATEGORY, ProductCategory } from '@core/const/product-category.const';
 import { ROUTES } from '@core/const/routes';
-import { ProductCreate, ProductUpdate } from '@core/interfaces/product.interface';
+import { LocalizedString, ProductCreate, ProductUpdate } from '@core/interfaces/product.interface';
 import { ProductService } from '@core/services/product.service';
 import { UploadService } from '@core/services/upload.service';
 import { AdminNavComponent } from '@shared/admin-nav/admin-nav.component';
@@ -16,12 +25,12 @@ import { AdminNavComponent } from '@shared/admin-nav/admin-nav.component';
 interface ProductFormData {
   active: boolean;
   category: ProductCategory;
-  description: string;
   estimatedDays: number;
   images: string[];
-  name: string;
   price: number;
 }
+
+const EMPTY_LOCALIZED: LocalizedString = { en: '', es: '', pt: '' };
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -37,13 +46,15 @@ export class ProductFormComponent {
   private readonly router = inject(Router);
   protected readonly uploadService = inject(UploadService);
 
+  protected readonly activeLang = signal<Lang>(LANG.Es);
+
+  protected readonly descriptionByLang = signal<LocalizedString>({ ...EMPTY_LOCALIZED });
+  protected readonly nameByLang = signal<LocalizedString>({ ...EMPTY_LOCALIZED });
   protected readonly productModel = signal<ProductFormData>({
     active: true,
     category: PRODUCT_CATEGORY.Bracelets,
-    description: '',
     estimatedDays: 7,
     images: [],
-    name: '',
     price: 0,
   });
 
@@ -60,47 +71,70 @@ export class ProductFormComponent {
     required(schemaPath.estimatedDays, {
       message: 'admin.productForm.basicInfo.fields.estimatedDays',
     });
-    required(schemaPath.name, { message: 'admin.productForm.basicInfo.fields.name' });
     required(schemaPath.price, { message: 'admin.productForm.basicInfo.fields.price' });
   });
 
-  protected readonly isFormValid = computed(
-    () =>
+  protected readonly isFormValid = computed(() => {
+    const name = this.nameByLang();
+    const description = this.descriptionByLang();
+    const allNamesFilledIn =
+      name.es.trim() !== '' && name.en.trim() !== '' && name.pt.trim() !== '';
+    const allDescriptionsFilledIn =
+      description.es.trim() !== '' && description.en.trim() !== '' && description.pt.trim() !== '';
+
+    return (
+      allNamesFilledIn &&
+      allDescriptionsFilledIn &&
       this.productForm.estimatedDays().valid() &&
-      this.productForm.name().valid() &&
       this.productForm.price().valid() &&
       this.productModel().images.length > 0
-  );
+    );
+  });
 
   private readonly _productData = toSignal(
     this.route.paramMap.pipe(
       map((params) => params.get('id')),
       switchMap((id) =>
         id
-          ? this.productService
-              .getAll()
-              .pipe(map((products) => products.find((p) => p.id === id) ?? null))
+          ? this.productService.getAll().pipe(
+              map((products) => products.find((product) => product.id === id) ?? null),
+              filter((product) => product !== null),
+              take(1)
+            )
           : of(null)
       )
     )
   );
 
+  protected readonly availableLangs = AVAILABLE_LANGS;
   protected readonly categoryKeys = Object.values(PRODUCT_CATEGORY);
   protected readonly routes = ROUTES;
 
   constructor() {
-    const data = this._productData();
-    if (data) {
-      this.productModel.set({
-        active: data.active,
-        category: data.category,
-        description: data.description,
-        estimatedDays: data.estimatedDays ?? 7,
-        images: data.images,
-        name: data.name,
-        price: data.price,
-      });
-    }
+    effect(() => {
+      const data = this._productData();
+      if (data) {
+        untracked(() => {
+          this.productModel.set({
+            active: data.active,
+            category: data.category,
+            estimatedDays: data.estimatedDays ?? 7,
+            images: data.images,
+            price: data.price,
+          });
+          this.nameByLang.set(
+            typeof data.name === 'string'
+              ? { en: data.name, es: data.name, pt: data.name }
+              : { ...EMPTY_LOCALIZED, ...data.name }
+          );
+          this.descriptionByLang.set(
+            typeof data.description === 'string'
+              ? { en: data.description, es: data.description, pt: data.description }
+              : { ...EMPTY_LOCALIZED, ...data.description }
+          );
+        });
+      }
+    });
   }
 
   protected async onFileChange(event: Event): Promise<void> {
@@ -112,7 +146,7 @@ export class ProductFormComponent {
 
     try {
       const url = await this.uploadService.uploadProductImage(files[0], tempId);
-      this.productModel.update((m) => ({ ...m, images: [...m.images, url] }));
+      this.productModel.update((model) => ({ ...model, images: [...model.images, url] }));
     } catch (error) {
       this.productResponseError.set('admin.productForm.errors.upload');
       console.error(error);
@@ -134,11 +168,16 @@ export class ProductFormComponent {
 
     const id = this._productId();
     const data = this.productModel();
+    const payload: ProductCreate = {
+      ...data,
+      description: this.descriptionByLang(),
+      name: this.nameByLang(),
+    };
 
     const obs$: Observable<string | void> =
       this.isEditMode() && id
-        ? this.productService.update(id, data as ProductUpdate)
-        : this.productService.create(data as ProductCreate);
+        ? this.productService.update(id, payload as ProductUpdate)
+        : this.productService.create(payload);
 
     obs$.subscribe({
       error: () => {
@@ -147,5 +186,17 @@ export class ProductFormComponent {
       },
       next: () => this.router.navigate(['/' + ROUTES.ADMIN_PRODUCTS]),
     });
+  }
+
+  protected updateDescription(event: Event): void {
+    const value = (event.target as HTMLTextAreaElement).value;
+    const lang = this.activeLang();
+    this.descriptionByLang.update((current) => ({ ...current, [lang]: value }));
+  }
+
+  protected updateName(event: Event): void {
+    const value = (event.target as HTMLInputElement).value;
+    const lang = this.activeLang();
+    this.nameByLang.update((current) => ({ ...current, [lang]: value }));
   }
 }

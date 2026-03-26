@@ -70,9 +70,9 @@
                       <li class="order-detail__item">
                         <img
                           [src]="item.product.images[0] || 'assets/images/placeholder-product.jpg'"
-                          [alt]="item.product.name"
+                          [alt]="item.product.name.es"
                         />
-                        <span>{{ item.product.name }} × {{ item.quantity }}</span>
+                        <span>{{ item.product.name.es }} × {{ item.quantity }}</span>
                         <span>
                           {{
                             item.product.price * item.quantity

@@ -1,6 +1,6 @@
 <article
   class="product-card"
-  [routerLink]="['/producto', product().id]"
+  [routerLink]="['/' + routes.PRODUCT, product().id]"
   *transloco="let t; read: 'productCard'"
 >
   <!-- Image -->
@@ -8,7 +8,7 @@
     <img
       class="product-card__image"
       [src]="product().images[0] || 'assets/images/placeholder-product.jpg'"
-      [alt]="product().name"
+      [alt]="localizedName()"
       loading="lazy"
     />
 
@@ -34,7 +34,7 @@
 
   <!-- Info -->
   <div class="product-card__info">
-    <h3 class="product-card__name">{{ product().name }}</h3>
+    <h3 class="product-card__name">{{ localizedName() }}</h3>
     <span class="product-card__price">
       {{ product().price | currency: 'EUR' : 'symbol' : '1.2-2' : 'es' }}
     </span>

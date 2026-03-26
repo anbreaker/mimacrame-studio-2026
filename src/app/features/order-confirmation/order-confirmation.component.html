@@ -33,7 +33,7 @@
             @for (item of ord.items; track item.product.id) {
               <li class="confirmation__item">
                 <span class="confirmation__item-name">
-                  {{ item.product.name }}
+                  {{ item.product.name | localize: activeLang() }}
                   <span class="confirmation__item-qty">× {{ item.quantity }}</span>
                 </span>
                 <span class="confirmation__item-price">

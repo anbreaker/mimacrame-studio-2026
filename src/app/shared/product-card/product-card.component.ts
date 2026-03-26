@@ -1,8 +1,10 @@
 import { CurrencyPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
-import { TranslocoDirective } from '@jsverse/transloco';
+import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
 
+import { LANG } from '@core/const/lang.const';
 import { ROUTES } from '@core/const/routes';
 import { Product } from '@core/interfaces/product.interface';
 import { CartStore } from '@core/store/cart.store';
@@ -16,9 +18,21 @@ import { CartStore } from '@core/store/cart.store';
   templateUrl: './product-card.component.html',
 })
 export class ProductCardComponent {
+  private readonly transloco = inject(TranslocoService);
   protected readonly cartStore = inject(CartStore);
 
   readonly product = input.required<Product>();
+
+  private readonly activeLang = toSignal(this.transloco.langChanges$, {
+    initialValue: this.transloco.getActiveLang(),
+  });
+
+  protected readonly localizedName = computed(() => {
+    const lang = this.activeLang();
+    const name = this.product().name;
+    if (typeof name === 'string') return name;
+    return name[lang as keyof typeof name] || name[LANG.Es] || '';
+  });
 
   protected readonly routes = ROUTES;
 

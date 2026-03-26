@@ -3,15 +3,16 @@ import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/cor
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { of, switchMap } from 'rxjs';
-import { TranslocoDirective } from '@jsverse/transloco';
+import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
 
 import { ROUTES } from '@core/const/routes';
 import { Order } from '@core/interfaces/order.interface';
 import { OrderService } from '@core/services/order.service';
+import { LocalizePipe } from '@shared/pipes/localize.pipe';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CurrencyPipe, RouterLink, TranslocoDirective],
+  imports: [CurrencyPipe, LocalizePipe, RouterLink, TranslocoDirective],
   selector: 'app-order-confirmation',
   standalone: true,
   styleUrl: './order-confirmation.component.scss',
@@ -19,9 +20,14 @@ import { OrderService } from '@core/services/order.service';
 })
 export class OrderConfirmationComponent {
   private readonly orderService = inject(OrderService);
+  private readonly transloco = inject(TranslocoService);
 
   protected readonly isSuccess = signal(false);
+
   protected readonly orderId = signal<string | null>(null);
+  protected readonly activeLang = toSignal(this.transloco.langChanges$, {
+    initialValue: this.transloco.getActiveLang(),
+  });
 
   protected readonly order = toSignal(
     toObservable(this.orderId).pipe(

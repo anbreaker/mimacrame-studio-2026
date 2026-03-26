@@ -40,10 +40,10 @@
             <img
               class="cart__item-image"
               [src]="item.product.images[0] || 'assets/images/placeholder-product.jpg'"
-              [alt]="item.product.name"
+              [alt]="item.product.name | localize: activeLang()"
             />
             <div class="cart__item-info">
-              <h3 class="cart__item-name">{{ item.product.name }}</h3>
+              <h3 class="cart__item-name">{{ item.product.name | localize: activeLang() }}</h3>
               <span class="cart__item-price">
                 {{ item.product.price | currency: 'EUR' : 'symbol' : '1.2-2' : 'es' }}
               </span>

@@ -10,9 +10,10 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { email as emailValidator, form, FormField, required } from '@angular/forms/signals';
 import { Router, RouterLink } from '@angular/router';
-import { TranslocoDirective } from '@jsverse/transloco';
+import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
 
 import { ORDER_STATUS } from '@core/const/order-status.const';
 import { ROUTES } from '@core/const/routes';
@@ -22,6 +23,7 @@ import { SeoService } from '@core/services/seo.service';
 import { StripeService } from '@core/services/stripe.service';
 import { AuthStore } from '@core/store/auth.store';
 import { CartStore } from '@core/store/cart.store';
+import { LocalizePipe } from '@shared/pipes/localize.pipe';
 
 import { CHECKOUT_ERROR, CheckoutError } from './checkout-error.const';
 
@@ -41,7 +43,7 @@ const SHIPPING_COST = 4.95;
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CurrencyPipe, FormField, RouterLink, TranslocoDirective],
+  imports: [CurrencyPipe, FormField, LocalizePipe, RouterLink, TranslocoDirective],
   selector: 'app-checkout',
   standalone: true,
   styleUrl: './checkout.component.scss',
@@ -53,10 +55,11 @@ export class CheckoutComponent implements OnDestroy {
   private readonly paymentService = inject(PaymentService);
   private readonly router = inject(Router);
   private readonly seoService = inject(SeoService);
+  private readonly transloco = inject(TranslocoService);
 
   protected readonly cartStore = inject(CartStore);
-  protected readonly stripeService = inject(StripeService);
 
+  protected readonly stripeService = inject(StripeService);
   private readonly checkoutModel = signal<CheckoutFormData>({
     city: '',
     country: '',
@@ -71,6 +74,7 @@ export class CheckoutComponent implements OnDestroy {
   protected readonly clientSecret = signal<string | null>(null);
 
   protected readonly errorKey = signal<CheckoutError | null>(null);
+
   protected readonly isPaymentReady = signal(false);
   protected readonly isProcessing = signal(false);
   protected readonly checkoutForm = form(this.checkoutModel, (schemaPath) => {
@@ -108,6 +112,10 @@ export class CheckoutComponent implements OnDestroy {
   protected readonly orderTotalInCents = computed(() => Math.round(this.orderTotal() * 100));
 
   private readonly paymentElementRef = viewChild<ElementRef<HTMLDivElement>>('paymentElement');
+
+  protected readonly activeLang = toSignal(this.transloco.langChanges$, {
+    initialValue: this.transloco.getActiveLang(),
+  });
 
   protected readonly routes = ROUTES;
 

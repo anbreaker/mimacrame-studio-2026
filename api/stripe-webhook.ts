@@ -162,7 +162,7 @@ function buildItemsHtml(
     .map(
       (item) =>
         `<tr>
-          <td style="padding:6px 0;">${item.product.name} × ${item.quantity}</td>
+          <td style="padding:6px 0;">${typeof item.product.name === 'string' ? item.product.name : item.product.name.es} × ${item.quantity}</td>
           <td style="padding:6px 0;text-align:right;">${formatCurrency(item.product.price * item.quantity)}</td>
         </tr>`
     )

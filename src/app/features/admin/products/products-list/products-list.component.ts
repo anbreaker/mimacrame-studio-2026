@@ -29,7 +29,9 @@ export class ProductsListComponent {
     const query = this.searchQuery().toLowerCase().trim();
 
     return query
-      ? products.filter((p) => p.name.toLowerCase().includes(query))
+      ? products.filter((p) =>
+          Object.values(p.name).some((nameValue) => nameValue.toLowerCase().includes(query))
+        )
       : products;
   });
 

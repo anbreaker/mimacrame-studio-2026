@@ -1,23 +1,29 @@
 import { CurrencyPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
-import { TranslocoDirective } from '@jsverse/transloco';
+import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
 
 import { ROUTES } from '@core/const/routes';
 import { CartStore } from '@core/store/cart.store';
+import { LocalizePipe } from '@shared/pipes/localize.pipe';
 
 const FREE_SHIPPING_THRESHOLD = 40;
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CurrencyPipe, RouterLink, TranslocoDirective],
+  imports: [CurrencyPipe, LocalizePipe, RouterLink, TranslocoDirective],
   selector: 'app-cart',
   standalone: true,
   styleUrl: './cart.component.scss',
   templateUrl: './cart.component.html',
 })
 export class CartComponent {
+  private readonly transloco = inject(TranslocoService);
   protected readonly cartStore = inject(CartStore);
+  protected readonly activeLang = toSignal(this.transloco.langChanges$, {
+    initialValue: this.transloco.getActiveLang(),
+  });
 
   protected readonly freeShippingThreshold = FREE_SHIPPING_THRESHOLD;
   protected readonly routes = ROUTES;

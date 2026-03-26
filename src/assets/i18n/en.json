@@ -101,6 +101,7 @@
       "cancel": "Cancel",
       "editTitle": "Edit piece",
       "errors": {
+        "fieldRequired": "This field is required",
         "save": "Error saving product.",
         "upload": "Error uploading image."
       },
@@ -377,6 +378,9 @@
       "content": "Free shipping on orders over €40. Delivery in 3-5 business days. We accept returns within 14 days of receipt.",
       "title": "Shipping and returns"
     },
+    "closeImage": "Close image",
+    "nextImage": "Next image",
+    "prevImage": "Previous image",
     "viewImage": "View image {{ index }}"
   },
   "seo": {

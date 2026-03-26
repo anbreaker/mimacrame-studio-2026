@@ -29,6 +29,23 @@
               {{ t('admin.productForm.basicInfo.title') }}
             </h2>
 
+            <!-- Language tabs for name + description -->
+            <div class="lang-tabs">
+              @for (lang of availableLangs; track lang) {
+                <button
+                  type="button"
+                  class="lang-tabs__btn"
+                  [class.lang-tabs__btn--active]="activeLang() === lang"
+                  (click)="activeLang.set(lang)"
+                >
+                  {{ lang.toUpperCase() }}
+                  @if (nameByLang()[lang].trim() === '' || descriptionByLang()[lang].trim() === '') {
+                    <span class="lang-tabs__dot"></span>
+                  }
+                </button>
+              }
+            </div>
+
             <div class="admin-form-group">
               <label class="admin-label" for="name">
                 {{ t('admin.productForm.basicInfo.fields.name') }}
@@ -38,9 +55,10 @@
                 class="admin-input"
                 type="text"
                 [placeholder]="t('admin.productForm.basicInfo.fields.namePlaceholder')"
-                [formField]="productForm.name"
+                [value]="nameByLang()[activeLang()]"
+                (input)="updateName($event)"
               />
-              @if (productForm.name().touched() && productForm.name().invalid()) {
+              @if (nameByLang()[activeLang()].trim() === '') {
                 <span class="admin-error-text">
                   {{ t('admin.productForm.errors.fieldRequired') }}
                 </span>
@@ -55,8 +73,14 @@
                 id="description"
                 class="admin-textarea"
                 [placeholder]="t('admin.productForm.basicInfo.fields.descriptionPlaceholder')"
-                [formField]="productForm.description"
+                [value]="descriptionByLang()[activeLang()]"
+                (input)="updateDescription($event)"
               ></textarea>
+              @if (descriptionByLang()[activeLang()].trim() === '') {
+                <span class="admin-error-text">
+                  {{ t('admin.productForm.errors.fieldRequired') }}
+                </span>
+              }
             </div>
 
             <div class="admin-form-row">

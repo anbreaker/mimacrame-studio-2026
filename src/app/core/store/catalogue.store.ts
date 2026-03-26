@@ -32,8 +32,10 @@ export class CatalogueStore {
       const matchesCategory = category === null || product.category === category;
       const matchesSearch =
         query === '' ||
-        product.name.toLowerCase().includes(query) ||
-        product.description.toLowerCase().includes(query);
+        Object.values(product.name).some((nameValue) => nameValue.toLowerCase().includes(query)) ||
+        Object.values(product.description).some((descValue) =>
+          descValue.toLowerCase().includes(query)
+        );
       return matchesCategory && matchesSearch;
     });
   });

@@ -72,9 +72,9 @@
                       <img
                         class="products-table__img"
                         [src]="product.images[0] || 'assets/images/placeholder-product.jpg'"
-                        [alt]="product.name"
+                        [alt]="product.name.es"
                       />
-                      <span>{{ product.name }}</span>
+                      <span>{{ product.name.es }}</span>
                     </div>
                   </td>
                   <td>{{ t('home.categories.items.' + product.category) }}</td>

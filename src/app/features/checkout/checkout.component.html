@@ -149,10 +149,10 @@
               <img
                 class="checkout__summary-img"
                 [src]="item.product.images[0] || 'assets/images/placeholder-product.jpg'"
-                [alt]="item.product.name"
+                [alt]="item.product.name | localize: activeLang()"
               />
               <div class="checkout__summary-info">
-                <span class="checkout__summary-name">{{ item.product.name }}</span>
+                <span class="checkout__summary-name">{{ item.product.name | localize: activeLang() }}</span>
                 <span class="checkout__summary-qty">x {{ item.quantity }}</span>
               </div>
               <span class="checkout__summary-price">

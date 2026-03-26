@@ -1,14 +1,20 @@
 import { ProductCategory } from '@core/const/product-category.const';
 
+export interface LocalizedString {
+  en: string;
+  es: string;
+  pt: string;
+}
+
 export interface Product {
   active: boolean;
   category: ProductCategory;
   createdAt: Date;
-  description: string;
+  description: LocalizedString;
   estimatedDays: number;
   id: string;
   images: string[];
-  name: string;
+  name: LocalizedString;
   price: number;
   updatedAt: Date;
 }
