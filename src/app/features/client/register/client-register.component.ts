@@ -25,15 +25,13 @@ export class ClientRegisterComponent {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
 
-  private readonly registerModel = signal<RegisterFormData>({
+  protected readonly errorKey = signal<string | null>(null);
+  protected readonly isLoading = signal(false);
+  protected readonly registerModel = signal<RegisterFormData>({
     displayName: '',
     email: '',
     password: '',
   });
-
-  protected readonly errorKey = signal<string | null>(null);
-
-  protected readonly isLoading = signal(false);
 
   protected readonly showPassword = signal(false);
 

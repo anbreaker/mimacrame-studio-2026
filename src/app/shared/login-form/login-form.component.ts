@@ -1,11 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  input,
-  output,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, output, signal } from '@angular/core';
 import { email as emailValidator, form, FormField, required } from '@angular/forms/signals';
 import { TranslocoDirective } from '@jsverse/transloco';
 
@@ -28,18 +21,8 @@ interface LoginFormData {
   templateUrl: './login-form.component.html',
 })
 export class LoginFormComponent {
-  readonly subtitle = input.required<string>();
-  readonly emailPlaceholder = input('');
-  readonly error = input<string | null>(null);
-  readonly isLoading = input(false);
-
-  readonly emailSubmit = output<LoginSubmitEvent>();
-  readonly googleSubmit = output<void>();
-
-  protected readonly showPassword = signal(false);
-
   private readonly loginModel = signal<LoginFormData>({ email: '', password: '' });
-
+  protected readonly showPassword = signal(false);
   protected readonly loginForm = form(this.loginModel, (schemaPath) => {
     required(schemaPath.email, { message: 'errors.emailRequired' });
     emailValidator(schemaPath.email, { message: 'errors.emailInvalid' });
@@ -47,8 +30,19 @@ export class LoginFormComponent {
   });
 
   protected readonly isFormValid = computed(
-    () => this.loginForm.email().valid() && this.loginForm.password().valid(),
+    () => this.loginForm.email().valid() && this.loginForm.password().valid()
   );
+
+  readonly emailPlaceholder = input('');
+  readonly error = input<string | null>(null);
+
+  readonly isLoading = input(false);
+
+  readonly subtitle = input.required<string>();
+
+  readonly emailSubmit = output<LoginSubmitEvent>();
+
+  readonly googleSubmit = output<void>();
 
   protected submit(): void {
     const { email, password } = this.loginModel();

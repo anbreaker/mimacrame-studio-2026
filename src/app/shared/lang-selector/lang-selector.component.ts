@@ -27,10 +27,11 @@ export class LangSelectorComponent {
   private readonly i18n = inject(I18nService);
   private readonly transloco = inject(TranslocoService);
 
-  protected readonly languages = LANGUAGES;
   protected readonly activeLang = toSignal(this.transloco.langChanges$, {
     initialValue: this.transloco.getActiveLang(),
   });
+
+  protected readonly languages = LANGUAGES;
 
   protected setLang(code: string): void {
     this.i18n.setLang(code);
