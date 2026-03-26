@@ -57,10 +57,66 @@
           <table class="products-table">
             <thead>
               <tr>
-                <th>{{ t('admin.products.table.product') }}</th>
-                <th>{{ t('admin.products.table.category') }}</th>
-                <th>{{ t('admin.products.table.price') }}</th>
-                <th>{{ t('admin.products.table.status') }}</th>
+                <th
+                  class="th-sortable"
+                  (click)="sort(SORT_FIELD.Name)"
+                  [class.th-sortable--active]="sortField() === SORT_FIELD.Name"
+                >
+                  {{ t('admin.products.table.product') }}
+                  <span
+                    class="th-sort-icon"
+                    [class.th-sort-icon--desc]="
+                      sortField() === SORT_FIELD.Name && sortDir() === SORT_DIR.Desc
+                    "
+                  >
+                    {{ sortField() === SORT_FIELD.Name ? '↑' : '↕' }}
+                  </span>
+                </th>
+                <th
+                  class="th-sortable"
+                  (click)="sort(SORT_FIELD.Category)"
+                  [class.th-sortable--active]="sortField() === SORT_FIELD.Category"
+                >
+                  {{ t('admin.products.table.category') }}
+                  <span
+                    class="th-sort-icon"
+                    [class.th-sort-icon--desc]="
+                      sortField() === SORT_FIELD.Category && sortDir() === SORT_DIR.Desc
+                    "
+                  >
+                    {{ sortField() === SORT_FIELD.Category ? '↑' : '↕' }}
+                  </span>
+                </th>
+                <th
+                  class="th-sortable"
+                  (click)="sort(SORT_FIELD.Price)"
+                  [class.th-sortable--active]="sortField() === SORT_FIELD.Price"
+                >
+                  {{ t('admin.products.table.price') }}
+                  <span
+                    class="th-sort-icon"
+                    [class.th-sort-icon--desc]="
+                      sortField() === SORT_FIELD.Price && sortDir() === SORT_DIR.Desc
+                    "
+                  >
+                    {{ sortField() === SORT_FIELD.Price ? '↑' : '↕' }}
+                  </span>
+                </th>
+                <th
+                  class="th-sortable"
+                  (click)="sort(SORT_FIELD.Active)"
+                  [class.th-sortable--active]="sortField() === SORT_FIELD.Active"
+                >
+                  {{ t('admin.products.table.status') }}
+                  <span
+                    class="th-sort-icon"
+                    [class.th-sort-icon--desc]="
+                      sortField() === SORT_FIELD.Active && sortDir() === SORT_DIR.Desc
+                    "
+                  >
+                    {{ sortField() === SORT_FIELD.Active ? '↑' : '↕' }}
+                  </span>
+                </th>
                 <th></th>
               </tr>
             </thead>

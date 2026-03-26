@@ -5,6 +5,8 @@ import { RouterLink } from '@angular/router';
 import { TranslocoDirective } from '@jsverse/transloco';
 
 import { ROUTES } from '@core/const/routes';
+import { SORT_DIR, SORT_FIELD, SortDir, SortField } from '@core/const/sort.const';
+import { Product } from '@core/interfaces/product.interface';
 import { ProductService } from '@core/services/product.service';
 import { AdminNavComponent } from '@shared/admin-nav/admin-nav.component';
 
@@ -21,42 +23,79 @@ export class ProductsListComponent {
 
   protected readonly confirmDeleteId = signal<string | null>(null);
   protected readonly searchQuery = signal('');
+  protected readonly sortDir = signal<SortDir>(SORT_DIR.Asc);
+  protected readonly sortField = signal<SortField>(SORT_FIELD.Name);
 
   private readonly _products = toSignal(this.productService.getAll(), { initialValue: [] });
-
   protected readonly filteredProducts = computed(() => {
-    const products = this._products();
-    const query = this.searchQuery().toLowerCase().trim();
+    const allProducts = this._products();
+    const searchQuery = this.searchQuery().toLowerCase().trim();
+    const activeSortField = this.sortField();
+    const activeSortDir = this.sortDir();
 
-    return query
-      ? products.filter((p) =>
-          Object.values(p.name).some((nameValue) => nameValue.toLowerCase().includes(query))
+    const matchingProducts = searchQuery
+      ? allProducts.filter((product) =>
+          Object.values(product.name).some((localizedName) =>
+            localizedName.toLowerCase().includes(searchQuery)
+          )
         )
-      : products;
+      : [...allProducts];
+
+    return matchingProducts.sort((productA, productB) => {
+      const directionMultiplier = activeSortDir === SORT_DIR.Asc ? 1 : -1;
+      return directionMultiplier * this.compareByField(productA, productB, activeSortField);
+    });
   });
 
   protected readonly isLoading = computed(() => this._products() === undefined);
+
   protected readonly routes = ROUTES;
+
+  protected readonly SORT_DIR = SORT_DIR;
+
+  protected readonly SORT_FIELD = SORT_FIELD;
 
   protected cancelDelete(): void {
     this.confirmDeleteId.set(null);
   }
 
-  protected confirmDelete(): void {
-    const id = this.confirmDeleteId();
-    if (!id) return;
+  private compareByField(productA: Product, productB: Product, field: SortField): number {
+    switch (field) {
+      case SORT_FIELD.Name: {
+        const nameA = typeof productA.name === 'string' ? productA.name : productA.name.es;
+        const nameB = typeof productB.name === 'string' ? productB.name : productB.name.es;
+        return nameA.localeCompare(nameB, 'es');
+      }
+      case SORT_FIELD.Price:
+        return productA.price - productB.price;
+      case SORT_FIELD.Category:
+        return productA.category.localeCompare(productB.category, 'es');
+      case SORT_FIELD.Active:
+        return Number(productB.active) - Number(productA.active);
+    }
+  }
 
-    this.productService.delete(id).subscribe({
+  protected confirmDelete(): void {
+    const targetId = this.confirmDeleteId();
+    if (!targetId) return;
+
+    this.productService.delete(targetId).subscribe({
       next: () => this.confirmDeleteId.set(null),
     });
   }
 
-  protected requestDelete(id: string): void {
-    this.confirmDeleteId.set(id);
+  protected requestDelete(productId: string): void {
+    this.confirmDeleteId.set(productId);
   }
 
-  protected updateSearch(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    this.searchQuery.set(input.value);
+  protected sort(field: SortField): void {
+    if (this.sortField() === field) {
+      this.sortDir.update((currentDir) =>
+        currentDir === SORT_DIR.Asc ? SORT_DIR.Desc : SORT_DIR.Asc
+      );
+    } else {
+      this.sortField.set(field);
+      this.sortDir.set(SORT_DIR.Asc);
+    }
   }
 }
