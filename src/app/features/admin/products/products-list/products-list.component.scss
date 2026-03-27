@@ -1,7 +1,8 @@
 .admin-layout {
   display: flex;
   flex-direction: column;
-  min-height: 100svh;
+  height: calc(100svh - 64px);
+  overflow: hidden;
 
   @media (min-width: 768px) {
     flex-direction: row;
@@ -11,6 +12,7 @@
 .admin-main {
   background-color: var(--color-background);
   flex: 1;
+  overflow: auto;
 
   &__inner {
     max-width: 1000px;

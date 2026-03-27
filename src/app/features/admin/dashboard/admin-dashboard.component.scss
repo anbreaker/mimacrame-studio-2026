@@ -1,7 +1,8 @@
 .admin-layout {
   display: flex;
   flex-direction: column;
-  min-height: 100svh;
+  height: calc(100svh - 64px);
+  overflow: hidden;
 
   @media (min-width: 768px) {
     flex-direction: row;
