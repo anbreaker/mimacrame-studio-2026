@@ -105,6 +105,7 @@
       "errors": {
         "fieldRequired": "Este campo é obrigatório",
         "save": "Erro ao salvar o produto.",
+        "translate": "Erro na tradução. Tente novamente.",
         "upload": "Erro ao carregar a imagem."
       },
       "images": {
@@ -119,6 +120,10 @@
         "create": "Criar peça",
         "save": "Salvar alterações",
         "saving": "Salvando..."
+      },
+      "translate": {
+        "autoTranslate": "Auto-traduzir do ES",
+        "translating": "Traduzindo..."
       }
     },
     "products": {

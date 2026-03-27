@@ -19,6 +19,7 @@ import { PRODUCT_CATEGORY, ProductCategory } from '@core/const/product-category.
 import { ROUTES } from '@core/const/routes';
 import { LocalizedString, ProductCreate, ProductUpdate } from '@core/interfaces/product.interface';
 import { ProductService } from '@core/services/product.service';
+import { TranslationService } from '@core/services/translation.service';
 import { UploadService } from '@core/services/upload.service';
 import { AdminNavComponent } from '@shared/admin-nav/admin-nav.component';
 
@@ -45,6 +46,7 @@ export class ProductFormComponent {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly transloco = inject(TranslocoService);
+  protected readonly translationService = inject(TranslationService);
   protected readonly uploadService = inject(UploadService);
 
   protected readonly activeLang = signal<Lang>(LANG.Es);
@@ -75,9 +77,10 @@ export class ProductFormComponent {
   });
 
   protected readonly productResponseError = signal<string | null>(null);
-
   protected readonly saving = signal(false);
+
   protected readonly submitAttempted = signal(false);
+  protected readonly translateError = signal<string | null>(null);
 
   private readonly _productId = toSignal(
     this.route.paramMap.pipe(map((params) => params.get('id')))
@@ -110,6 +113,21 @@ export class ProductFormComponent {
     );
   });
 
+  private readonly categoryKeys = Object.values(PRODUCT_CATEGORY);
+
+  private readonly uiLang = toSignal(this.transloco.langChanges$, {
+    initialValue: this.transloco.getActiveLang(),
+  });
+
+  protected readonly sortedCategoryKeys = computed(() => {
+    const lang = this.uiLang();
+    return [...this.categoryKeys].sort((keyA, keyB) => {
+      const labelA = this.transloco.translate(`home.categories.items.${keyA}`);
+      const labelB = this.transloco.translate(`home.categories.items.${keyB}`);
+      return labelA.localeCompare(labelB, lang);
+    });
+  });
+
   private readonly _productData = toSignal(
     this.route.paramMap.pipe(
       map((params) => params.get('id')),
@@ -126,21 +144,8 @@ export class ProductFormComponent {
   );
 
   protected readonly availableLangs = AVAILABLE_LANGS;
-  private readonly categoryKeys = Object.values(PRODUCT_CATEGORY);
+
   protected readonly routes = ROUTES;
-
-  private readonly uiLang = toSignal(this.transloco.langChanges$, {
-    initialValue: this.transloco.getActiveLang(),
-  });
-
-  protected readonly sortedCategoryKeys = computed(() => {
-    const lang = this.uiLang();
-    return [...this.categoryKeys].sort((keyA, keyB) => {
-      const labelA = this.transloco.translate(`home.categories.items.${keyA}`);
-      const labelB = this.transloco.translate(`home.categories.items.${keyB}`);
-      return labelA.localeCompare(labelB, lang);
-    });
-  });
 
   constructor() {
     effect(() => {
@@ -167,6 +172,25 @@ export class ProductFormComponent {
         });
       }
     });
+  }
+
+  protected async autoTranslateAll(): Promise<void> {
+    const name = this.nameByLang()[LANG.Es];
+    const description = this.descriptionByLang()[LANG.Es];
+    if (!name.trim() && !description.trim()) return;
+
+    this.translateError.set(null);
+    try {
+      const result = await this.translationService.translateAll(name, description);
+      this.nameByLang.update((current) => ({ ...current, en: result.nameEn, pt: result.namePt }));
+      this.descriptionByLang.update((current) => ({
+        ...current,
+        en: result.descEn,
+        pt: result.descPt,
+      }));
+    } catch {
+      this.translateError.set('admin.productForm.errors.translate');
+    }
   }
 
   protected onDescriptionBlur(): void {
@@ -214,6 +238,7 @@ export class ProductFormComponent {
     const data = this.productModel();
     const payload: ProductCreate = {
       ...data,
+      category: data.category!,
       description: this.descriptionByLang(),
       name: this.nameByLang(),
     };

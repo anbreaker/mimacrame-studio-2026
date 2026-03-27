@@ -418,4 +418,26 @@
       color: var(--color-primary);
     }
   }
+
+  &--ghost {
+    background: transparent;
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+
+    &:hover:not(:disabled) {
+      background: rgb(from var(--color-primary) r g b / 8%);
+    }
+
+    &:disabled {
+      border-color: var(--color-border);
+      color: var(--color-text-muted);
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+  }
+
+  &--sm {
+    font-size: var(--font-size-xs);
+    padding: var(--space-xs) var(--space-sm);
+  }
 }

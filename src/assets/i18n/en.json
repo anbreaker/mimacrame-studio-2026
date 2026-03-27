@@ -105,6 +105,7 @@
       "errors": {
         "fieldRequired": "This field is required",
         "save": "Error saving product.",
+        "translate": "Translation failed. Please try again.",
         "upload": "Error uploading image."
       },
       "images": {
@@ -119,6 +120,10 @@
         "create": "Create piece",
         "save": "Save changes",
         "saving": "Saving..."
+      },
+      "translate": {
+        "autoTranslate": "Auto-translate from ES",
+        "translating": "Translating..."
       }
     },
     "products": {

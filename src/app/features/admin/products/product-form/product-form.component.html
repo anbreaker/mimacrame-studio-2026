@@ -46,6 +46,18 @@
                   }
                 </button>
               }
+              <button
+                type="button"
+                class="admin-btn admin-btn--ghost admin-btn--sm"
+                [disabled]="translationService.isTranslating() || !nameByLang()['es'].trim()"
+                (click)="autoTranslateAll()"
+              >
+                @if (translationService.isTranslating()) {
+                  {{ t('admin.productForm.translate.translating') }}
+                } @else {
+                  {{ t('admin.productForm.translate.autoTranslate') }}
+                }
+              </button>
             </div>
 
             <!-- Category -->
@@ -68,7 +80,9 @@
                   @if (productModel().category) {
                     <span>{{ t('home.categories.items.' + productModel().category) }}</span>
                   } @else {
-                    <span class="admin-dropdown__placeholder">{{ t('admin.productForm.basicInfo.fields.categoryPlaceholder') }}</span>
+                    <span class="admin-dropdown__placeholder">
+                      {{ t('admin.productForm.basicInfo.fields.categoryPlaceholder') }}
+                    </span>
                   }
                   <svg
                     viewBox="0 0 24 24"
@@ -248,6 +262,11 @@
         @if (productResponseError()) {
           <div class="admin-error-banner" role="alert">
             {{ t(productResponseError()!) }}
+          </div>
+        }
+        @if (translateError()) {
+          <div class="admin-error-banner" role="alert">
+            {{ t(translateError()!) }}
           </div>
         }
 

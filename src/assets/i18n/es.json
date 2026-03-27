@@ -105,6 +105,7 @@
       "errors": {
         "fieldRequired": "Este campo es obligatorio",
         "save": "Error al guardar el producto.",
+        "translate": "Error al traducir. Inténtalo de nuevo.",
         "upload": "Error al subir la imagen."
       },
       "images": {
@@ -119,6 +120,10 @@
         "create": "Crear pieza",
         "save": "Guardar cambios",
         "saving": "Guardando..."
+      },
+      "translate": {
+        "autoTranslate": "Auto-traducir desde ES",
+        "translating": "Traduciendo..."
       }
     },
     "products": {
