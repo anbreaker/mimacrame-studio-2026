@@ -10,6 +10,10 @@ export const clientGuard: CanActivateFn = () => {
 
   return inject(AuthService).currentUser$.pipe(
     take(1),
-    map((user) => (user !== null ? true : router.createUrlTree(['/' + ROUTES.LOGIN])))
+    map((user) => {
+      if (user === null) return router.createUrlTree(['/' + ROUTES.LOGIN]);
+      if (user.isAdmin === true) return router.createUrlTree(['/' + ROUTES.ADMIN]);
+      return true;
+    })
   );
 };

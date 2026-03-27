@@ -1,13 +1,11 @@
 import { Routes } from '@angular/router';
 
-import { adminRedirectGuard } from '@core/auth/admin-redirect.guard';
 import { authGuard } from '@core/auth/auth.guard';
 import { clientGuard } from '@core/auth/client.guard';
 import { ROUTES } from '@core/const/routes';
 
 export const routes: Routes = [
   {
-    canActivate: [adminRedirectGuard],
     loadComponent: async () => (await import('./features/home/home.component')).HomeComponent,
     path: ROUTES.HOME,
   },
