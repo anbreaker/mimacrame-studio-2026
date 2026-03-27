@@ -1,7 +1,7 @@
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { of, switchMap } from 'rxjs';
+import { catchError, of, switchMap } from 'rxjs';
 import { TranslocoDirective } from '@jsverse/transloco';
 
 import { OrderService } from '@core/services/order.service';
@@ -21,7 +21,9 @@ export class AccountOrdersComponent {
 
   protected readonly orders = toSignal(
     toObservable(this.authStore.user).pipe(
-      switchMap((user) => (user ? this.orderService.getByUser(user.uid) : of([])))
+      switchMap((user) =>
+        user ? this.orderService.getByUser(user.uid).pipe(catchError(() => of([]))) : of([])
+      )
     )
   );
 }
