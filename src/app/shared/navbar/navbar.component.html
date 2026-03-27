@@ -1,5 +1,5 @@
 <header class="navbar">
-  <div class="navbar__inner">
+  <div class="navbar__inner" [class.navbar__inner--full]="isAdminRoute()">
     <!-- Left: Logo -->
     <a class="navbar__logo" [routerLink]="['/' + routes.HOME]">
       <span class="navbar__logo-texts">
@@ -26,7 +26,13 @@
 
       <a
         class="navbar__action"
-        [routerLink]="authStore.isAdmin() ? ['/' + routes.ADMIN] : authStore.isLoggedIn() ? ['/' + routes.ACCOUNT] : ['/' + routes.LOGIN]"
+        [routerLink]="
+          authStore.isAdmin()
+            ? ['/' + routes.ADMIN]
+            : authStore.isLoggedIn()
+              ? ['/' + routes.ACCOUNT]
+              : ['/' + routes.LOGIN]
+        "
         [attr.aria-label]="authStore.isLoggedIn() ? t('account') : t('login')"
       >
         <svg

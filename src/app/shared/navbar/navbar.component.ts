@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { filter, map } from 'rxjs';
 import { TranslocoDirective } from '@jsverse/transloco';
 
 import { ROUTES } from '@core/const/routes';
@@ -16,8 +18,20 @@ import { LangSelectorComponent } from '@shared/lang-selector/lang-selector.compo
   templateUrl: './navbar.component.html',
 })
 export class NavbarComponent {
+  private readonly router = inject(Router);
+
   protected readonly authStore = inject(AuthStore);
   protected readonly cartStore = inject(CartStore);
+
+  protected readonly isAdminRoute = toSignal(
+    this.router.events.pipe(
+      filter((navigationEvent) => navigationEvent instanceof NavigationEnd),
+      map((navigationEvent) =>
+        (navigationEvent as NavigationEnd).urlAfterRedirects.startsWith('/admin')
+      )
+    ),
+    { initialValue: this.router.url.startsWith('/admin') }
+  );
 
   protected readonly routes = ROUTES;
 }
