@@ -19,6 +19,6 @@ export const environment: Environment = {
     storageBucket: import.meta.env['NG_APP_FIREBASE_STORAGE_BUCKET'] ?? 'YOUR_PROJECT.appspot.com',
   },
   production: false,
-  stripePublicKey: 'pk_test_YOUR_STRIPE_PUBLIC_KEY',
+  stripePublicKey: import.meta.env['NG_APP_STRIPE_PUBLIC_KEY'] ?? 'pk_test_YOUR_STRIPE_PUBLIC_KEY',
   userDev: import.meta.env['NG_APP_USER_DEV'] ?? null,
 };
