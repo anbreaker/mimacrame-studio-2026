@@ -10,7 +10,7 @@ import { getAnalytics, provideAnalytics, ScreenTrackingService } from '@angular/
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-import { provideRouter, withViewTransitions } from '@angular/router';
+import { provideRouter, withInMemoryScrolling, withViewTransitions } from '@angular/router';
 import { provideTransloco } from '@jsverse/transloco';
 
 import { AVAILABLE_LANGS, DEFAULT_LANG } from '@core/const/lang.const';
@@ -41,7 +41,7 @@ export const appConfig: ApplicationConfig = {
       },
       loader: I18nTranslationService,
     }),
-    provideRouter(routes, withViewTransitions()),
+    provideRouter(routes, withViewTransitions(), withInMemoryScrolling({ scrollPositionRestoration: 'top' })),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
