@@ -1,9 +1,11 @@
 {
   "account": {
     "orders": {
+      "created": "Realizado",
       "emptyHint": "Cuando realices tu primera compra, aparecerá aquí.",
       "emptyMessage": "Aún no tienes pedidos",
-      "title": "Mis pedidos"
+      "title": "Mis pedidos",
+      "updated": "Última actualización"
     },
     "profile": {
       "emailLabel": "Email",
