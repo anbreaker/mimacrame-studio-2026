@@ -38,6 +38,15 @@ export class AdminOrdersComponent {
   protected readonly FILTER_ALL = FILTER_ALL;
   protected readonly ORDER_STATUS = ORDER_STATUS;
   protected readonly statusKeys = Object.values(ORDER_STATUS);
+  protected readonly statusEmoji: Record<OrderStatus, string> = {
+    cancelled: '❌',
+    delivered: '🏡',
+    paid: '💳',
+    pending: '⏳',
+    processing: '🧵',
+    refunded: '💸',
+    shipped: '📦',
+  };
 
   constructor() {
     this.orderService
