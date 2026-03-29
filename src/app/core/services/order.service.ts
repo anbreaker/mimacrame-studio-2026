@@ -34,27 +34,40 @@ export class OrderService {
   }
 
   getAll(): Observable<Order[]> {
-    return runInInjectionContext(this.injector, () =>
-      collectionData(query(this.ordersRef, orderBy('createdAt', 'desc')), {
-        idField: 'id',
-      }) as Observable<Order[]>
+    return runInInjectionContext(
+      this.injector,
+      () =>
+        collectionData(query(this.ordersRef, orderBy('createdAt', 'desc')), {
+          idField: 'id',
+        }) as Observable<Order[]>
     );
   }
 
   getById(orderId: string): Observable<Order | null> {
-    return runInInjectionContext(this.injector, () =>
-      docData(doc(this.firestore, COLLECTIONS.Orders, orderId), {
-        idField: 'id',
-      }) as Observable<Order | null>
+    return runInInjectionContext(
+      this.injector,
+      () =>
+        docData(doc(this.firestore, COLLECTIONS.Orders, orderId), {
+          idField: 'id',
+        }) as Observable<Order | null>
     );
   }
 
   getByUser(userId: string): Observable<Order[]> {
-    return runInInjectionContext(this.injector, () =>
-      collectionData(
-        query(this.ordersRef, where('userId', '==', userId), orderBy('createdAt', 'desc')),
-        { idField: 'id' }
-      ) as Observable<Order[]>
+    return runInInjectionContext(
+      this.injector,
+      () =>
+        collectionData(query(this.ordersRef, where('userId', '==', userId)), {
+          idField: 'id',
+        }) as Observable<Order[]>
+    ).pipe(
+      map((orders) =>
+        [...orders].sort((orderA, orderB) => {
+          const toSeconds = (order: Order): number =>
+            (order.createdAt as unknown as { seconds: number })?.seconds ?? 0;
+          return toSeconds(orderB) - toSeconds(orderA);
+        })
+      )
     );
   }
 
