@@ -45,7 +45,9 @@ export class OrderConfirmationComponent {
   constructor() {
     const params = inject(ActivatedRoute).snapshot.queryParamMap;
     this.orderId.set(params.get('orderId'));
-    this.isSuccess.set(params.get('success') === 'true');
+    this.isSuccess.set(
+      params.get('success') === 'true' || params.get('redirect_status') === 'succeeded'
+    );
   }
 
   protected orderRef(order: Order): string {

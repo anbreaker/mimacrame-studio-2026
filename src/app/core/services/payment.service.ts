@@ -9,7 +9,7 @@ interface CreatePaymentIntentRequest {
   userId?: string;
 }
 
-interface CreatePaymentIntentResponse {
+export interface CreatePaymentIntentResponse {
   clientSecret: string;
   paymentIntentId: string;
 }
@@ -23,7 +23,7 @@ export class PaymentService {
   createPaymentIntent(
     amountInCents: number,
     options?: { receiptEmail?: string; userId?: string }
-  ): Observable<string> {
+  ): Observable<CreatePaymentIntentResponse> {
     const body: CreatePaymentIntentRequest = {
       amount: amountInCents,
       currency: 'eur',
@@ -31,8 +31,9 @@ export class PaymentService {
       ...(options?.userId && { userId: options.userId }),
     };
 
-    return this.http
-      .post<CreatePaymentIntentResponse>(`${API_BASE}/create-payment-intent`, body)
-      .pipe(map((response) => response.clientSecret));
+    return this.http.post<CreatePaymentIntentResponse>(
+      `${API_BASE}/create-payment-intent`,
+      body
+    );
   }
 }
