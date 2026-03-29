@@ -361,6 +361,10 @@
       "subtitle": "Please try again or use another payment method.",
       "title": "Payment could not be completed"
     },
+    "status": {
+      "paid": "Payment confirmed",
+      "pending": "Confirming payment..."
+    },
     "success": {
       "cta": "Continue shopping",
       "message": "We're starting to weave your order with much love 🧶",

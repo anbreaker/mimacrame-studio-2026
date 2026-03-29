@@ -22,8 +22,28 @@
         {{ t('orderConfirmation.success.subtitle') }}
       </p>
 
-      @if (order(); as ord) {
+      @if (orderLoading()) {
+        <p class="confirmation__order-ref">#MIM-······</p>
+        <div class="confirmation__status confirmation__status--pending" aria-live="polite">
+          <span class="confirmation__status-dot"></span>
+          {{ t('orderConfirmation.status.pending') }}
+        </div>
+      } @else if (order(); as ord) {
         <p class="confirmation__order-ref">{{ orderRef(ord) }}</p>
+
+        <div
+          class="confirmation__status"
+          [class.confirmation__status--paid]="ord.status === ORDER_STATUS.Paid"
+          [class.confirmation__status--pending]="ord.status !== ORDER_STATUS.Paid"
+          aria-live="polite"
+        >
+          <span class="confirmation__status-dot"></span>
+          {{
+            ord.status === ORDER_STATUS.Paid
+              ? t('orderConfirmation.status.paid')
+              : t('orderConfirmation.status.pending')
+          }}
+        </div>
 
         <div class="confirmation__details">
           <h2 class="confirmation__details-title">
@@ -73,8 +93,6 @@
             </address>
           </div>
         </div>
-      } @else {
-        <p class="confirmation__order-ref">#MIM-······</p>
       }
 
       <p class="confirmation__message">

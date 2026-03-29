@@ -361,6 +361,10 @@
       "subtitle": "Por favor, tente novamente ou use outro método de pagamento.",
       "title": "O pagamento não pôde ser concluído"
     },
+    "status": {
+      "paid": "Pagamento confirmado",
+      "pending": "Confirmando pagamento..."
+    },
     "success": {
       "cta": "Continuar comprando",
       "message": "Começamos a tecer seu pedido com muito carinho 🧶",

@@ -1,10 +1,11 @@
 import { CurrencyPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { of, switchMap } from 'rxjs';
 import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
 
+import { ORDER_STATUS } from '@core/const/order-status.const';
 import { ROUTES } from '@core/const/routes';
 import { Order } from '@core/interfaces/order.interface';
 import { OrderService } from '@core/services/order.service';
@@ -25,15 +26,19 @@ export class OrderConfirmationComponent {
   protected readonly isSuccess = signal(false);
 
   protected readonly orderId = signal<string | null>(null);
-  protected readonly activeLang = toSignal(this.transloco.langChanges$, {
-    initialValue: this.transloco.getActiveLang(),
-  });
-
   protected readonly order = toSignal(
     toObservable(this.orderId).pipe(
       switchMap((id) => (id ? this.orderService.getById(id) : of(null)))
     )
   );
+
+  protected readonly orderLoading = computed(() => this.order() === undefined);
+
+  protected readonly activeLang = toSignal(this.transloco.langChanges$, {
+    initialValue: this.transloco.getActiveLang(),
+  });
+
+  protected readonly ORDER_STATUS = ORDER_STATUS;
 
   protected readonly routes = ROUTES;
 
