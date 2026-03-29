@@ -136,6 +136,17 @@
     white-space: nowrap;
   }
 
+  &__user-dot {
+    background-color: var(--color-success);
+    border: 2px solid var(--color-background);
+    border-radius: 50%;
+    bottom: 2px;
+    height: 10px;
+    position: absolute;
+    right: 2px;
+    width: 10px;
+  }
+
   &__badge {
     align-items: center;
     background-color: var(--color-primary);
