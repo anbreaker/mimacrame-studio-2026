@@ -23,6 +23,7 @@ export class AdminOrdersComponent {
   private readonly orderService = inject(OrderService);
 
   protected readonly expandedOrderId = signal<string | null>(null);
+  protected readonly openStatusDropdownId = signal<string | null>(null);
   protected readonly filterStatus = signal<FilterStatus>(FILTER_ALL);
   protected readonly isLoading = signal(true);
   protected readonly orders = signal<Order[]>([]);
@@ -56,7 +57,8 @@ export class AdminOrdersComponent {
     this.expandedOrderId.update((id) => (id === orderId ? null : orderId));
   }
 
-  protected updateStatus(orderId: string, status: OrderStatus): void {
+  protected selectStatus(orderId: string, status: OrderStatus): void {
+    this.openStatusDropdownId.set(null);
     this.orderService.updateStatus(orderId, status).subscribe();
   }
 }

@@ -208,8 +208,83 @@
   }
 }
 
-select.form-input option {
-  background-color: var(--color-surface);
+.admin-dropdown {
+  flex: 1;
+  min-width: 180px;
+  position: relative;
+
+  &__backdrop {
+    inset: 0;
+    position: fixed;
+    z-index: 10;
+  }
+
+  &__trigger {
+    align-items: center;
+    background-color: var(--color-surface-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    color: var(--color-text);
+    cursor: pointer;
+    display: flex;
+    font-family: var(--font-sans);
+    font-size: var(--font-size-sm);
+    justify-content: space-between;
+    outline: none;
+    padding: var(--space-sm) var(--space-md);
+    transition: border-color 0.2s;
+    width: 100%;
+
+    &:focus {
+      border-color: var(--color-primary);
+    }
+  }
+
+  &--open &__trigger {
+    border-color: var(--color-primary);
+  }
+
+  &__chevron {
+    color: var(--color-text-muted);
+    flex-shrink: 0;
+    transition: transform 0.2s;
+  }
+
+  &--open &__chevron {
+    transform: rotate(180deg);
+  }
+
+  &__menu {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-md);
+    left: 0;
+    list-style: none;
+    margin-top: 4px;
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    z-index: 11;
+  }
+
+  &__option {
+    color: var(--color-text);
+    cursor: pointer;
+    font-size: var(--font-size-sm);
+    padding: var(--space-sm) var(--space-md);
+    transition: background-color 0.15s;
+
+    &:hover {
+      background-color: var(--color-surface-alt);
+    }
+
+    &--selected {
+      color: var(--color-primary);
+      font-weight: var(--font-weight-medium);
+    }
+  }
 }
 
 // Status chip
