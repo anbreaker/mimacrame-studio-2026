@@ -49,7 +49,7 @@ export default async function handler(
   const paymentIntent = await getStripe().paymentIntents.create({
     amount,
     currency,
-    payment_method_types: ['card', 'paypal'],
+    payment_method_types: ['card', 'paypal', 'multibanco'],
     metadata: {
       ...(userId && { userId }),
     },
