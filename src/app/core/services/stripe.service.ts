@@ -31,9 +31,14 @@ export class StripeService {
   }
 
   destroy(): void {
-    this.paymentElement?.destroy();
+    try {
+      this.paymentElement?.destroy();
+    } catch {
+      // element may have already been destroyed (e.g. view transitions)
+    }
     this.paymentElement = null;
     this.elements = null;
+    this.stripe = null;
     this.error.set(null);
     this.isLoading.set(false);
   }
@@ -69,9 +74,17 @@ export class StripeService {
     try {
       this.elements = this.stripe.elements({
         appearance: {
-          theme: 'stripe',
+          theme: 'night',
           variables: {
-            borderRadius: '6px',
+            colorBackground: '#152336',
+            colorPrimary: '#ff6b3d',
+            colorText: '#f5efe8',
+            colorTextSecondary: '#9baab8',
+            colorDanger: '#ff4d4d',
+            colorInputBackground: '#1c2e42',
+            colorInputBorder: '#243650',
+            colorInputPlaceholderText: '#9baab8',
+            borderRadius: '8px',
             fontFamily: 'system-ui, -apple-system, sans-serif',
           },
         },

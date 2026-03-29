@@ -44,9 +44,12 @@ export default async function handler(
     return;
   }
 
+  // Accepted methods. PayPal and Bizum must be enabled in:
+  // Stripe Dashboard → Settings → Payment methods (test mode and live mode separately).
   const paymentIntent = await getStripe().paymentIntents.create({
     amount,
     currency,
+    payment_method_types: ['card', 'paypal'],
     metadata: {
       ...(userId && { userId }),
     },
