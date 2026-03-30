@@ -16,10 +16,13 @@ import { map, switchMap } from 'rxjs';
 import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
 
 import { LANG } from '@core/const/lang.const';
+import { MEDIA_TYPE, MediaType } from '@core/const/media-type.const';
 import { ROUTES } from '@core/const/routes';
 import { ProductService } from '@core/services/product.service';
 import { SeoService } from '@core/services/seo.service';
 import { CartStore } from '@core/store/cart.store';
+
+type MediaItem = { type: MediaType; url: string };
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -80,9 +83,22 @@ export class ProductDetailComponent {
     return name[lang as keyof typeof name] || name[LANG.Es] || '';
   });
 
-  protected readonly selectedImage = computed(
+  protected readonly MEDIA_TYPE = MEDIA_TYPE;
+
+  protected readonly mediaItems = computed<MediaItem[]>(() => {
+    const p = this.product();
+    if (!p) return [];
+    const videos = (p.videos ?? []).map((url) => ({ type: MEDIA_TYPE.Video, url }));
+    const images = p.images.map((url) => ({ type: MEDIA_TYPE.Image, url }));
+    return [...videos, ...images];
+  });
+
+  protected readonly selectedMedia = computed<MediaItem>(
     () =>
-      this.product()?.images[this.selectedImageIndex()] ?? 'assets/images/placeholder-product.jpg'
+      this.mediaItems()[this.selectedImageIndex()] ?? {
+        type: MEDIA_TYPE.Image,
+        url: 'assets/images/placeholder-product.jpg',
+      }
   );
 
   private readonly sliderRef = viewChild<ElementRef<HTMLElement>>('slider');
@@ -131,21 +147,21 @@ export class ProductDetailComponent {
   }
 
   protected lightboxNext(): void {
-    const images = this.product()?.images ?? [];
-    if (images.length <= 1) return;
+    const items = this.mediaItems();
+    if (items.length <= 1) return;
     this.lightboxImgVisible.set(false);
     setTimeout(() => {
-      this.selectedImageIndex.update((i) => (i + 1) % images.length);
+      this.selectedImageIndex.update((i) => (i + 1) % items.length);
       this.lightboxImgVisible.set(true);
     }, 160);
   }
 
   protected lightboxPrev(): void {
-    const images = this.product()?.images ?? [];
-    if (images.length <= 1) return;
+    const items = this.mediaItems();
+    if (items.length <= 1) return;
     this.lightboxImgVisible.set(false);
     setTimeout(() => {
-      this.selectedImageIndex.update((i) => (i - 1 + images.length) % images.length);
+      this.selectedImageIndex.update((i) => (i - 1 + items.length) % items.length);
       this.lightboxImgVisible.set(true);
     }, 160);
   }
@@ -174,6 +190,21 @@ export class ProductDetailComponent {
     this.isLightboxOpen.set(true);
   }
 
+  protected onFrameClick(event: MouseEvent): void {
+    if (this.selectedMedia().type === MEDIA_TYPE.Image) {
+      this.openLightbox(this.selectedImageIndex());
+    } else {
+      const video = (event.currentTarget as HTMLElement).querySelector('video');
+      if (video) video.paused ? video.play() : video.pause();
+    }
+  }
+
+  protected onFrameDblClick(): void {
+    if (this.selectedMedia().type === MEDIA_TYPE.Video) {
+      this.openLightbox(this.selectedImageIndex());
+    }
+  }
+
   protected selectImage(index: number): void {
     if (index === this.selectedImageIndex()) return;
     this.sliderImgVisible.set(false);
@@ -184,14 +215,14 @@ export class ProductDetailComponent {
   }
 
   protected sliderNext(): void {
-    const images = this.product()?.images ?? [];
-    if (images.length <= 1) return;
-    this.selectImage((this.selectedImageIndex() + 1) % images.length);
+    const items = this.mediaItems();
+    if (items.length <= 1) return;
+    this.selectImage((this.selectedImageIndex() + 1) % items.length);
   }
 
   protected sliderPrev(): void {
-    const images = this.product()?.images ?? [];
-    if (images.length <= 1) return;
-    this.selectImage((this.selectedImageIndex() - 1 + images.length) % images.length);
+    const items = this.mediaItems();
+    if (items.length <= 1) return;
+    this.selectImage((this.selectedImageIndex() - 1 + items.length) % items.length);
   }
 }

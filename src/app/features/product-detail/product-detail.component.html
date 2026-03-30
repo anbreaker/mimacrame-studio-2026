@@ -15,67 +15,116 @@
   </div>
 } @else if (product()) {
   <div class="detail-page" *transloco="let t">
-
-    <!-- Breadcrumb — encima del grid, ancho completo -->
+    <!-- Breadcrumb above the grid, full width -->
     <a class="detail-page__back" [routerLink]="['/' + routes.CATALOGUE]">
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" width="14" height="14">
-        <path d="M10 3L5 8l5 5"/>
+      <svg
+        viewBox="0 0 16 16"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        width="14"
+        height="14"
+      >
+        <path d="M10 3L5 8l5 5" />
       </svg>
       {{ t('productDetail.back') }}
     </a>
 
     <div class="detail">
-
-      <!-- Galería con slider scroll-snap -->
+      <!-- Gallery with scroll-snap slider -->
       <div class="detail__gallery">
-
-        <!-- Imagen principal con flechas y swipe -->
+        <!-- Main media with arrows and swipe -->
         <div
           class="detail__slider-wrapper"
           (touchstart)="onTouchStart($event)"
           (touchend)="onTouchEnd($event)"
         >
-          @if (product()!.images.length > 1) {
-            <button class="detail__slider-arrow detail__slider-arrow--prev" (click)="sliderPrev()" [attr.aria-label]="t('productDetail.prevImage')">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
-                <path d="M15 5l-7 7 7 7"/>
+          @if (mediaItems().length > 1) {
+            <button
+              class="detail__slider-arrow detail__slider-arrow--prev"
+              (click)="sliderPrev()"
+              [attr.aria-label]="t('productDetail.prevImage')"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                width="18"
+                height="18"
+              >
+                <path d="M15 5l-7 7 7 7" />
               </svg>
             </button>
-            <button class="detail__slider-arrow detail__slider-arrow--next" (click)="sliderNext()" [attr.aria-label]="t('productDetail.nextImage')">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
-                <path d="M9 5l7 7-7 7"/>
+            <button
+              class="detail__slider-arrow detail__slider-arrow--next"
+              (click)="sliderNext()"
+              [attr.aria-label]="t('productDetail.nextImage')"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                width="18"
+                height="18"
+              >
+                <path d="M9 5l7 7-7 7" />
               </svg>
             </button>
           }
 
           <div
             class="detail__main-frame"
-            (click)="openLightbox(selectedImageIndex())"
+            (click)="onFrameClick($event)"
+            (dblclick)="onFrameDblClick()"
             role="button"
             [attr.aria-label]="t('productDetail.viewImage', { index: selectedImageIndex() + 1 })"
           >
-            <img
-              class="detail__main-img"
-              [class.detail__main-img--visible]="sliderImgVisible()"
-              [src]="selectedImage()"
-              [alt]="localizedName()"
-            />
-            <span class="detail__slide-zoom">
-              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" width="18" height="18">
-                <circle cx="8.5" cy="8.5" r="5.5"/>
-                <line x1="13" y1="13" x2="17" y2="17"/>
-                <line x1="6.5" y1="8.5" x2="10.5" y2="8.5"/>
-                <line x1="8.5" y1="6.5" x2="8.5" y2="10.5"/>
-              </svg>
-            </span>
+            @if (selectedMedia().type === MEDIA_TYPE.Image) {
+              <img
+                class="detail__main-img"
+                [class.detail__main-img--visible]="sliderImgVisible()"
+                [src]="selectedMedia().url"
+                [alt]="localizedName()"
+              />
+              <span class="detail__slide-zoom">
+                <svg
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  width="18"
+                  height="18"
+                >
+                  <circle cx="8.5" cy="8.5" r="5.5" />
+                  <line x1="13" y1="13" x2="17" y2="17" />
+                  <line x1="6.5" y1="8.5" x2="10.5" y2="8.5" />
+                  <line x1="8.5" y1="6.5" x2="8.5" y2="10.5" />
+                </svg>
+              </span>
+            } @else {
+              <video
+                class="detail__main-video"
+                [class.detail__main-video--visible]="sliderImgVisible()"
+                playsinline
+                preload="metadata"
+                [src]="selectedMedia().url"
+              ></video>
+              <span class="detail__slide-zoom">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                  <polygon points="6,4 20,12 6,20" />
+                </svg>
+              </span>
+            }
           </div>
         </div>
 
         <!-- Dots / Thumbnails -->
-        @if (product()!.images.length > 1) {
+        @if (mediaItems().length > 1) {
           <!-- Dots (mobile) -->
           <div class="detail__dots">
-            @for (img of product()!.images; track $index) {
+            @for (item of mediaItems(); track $index) {
               <button
                 class="detail__dot"
                 [class.detail__dot--active]="selectedImageIndex() === $index"
@@ -87,14 +136,19 @@
 
           <!-- Thumbnails (desktop) -->
           <div class="detail__thumbnails">
-            @for (img of product()!.images; track $index) {
+            @for (item of mediaItems(); track $index) {
               <button
                 class="detail__thumb"
                 [class.detail__thumb--active]="selectedImageIndex() === $index"
+                [class.detail__thumb--video]="item.type === MEDIA_TYPE.Video"
                 (click)="selectImage($index)"
                 [attr.aria-label]="t('productDetail.viewImage', { index: $index + 1 })"
               >
-                <img [src]="img" [alt]="localizedName() + ' ' + ($index + 1)" />
+                @if (item.type === 'image') {
+                  <img [src]="item.url" [alt]="localizedName() + ' ' + ($index + 1)" />
+                } @else {
+                  <video muted preload="metadata" [src]="item.url"></video>
+                }
               </button>
             }
           </div>
@@ -103,7 +157,9 @@
 
       <!-- Info -->
       <div class="detail__info">
-        <span class="detail__category">{{ t('home.categories.items.' + product()!.category) }}</span>
+        <span class="detail__category">
+          {{ t('home.categories.items.' + product()!.category) }}
+        </span>
 
         <div class="detail__name-row">
           <h1 class="detail__name">{{ localizedName() }}</h1>
@@ -118,9 +174,16 @@
 
         @if (product()!.estimatedDays) {
           <div class="detail__badge">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="13" height="13">
-              <circle cx="8" cy="8" r="6.5"/>
-              <path d="M8 5v3.5l2 2"/>
+            <svg
+              viewBox="0 0 16 16"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              width="13"
+              height="13"
+            >
+              <circle cx="8" cy="8" r="6.5" />
+              <path d="M8 5v3.5l2 2" />
             </svg>
             {{ t('productDetail.estimatedDays', { count: product()!.estimatedDays }) }}
           </div>
@@ -128,13 +191,25 @@
 
         <hr class="detail__divider" />
 
-        <!-- Cantidad -->
+        <!-- Quantity -->
         <div class="detail__quantity-row">
           <span class="detail__label">{{ t('productDetail.quantity') }}</span>
           <div class="detail__quantity">
-            <button class="detail__qty-btn" (click)="decreaseQuantity()" [disabled]="quantity() <= 1">−</button>
+            <button
+              class="detail__qty-btn"
+              (click)="decreaseQuantity()"
+              [disabled]="quantity() <= 1"
+            >
+              −
+            </button>
             <span class="detail__qty-value">{{ quantity() }}</span>
-            <button class="detail__qty-btn" (click)="increaseQuantity()" [disabled]="quantity() >= 10">+</button>
+            <button
+              class="detail__qty-btn"
+              (click)="increaseQuantity()"
+              [disabled]="quantity() >= 10"
+            >
+              +
+            </button>
           </div>
         </div>
 
@@ -148,9 +223,11 @@
           </button>
         </div>
 
-        <!-- Acordeones -->
+        <!-- Accordions -->
         <details class="detail__accordion">
-          <summary class="detail__accordion-title">{{ t('productDetail.materials.title') }}</summary>
+          <summary class="detail__accordion-title">
+            {{ t('productDetail.materials.title') }}
+          </summary>
           <p class="detail__accordion-content">{{ t('productDetail.materials.content') }}</p>
         </details>
 
@@ -164,38 +241,84 @@
     <!-- Lightbox -->
     @if (isLightboxOpen()) {
       <div class="lightbox" (click)="closeLightbox()" role="dialog" aria-modal="true">
-        <!-- Imagen centrada -->
+        <!-- Centered content -->
         <div class="lightbox__content" (click)="$event.stopPropagation()">
-          <img
-            class="lightbox__img"
-            [class.lightbox__img--visible]="lightboxImgVisible()"
-            [src]="selectedImage()"
-            [alt]="localizedName()"
-          />
+          @if (selectedMedia().type === MEDIA_TYPE.Image) {
+            <img
+              class="lightbox__img"
+              [class.lightbox__img--visible]="lightboxImgVisible()"
+              [src]="selectedMedia().url"
+              [alt]="localizedName()"
+            />
+          } @else {
+            <video
+              class="lightbox__video"
+              [class.lightbox__video--visible]="lightboxImgVisible()"
+              autoplay
+              controls
+              playsinline
+              [src]="selectedMedia().url"
+            ></video>
+          }
 
-          <!-- Flechas (solo desktop, solo si hay más de 1 imagen) -->
-          @if (product()!.images.length > 1) {
-            <button class="lightbox__arrow lightbox__arrow--prev" (click)="lightboxPrev()" [attr.aria-label]="t('productDetail.prevImage')">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="22" height="22">
-                <path d="M15 5l-7 7 7 7"/>
+          <!-- Arrows (desktop only, only if more than 1 item) -->
+          @if (mediaItems().length > 1) {
+            <button
+              class="lightbox__arrow lightbox__arrow--prev"
+              (click)="lightboxPrev()"
+              [attr.aria-label]="t('productDetail.prevImage')"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                width="22"
+                height="22"
+              >
+                <path d="M15 5l-7 7 7 7" />
               </svg>
             </button>
-            <button class="lightbox__arrow lightbox__arrow--next" (click)="lightboxNext()" [attr.aria-label]="t('productDetail.nextImage')">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="22" height="22">
-                <path d="M9 5l7 7-7 7"/>
+            <button
+              class="lightbox__arrow lightbox__arrow--next"
+              (click)="lightboxNext()"
+              [attr.aria-label]="t('productDetail.nextImage')"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                width="22"
+                height="22"
+              >
+                <path d="M9 5l7 7-7 7" />
               </svg>
             </button>
 
-            <!-- Contador -->
-            <span class="lightbox__counter">{{ selectedImageIndex() + 1 }} / {{ product()!.images.length }}</span>
+            <!-- Counter -->
+            <span class="lightbox__counter">
+              {{ selectedImageIndex() + 1 }} / {{ mediaItems().length }}
+            </span>
           }
         </div>
 
-        <!-- Botón cerrar -->
-        <button class="lightbox__close" (click)="closeLightbox()" [attr.aria-label]="t('productDetail.closeImage')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20">
-            <line x1="18" y1="6" x2="6" y2="18"/>
-            <line x1="6" y1="6" x2="18" y2="18"/>
+        <!-- Close button -->
+        <button
+          class="lightbox__close"
+          (click)="closeLightbox()"
+          [attr.aria-label]="t('productDetail.closeImage')"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            width="20"
+            height="20"
+          >
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
           </svg>
         </button>
       </div>
