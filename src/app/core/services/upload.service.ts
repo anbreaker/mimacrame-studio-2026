@@ -2,7 +2,7 @@ import { Injectable, signal } from '@angular/core';
 
 import { environment } from '@environments/environment';
 
-const CLOUDINARY_UPLOAD_URL = `https://api.cloudinary.com/v1_1/${environment.cloudinary.cloudName}/image/upload`;
+const CLOUDINARY_BASE_URL = `https://api.cloudinary.com/v1_1/${environment.cloudinary.cloudName}`;
 
 @Injectable({ providedIn: 'root' })
 export class UploadService {
@@ -12,51 +12,61 @@ export class UploadService {
   readonly isUploading = this._isUploading.asReadonly();
   readonly percentage = this._percentage.asReadonly();
 
-  // Cloudinary deletion requires a signed request from the backend — not supported client-side
   deleteImage(_url: string): Promise<void> {
     return Promise.resolve();
   }
 
-  private uploadFile(file: File, folder: string): Promise<string> {
+  private uploadFile(
+    file: File,
+    folder: string,
+    resourceType: 'image' | 'video' = 'image'
+  ): Promise<string> {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('upload_preset', environment.cloudinary.uploadPreset);
     formData.append('folder', folder);
+    if (resourceType === 'video') {
+      formData.append('resource_type', 'video');
+    }
 
     this._isUploading.set(true);
     this._percentage.set(0);
 
     return new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
+      const xmlHttpRequest = new XMLHttpRequest();
 
-      xhr.upload.addEventListener('progress', (event) => {
+      xmlHttpRequest.upload.addEventListener('progress', (event) => {
         if (event.lengthComputable) {
           this._percentage.set((event.loaded / event.total) * 100);
         }
       });
 
-      xhr.addEventListener('load', () => {
+      xmlHttpRequest.addEventListener('load', () => {
         this._isUploading.set(false);
-        if (xhr.status === 200) {
-          const response = JSON.parse(xhr.responseText) as { secure_url: string };
+        if (xmlHttpRequest.status === 200) {
+          const response = JSON.parse(xmlHttpRequest.responseText) as { secure_url: string };
           resolve(response.secure_url);
         } else {
-          reject(new Error(`Upload failed: ${xhr.statusText}`));
+          reject(new Error(`Upload failed: ${xmlHttpRequest.statusText}`));
         }
       });
 
-      xhr.addEventListener('error', () => {
+      xmlHttpRequest.addEventListener('error', () => {
         this._isUploading.set(false);
         reject(new Error('Upload failed: network error'));
       });
 
-      xhr.open('POST', CLOUDINARY_UPLOAD_URL);
-      xhr.send(formData);
+      xmlHttpRequest.open('POST', `${CLOUDINARY_BASE_URL}/${resourceType}/upload`);
+      xmlHttpRequest.send(formData);
     });
   }
 
   uploadProductImage(file: File, productId: string, category: string): Promise<string> {
     return this.uploadFile(file, `mimacrame/products/${category}/${productId}`);
+  }
+
+  uploadProductVideo(file: File, productId: string, category: string): Promise<string> {
+    return this.uploadFile(file, `mimacrame/products/${category}/${productId}/video`, 'video');
   }
 
   uploadProfileImage(file: File, userId: string): Promise<string> {

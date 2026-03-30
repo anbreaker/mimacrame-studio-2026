@@ -112,9 +112,10 @@
       },
       "images": {
         "add": "Añadir foto",
-        "hint": "Sube fotos con la pieza puesta — ¡quedan mucho más bonitas!",
+        "addVideo": "Añadir video",
+        "hint": "Subí fotos con la pieza puesta y videos del proceso — ¡quedan mucho más bonitas!",
         "remove": "Eliminar imagen",
-        "title": "Imágenes",
+        "title": "Fotos y videos",
         "uploading": "Subiendo..."
       },
       "newTitle": "Nueva pieza",
@@ -126,6 +127,12 @@
       "translate": {
         "autoTranslate": "Auto-traducir desde ES",
         "translating": "Traduciendo..."
+      },
+      "videos": {
+        "add": "Agregar video",
+        "hint": "Subí videos del producto (MP4, WebM, MOV). Son opcionales.",
+        "remove": "Eliminar video",
+        "title": "Videos del producto"
       }
     },
     "products": {

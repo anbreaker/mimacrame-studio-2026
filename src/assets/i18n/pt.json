@@ -112,9 +112,10 @@
       },
       "images": {
         "add": "Adicionar foto",
-        "hint": "Carregue fotos com a peça colocada — elas ficam muito mais bonitas!",
+        "addVideo": "Adicionar vídeo",
+        "hint": "Envie fotos com a peça colocada e vídeos do processo — ficam muito mais bonitas!",
         "remove": "Excluir imagem",
-        "title": "Imagens",
+        "title": "Fotos e vídeos",
         "uploading": "Carregando..."
       },
       "newTitle": "Nova peça",
@@ -126,6 +127,12 @@
       "translate": {
         "autoTranslate": "Auto-traduzir do ES",
         "translating": "Traduzindo..."
+      },
+      "videos": {
+        "add": "Adicionar vídeo",
+        "hint": "Envie vídeos do produto (MP4, WebM, MOV). Opcionais.",
+        "remove": "Remover vídeo",
+        "title": "Vídeos do produto"
       }
     },
     "products": {

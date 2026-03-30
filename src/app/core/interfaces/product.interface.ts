@@ -17,6 +17,7 @@ export interface Product {
   name: LocalizedString;
   price: number;
   updatedAt: Date;
+  videos?: string[];
 }
 
 export type ProductCreate = Omit<Product, 'id' | 'createdAt' | 'updatedAt'>;
