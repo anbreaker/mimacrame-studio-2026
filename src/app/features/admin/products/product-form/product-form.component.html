@@ -196,7 +196,7 @@
             </div>
           </div>
 
-          <!-- Images -->
+          <!-- Images and videos -->
           <div class="product-form__section">
             <h2 class="product-form__section-title">{{ t('admin.productForm.images.title') }}</h2>
             <p class="product-form__section-hint">{{ t('admin.productForm.images.hint') }}</p>
@@ -209,6 +209,30 @@
                     type="button"
                     class="image-card__remove"
                     (click)="removeImage(i)"
+                    [title]="t('admin.productForm.images.remove')"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      width="16"
+                      height="16"
+                    >
+                      <path d="M18 6L6 18M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+              }
+
+              @for (video of productModel().videos; track video; let i = $index) {
+                <div class="image-card image-card--video">
+                  <video muted preload="metadata" [src]="video" class="image-card__img"></video>
+                  <span class="image-card__play">▶</span>
+                  <button
+                    type="button"
+                    class="image-card__remove"
+                    (click)="removeVideo(i)"
                     [title]="t('admin.productForm.images.remove')"
                   >
                     <svg
@@ -252,6 +276,37 @@
                   </svg>
                   <span class="image-upload-card__text">
                     {{ t('admin.productForm.images.add') }}
+                  </span>
+                }
+              </label>
+
+              <label
+                class="image-upload-card"
+                [class.image-upload-card--loading]="uploadService.isUploading()"
+              >
+                <input
+                  type="file"
+                  class="hidden"
+                  (change)="onVideoFileChange($event)"
+                  accept="video/mp4,video/webm,video/quicktime"
+                />
+                @if (uploadService.isUploading()) {
+                  <span class="image-upload-card__progress">
+                    {{ uploadService.percentage() | number: '1.0-0' }}%
+                  </span>
+                } @else {
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    width="24"
+                    height="24"
+                  >
+                    <path d="M12 5v14M5 12h14" />
+                  </svg>
+                  <span class="image-upload-card__text">
+                    {{ t('admin.productForm.images.addVideo') }}
                   </span>
                 }
               </label>

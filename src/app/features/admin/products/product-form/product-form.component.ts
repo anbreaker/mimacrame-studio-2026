@@ -29,6 +29,7 @@ interface ProductFormData {
   estimatedDays: number;
   images: string[];
   price: number;
+  videos: string[];
 }
 
 const EMPTY_LOCALIZED: LocalizedString = { en: '', es: '', pt: '' };
@@ -74,6 +75,7 @@ export class ProductFormComponent {
     estimatedDays: 7,
     images: [],
     price: 0,
+    videos: [],
   });
 
   protected readonly productResponseError = signal<string | null>(null);
@@ -158,6 +160,7 @@ export class ProductFormComponent {
             estimatedDays: data.estimatedDays ?? 7,
             images: data.images,
             price: data.price,
+            videos: data.videos ?? [],
           });
           this.nameByLang.set(
             typeof data.name === 'string'
@@ -220,10 +223,32 @@ export class ProductFormComponent {
     this.nameTouchedByLang.update((current) => ({ ...current, [lang]: true }));
   }
 
+  protected async onVideoFileChange(event: Event): Promise<void> {
+    const files = (event.target as HTMLInputElement).files;
+    if (!files?.length) return;
+    this.productResponseError.set(null);
+    const tempId = this._productId() ?? `temp_${Date.now()}`;
+    try {
+      const category = this.productModel().category ?? 'uncategorized';
+      const url = await this.uploadService.uploadProductVideo(files[0], tempId, category);
+      this.productModel.update((model) => ({ ...model, videos: [...model.videos, url] }));
+    } catch (error) {
+      this.productResponseError.set('admin.productForm.errors.upload');
+      console.error(error);
+    }
+  }
+
   protected removeImage(index: number): void {
     this.productModel.update((product) => ({
       ...product,
       images: product.images.filter((_unusedImage, imageIndex) => imageIndex !== index),
+    }));
+  }
+
+  protected removeVideo(index: number): void {
+    this.productModel.update((product) => ({
+      ...product,
+      videos: product.videos.filter((_v, i) => i !== index),
     }));
   }
 

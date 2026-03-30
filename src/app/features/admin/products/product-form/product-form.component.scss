@@ -48,7 +48,6 @@
   }
 }
 
-// Form layout
 .product-form {
   display: flex;
   flex-direction: column;
@@ -93,7 +92,6 @@
   }
 }
 
-// Form fields
 .admin-form-group {
   display: flex;
   flex-direction: column;
@@ -135,7 +133,6 @@
   resize: vertical;
 }
 
-// Custom dropdown
 .admin-dropdown {
   position: relative;
 
@@ -250,7 +247,6 @@
   padding: var(--space-md);
 }
 
-// Images
 .image-grid {
   display: flex;
   flex-wrap: wrap;
@@ -268,6 +264,21 @@
     height: 100%;
     object-fit: cover;
     width: 100%;
+  }
+
+  &__play {
+    background: rgb(0 0 0 / 45%);
+    border-radius: 50%;
+    color: white;
+    font-size: 10px;
+    height: fit-content;
+    inset: 0;
+    line-height: 1;
+    margin: auto;
+    padding: 6px 7px;
+    pointer-events: none;
+    position: absolute;
+    width: fit-content;
   }
 
   &__remove {
@@ -334,7 +345,6 @@
   display: none;
 }
 
-// Language tabs
 .lang-tabs {
   display: flex;
   gap: 2px;
@@ -378,7 +388,6 @@
   }
 }
 
-// Buttons
 .admin-btn {
   align-items: center;
   border: 1.5px solid transparent;
