@@ -100,7 +100,11 @@ export class CheckoutComponent implements OnDestroy {
   );
 
   protected readonly canSubmit = computed(
-    () => this.isFormValid() && this.isPaymentReady() && !this.isProcessing()
+    () =>
+      this.isFormValid() &&
+      this.isPaymentReady() &&
+      this.stripeService.isComplete() &&
+      !this.isProcessing()
   );
 
   protected readonly shippingCost = computed(() =>

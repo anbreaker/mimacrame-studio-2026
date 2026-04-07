@@ -1,11 +1,12 @@
 import { Injectable, signal } from '@angular/core';
 import { loadStripe, Stripe, StripeElements, StripePaymentElement } from '@stripe/stripe-js';
 
-import { environment } from '../../../environments/environment';
+import { environment } from '@environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class StripeService {
   readonly error = signal<string | null>(null);
+  readonly isComplete = signal(false);
   readonly isLoading = signal(false);
   private elements: StripeElements | null = null;
 
@@ -40,6 +41,7 @@ export class StripeService {
     this.elements = null;
     this.stripe = null;
     this.error.set(null);
+    this.isComplete.set(false);
     this.isLoading.set(false);
   }
 
@@ -76,15 +78,12 @@ export class StripeService {
         appearance: {
           theme: 'night',
           variables: {
+            borderRadius: '8px',
             colorBackground: '#152336',
+            colorDanger: '#ff4d4d',
             colorPrimary: '#ff6b3d',
             colorText: '#f5efe8',
             colorTextSecondary: '#9baab8',
-            colorDanger: '#ff4d4d',
-            colorInputBackground: '#1c2e42',
-            colorInputBorder: '#243650',
-            colorInputPlaceholderText: '#9baab8',
-            borderRadius: '8px',
             fontFamily: 'system-ui, -apple-system, sans-serif',
           },
         },
@@ -94,9 +93,14 @@ export class StripeService {
       this.paymentElement = this.elements.create('payment');
       this.paymentElement.mount(container);
 
+      this.paymentElement.on('change', (event) => {
+        this.isComplete.set(event.complete);
+      });
+
+      const element = this.paymentElement;
       await new Promise<void>((resolve, reject) => {
-        this.paymentElement!.on('ready', () => resolve());
-        this.paymentElement!.on('loaderror', (event) =>
+        element.on('ready', () => resolve());
+        element.on('loaderror', (event) =>
           reject(new Error(event.error?.message ?? 'Payment Element failed to load'))
         );
       });
