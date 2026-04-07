@@ -8,8 +8,8 @@ import { defineConfig, Plugin } from 'vite';
  */
 function fileReplacementsPlugin(): Plugin {
   return {
-    name: 'file-replacements',
     enforce: 'pre',
+    name: 'file-replacements',
     resolveId(source, importer): string | undefined {
       if (importer && source.includes('environment.ts') && !source.includes('environment.dev')) {
         return source.replace('environment.ts', 'environment.dev.ts');
@@ -20,9 +20,9 @@ function fileReplacementsPlugin(): Plugin {
 }
 
 export default defineConfig(({ mode }) => ({
-  root: 'src',
-  publicDir: resolve(__dirname, 'public'),
   envDir: resolve(__dirname),
+  publicDir: resolve(__dirname, 'public'),
+  root: 'src',
 
   plugins: [
     angular({
@@ -34,14 +34,14 @@ export default defineConfig(({ mode }) => ({
   envPrefix: 'NG_APP_',
 
   server: {
-    port: 4200,
-    open: true,
     hmr: true,
+    open: true,
+    port: 4200,
     ...(mode === 'dev' && {
       proxy: {
         '/api': {
-          target: 'http://localhost:3000',
           changeOrigin: true,
+          target: 'http://localhost:3000',
         },
       },
     }),
@@ -70,7 +70,7 @@ export default defineConfig(({ mode }) => ({
   },
 
   build: {
-    outDir: resolve(__dirname, 'www'),
     emptyOutDir: true,
+    outDir: resolve(__dirname, 'www'),
   },
 }));
