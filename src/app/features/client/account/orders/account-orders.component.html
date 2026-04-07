@@ -20,7 +20,6 @@
     <ul class="orders__list">
       @for (order of orders()!; track order.id) {
         <li class="orders__item" (click)="toggleExpand(order.id)">
-
           <!-- TASK-10: item header row -->
           <div class="orders__item-header">
             <span class="orders__item-id">{{ orderRef(order.id) }}</span>
@@ -36,14 +35,20 @@
             <span
               class="orders__item-chevron"
               [class.orders__item-chevron--open]="expandedOrderId() === order.id"
-            >&#8250;</span>
+            >
+              &#8250;
+            </span>
           </div>
 
           <!-- TASK-11: stepper row -->
           @if (!isTerminal(order.status)) {
             <div class="orders__stepper">
               @for (step of HAPPY_PATH_STATUSES; track step) {
-                <div class="orders__stepper-step orders__stepper-step--{{ stepState(step, order.status) }}">
+                <div
+                  class="orders__stepper-step orders__stepper-step--{{
+                    stepState(step, order.status)
+                  }}"
+                >
                   <div class="orders__stepper-dot">{{ STATUS_EMOJI[step] }}</div>
                   <span class="orders__stepper-label">
                     {{ t('admin.orders.statuses.' + step) }}
@@ -63,7 +68,6 @@
           <!-- TASK-12 & TASK-13: collapsible detail panel -->
           @if (expandedOrderId() === order.id) {
             <div class="orders__detail">
-
               <!-- items list -->
               <ul class="orders__detail-items">
                 @for (item of order.items; track item.product.id) {
@@ -73,7 +77,10 @@
                       <span class="orders__detail-item-qty">x{{ item.quantity }}</span>
                     </span>
                     <span class="orders__detail-item-price">
-                      {{ item.product.price * item.quantity | currency: 'EUR' : 'symbol' : '1.2-2' : 'es' }}
+                      {{
+                        item.product.price * item.quantity
+                          | currency: 'EUR' : 'symbol' : '1.2-2' : 'es'
+                      }}
                     </span>
                   </li>
                 }
@@ -85,7 +92,6 @@
                   {{ order.shippingAddress.city }}, {{ order.shippingAddress.province }}
                 </p>
               }
-
             </div>
 
             <!-- TASK-14: timeline -->
@@ -108,7 +114,6 @@
               }
             </div>
           }
-
         </li>
       }
     </ul>

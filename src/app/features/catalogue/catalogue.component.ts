@@ -26,7 +26,10 @@ export class CatalogueComponent implements OnInit {
   protected readonly PRODUCT_CATEGORY = PRODUCT_CATEGORY;
 
   constructor() {
-    this.seoService.update({ descriptionKey: 'seo.catalogueDescription', titleKey: 'seo.catalogueTitle' });
+    this.seoService.update({
+      descriptionKey: 'seo.catalogueDescription',
+      titleKey: 'seo.catalogueTitle',
+    });
 
     effect((onCleanup) => {
       const query = this.localSearchQuery();

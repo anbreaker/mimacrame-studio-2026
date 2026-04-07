@@ -38,33 +38,39 @@ export class ProductService {
   }
 
   getActive(): Observable<Product[]> {
-    return runInInjectionContext(this.injector, () =>
-      collectionData(
-        query(this.productsRef, where('active', '==', true), orderBy('createdAt', 'desc')),
-        { idField: 'id' }
-      ) as Observable<Product[]>
+    return runInInjectionContext(
+      this.injector,
+      () =>
+        collectionData(
+          query(this.productsRef, where('active', '==', true), orderBy('createdAt', 'desc')),
+          { idField: 'id' }
+        ) as Observable<Product[]>
     );
   }
 
   getAll(): Observable<Product[]> {
-    return runInInjectionContext(this.injector, () =>
-      collectionData(query(this.productsRef, orderBy('createdAt', 'desc')), {
-        idField: 'id',
-      }) as Observable<Product[]>
+    return runInInjectionContext(
+      this.injector,
+      () =>
+        collectionData(query(this.productsRef, orderBy('createdAt', 'desc')), {
+          idField: 'id',
+        }) as Observable<Product[]>
     );
   }
 
   getByCategory(category: ProductCategory): Observable<Product[]> {
-    return runInInjectionContext(this.injector, () =>
-      collectionData(
-        query(
-          this.productsRef,
-          where('category', '==', category),
-          where('active', '==', true),
-          orderBy('createdAt', 'desc')
-        ),
-        { idField: 'id' }
-      ) as Observable<Product[]>
+    return runInInjectionContext(
+      this.injector,
+      () =>
+        collectionData(
+          query(
+            this.productsRef,
+            where('category', '==', category),
+            where('active', '==', true),
+            orderBy('createdAt', 'desc')
+          ),
+          { idField: 'id' }
+        ) as Observable<Product[]>
     );
   }
 

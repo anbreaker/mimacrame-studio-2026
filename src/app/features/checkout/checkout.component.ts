@@ -72,12 +72,11 @@ export class CheckoutComponent implements OnDestroy {
   });
 
   protected readonly clientSecret = signal<string | null>(null);
-  protected readonly paymentIntentId = signal<string | null>(null);
-
   protected readonly errorKey = signal<CheckoutError | null>(null);
-
   protected readonly isPaymentReady = signal(false);
   protected readonly isProcessing = signal(false);
+  protected readonly paymentIntentId = signal<string | null>(null);
+
   protected readonly checkoutForm = form(this.checkoutModel, (schemaPath) => {
     required(schemaPath.email);
     emailValidator(schemaPath.email);
@@ -145,7 +144,6 @@ export class CheckoutComponent implements OnDestroy {
   ngOnDestroy(): void {
     this.stripeService.destroy();
   }
-
 
   private async initializeStripePayment(): Promise<void> {
     if (this.cartStore.isEmpty()) return;

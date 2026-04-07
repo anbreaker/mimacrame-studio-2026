@@ -21,13 +21,14 @@ const FREE_SHIPPING_THRESHOLD = 40;
 export class CartComponent {
   private readonly transloco = inject(TranslocoService);
   protected readonly cartStore = inject(CartStore);
+
   protected readonly activeLang = toSignal(this.transloco.langChanges$, {
     initialValue: this.transloco.getActiveLang(),
   });
 
   protected readonly freeShippingThreshold = FREE_SHIPPING_THRESHOLD;
-  protected readonly routes = ROUTES;
 
+  protected readonly routes = ROUTES;
   protected get orderTotal(): number {
     return this.cartStore.total() + this.shippingCost;
   }

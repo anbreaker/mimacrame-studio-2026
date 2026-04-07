@@ -48,7 +48,9 @@
           <h2 class="checkout__section-title">{{ t('checkout.sections.shipping') }}</h2>
           <div class="checkout__fields">
             <div class="checkout__field checkout__field--full">
-              <label class="checkout__label" for="fullName">{{ t('checkout.fields.fullName') }}</label>
+              <label class="checkout__label" for="fullName">
+                {{ t('checkout.fields.fullName') }}
+              </label>
               <input
                 id="fullName"
                 class="checkout__input"
@@ -68,7 +70,9 @@
               />
             </div>
             <div class="checkout__field">
-              <label class="checkout__label" for="postalCode">{{ t('checkout.fields.postalCode') }}</label>
+              <label class="checkout__label" for="postalCode">
+                {{ t('checkout.fields.postalCode') }}
+              </label>
               <input
                 id="postalCode"
                 class="checkout__input"
@@ -88,7 +92,9 @@
               />
             </div>
             <div class="checkout__field">
-              <label class="checkout__label" for="province">{{ t('checkout.fields.province') }}</label>
+              <label class="checkout__label" for="province">
+                {{ t('checkout.fields.province') }}
+              </label>
               <input
                 id="province"
                 class="checkout__input"
@@ -97,7 +103,9 @@
               />
             </div>
             <div class="checkout__field">
-              <label class="checkout__label" for="country">{{ t('checkout.fields.country') }}</label>
+              <label class="checkout__label" for="country">
+                {{ t('checkout.fields.country') }}
+              </label>
               <input
                 id="country"
                 class="checkout__input"
@@ -124,12 +132,7 @@
         </section>
 
         <!-- Submit -->
-        <button
-          class="checkout__submit"
-          type="button"
-          (click)="submit()"
-          [disabled]="!canSubmit()"
-        >
+        <button class="checkout__submit" type="button" (click)="submit()" [disabled]="!canSubmit()">
           {{
             isProcessing()
               ? t('checkout.submit.processing')
@@ -152,7 +155,9 @@
                 [alt]="item.product.name | localize: activeLang()"
               />
               <div class="checkout__summary-info">
-                <span class="checkout__summary-name">{{ item.product.name | localize: activeLang() }}</span>
+                <span class="checkout__summary-name">
+                  {{ item.product.name | localize: activeLang() }}
+                </span>
                 <span class="checkout__summary-qty">x {{ item.quantity }}</span>
               </div>
               <span class="checkout__summary-price">

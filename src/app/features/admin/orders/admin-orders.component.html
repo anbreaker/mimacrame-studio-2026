@@ -101,8 +101,19 @@
                         class="admin-dropdown__trigger"
                         (click)="openStatusDropdownId.update(id => id === order.id ? null : order.id)"
                       >
-                        <span>{{ statusEmoji[order.status] }} {{ t('admin.orders.statuses.' + order.status) }}</span>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" class="admin-dropdown__chevron">
+                        <span>
+                          {{ statusEmoji[order.status] }}
+                          {{ t('admin.orders.statuses.' + order.status) }}
+                        </span>
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          width="14"
+                          height="14"
+                          class="admin-dropdown__chevron"
+                        >
                           <path d="M6 9l6 6 6-6" />
                         </svg>
                       </button>
