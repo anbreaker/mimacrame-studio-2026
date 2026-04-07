@@ -1,7 +1,15 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import * as admin from 'firebase-admin';
+import { cert, getApps, initializeApp } from 'firebase-admin/app';
+import { FieldValue, getFirestore } from 'firebase-admin/firestore';
 import { Resend } from 'resend';
 import Stripe from 'stripe';
+
+import {
+  buildAdminEmailHtml,
+  buildCustomerEmailHtml,
+  buildOrderRef,
+  type OrderData,
+} from './_email-templates.js';
 
 export const config = {
   api: {
@@ -21,11 +29,9 @@ const getStripe = (): Stripe =>
 const getResend = (): Resend => new Resend(process.env['RESEND_API_KEY'] ?? '');
 
 function initFirebase(): void {
-  if (admin.apps.length) return;
-  const serviceAccount = JSON.parse(
-    process.env['FIREBASE_SERVICE_ACCOUNT'] ?? '{}'
-  ) as admin.ServiceAccount;
-  admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
+  if (getApps().length) return;
+  const serviceAccount = JSON.parse(process.env['FIREBASE_SERVICE_ACCOUNT'] ?? '{}');
+  initializeApp({ credential: cert(serviceAccount) });
 }
 
 async function getRawBody(httpRequest: VercelRequest): Promise<Buffer> {
@@ -71,9 +77,9 @@ export default async function handler(
 }
 
 async function handlePaymentSucceeded(paymentIntent: Stripe.PaymentIntent): Promise<void> {
-  const db = admin.firestore();
+  const firestoreDb = getFirestore();
 
-  const snapshot = await db
+  const snapshot = await firestoreDb
     .collection(COLLECTIONS.Orders)
     .where('stripePaymentIntentId', '==', paymentIntent.id)
     .limit(1)
@@ -90,25 +96,29 @@ async function handlePaymentSucceeded(paymentIntent: Stripe.PaymentIntent): Prom
 
   await orderDoc.ref.update({
     status: ORDER_STATUS_PAID,
-    updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+    updatedAt: FieldValue.serverTimestamp(),
   });
 
   const orderRef = buildOrderRef(orderId);
+  const orderData: OrderData = {
+    customerEmail: order['customerEmail'] as string | undefined,
+    items: order['items'],
+    shippingAddress: order['shippingAddress'],
+    total: order['total'] as number | undefined,
+  };
 
   await Promise.allSettled([
-    sendCustomerEmail(order, orderId, orderRef),
-    sendAdminEmail(order, orderId, orderRef),
+    sendCustomerEmail(orderData, orderId, orderRef),
+    sendAdminEmail(orderData, orderId, orderRef),
   ]);
 }
 
 async function sendCustomerEmail(
-  order: admin.firestore.DocumentData,
+  order: OrderData,
   orderId: string,
   orderRef: string
 ): Promise<void> {
-  const customerEmail = order['customerEmail'] as string | undefined;
-
-  if (!customerEmail) {
+  if (!order.customerEmail) {
     console.error(`Missing customerEmail for order ${orderId} — skipping customer email`);
     return;
   }
@@ -119,12 +129,12 @@ async function sendCustomerEmail(
     from: `Mimacramé Studio <${fromEmail}>`,
     html: buildCustomerEmailHtml(order, orderRef),
     subject: `Tu pedido está confirmado — ${orderRef}`,
-    to: customerEmail,
+    to: order.customerEmail,
   });
 }
 
 async function sendAdminEmail(
-  order: admin.firestore.DocumentData,
+  order: OrderData,
   orderId: string,
   orderRef: string
 ): Promise<void> {
@@ -143,99 +153,4 @@ async function sendAdminEmail(
     subject: `Nuevo pedido recibido — ${orderRef}`,
     to: adminEmail,
   });
-}
-
-function buildOrderRef(orderId: string): string {
-  return `#MIM-${orderId.slice(0, 6).toUpperCase()}`;
-}
-
-function formatCurrency(amountInEuros: number): string {
-  return new Intl.NumberFormat('es-ES', { currency: 'EUR', style: 'currency' }).format(
-    amountInEuros
-  );
-}
-
-function buildItemsHtml(
-  items: Array<{ product: { name: string; price: number }; quantity: number }>
-): string {
-  return items
-    .map(
-      (item) =>
-        `<tr>
-          <td style="padding:6px 0;">${typeof item.product.name === 'string' ? item.product.name : item.product.name.es} × ${item.quantity}</td>
-          <td style="padding:6px 0;text-align:right;">${formatCurrency(item.product.price * item.quantity)}</td>
-        </tr>`
-    )
-    .join('');
-}
-
-function buildAddressHtml(address: Record<string, string>): string {
-  return [
-    address['fullName'],
-    address['street'],
-    `${address['postalCode']} ${address['city']}, ${address['province']}`,
-    address['country'],
-  ]
-    .filter(Boolean)
-    .join('<br>');
-}
-
-function buildCustomerEmailHtml(order: admin.firestore.DocumentData, orderRef: string): string {
-  const items = (order['items'] ?? []) as Array<{
-    product: { name: string; price: number };
-    quantity: number;
-  }>;
-  const shippingAddress = (order['shippingAddress'] ?? {}) as Record<string, string>;
-
-  return `
-    <div style="font-family:sans-serif;max-width:540px;margin:0 auto;color:#1a1a2e;">
-      <h2 style="color:#c8a96e;">¡Tu pedido está confirmado! 🧶</h2>
-      <p>Pedido <strong>${orderRef}</strong></p>
-      <p>Hemos empezado a tejer tu pedido con mucho cariño y te lo enviaremos en cuanto esté listo.</p>
-
-      <h3 style="border-bottom:1px solid #e0e0e0;padding-bottom:8px;">Tu pedido</h3>
-      <table style="width:100%;border-collapse:collapse;">
-        ${buildItemsHtml(items)}
-        <tr style="border-top:1px solid #e0e0e0;font-weight:bold;">
-          <td style="padding:8px 0;">Total</td>
-          <td style="padding:8px 0;text-align:right;">${formatCurrency(order['total'] ?? 0)}</td>
-        </tr>
-      </table>
-
-      <h3 style="border-bottom:1px solid #e0e0e0;padding-bottom:8px;">Dirección de envío</h3>
-      <p style="line-height:1.6;">${buildAddressHtml(shippingAddress)}</p>
-
-      <p style="color:#888;font-size:13px;margin-top:32px;">
-        Mimacramé Studio · Badajoz, Extremadura
-      </p>
-    </div>
-  `;
-}
-
-function buildAdminEmailHtml(order: admin.firestore.DocumentData, orderRef: string): string {
-  const items = (order['items'] ?? []) as Array<{
-    product: { name: string; price: number };
-    quantity: number;
-  }>;
-  const shippingAddress = (order['shippingAddress'] ?? {}) as Record<string, string>;
-
-  return `
-    <div style="font-family:sans-serif;max-width:540px;margin:0 auto;color:#1a1a2e;">
-      <h2>Nuevo pedido recibido — ${orderRef}</h2>
-
-      <p><strong>Cliente:</strong> ${order['customerEmail'] ?? '—'}</p>
-
-      <h3 style="border-bottom:1px solid #e0e0e0;padding-bottom:8px;">Artículos</h3>
-      <table style="width:100%;border-collapse:collapse;">
-        ${buildItemsHtml(items)}
-        <tr style="border-top:1px solid #e0e0e0;font-weight:bold;">
-          <td style="padding:8px 0;">Total</td>
-          <td style="padding:8px 0;text-align:right;">${formatCurrency(order['total'] ?? 0)}</td>
-        </tr>
-      </table>
-
-      <h3 style="border-bottom:1px solid #e0e0e0;padding-bottom:8px;">Dirección de envío</h3>
-      <p style="line-height:1.6;">${buildAddressHtml(shippingAddress)}</p>
-    </div>
-  `;
 }
