@@ -15,8 +15,10 @@
   overflow: auto;
 
   &__inner {
+    margin: 0 auto;
     max-width: 1000px;
     padding: var(--space-xl) var(--space-md) var(--space-3xl);
+    width: 100%;
   }
 }
 
@@ -126,7 +128,7 @@
     color: var(--color-text);
     font-family: var(--font-sans);
     font-size: var(--font-size-sm);
-    max-width: 320px;
+    max-width: 968px;
     outline: none;
     padding: var(--space-sm) var(--space-md) var(--space-sm) calc(var(--space-md) + 24px);
     width: 100%;
@@ -141,12 +143,90 @@
   }
 }
 
-.admin-loading,
 .admin-empty {
+  align-items: center;
   color: var(--color-text-muted);
-  font-size: var(--font-size-sm);
-  padding: var(--space-3xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  justify-content: center;
+  min-height: 320px;
   text-align: center;
+  width: 100%;
+
+  svg {
+    color: var(--color-border);
+  }
+
+  p {
+    font-size: var(--font-size-sm);
+    margin: 0;
+  }
+}
+
+// Skeleton
+@keyframes admin-shimmer {
+  0% {
+    background-position: -600px 0;
+  }
+  100% {
+    background-position: 600px 0;
+  }
+}
+
+%shimmer {
+  animation: admin-shimmer 1.4s ease infinite;
+  background: linear-gradient(
+    90deg,
+    var(--color-surface) 25%,
+    var(--color-surface-alt) 50%,
+    var(--color-surface) 75%
+  );
+  background-size: 1200px 100%;
+  border-radius: var(--radius-sm);
+}
+
+.products-skeleton {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+
+  &__row {
+    align-items: center;
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    gap: var(--space-lg);
+    padding: var(--space-md) var(--space-lg);
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  &__img {
+    @extend %shimmer;
+    flex-shrink: 0;
+    height: 44px;
+    width: 44px;
+  }
+
+  &__text {
+    @extend %shimmer;
+    flex: 1;
+    height: 14px;
+
+    &--short {
+      flex: 0 0 80px;
+    }
+  }
+
+  &__badge {
+    @extend %shimmer;
+    border-radius: var(--radius-pill);
+    flex: 0 0 60px;
+    height: 22px;
+  }
 }
 
 // Table
@@ -211,6 +291,14 @@
     vertical-align: middle;
   }
 
+  tbody tr {
+    transition: background-color 0.15s;
+
+    &:hover td {
+      background-color: var(--color-surface-alt);
+    }
+  }
+
   tr:last-child td {
     border-bottom: none;
   }
@@ -224,9 +312,9 @@
   &__img {
     border-radius: var(--radius-sm);
     flex-shrink: 0;
-    height: 44px;
+    height: 56px;
     object-fit: cover;
-    width: 44px;
+    width: 56px;
   }
 
   &__stock--low {
