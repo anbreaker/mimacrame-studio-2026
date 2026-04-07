@@ -121,9 +121,18 @@
         <section class="checkout__section">
           <h2 class="checkout__section-title">{{ t('checkout.sections.payment') }}</h2>
           <div class="checkout__stripe-container">
-            @if (stripeService.isLoading() && !isPaymentReady()) {
-              <div class="checkout__stripe-loading">
-                <span>{{ t('checkout.payment.loading') }}</span>
+            @if (!isPaymentReady()) {
+              <div class="checkout__stripe-skeleton" aria-hidden="true">
+                <div class="checkout__stripe-skeleton__tabs">
+                  <div class="checkout__stripe-skeleton__tab"></div>
+                  <div class="checkout__stripe-skeleton__tab"></div>
+                  <div class="checkout__stripe-skeleton__tab"></div>
+                </div>
+                <div class="checkout__stripe-skeleton__field"></div>
+                <div class="checkout__stripe-skeleton__row">
+                  <div class="checkout__stripe-skeleton__field"></div>
+                  <div class="checkout__stripe-skeleton__field"></div>
+                </div>
               </div>
             }
             <div #paymentElement class="checkout__stripe-element"></div>
