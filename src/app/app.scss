@@ -7,7 +7,7 @@
 
 .app-content {
   // Bottom padding for mobile bottom nav (72px) + safe area
-  padding-bottom: calc(72px + env(safe-area-inset-bottom));
+  padding-bottom: calc(4.5rem + env(safe-area-inset-bottom));
 
   @media (min-width: 768px) {
     padding-bottom: 0;

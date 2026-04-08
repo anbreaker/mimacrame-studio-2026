@@ -3,8 +3,7 @@
   border-top: 1px solid var(--color-border);
   padding: var(--space-3xl) var(--space-md) 0;
 
-  // Add bottom padding on mobile for bottom nav
-  padding-bottom: calc(72px + env(safe-area-inset-bottom));
+  padding-bottom: calc(4.5rem + env(safe-area-inset-bottom));
 
   @media (min-width: 768px) {
     padding-bottom: var(--space-xl);
@@ -15,7 +14,7 @@
     gap: var(--space-2xl);
     grid-template-columns: 1fr;
     margin: 0 auto;
-    max-width: 1200px;
+    max-width: 75rem;
 
     @media (min-width: 768px) {
       grid-template-columns: 1fr 1fr;
@@ -66,14 +65,14 @@
     transition: color 0.2s;
 
     &:hover {
-      color: var(--color-text);
+      color: var(--color-primary);
     }
   }
 
   &__bottom {
     border-top: 1px solid var(--color-border);
     margin: var(--space-2xl) auto 0;
-    max-width: 1200px;
+    max-width: 75rem;
     padding: var(--space-lg) 0;
   }
 

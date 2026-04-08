@@ -1,7 +1,7 @@
 .admin-layout {
   display: flex;
   flex-direction: column;
-  height: calc(100svh - 64px);
+  height: calc(100svh - 4rem);
   overflow: hidden;
 
   @media (min-width: 768px) {
@@ -15,8 +15,10 @@
   overflow: auto;
 
   &__inner {
-    max-width: 1000px;
+    margin: 0 auto;
+    max-width: 62.5rem;
     padding: var(--space-xl) var(--space-md) var(--space-3xl);
+    width: 100%;
   }
 }
 
@@ -85,7 +87,7 @@
     background-color: rgb(from var(--color-warning) r g b / 15%);
     border-radius: var(--radius-pill);
     font-weight: var(--font-weight-medium);
-    padding: 2px var(--space-sm);
+    padding: 0.125rem var(--space-sm);
   }
 }
 
@@ -175,7 +177,7 @@
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-semibold);
   letter-spacing: 0.04em;
-  padding: 2px var(--space-sm);
+  padding: 0.125rem var(--space-sm);
   text-transform: uppercase;
 
   &[data-status='pending'] {

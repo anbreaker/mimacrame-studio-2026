@@ -1,7 +1,7 @@
 .admin-layout {
   display: flex;
   flex-direction: column;
-  height: calc(100svh - 64px);
+  height: calc(100svh - 4rem);
   overflow: hidden;
 
   @media (min-width: 768px) {
@@ -15,8 +15,10 @@
   overflow: auto;
 
   &__inner {
-    max-width: 1000px;
+    margin: 0 auto;
+    max-width: 62.5rem;
     padding: var(--space-xl) var(--space-md) var(--space-3xl);
+    width: 100%;
   }
 }
 
@@ -143,7 +145,7 @@
     display: flex;
     flex-direction: column;
     font-size: var(--font-size-sm);
-    gap: 2px;
+    gap: 0.125rem;
 
     strong {
       color: var(--color-text);
@@ -166,9 +168,9 @@
 
     img {
       border-radius: var(--radius-sm);
-      height: 40px;
+      height: 2.5rem;
       object-fit: cover;
-      width: 40px;
+      width: 2.5rem;
     }
 
     span:last-child {
@@ -209,7 +211,7 @@
 
 .admin-dropdown {
   flex: 1;
-  min-width: 180px;
+  min-width: 11.25rem;
   position: relative;
 
   &__backdrop {
@@ -260,7 +262,7 @@
     box-shadow: var(--shadow-md);
     left: 0;
     list-style: none;
-    margin-top: 4px;
+    margin-top: 0.25rem;
     overflow: hidden;
     position: absolute;
     right: 0;
@@ -293,7 +295,7 @@
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-semibold);
   letter-spacing: 0.04em;
-  padding: 2px var(--space-sm);
+  padding: 0.125rem var(--space-sm);
   text-transform: uppercase;
 
   &[data-status='pending'] {

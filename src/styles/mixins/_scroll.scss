@@ -1,5 +1,5 @@
 // Custom scrollbar mixin
-@mixin custom-scrollbar($width: 6px, $color: var(--color-primary, #0b5cff)) {
+@mixin custom-scrollbar($width: 0.375rem, $color: var(--color-primary, #0b5cff)) {
   scrollbar-color: $color transparent;
   scrollbar-width: thin;
 

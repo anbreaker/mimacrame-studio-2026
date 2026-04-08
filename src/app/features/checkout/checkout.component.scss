@@ -1,6 +1,6 @@
 .checkout {
   margin: 0 auto;
-  max-width: 1100px;
+  max-width: 68.75rem;
   padding: var(--space-xl) var(--space-md) var(--space-3xl);
 
   &__title {
@@ -17,7 +17,7 @@
 
     @media (min-width: 768px) {
       align-items: start;
-      grid-template-columns: 1fr 380px;
+      grid-template-columns: 1fr 23.75rem;
     }
   }
 
@@ -80,12 +80,12 @@
 
   &__stripe {
     &-container {
-      min-height: 100px;
+      min-height: 6.25rem;
       position: relative;
     }
 
     &-element {
-      min-height: 50px;
+      min-height: 3.125rem;
     }
 
     &-skeleton {
@@ -95,11 +95,11 @@
 
       @keyframes shimmer {
         0% {
-          background-position: -400px 0;
+          background-position: -25rem 0;
         }
 
         100% {
-          background-position: 400px 0;
+          background-position: 25rem 0;
         }
       }
 
@@ -111,7 +111,7 @@
           var(--color-surface) 50%,
           var(--color-border) 75%
         );
-        background-size: 800px 100%;
+        background-size: 50rem 100%;
         border-radius: var(--radius-sm);
       }
 
@@ -123,13 +123,13 @@
       &__tab {
         @extend %skeleton-base;
         flex: 1;
-        height: 36px;
+        height: 2.25rem;
       }
 
       &__field {
         @extend %skeleton-base;
         flex: 1;
-        height: 44px;
+        height: 2.75rem;
       }
 
       &__row {
@@ -193,7 +193,7 @@
     gap: var(--space-lg);
     padding: var(--space-xl);
     position: sticky;
-    top: 80px;
+    top: 5rem;
 
     &-items {
       display: flex;
@@ -211,9 +211,9 @@
     &-img {
       border-radius: var(--radius-sm);
       flex-shrink: 0;
-      height: 52px;
+      height: 3.25rem;
       object-fit: cover;
-      width: 52px;
+      width: 3.25rem;
     }
 
     &-info {
