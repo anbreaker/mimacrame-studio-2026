@@ -114,7 +114,7 @@
         <div class="post-form__image-row">
           @if (form.imageUrl) {
             <a class="post-form__image-thumb" [href]="form.imageUrl" target="_blank" rel="noopener">
-              <img [src]="form.imageUrl" [alt]="form.title.es" />
+              <img [src]="form.imageUrl" [alt]="titleByLang().es" />
             </a>
           }
           <label class="post-form__upload-zone">
@@ -159,7 +159,7 @@
         <button
           type="button"
           class="btn btn--ghost btn--sm"
-          [disabled]="translationService.isTranslating() || !form.title.es.trim()"
+          [disabled]="translationService.isTranslating() || !titleByLang().es.trim()"
           (click)="autoTranslateAll()"
         >
           @if (translationService.isTranslating()) {
