@@ -276,6 +276,27 @@
   }
 }
 
+// ─── Checkbox ─────────────────────────────────────────────────────────────────
+
+.admin-checkbox-group {
+  align-items: center;
+  display: flex;
+  gap: var(--space-sm);
+
+  label {
+    color: var(--color-text);
+    cursor: pointer;
+    font-size: var(--font-size-sm);
+  }
+}
+
+.admin-checkbox {
+  accent-color: var(--color-primary);
+  cursor: pointer;
+  height: 1rem;
+  width: 1rem;
+}
+
 // ─── Lang tabs ────────────────────────────────────────────────────────────────
 
 .lang-tabs {

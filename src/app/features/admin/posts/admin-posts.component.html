@@ -87,7 +87,7 @@
 </div>
 
 <!-- Modal -->
-@if (isPanelOpen() && formData(); as form) {
+@if (isPanelOpen()) {
   <div class="post-modal-overlay" (click)="closePanel()">
     <div class="post-modal" (click)="$event.stopPropagation()" *transloco="let t">
       <div class="post-modal__header">
@@ -112,9 +112,14 @@
       <div class="post-form__field">
         <label class="post-form__label">{{ t('admin.posts.form.fields.image') }}</label>
         <div class="post-form__image-row">
-          @if (form.imageUrl) {
-            <a class="post-form__image-thumb" [href]="form.imageUrl" target="_blank" rel="noopener">
-              <img [src]="form.imageUrl" [alt]="titleByLang().es" />
+          @if (postModel().imageUrl) {
+            <a
+              class="post-form__image-thumb"
+              [href]="postModel().imageUrl"
+              target="_blank"
+              rel="noopener"
+            >
+              <img [src]="postModel().imageUrl" [alt]="titleByLang().es" />
             </a>
           }
           <label class="post-form__upload-zone">
@@ -131,7 +136,7 @@
             </svg>
             <span>
               {{
-                form.imageUrl
+                postModel().imageUrl
                   ? t('admin.posts.form.fields.changeImage')
                   : t('admin.posts.form.fields.uploadImage')
               }}
@@ -215,8 +220,7 @@
           class="post-form__input"
           type="url"
           [placeholder]="t('admin.posts.form.fields.instagramUrlPlaceholder')"
-          [(ngModel)]="form.instagramUrl"
-          name="instagramUrl"
+          [formField]="postForm.instagramUrl"
         />
       </div>
 
@@ -230,9 +234,7 @@
             id="post-order"
             class="post-form__input"
             type="number"
-            [(ngModel)]="form.order"
-            name="order"
-            min="0"
+            [formField]="postForm.order"
           />
         </div>
 
@@ -240,12 +242,7 @@
           <label class="post-form__label" for="post-section">
             {{ t('admin.posts.form.fields.section') }}
           </label>
-          <select
-            id="post-section"
-            class="post-form__select"
-            [(ngModel)]="form.section"
-            name="section"
-          >
+          <select id="post-section" class="post-form__select" [formField]="postForm.section">
             <option value="home">{{ t('admin.posts.form.sections.home') }}</option>
             <option value="catalog">{{ t('admin.posts.form.sections.catalog') }}</option>
           </select>
@@ -253,11 +250,16 @@
       </div>
 
       <!-- Active -->
-      <div class="post-form__field post-form__field--checkbox">
-        <label class="post-form__checkbox-label">
-          <input type="checkbox" [(ngModel)]="form.active" name="active" />
-          {{ t('admin.posts.form.fields.active') }}
-        </label>
+      <div class="post-form__field">
+        <div class="admin-checkbox-group">
+          <input
+            id="post-active"
+            type="checkbox"
+            class="admin-checkbox"
+            [formField]="postForm.active"
+          />
+          <label for="post-active">{{ t('admin.posts.form.fields.active') }}</label>
+        </div>
       </div>
 
       @if (formError()) {
