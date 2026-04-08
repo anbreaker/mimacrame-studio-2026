@@ -46,7 +46,7 @@
                 loading="lazy"
               />
               <div class="post-row__info">
-                <p class="post-row__title">{{ post.title }}</p>
+                <p class="post-row__title">{{ getTitleForDisplay(post) }}</p>
                 <p class="post-row__meta">
                   {{ post.section }} · #{{ post.order }} ·
                   {{
@@ -114,7 +114,7 @@
         <div class="post-form__image-row">
           @if (form.imageUrl) {
             <a class="post-form__image-thumb" [href]="form.imageUrl" target="_blank" rel="noopener">
-              <img [src]="form.imageUrl" [alt]="form.title" />
+              <img [src]="form.imageUrl" [alt]="form.title.es" />
             </a>
           }
           <label class="post-form__upload-zone">
@@ -141,6 +141,35 @@
         </div>
       </div>
 
+      <!-- Lang tabs -->
+      <div class="lang-tabs">
+        @for (lang of availableLangs; track lang) {
+          <button
+            type="button"
+            class="lang-tabs__btn"
+            [class.lang-tabs__btn--active]="activeLang() === lang"
+            (click)="activeLang.set(lang)"
+          >
+            {{ lang.toUpperCase() }}
+            @if (titleByLang()[lang].trim() === '' || captionByLang()[lang].trim() === '') {
+              <span class="lang-tabs__dot"></span>
+            }
+          </button>
+        }
+        <button
+          type="button"
+          class="btn btn--ghost btn--sm"
+          [disabled]="translationService.isTranslating() || !form.title.es.trim()"
+          (click)="autoTranslateAll()"
+        >
+          @if (translationService.isTranslating()) {
+            {{ t('admin.productForm.translate.translating') }}
+          } @else {
+            {{ t('admin.productForm.translate.autoTranslate') }}
+          }
+        </button>
+      </div>
+
       <!-- Title -->
       <div class="post-form__field">
         <label class="post-form__label" for="post-title">
@@ -151,7 +180,8 @@
           class="post-form__input"
           type="text"
           [placeholder]="t('admin.posts.form.fields.titlePlaceholder')"
-          [(ngModel)]="form.title"
+          [value]="titleByLang()[activeLang()]"
+          (input)="updateTitle($event)"
           name="title"
         />
       </div>
@@ -165,10 +195,15 @@
           id="post-caption"
           class="post-form__textarea"
           [placeholder]="t('admin.posts.form.fields.captionPlaceholder')"
-          [(ngModel)]="form.caption"
+          [value]="captionByLang()[activeLang()]"
+          (input)="updateCaption($event)"
           name="caption"
         ></textarea>
       </div>
+
+      @if (translateError()) {
+        <p class="post-form__error">{{ t(translateError()!) }}</p>
+      }
 
       <!-- Instagram URL -->
       <div class="post-form__field">
