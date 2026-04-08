@@ -1,7 +1,7 @@
 .admin-layout {
   display: flex;
   flex-direction: column;
-  height: calc(100svh - 64px);
+  height: calc(100svh - 4rem);
   overflow: hidden;
 
   @media (min-width: 768px) {
@@ -16,7 +16,7 @@
 
   &__inner {
     margin: 0 auto;
-    max-width: 960px;
+    max-width: 60rem;
     padding: var(--space-xl) var(--space-md) var(--space-3xl);
   }
 }
@@ -139,7 +139,7 @@
 }
 
 .admin-textarea {
-  min-height: 100px;
+  min-height: 6.25rem;
   resize: vertical;
 }
 
@@ -195,10 +195,10 @@
     background-color: var(--color-surface);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-sm);
-    box-shadow: 0 4px 16px rgb(0 0 0 / 20%);
+    box-shadow: 0 0.25rem 1rem rgb(0 0 0 / 20%);
     left: 0;
     list-style: none;
-    margin-top: 4px;
+    margin-top: 0.25rem;
     overflow: hidden;
     position: absolute;
     right: 0;
@@ -239,8 +239,8 @@
 .admin-checkbox {
   accent-color: var(--color-primary);
   cursor: pointer;
-  height: 16px;
-  width: 16px;
+  height: 1rem;
+  width: 1rem;
 }
 
 .admin-error-text {
@@ -265,10 +265,10 @@
 
 .image-card {
   border-radius: var(--radius-sm);
-  height: 100px;
+  height: 6.25rem;
   overflow: hidden;
   position: relative;
-  width: 100px;
+  width: 6.25rem;
 
   &__img {
     height: 100%;
@@ -280,12 +280,12 @@
     background: rgb(0 0 0 / 45%);
     border-radius: 50%;
     color: white;
-    font-size: 10px;
+    font-size: 0.625rem;
     height: fit-content;
     inset: 0;
     line-height: 1;
     margin: auto;
-    padding: 6px 7px;
+    padding: 0.375rem 0.4375rem;
     pointer-events: none;
     position: absolute;
     width: fit-content;
@@ -299,13 +299,13 @@
     color: white;
     cursor: pointer;
     display: flex;
-    height: 24px;
+    height: 1.5rem;
     justify-content: center;
     position: absolute;
-    right: 4px;
-    top: 4px;
+    right: 0.25rem;
+    top: 0.25rem;
     transition: background 0.2s;
-    width: 24px;
+    width: 1.5rem;
 
     &:hover {
       background: var(--color-danger);
@@ -323,12 +323,12 @@
   flex-direction: column;
   font-size: var(--font-size-xs);
   gap: var(--space-xs);
-  height: 100px;
+  height: 6.25rem;
   justify-content: center;
   transition:
     border-color 0.2s,
     color 0.2s;
-  width: 100px;
+  width: 6.25rem;
 
   &:hover {
     border-color: var(--color-primary);
@@ -357,7 +357,7 @@
 
 .lang-tabs {
   display: flex;
-  gap: 2px;
+  gap: 0.125rem;
   margin-bottom: var(--space-xs);
 
   &__btn {
@@ -371,9 +371,9 @@
     font-family: var(--font-sans);
     font-size: var(--font-size-xs);
     font-weight: var(--font-weight-semibold);
-    gap: 4px;
+    gap: 0.25rem;
     letter-spacing: 0.06em;
-    padding: 4px var(--space-sm);
+    padding: 0.25rem var(--space-sm);
     text-transform: uppercase;
     transition: all 0.15s;
 
@@ -393,70 +393,7 @@
     background-color: var(--color-danger);
     border-radius: 50%;
     display: inline-block;
-    height: 5px;
-    width: 5px;
-  }
-}
-
-.admin-btn {
-  align-items: center;
-  border: 1.5px solid transparent;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  display: inline-flex;
-  font-family: var(--font-sans);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-semibold);
-  gap: var(--space-xs);
-  padding: var(--space-sm) var(--space-lg);
-  text-decoration: none;
-  transition: all 0.2s;
-
-  &--primary {
-    background-color: var(--color-primary);
-    border-color: var(--color-primary);
-    color: white;
-
-    &:hover:not(:disabled) {
-      background-color: var(--color-primary-hover);
-    }
-
-    &:disabled {
-      cursor: not-allowed;
-      opacity: 0.5;
-    }
-  }
-
-  &--outline {
-    background: transparent;
-    border-color: var(--color-border);
-    color: var(--color-text);
-
-    &:hover {
-      border-color: var(--color-primary);
-      color: var(--color-primary);
-    }
-  }
-
-  &--ghost {
-    background: transparent;
-    border-color: var(--color-primary);
-    color: var(--color-primary);
-
-    &:hover:not(:disabled) {
-      background: rgb(from var(--color-primary) r g b / 8%);
-    }
-
-    &:disabled {
-      border-color: var(--color-border);
-      color: var(--color-text-muted);
-      cursor: not-allowed;
-      opacity: 0.6;
-    }
-  }
-
-  &--sm {
-    font-size: var(--font-size-xs);
-    padding: var(--space-xs) var(--space-sm);
+    height: 0.3125rem;
+    width: 0.3125rem;
   }
 }

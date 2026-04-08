@@ -48,7 +48,7 @@
               }
               <button
                 type="button"
-                class="admin-btn admin-btn--ghost admin-btn--sm"
+                class="btn btn--ghost btn--sm"
                 [disabled]="translationService.isTranslating() || !nameByLang()['es'].trim()"
                 (click)="autoTranslateAll()"
               >
@@ -328,7 +328,7 @@
         <div class="product-form__actions">
           <button
             type="submit"
-            class="admin-btn admin-btn--primary"
+            class="btn btn--primary"
             [disabled]="!isFormValid() || saving() || uploadService.isUploading()"
           >
             {{
@@ -339,7 +339,7 @@
                   : t('admin.productForm.submit.create')
             }}
           </button>
-          <a class="admin-btn admin-btn--outline" [routerLink]="['/' + routes.ADMIN_PRODUCTS]">
+          <a class="btn btn--outline" [routerLink]="['/' + routes.ADMIN_PRODUCTS]">
             {{ t('admin.productForm.cancel') }}
           </a>
         </div>
