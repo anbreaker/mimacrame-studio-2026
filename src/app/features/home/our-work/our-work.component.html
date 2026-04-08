@@ -19,9 +19,14 @@
       <div class="our-work__grid">
         @for (post of posts(); track post.id) {
           <a class="post-card" [href]="post.instagramUrl" target="_blank" rel="noopener noreferrer">
-            <img class="post-card__img" [src]="post.imageUrl" [alt]="post.title" loading="lazy" />
+            <img
+              class="post-card__img"
+              [src]="post.imageUrl"
+              [alt]="resolveLocalized(post.title)"
+              loading="lazy"
+            />
             <div class="post-card__overlay">
-              <p class="post-card__caption">{{ post.caption }}</p>
+              <p class="post-card__caption">{{ resolveLocalized(post.caption) }}</p>
               <span class="post-card__cta">
                 <svg
                   viewBox="0 0 24 24"
