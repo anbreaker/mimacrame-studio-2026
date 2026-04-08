@@ -1,15 +1,17 @@
+import { LocalizedString } from './product.interface';
+
 export type CuratedPostSection = 'home' | 'catalog';
 
 export interface CuratedPost {
   active: boolean;
-  caption: string;
+  caption: LocalizedString;
   createdAt: Date;
   id: string;
   imageUrl: string;
   instagramUrl: string;
   order: number;
   section: CuratedPostSection;
-  title: string;
+  title: LocalizedString;
   updatedAt: Date;
 }
 
