@@ -12,12 +12,13 @@
       loading="lazy"
     />
 
-    <!-- Quick add -->
-    <button
-      class="product-card__quick-add"
-      (click)="addToCart($event)"
-      [attr.aria-label]="t('quickAdd')"
-    >
+    <!-- Quick add (hidden for admin users) -->
+    @if (!authStore.isAdmin()) {
+      <button
+        class="product-card__quick-add"
+        (click)="addToCart($event)"
+        [attr.aria-label]="t('quickAdd')"
+      >
       <svg
         viewBox="0 0 24 24"
         fill="none"
@@ -29,7 +30,8 @@
         <line x1="12" y1="5" x2="12" y2="19" />
         <line x1="5" y1="12" x2="19" y2="12" />
       </svg>
-    </button>
+      </button>
+    }
   </div>
 
   <!-- Info -->

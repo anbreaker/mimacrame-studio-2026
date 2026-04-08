@@ -7,6 +7,7 @@ import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
 import { LANG } from '@core/const/lang.const';
 import { ROUTES } from '@core/const/routes';
 import { Product } from '@core/interfaces/product.interface';
+import { AuthStore } from '@core/store/auth.store';
 import { CartStore } from '@core/store/cart.store';
 
 @Component({
@@ -19,6 +20,8 @@ import { CartStore } from '@core/store/cart.store';
 })
 export class ProductCardComponent {
   private readonly transloco = inject(TranslocoService);
+
+  protected readonly authStore = inject(AuthStore);
   protected readonly cartStore = inject(CartStore);
 
   readonly product = input.required<Product>();
