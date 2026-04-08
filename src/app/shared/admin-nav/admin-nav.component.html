@@ -69,6 +69,26 @@
         {{ t('orders') }}
       </a>
     </li>
+    <li>
+      <a
+        class="admin-nav__link"
+        [routerLink]="['/' + routes.ADMIN_POSTS]"
+        routerLinkActive="admin-nav__link--active"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          width="18"
+          height="18"
+        >
+          <rect x="3" y="3" width="18" height="18" rx="2" />
+          <path d="M3 9h18M9 21V9" />
+        </svg>
+        {{ t('posts') }}
+      </a>
+    </li>
   </ul>
 
   <div class="admin-nav__footer">

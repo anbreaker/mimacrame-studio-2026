@@ -34,7 +34,7 @@
   }
 
   &__content {
-    max-width: 600px;
+    max-width: 37.5rem;
     padding: var(--space-xl);
     position: relative;
     text-align: center;
@@ -85,7 +85,7 @@
 
     &:hover {
       background-color: var(--color-primary-hover);
-      transform: translateY(-2px);
+      transform: translateY(-0.125rem);
     }
   }
 
@@ -105,7 +105,7 @@
     transform: translateX(-50%) translateY(0);
   }
   50% {
-    transform: translateX(-50%) translateY(6px);
+    transform: translateX(-50%) translateY(0.375rem);
   }
 }
 
@@ -115,7 +115,7 @@
 
   &__inner {
     margin: 0 auto;
-    max-width: 1200px;
+    max-width: 75rem;
   }
 
   &__grid {
@@ -146,11 +146,11 @@
 
   &:hover {
     border-color: var(--color-primary);
-    transform: translateY(-2px);
+    transform: translateY(-0.125rem);
   }
 
   &__emoji {
-    font-size: 28px;
+    font-size: 1.75rem;
     line-height: 1;
   }
 
@@ -167,7 +167,7 @@
 
   &__inner {
     margin: 0 auto;
-    max-width: 1200px;
+    max-width: 75rem;
   }
 
   &__grid {
@@ -224,43 +224,12 @@
   }
 }
 
-.btn {
-  border: none;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  display: inline-block;
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-semibold);
-  padding: var(--space-md) var(--space-2xl);
-  text-decoration: none;
-  transition: all 0.2s;
-
-  &--primary {
-    background-color: var(--color-primary);
-    color: white;
-    &:hover {
-      background-color: var(--color-primary-hover);
-      transform: translateY(-2px);
-    }
-  }
-
-  &--outline {
-    background-color: transparent;
-    border: 1.5px solid var(--color-border);
-    color: var(--color-text);
-    &:hover {
-      border-color: var(--color-primary);
-      color: var(--color-primary);
-    }
-  }
-}
-
 .editorial {
   align-items: center;
   background: linear-gradient(135deg, #1a2d42 0%, var(--color-background) 100%);
   display: flex;
   justify-content: center;
-  min-height: 360px;
+  min-height: 22.5rem;
   overflow: hidden;
   padding: var(--space-3xl) var(--space-md);
   position: relative;
@@ -304,7 +273,7 @@
 
   &__inner {
     margin: 0 auto;
-    max-width: 960px;
+    max-width: 60rem;
   }
 
   &__steps {

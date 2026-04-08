@@ -69,7 +69,62 @@
       "dashboard": "Dashboard",
       "logout": "Sign out",
       "orders": "Orders",
+      "posts": "Posts",
       "products": "Products"
+    },
+    "posts": {
+      "actions": {
+        "delete": "Delete",
+        "edit": "Edit"
+      },
+      "deleteModal": {
+        "cancel": "Cancel",
+        "confirm": "Delete",
+        "text": "Delete this post? This action cannot be undone."
+      },
+      "errors": {
+        "save": "Error saving the post.",
+        "upload": "Error uploading the image."
+      },
+      "form": {
+        "createTitle": "New post",
+        "editTitle": "Edit post",
+        "fields": {
+          "active": "Active (visible in store)",
+          "caption": "Description",
+          "captionPlaceholder": "A short phrase about the piece...",
+          "changeImage": "Change image",
+          "uploadImage": "Upload image",
+          "image": "Image",
+          "instagramUrl": "Instagram URL",
+          "instagramUrlPlaceholder": "https://instagram.com/p/...",
+          "order": "Order",
+          "section": "Section",
+          "title": "Title",
+          "titlePlaceholder": "E.g.: Summer bracelet"
+        },
+        "sections": {
+          "catalog": "Catalog",
+          "home": "Home"
+        }
+      },
+      "list": {
+        "empty": "No posts yet.",
+        "loading": "Loading posts..."
+      },
+      "new": "+ New post",
+      "stats": {
+        "active": "Active",
+        "inactive": "Inactive",
+        "total": "Total"
+      },
+      "submit": {
+        "cancel": "Cancel",
+        "create": "Create post",
+        "save": "Save changes",
+        "saving": "Saving..."
+      },
+      "title": "Curated posts"
     },
     "orders": {
       "changeStatus": "Change status:",
@@ -331,6 +386,13 @@
       "eyebrow": "Handmade · Badajoz, Spain",
       "subtitle": "Handcrafted macramé, piece by piece",
       "title": "Jewelry that tells\nyour story"
+    },
+    "nuestroTrabajo": {
+      "ctaButton": "@mimacrame",
+      "ctaText": "Follow us on Instagram to see all our creations",
+      "igLabel": "Follow us on Instagram",
+      "title": "Follow us on Instagram",
+      "viewOnInstagram": "View on Instagram →"
     },
     "process": {
       "step1": {

@@ -4,7 +4,7 @@ import { authGuard } from '@core/auth/auth.guard';
 import { clientGuard } from '@core/auth/client.guard';
 import { ROUTES } from '@core/const/routes';
 
-export const routes: Routes = [
+const publicRoutes: Routes = [
   {
     loadComponent: async () => (await import('./features/home/home.component')).HomeComponent,
     path: ROUTES.HOME,
@@ -24,17 +24,14 @@ export const routes: Routes = [
     path: ROUTES.CART,
   },
   {
-    canActivate: [clientGuard],
-    loadComponent: async () =>
-      (await import('./features/checkout/checkout.component')).CheckoutComponent,
-    path: ROUTES.CHECKOUT,
-  },
-  {
     loadComponent: async () =>
       (await import('./features/order-confirmation/order-confirmation.component'))
         .OrderConfirmationComponent,
     path: ROUTES.ORDER_CONFIRMED,
   },
+];
+
+const clientRoutes: Routes = [
   {
     loadComponent: async () =>
       (await import('./features/client/login/client-login.component')).ClientLoginComponent,
@@ -66,6 +63,9 @@ export const routes: Routes = [
       (await import('./features/client/account/account-shell.component')).AccountShellComponent,
     path: ROUTES.ACCOUNT,
   },
+];
+
+const adminRoutes: Routes = [
   {
     loadComponent: async () =>
       (await import('./features/admin/login/admin-login.component')).AdminLoginComponent,
@@ -103,10 +103,21 @@ export const routes: Routes = [
           (await import('./features/admin/orders/admin-orders.component')).AdminOrdersComponent,
         path: 'orders',
       },
+      {
+        loadComponent: async () =>
+          (await import('./features/admin/posts/admin-posts.component')).AdminPostsComponent,
+        path: 'posts',
+      },
       { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
     ],
     path: ROUTES.ADMIN,
   },
+];
+
+export const routes: Routes = [
+  ...publicRoutes,
+  ...clientRoutes,
+  ...adminRoutes,
   {
     loadComponent: async () =>
       (await import('./features/not-found/not-found.component')).NotFoundComponent,

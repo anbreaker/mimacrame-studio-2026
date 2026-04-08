@@ -61,6 +61,10 @@ export class UploadService {
     });
   }
 
+  uploadPostImage(file: File, postId: string): Promise<string> {
+    return this.uploadFile(file, `mimacrame/posts/${postId}`);
+  }
+
   uploadProductImage(file: File, productId: string, category: string): Promise<string> {
     return this.uploadFile(file, `mimacrame/products/${category}/${productId}`);
   }

@@ -69,7 +69,62 @@
       "dashboard": "Dashboard",
       "logout": "Cerrar sesión",
       "orders": "Pedidos",
+      "posts": "Posts",
       "products": "Productos"
+    },
+    "posts": {
+      "actions": {
+        "delete": "Eliminar",
+        "edit": "Editar"
+      },
+      "deleteModal": {
+        "cancel": "Cancelar",
+        "confirm": "Eliminar",
+        "text": "¿Eliminar este post? Esta acción no se puede deshacer."
+      },
+      "errors": {
+        "save": "Error al guardar el post.",
+        "upload": "Error al subir la imagen."
+      },
+      "form": {
+        "createTitle": "Nuevo post",
+        "editTitle": "Editar post",
+        "fields": {
+          "active": "Activo (visible en la tienda)",
+          "caption": "Descripción",
+          "captionPlaceholder": "Una frase corta sobre la pieza...",
+          "changeImage": "Cambiar imagen",
+          "uploadImage": "Subir imagen",
+          "image": "Imagen",
+          "instagramUrl": "URL de Instagram",
+          "instagramUrlPlaceholder": "https://instagram.com/p/...",
+          "order": "Orden",
+          "section": "Sección",
+          "title": "Título",
+          "titlePlaceholder": "Ej: Pulsera de verano"
+        },
+        "sections": {
+          "catalog": "Catálogo",
+          "home": "Inicio"
+        }
+      },
+      "list": {
+        "empty": "No hay posts aún.",
+        "loading": "Cargando posts..."
+      },
+      "new": "+ Nuevo post",
+      "stats": {
+        "active": "Activos",
+        "inactive": "Inactivos",
+        "total": "Total"
+      },
+      "submit": {
+        "cancel": "Cancelar",
+        "create": "Crear post",
+        "save": "Guardar cambios",
+        "saving": "Guardando..."
+      },
+      "title": "Posts curados"
     },
     "orders": {
       "changeStatus": "Cambiar estado:",
@@ -331,6 +386,13 @@
       "eyebrow": "Hecho a mano · Badajoz, Extremadura",
       "subtitle": "Macramé artesanal hecho a mano, pieza a pieza",
       "title": "Joyería que cuenta\ntu historia"
+    },
+    "nuestroTrabajo": {
+      "ctaButton": "@mimacrame",
+      "ctaText": "Síguenos en Instagram para ver todas nuestras creaciones",
+      "igLabel": "Síguenos en Instagram",
+      "title": "Síguenos en Instagram",
+      "viewOnInstagram": "Ver en Instagram →"
     },
     "process": {
       "step1": {
