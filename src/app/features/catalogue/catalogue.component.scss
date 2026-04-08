@@ -1,6 +1,6 @@
 .catalogue {
   margin: 0 auto;
-  max-width: 1200px;
+  max-width: 75rem;
   padding: var(--space-xl) var(--space-md) var(--space-3xl);
 
   &__header {
@@ -22,7 +22,7 @@
   // Search
   &__search {
     flex: 1;
-    max-width: 320px;
+    max-width: 20rem;
     position: relative;
 
     &-icon {
@@ -43,7 +43,7 @@
       font-size: var(--font-size-sm);
       outline: none;
       padding: var(--space-sm) var(--space-md) var(--space-sm)
-        calc(var(--space-md) + 24px + var(--space-sm));
+        calc(var(--space-md) + 1.5rem + var(--space-sm));
       transition: border-color 0.2s;
       width: 100%;
 
@@ -107,6 +107,15 @@
     color: var(--color-text-muted);
     font-size: var(--font-size-sm);
     margin-bottom: var(--space-xl);
+  }
+
+  // Grid wrapper — handles opacity transition on tab change
+  &__content {
+    transition: opacity 0.1s ease;
+
+    &--fade {
+      opacity: 0;
+    }
   }
 
   // Grid

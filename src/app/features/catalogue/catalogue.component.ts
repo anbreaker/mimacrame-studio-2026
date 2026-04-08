@@ -20,7 +20,9 @@ export class CatalogueComponent implements OnInit {
 
   protected readonly store = inject(CatalogueStore);
 
+  protected readonly isTransitioning = signal(false);
   protected readonly localSearchQuery = signal('');
+
   protected readonly categoryKeys = Object.values(PRODUCT_CATEGORY);
 
   protected readonly PRODUCT_CATEGORY = PRODUCT_CATEGORY;
@@ -49,6 +51,10 @@ export class CatalogueComponent implements OnInit {
   }
 
   protected selectCategory(category: ProductCategory | null): void {
-    this.store.selectCategory(category);
+    this.isTransitioning.set(true);
+    setTimeout(() => {
+      this.store.selectCategory(category);
+      this.isTransitioning.set(false);
+    }, 110);
   }
 }

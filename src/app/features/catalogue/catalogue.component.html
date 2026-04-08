@@ -58,24 +58,26 @@
   </p>
 
   <!-- Grid -->
-  @if (store.isLoading()) {
-    <div class="catalogue__grid">
-      @for (_ of [1, 2, 3, 4, 5, 6]; track $index) {
-        <div class="product-skeleton"></div>
-      }
-    </div>
-  } @else if (store.filteredProducts().length > 0) {
-    <div class="catalogue__grid">
-      @for (product of store.filteredProducts(); track product.id) {
-        <app-product-card [product]="product" />
-      }
-    </div>
-  } @else {
-    <div class="catalogue__empty">
-      <p class="catalogue__empty-text">{{ t('catalogue.empty.text') }}</p>
-      <button class="catalogue__clear" (click)="store.clearFilters()">
-        {{ t('catalogue.empty.clear') }}
-      </button>
-    </div>
-  }
+  <div class="catalogue__content" [class.catalogue__content--fade]="isTransitioning()">
+    @if (store.isLoading()) {
+      <div class="catalogue__grid">
+        @for (_ of [1, 2, 3, 4, 5, 6]; track $index) {
+          <div class="product-skeleton"></div>
+        }
+      </div>
+    } @else if (store.filteredProducts().length > 0) {
+      <div class="catalogue__grid">
+        @for (product of store.filteredProducts(); track product.id) {
+          <app-product-card [product]="product" />
+        }
+      </div>
+    } @else {
+      <div class="catalogue__empty">
+        <p class="catalogue__empty-text">{{ t('catalogue.empty.text') }}</p>
+        <button class="catalogue__clear" (click)="store.clearFilters()">
+          {{ t('catalogue.empty.clear') }}
+        </button>
+      </div>
+    }
+  </div>
 </div>
