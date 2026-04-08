@@ -1,0 +1,95 @@
+<div class="admin-layout" *transloco="let t">
+  <app-admin-nav />
+  <main class="admin-main">
+    <div class="admin-main__inner">
+      <!-- Header -->
+      <div class="posts-header">
+        <h1 class="admin-page-title">{{ t('admin.posts.title') }}</h1>
+        <a class="btn btn--primary" [routerLink]="['/' + routes.ADMIN_POST_NEW]">
+          {{ t('admin.posts.new') }}
+        </a>
+      </div>
+
+      <!-- Stats -->
+      <div class="posts-stats">
+        <span class="posts-stats__item">
+          {{ t('admin.posts.stats.total') }}:
+          <strong>{{ totalCount() }}</strong>
+        </span>
+        <span class="posts-stats__item">
+          {{ t('admin.posts.stats.active') }}:
+          <strong>{{ activeCount() }}</strong>
+        </span>
+        <span class="posts-stats__item">
+          {{ t('admin.posts.stats.inactive') }}:
+          <strong>{{ inactiveCount() }}</strong>
+        </span>
+      </div>
+
+      <!-- List -->
+      <div class="posts-list">
+        @if (isLoading()) {
+          <p class="admin-loading">{{ t('admin.posts.list.loading') }}</p>
+        } @else if (posts().length === 0) {
+          <p class="admin-empty">{{ t('admin.posts.list.empty') }}</p>
+        } @else {
+          @for (post of posts(); track post.id) {
+            <div class="post-row">
+              @if (post.videoUrl) {
+                <video
+                  class="post-row__thumb"
+                  [src]="post.videoUrl"
+                  muted
+                  autoplay
+                  loop
+                  playsinline
+                  style="object-fit: cover"
+                ></video>
+              } @else {
+                <img
+                  class="post-row__thumb"
+                  [src]="post.imageUrl"
+                  [alt]="getTitleForDisplay(post)"
+                  loading="lazy"
+                />
+              }
+              <div class="post-row__info">
+                <p class="post-row__title">{{ getTitleForDisplay(post) }}</p>
+                <p class="post-row__meta">
+                  {{ post.section }} · #{{ post.order }} ·
+                  {{
+                    post.active ? t('admin.posts.stats.active') : t('admin.posts.stats.inactive')
+                  }}
+                </p>
+              </div>
+              <div class="post-row__actions">
+                @if (confirmDeleteId() === post.id) {
+                  <span class="post-row__delete-confirm">
+                    {{ t('admin.posts.deleteModal.text') }}
+                  </span>
+                  <button class="btn btn--danger btn--sm" type="button" (click)="confirmDelete()">
+                    {{ t('admin.posts.deleteModal.confirm') }}
+                  </button>
+                  <button class="btn btn--ghost btn--sm" type="button" (click)="cancelDelete()">
+                    {{ t('admin.posts.deleteModal.cancel') }}
+                  </button>
+                } @else {
+                  <a class="btn btn--ghost btn--sm" [routerLink]="['/admin/posts', post.id]">
+                    {{ t('admin.posts.actions.edit') }}
+                  </a>
+                  <button
+                    class="btn btn--destructive btn--sm"
+                    type="button"
+                    (click)="requestDelete(post.id)"
+                  >
+                    {{ t('admin.posts.actions.delete') }}
+                  </button>
+                }
+              </div>
+            </div>
+          }
+        }
+      </div>
+    </div>
+  </main>
+</div>

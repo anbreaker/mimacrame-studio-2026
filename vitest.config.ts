@@ -7,24 +7,6 @@ export default defineConfig({
       tsconfig: 'tsconfig.json',
     }),
   ],
-  test: {
-    globals: true,
-    environment: 'jsdom',
-    setupFiles: ['src/test-setup.ts'],
-    include: ['**/*.spec.ts'],
-    exclude: ['node_modules/**', 'dist/**'],
-    coverage: {
-      provider: 'v8',
-      reporter: ['text', 'json', 'html'],
-      exclude: [
-        'node_modules/',
-        'src/test-setup.ts',
-        '**/*.spec.ts',
-        '**/*.config.ts',
-        '**/main.ts',
-      ],
-    },
-  },
   resolve: {
     alias: {
       '@assets': '/src/assets',
@@ -37,5 +19,28 @@ export default defineConfig({
       '@shared': '/src/app/shared',
       '@styles': '/src/styles',
     },
+  },
+  test: {
+    coverage: {
+      exclude: [
+        'node_modules/',
+        'src/test-setup.ts',
+        '**/*.spec.ts',
+        '**/*.config.ts',
+        '**/main.ts',
+      ],
+      provider: 'v8',
+      reporter: ['text', 'json', 'html'],
+    },
+    environment: 'jsdom',
+    exclude: ['node_modules/**', 'dist/**'],
+    globals: true,
+    include: ['**/*.spec.ts'],
+    server: {
+      deps: {
+        inline: ['rxfire', '@angular/fire'],
+      },
+    },
+    setupFiles: ['src/test-setup.ts'],
   },
 });

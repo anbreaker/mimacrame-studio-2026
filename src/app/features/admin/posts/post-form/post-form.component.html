@@ -1,0 +1,294 @@
+<div class="admin-layout" *transloco="let t">
+  <app-admin-nav />
+  <main class="admin-main">
+    <div class="admin-main__inner">
+      <div class="admin-page-header">
+        <a class="admin-back-btn" [routerLink]="['/' + routes.ADMIN_POSTS]">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            width="20"
+            height="20"
+          >
+            <path d="M19 12H5M12 19l-7-7 7-7" />
+          </svg>
+          {{ t('admin.posts.title') }}
+        </a>
+        <h1 class="admin-page-title">
+          {{ isEditMode() ? t('admin.posts.form.editTitle') : t('admin.posts.form.createTitle') }}
+        </h1>
+      </div>
+
+      <form class="post-form" (submit)="$event.preventDefault(); save()">
+        <div class="post-form__grid">
+          <!-- Basic Info -->
+          <div class="post-form__section">
+            <h2 class="post-form__section-title">
+              {{ t('admin.posts.form.sections.basicInfo') }}
+            </h2>
+
+            <!-- Lang tabs -->
+            <div class="lang-tabs">
+              @for (lang of availableLangs; track lang) {
+                <button
+                  type="button"
+                  class="lang-tabs__btn"
+                  [class.lang-tabs__btn--active]="activeLang() === lang"
+                  (click)="activeLang.set(lang)"
+                >
+                  {{ lang.toUpperCase() }}
+                  @if (titleByLang()[lang].trim() === '' || captionByLang()[lang].trim() === '') {
+                    <span class="lang-tabs__dot"></span>
+                  }
+                </button>
+              }
+              <button
+                type="button"
+                class="btn btn--ghost btn--sm"
+                [disabled]="translationService.isTranslating() || !titleByLang().es.trim()"
+                (click)="autoTranslateAll()"
+              >
+                @if (translationService.isTranslating()) {
+                  {{ t('admin.productForm.translate.translating') }}
+                } @else {
+                  {{ t('admin.productForm.translate.autoTranslate') }}
+                }
+              </button>
+            </div>
+
+            <!-- Title -->
+            <div class="admin-form-group">
+              <label class="admin-label" for="post-title">
+                {{ t('admin.posts.form.fields.title') }}
+              </label>
+              <input
+                id="post-title"
+                class="admin-input"
+                type="text"
+                [placeholder]="t('admin.posts.form.fields.titlePlaceholder')"
+                [value]="titleByLang()[activeLang()]"
+                (input)="updateTitle($event)"
+                name="title"
+              />
+            </div>
+
+            <!-- Caption -->
+            <div class="admin-form-group">
+              <label class="admin-label" for="post-caption">
+                {{ t('admin.posts.form.fields.caption') }}
+              </label>
+              <textarea
+                id="post-caption"
+                class="admin-textarea"
+                [placeholder]="t('admin.posts.form.fields.captionPlaceholder')"
+                [value]="captionByLang()[activeLang()]"
+                (input)="updateCaption($event)"
+                name="caption"
+              ></textarea>
+            </div>
+
+            <!-- Instagram URL -->
+            <div class="admin-form-group">
+              <label class="admin-label" for="post-url">
+                {{ t('admin.posts.form.fields.instagramUrl') }}
+              </label>
+              <input
+                id="post-url"
+                class="admin-input"
+                type="url"
+                [placeholder]="t('admin.posts.form.fields.instagramUrlPlaceholder')"
+                [formField]="postForm.instagramUrl"
+              />
+            </div>
+
+            <!-- Order + Section -->
+            <div class="admin-form-row">
+              <div class="admin-form-group">
+                <label class="admin-label" for="post-order">
+                  {{ t('admin.posts.form.fields.order') }}
+                </label>
+                <input
+                  id="post-order"
+                  class="admin-input"
+                  type="number"
+                  [formField]="postForm.order"
+                />
+              </div>
+
+              <div class="admin-form-group">
+                <label class="admin-label" for="post-section">
+                  {{ t('admin.posts.form.fields.section') }}
+                </label>
+                <select id="post-section" class="admin-input" [formField]="postForm.section">
+                  <option value="home">{{ t('admin.posts.form.sections.home') }}</option>
+                  <option value="catalog">{{ t('admin.posts.form.sections.catalog') }}</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Active -->
+            <div class="admin-checkbox-group">
+              <input
+                id="post-active"
+                type="checkbox"
+                class="admin-checkbox"
+                [formField]="postForm.active"
+              />
+              <label for="post-active">{{ t('admin.posts.form.fields.active') }}</label>
+            </div>
+          </div>
+
+          <!-- Image -->
+          <div class="post-form__section">
+            <h2 class="post-form__section-title">
+              {{ t('admin.posts.form.sections.media') }}
+            </h2>
+            <p class="post-form__section-hint">
+              {{ t('admin.posts.form.mediaDescription') }}
+            </p>
+            <div class="post-form__image-grid">
+              @if (postModel().imageUrl) {
+                <div class="post-form__image-card">
+                  <img
+                    [src]="postModel().imageUrl"
+                    [alt]="titleByLang().es"
+                    class="post-form__image-card-img"
+                  />
+                  <a
+                    [href]="postModel().imageUrl"
+                    target="_blank"
+                    rel="noopener"
+                    class="post-form__image-card-action"
+                    [title]="t('admin.posts.form.fields.image')"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      width="14"
+                      height="14"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+                      />
+                    </svg>
+                  </a>
+                </div>
+              }
+              <label class="post-form__upload-zone">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  width="24"
+                  height="24"
+                  aria-hidden="true"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+                <span class="post-form__upload-zone-text">
+                  {{
+                    postModel().imageUrl
+                      ? t('admin.posts.form.fields.changeImage')
+                      : t('admin.posts.form.fields.uploadImage')
+                  }}
+                </span>
+                <input type="file" accept="image/*" hidden (change)="onImageChange($event)" />
+              </label>
+
+              @if (postModel().videoUrl) {
+                <div class="post-form__image-card">
+                  <video
+                    [src]="postModel().videoUrl"
+                    [title]="titleByLang().es"
+                    muted
+                    autoplay
+                    loop
+                    playsinline
+                    class="post-form__image-card-img"
+                  ></video>
+                  <a
+                    [href]="postModel().videoUrl"
+                    target="_blank"
+                    rel="noopener"
+                    class="post-form__image-card-action"
+                    [title]="t('admin.posts.form.fields.image')"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      width="14"
+                      height="14"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+                      />
+                    </svg>
+                  </a>
+                </div>
+              }
+              <label class="post-form__upload-zone">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  width="24"
+                  height="24"
+                  aria-hidden="true"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+                <span class="post-form__upload-zone-text">
+                  {{
+                    postModel().videoUrl
+                      ? t('admin.posts.form.fields.changeVideo')
+                      : t('admin.posts.form.fields.uploadVideo')
+                  }}
+                </span>
+                <input type="file" accept="video/*" hidden (change)="onVideoChange($event)" />
+              </label>
+            </div>
+          </div>
+        </div>
+
+        @if (translateError()) {
+          <div class="admin-error-banner" role="alert">
+            {{ t(translateError()!) }}
+          </div>
+        }
+
+        @if (formError()) {
+          <div class="admin-error-banner" role="alert">
+            {{ t(formError()!) }}
+          </div>
+        }
+
+        <div class="post-form__actions">
+          <button class="btn btn--primary" type="submit" [disabled]="saving()">
+            @if (saving()) {
+              {{ t('admin.posts.submit.saving') }}
+            } @else if (isEditMode()) {
+              {{ t('admin.posts.submit.save') }}
+            } @else {
+              {{ t('admin.posts.submit.create') }}
+            }
+          </button>
+          <a class="btn btn--outline" [routerLink]="['/' + routes.ADMIN_POSTS]">
+            {{ t('admin.posts.submit.cancel') }}
+          </a>
+        </div>
+      </form>
+    </div>
+  </main>
+</div>

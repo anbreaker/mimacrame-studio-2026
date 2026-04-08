@@ -94,7 +94,9 @@
           "caption": "Descripción",
           "captionPlaceholder": "Una frase corta sobre la pieza...",
           "changeImage": "Cambiar imagen",
+          "changeVideo": "Cambiar video",
           "uploadImage": "Subir imagen",
+          "uploadVideo": "Añadir video",
           "image": "Imagen",
           "instagramUrl": "URL de Instagram",
           "instagramUrlPlaceholder": "https://instagram.com/p/...",
@@ -103,9 +105,12 @@
           "title": "Título",
           "titlePlaceholder": "Ej: Pulsera de verano"
         },
+        "mediaDescription": "Sube una foto o un video para este post. Solo puedes elegir uno.",
         "sections": {
+          "basicInfo": "Información básica",
           "catalog": "Catálogo",
-          "home": "Inicio"
+          "home": "Inicio",
+          "media": "Fotos y videos"
         }
       },
       "list": {
@@ -124,7 +129,7 @@
         "save": "Guardar cambios",
         "saving": "Guardando..."
       },
-      "title": "Posts curados"
+      "title": "Posts creados"
     },
     "orders": {
       "changeStatus": "Cambiar estado:",
@@ -168,7 +173,7 @@
       "images": {
         "add": "Añadir foto",
         "addVideo": "Añadir video",
-        "hint": "Subí fotos con la pieza puesta y videos del proceso — ¡quedan mucho más bonitas!",
+        "hint": "Sube aquí las fotos con la pieza puesta y videos del proceso ¡Quedan mucho más bonitas!",
         "remove": "Eliminar imagen",
         "title": "Fotos y videos",
         "uploading": "Subiendo..."

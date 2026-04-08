@@ -94,7 +94,9 @@
           "caption": "Description",
           "captionPlaceholder": "A short phrase about the piece...",
           "changeImage": "Change image",
+          "changeVideo": "Change video",
           "uploadImage": "Upload image",
+          "uploadVideo": "Add video",
           "image": "Image",
           "instagramUrl": "Instagram URL",
           "instagramUrlPlaceholder": "https://instagram.com/p/...",
@@ -103,9 +105,12 @@
           "title": "Title",
           "titlePlaceholder": "E.g.: Summer bracelet"
         },
+        "mediaDescription": "Upload a photo or a video for this post. You can only choose one.",
         "sections": {
+          "basicInfo": "Basic information",
           "catalog": "Catalog",
-          "home": "Home"
+          "home": "Home",
+          "media": "Photos and videos"
         }
       },
       "list": {
@@ -124,7 +129,7 @@
         "save": "Save changes",
         "saving": "Saving..."
       },
-      "title": "Curated posts"
+      "title": "Posts created"
     },
     "orders": {
       "changeStatus": "Change status:",
@@ -168,7 +173,7 @@
       "images": {
         "add": "Add photo",
         "addVideo": "Add video",
-        "hint": "Upload photos with the piece on and process videos — they look much better!",
+        "hint": "Upload photos of yourself wearing the piece and videos of the process here they look so much better!",
         "remove": "Remove image",
         "title": "Photos and videos",
         "uploading": "Uploading..."

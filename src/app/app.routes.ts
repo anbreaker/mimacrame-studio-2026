@@ -105,8 +105,19 @@ const adminRoutes: Routes = [
       },
       {
         loadComponent: async () =>
-          (await import('./features/admin/posts/admin-posts.component')).AdminPostsComponent,
+          (await import('./features/admin/posts/posts-list/posts-list.component'))
+            .PostsListComponent,
         path: 'posts',
+      },
+      {
+        loadComponent: async () =>
+          (await import('./features/admin/posts/post-form/post-form.component')).PostFormComponent,
+        path: 'posts/new',
+      },
+      {
+        loadComponent: async () =>
+          (await import('./features/admin/posts/post-form/post-form.component')).PostFormComponent,
+        path: 'posts/:id',
       },
       { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
     ],

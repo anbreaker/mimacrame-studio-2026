@@ -13,6 +13,7 @@ export interface CuratedPost {
   section: CuratedPostSection;
   title: LocalizedString;
   updatedAt: Date;
+  videoUrl?: string;
 }
 
 export type CuratedPostCreate = Omit<CuratedPost, 'id' | 'createdAt' | 'updatedAt'>;
