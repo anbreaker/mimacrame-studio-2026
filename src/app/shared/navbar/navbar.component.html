@@ -21,7 +21,7 @@
     </nav>
 
     <!-- Right: Actions -->
-    <div class="navbar__actions" *transloco="let t; read: 'navbar'">
+    <div class="navbar__actions" *transloco="let t">
       <app-lang-selector />
 
       <a
@@ -33,7 +33,7 @@
               ? ['/' + routes.ACCOUNT]
               : ['/' + routes.LOGIN]
         "
-        [attr.aria-label]="authStore.isLoggedIn() ? t('account') : t('login')"
+        [attr.aria-label]="authStore.isLoggedIn() ? t('navbar.account') : t('navbar.login')"
       >
         <svg
           class="navbar__icon"
@@ -54,7 +54,7 @@
       </a>
 
       @if (!authStore.isAdmin()) {
-        <a class="navbar__action" [routerLink]="['/' + routes.CART]" [attr.aria-label]="t('cart')">
+        <a class="navbar__action" [routerLink]="['/' + routes.CART]" [attr.aria-label]="t('navbar.cart')">
           <svg
             class="navbar__icon"
             viewBox="0 0 24 24"

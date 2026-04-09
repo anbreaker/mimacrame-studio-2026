@@ -11,14 +11,13 @@
   <form
     class="profile__form"
     (submit)="$event.preventDefault(); save()"
-    *transloco="let tp; read: 'account.profile'"
   >
     <!-- Contact Group -->
     <div class="profile__group">
       <h3 class="profile__group-title">{{ t('checkout.sections.contact') }}</h3>
 
       <div class="profile__field">
-        <label class="profile__label">{{ tp('emailLabel') }}</label>
+        <label class="profile__label">{{ t('account.profile.emailLabel') }}</label>
         <input
           class="profile__input profile__input--readonly"
           type="email"
@@ -29,12 +28,12 @@
       </div>
 
       <div class="profile__field">
-        <label class="profile__label">{{ tp('nameLabel') }}</label>
+        <label class="profile__label">{{ t('account.profile.nameLabel') }}</label>
         <input
           class="profile__input"
           type="text"
           [formField]="profileForm.fullName"
-          [placeholder]="tp('placeholders.fullName')"
+          [placeholder]="t('account.profile.placeholders.fullName')"
           autocomplete="name"
         />
         @if (profileForm.fullName().touched() && profileForm.fullName().invalid()) {
@@ -43,12 +42,12 @@
       </div>
 
       <div class="profile__field">
-        <label class="profile__label">{{ tp('fields.phone') }}</label>
+        <label class="profile__label">{{ t('account.profile.fields.phone') }}</label>
         <input
           class="profile__input"
           type="tel"
           [formField]="profileForm.phone"
-          [placeholder]="tp('placeholders.phone')"
+          [placeholder]="t('account.profile.placeholders.phone')"
           autocomplete="tel"
         />
         @if (profileForm.phone().touched() && profileForm.phone().invalid()) {
@@ -62,24 +61,24 @@
       <h3 class="profile__group-title">{{ t('checkout.sections.shipping') }}</h3>
 
       <div class="profile__field profile__field--full">
-        <label class="profile__label">{{ tp('fields.street') }}</label>
+        <label class="profile__label">{{ t('account.profile.fields.street') }}</label>
         <input
           class="profile__input"
           type="text"
           [formField]="profileForm.street"
-          [placeholder]="tp('placeholders.street')"
+          [placeholder]="t('account.profile.placeholders.street')"
           autocomplete="street-address"
         />
       </div>
 
       <div class="profile__grid">
         <div class="profile__field">
-          <label class="profile__label">{{ tp('fields.postalCode') }}</label>
+          <label class="profile__label">{{ t('account.profile.fields.postalCode') }}</label>
           <input
             class="profile__input"
             type="text"
             [formField]="profileForm.postalCode"
-            [placeholder]="tp('placeholders.postalCode')"
+            [placeholder]="t('account.profile.placeholders.postalCode')"
             autocomplete="postal-code"
           />
           @if (profileForm.postalCode().touched() && profileForm.postalCode().invalid()) {
@@ -88,34 +87,34 @@
         </div>
 
         <div class="profile__field">
-          <label class="profile__label">{{ tp('fields.city') }}</label>
+          <label class="profile__label">{{ t('account.profile.fields.city') }}</label>
           <input
             class="profile__input"
             type="text"
             [formField]="profileForm.city"
-            [placeholder]="tp('placeholders.city')"
+            [placeholder]="t('account.profile.placeholders.city')"
             autocomplete="address-level2"
           />
         </div>
 
         <div class="profile__field">
-          <label class="profile__label">{{ tp('fields.province') }}</label>
+          <label class="profile__label">{{ t('account.profile.fields.province') }}</label>
           <input
             class="profile__input"
             type="text"
             [formField]="profileForm.province"
-            [placeholder]="tp('placeholders.province')"
+            [placeholder]="t('account.profile.placeholders.province')"
             autocomplete="address-level1"
           />
         </div>
 
         <div class="profile__field">
-          <label class="profile__label">{{ tp('fields.country') }}</label>
+          <label class="profile__label">{{ t('account.profile.fields.country') }}</label>
           <input
             class="profile__input"
             type="text"
             [formField]="profileForm.country"
-            [placeholder]="tp('placeholders.country')"
+            [placeholder]="t('account.profile.placeholders.country')"
             autocomplete="country-name"
           />
         </div>
@@ -125,11 +124,11 @@
     <!-- Actions -->
     <div class="profile__actions">
       <button class="profile__submit" type="submit" [disabled]="saving() || !isFormValid()">
-        {{ saving() ? tp('submit.saving') : tp('submit.save') }}
+        {{ saving() ? t('account.profile.submit.saving') : t('account.profile.submit.save') }}
       </button>
 
       @if (showSuccess()) {
-        <span class="profile__success-msg">✅ {{ tp('submit.success') }}</span>
+        <span class="profile__success-msg">✅ {{ t('account.profile.submit.success') }}</span>
       }
     </div>
   </form>
