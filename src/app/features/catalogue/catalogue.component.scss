@@ -66,8 +66,18 @@
     padding-bottom: var(--space-xs);
     scrollbar-width: none;
 
+    // Hint visual de scroll (degradado a la derecha)
+    mask-image: linear-gradient(to right, black calc(100% - 3rem), transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, black calc(100% - 3rem), transparent 100%);
+
     &::-webkit-scrollbar {
       display: none;
+    }
+
+    // Espacio extra al final para que el último item no quede tapado por el degradado
+    &::after {
+      content: '';
+      flex: 0 0 2rem;
     }
   }
 
@@ -122,7 +132,7 @@
   &__grid {
     display: grid;
     gap: var(--space-md);
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
 
     @media (min-width: 768px) {
       grid-template-columns: repeat(3, 1fr);
