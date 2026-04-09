@@ -11,7 +11,7 @@ import {
 import { toSignal } from '@angular/core/rxjs-interop';
 import { form, FormField, required } from '@angular/forms/signals';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { filter, map, Observable, of, switchMap, take } from 'rxjs';
+import { filter, firstValueFrom, map, Observable, of, switchMap, take } from 'rxjs';
 import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
 
 import { AVAILABLE_LANGS, LANG, Lang } from '@core/const/lang.const';
@@ -252,7 +252,7 @@ export class ProductFormComponent {
     }));
   }
 
-  protected save(): void {
+  protected async save(): Promise<void> {
     this.submitAttempted.set(true);
     if (!this.isFormValid()) return;
 
@@ -273,13 +273,13 @@ export class ProductFormComponent {
         ? this.productService.update(id, payload as ProductUpdate)
         : this.productService.create(payload);
 
-    obs$.subscribe({
-      error: () => {
-        this.saving.set(false);
-        this.productResponseError.set('admin.productForm.errors.save');
-      },
-      next: () => this.router.navigate(['/' + ROUTES.ADMIN_PRODUCTS]),
-    });
+    try {
+      await firstValueFrom(obs$);
+      this.router.navigate(['/' + ROUTES.ADMIN_PRODUCTS]);
+    } catch {
+      this.saving.set(false);
+      this.productResponseError.set('admin.productForm.errors.save');
+    }
   }
 
   protected selectCategory(category: ProductCategory): void {

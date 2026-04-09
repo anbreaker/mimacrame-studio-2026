@@ -8,6 +8,7 @@ import {
   untracked,
 } from '@angular/core';
 import { form, FormField, minLength, pattern, required } from '@angular/forms/signals';
+import { firstValueFrom } from 'rxjs';
 import { TranslocoDirective } from '@jsverse/transloco';
 
 import { AppUser } from '@core/interfaces/user.interface';
@@ -98,7 +99,7 @@ export class AccountProfileComponent {
     });
   }
 
-  protected save(): void {
+  protected async save(): Promise<void> {
     const user = this.authStore.user();
     if (!user || !this.isFormValid()) return;
 
@@ -120,13 +121,14 @@ export class AccountProfileComponent {
       displayName: data.fullName,
     };
 
-    this.authService.updateProfile(user.uid, updateData).subscribe({
-      complete: () => {
-        this.saving.set(false);
-        this.showSuccess.set(true);
-        setTimeout(() => this.showSuccess.set(false), 3000);
-      },
-      error: () => this.saving.set(false),
-    });
+    try {
+      await firstValueFrom(this.authService.updateProfile(user.uid, updateData));
+      this.showSuccess.set(true);
+      setTimeout(() => this.showSuccess.set(false), 3000);
+    } catch {
+      // error handled via finally
+    } finally {
+      this.saving.set(false);
+    }
   }
 }

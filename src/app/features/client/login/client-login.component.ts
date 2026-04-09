@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
 import { TranslocoDirective } from '@jsverse/transloco';
 
 import { ROUTES } from '@core/const/routes';
@@ -10,7 +11,7 @@ import { LoginFormComponent, LoginSubmitEvent } from '@shared/login-form/login-f
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [LoginFormComponent, RouterLink, TranslocoDirective],
+  imports: [LoginFormComponent, TranslocoDirective],
   selector: 'app-client-login',
   standalone: true,
   styleUrl: './client-login.component.scss',
@@ -35,35 +36,31 @@ export class ClientLoginComponent {
     });
   }
 
-  protected loginWithEmail({ email, password }: LoginSubmitEvent): void {
+  protected async loginWithEmail({ email, password }: LoginSubmitEvent): Promise<void> {
     this.isLoading.set(true);
     this.errorKey.set(null);
 
-    this.authService.login(email, password).subscribe({
-      error: (error: Error) => {
-        this.isLoading.set(false);
-        this.errorKey.set(toReadableError(error.message));
-      },
-      next: () => {
-        this.isLoading.set(false);
-        this.router.navigate(['/' + ROUTES.ACCOUNT]);
-      },
-    });
+    try {
+      await firstValueFrom(this.authService.login(email, password));
+      this.router.navigate(['/' + ROUTES.ACCOUNT]);
+    } catch (error: unknown) {
+      this.errorKey.set(toReadableError((error as Error).message));
+    } finally {
+      this.isLoading.set(false);
+    }
   }
 
-  protected loginWithGoogle(): void {
+  protected async loginWithGoogle(): Promise<void> {
     this.isLoading.set(true);
     this.errorKey.set(null);
 
-    this.authService.loginWithGoogle().subscribe({
-      error: (error: Error) => {
-        this.isLoading.set(false);
-        this.errorKey.set(toReadableError(error.message));
-      },
-      next: () => {
-        this.isLoading.set(false);
-        this.router.navigate(['/' + ROUTES.ACCOUNT]);
-      },
-    });
+    try {
+      await firstValueFrom(this.authService.loginWithGoogle());
+      this.router.navigate(['/' + ROUTES.ACCOUNT]);
+    } catch (error: unknown) {
+      this.errorKey.set(toReadableError((error as Error).message));
+    } finally {
+      this.isLoading.set(false);
+    }
   }
 }

@@ -2,6 +2,7 @@ import { CurrencyPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
 import { TranslocoDirective } from '@jsverse/transloco';
 
 import { ROUTES } from '@core/const/routes';
@@ -75,13 +76,16 @@ export class ProductsListComponent {
     }
   }
 
-  protected confirmDelete(): void {
+  protected async confirmDelete(): Promise<void> {
     const targetId = this.confirmDeleteId();
     if (!targetId) return;
 
-    this.productService.delete(targetId).subscribe({
-      next: () => this.confirmDeleteId.set(null),
-    });
+    try {
+      await firstValueFrom(this.productService.delete(targetId));
+      this.confirmDeleteId.set(null);
+    } catch {
+      // deletion failed silently
+    }
   }
 
   protected requestDelete(productId: string): void {
@@ -89,13 +93,11 @@ export class ProductsListComponent {
   }
 
   protected sort(field: SortField): void {
-    if (this.sortField() === field) {
-      this.sortDir.update((currentDir) =>
-        currentDir === SORT_DIR.Asc ? SORT_DIR.Desc : SORT_DIR.Asc
-      );
-    } else {
-      this.sortField.set(field);
-      this.sortDir.set(SORT_DIR.Asc);
-    }
+    this.sortField() === field
+      ? this.sortDir.update((currentDir) =>
+          currentDir === SORT_DIR.Asc ? SORT_DIR.Desc : SORT_DIR.Asc
+        )
+      : this.sortField.set(field);
+    this.sortDir.set(SORT_DIR.Asc);
   }
 }

@@ -13,6 +13,7 @@ import {
 import { toSignal } from '@angular/core/rxjs-interop';
 import { email as emailValidator, form, FormField, required } from '@angular/forms/signals';
 import { Router, RouterLink } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
 import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
 
 import { ORDER_STATUS } from '@core/const/order-status.const';
@@ -160,31 +161,26 @@ export class CheckoutComponent implements OnDestroy {
       const email = this.checkoutModel().email || undefined;
       const userId = this.authStore.user()?.uid || undefined;
 
-      this.paymentService
-        .createPaymentIntent(this.orderTotalInCents(), {
+      const { clientSecret, paymentIntentId } = await firstValueFrom(
+        this.paymentService.createPaymentIntent(this.orderTotalInCents(), {
           receiptEmail: email,
           userId,
         })
-        .subscribe({
-          error: () => {
-            this.errorKey.set(CHECKOUT_ERROR.Generic);
-          },
-          next: async ({ clientSecret, paymentIntentId }) => {
-            this.clientSecret.set(clientSecret);
-            this.paymentIntentId.set(paymentIntentId);
+      );
 
-            const container = this.paymentElementRef()?.nativeElement;
-            if (container) {
-              await this.stripeService.mountPaymentElement(clientSecret, container);
+      this.clientSecret.set(clientSecret);
+      this.paymentIntentId.set(paymentIntentId);
 
-              if (!this.stripeService.error()) {
-                this.isPaymentReady.set(true);
-              } else {
-                this.errorKey.set(CHECKOUT_ERROR.Generic);
-              }
-            }
-          },
-        });
+      const container = this.paymentElementRef()?.nativeElement;
+      if (container) {
+        await this.stripeService.mountPaymentElement(clientSecret, container);
+
+        if (!this.stripeService.error()) {
+          this.isPaymentReady.set(true);
+        } else {
+          this.errorKey.set(CHECKOUT_ERROR.Generic);
+        }
+      }
     } catch {
       this.errorKey.set(CHECKOUT_ERROR.Generic);
     }
@@ -201,49 +197,48 @@ export class CheckoutComponent implements OnDestroy {
 
     const data = this.checkoutModel();
 
-    // Create the order before confirming payment so the orderId can be
-    // included in the return_url — required for redirect-based methods
-    // (PayPal, Bizum) that navigate away from the app during payment.
-    this.orderService
-      .create({
-        customerEmail: data.email,
-        items: this.cartStore.items(),
-        shippingAddress: {
-          city: data.city,
-          country: data.country,
-          fullName: data.fullName,
-          phone: data.phone,
-          postalCode: data.postalCode,
-          province: data.province,
-          street: data.street,
-        },
-        status: ORDER_STATUS.Pending,
-        stripePaymentIntentId: paymentIntentId,
-        total: this.orderTotal(),
-        userId: this.authStore.user()?.uid ?? null,
-      })
-      .subscribe({
-        error: () => {
-          this.isProcessing.set(false);
-          this.errorKey.set(CHECKOUT_ERROR.OrderCreation);
-        },
-        next: async (orderId) => {
-          const returnUrl = `${window.location.origin}/${ROUTES.ORDER_CONFIRMED}?orderId=${orderId}`;
-          const result = await this.stripeService.confirmPayment(returnUrl);
+    try {
+      // Create the order before confirming payment so the orderId can be
+      // included in the return_url — required for redirect-based methods
+      // (PayPal, Bizum) that navigate away from the app during payment.
+      const orderId = await firstValueFrom(
+        this.orderService.create({
+          customerEmail: data.email,
+          items: this.cartStore.items(),
+          shippingAddress: {
+            city: data.city,
+            country: data.country,
+            fullName: data.fullName,
+            phone: data.phone,
+            postalCode: data.postalCode,
+            province: data.province,
+            street: data.street,
+          },
+          status: ORDER_STATUS.Pending,
+          stripePaymentIntentId: paymentIntentId,
+          total: this.orderTotal(),
+          userId: this.authStore.user()?.uid ?? null,
+        })
+      );
 
-          if (result.error) {
-            this.isProcessing.set(false);
-            this.errorKey.set(CHECKOUT_ERROR.CardDeclined);
-            return;
-          }
+      const returnUrl = `${window.location.origin}/${ROUTES.ORDER_CONFIRMED}?orderId=${orderId}`;
+      const result = await this.stripeService.confirmPayment(returnUrl);
 
-          // Reached only for non-redirect methods (card).
-          // Redirect-based methods (PayPal, Bizum) navigate away — this code won't run.
-          this.cartStore.clear();
-          this.router.navigate(['/' + ROUTES.ORDER_CONFIRMED], {
-            queryParams: { orderId, success: true },
-          });
-        },
+      if (result.error) {
+        this.errorKey.set(CHECKOUT_ERROR.CardDeclined);
+        return;
+      }
+
+      // Reached only for non-redirect methods (card).
+      // Redirect-based methods (PayPal, Bizum) navigate away — this code won't run.
+      this.cartStore.clear();
+      this.router.navigate(['/' + ROUTES.ORDER_CONFIRMED], {
+        queryParams: { orderId, success: true },
       });
+    } catch {
+      this.errorKey.set(CHECKOUT_ERROR.OrderCreation);
+    } finally {
+      this.isProcessing.set(false);
+    }
   }
 }

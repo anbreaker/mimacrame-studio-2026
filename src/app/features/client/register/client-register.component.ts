@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { email as emailValidator, form, FormField, required } from '@angular/forms/signals';
 import { Router, RouterLink } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
 import { TranslocoDirective } from '@jsverse/transloco';
 
 import { ROUTES } from '@core/const/routes';
@@ -51,7 +52,7 @@ export class ClientRegisterComponent {
 
   protected readonly routes = ROUTES;
 
-  protected register(): void {
+  protected async register(): Promise<void> {
     if (!this.isFormValid()) {
       this.registerForm.displayName().markAsTouched();
       this.registerForm.email().markAsTouched();
@@ -63,15 +64,13 @@ export class ClientRegisterComponent {
     this.isLoading.set(true);
     this.errorKey.set(null);
 
-    this.authService.register(email, password, displayName).subscribe({
-      error: (error: Error) => {
-        this.isLoading.set(false);
-        this.errorKey.set(toReadableError(error.message));
-      },
-      next: () => {
-        this.isLoading.set(false);
-        this.router.navigate(['/' + ROUTES.ACCOUNT]);
-      },
-    });
+    try {
+      await firstValueFrom(this.authService.register(email, password, displayName));
+      this.router.navigate(['/' + ROUTES.ACCOUNT]);
+    } catch (error: unknown) {
+      this.errorKey.set(toReadableError((error as Error).message));
+    } finally {
+      this.isLoading.set(false);
+    }
   }
 }
