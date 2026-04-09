@@ -29,15 +29,17 @@ export class SeoService {
   private readonly titleService = inject(Title);
   private readonly transloco = inject(TranslocoService);
 
-  private readonly _activeLang = toSignal(this.transloco.langChanges$, {
-    initialValue: this.transloco.getActiveLang(),
-  });
+  // Bridge events$ to a signal — no RxJS operators needed
+  private readonly _latestEvent = toSignal(this.transloco.events$);
 
   private currentConfig: SeoConfig | null = null;
 
   constructor() {
     effect(() => {
-      const lang = this._activeLang();
+      const event = this._latestEvent();
+      if (event?.type !== 'translationLoadSuccess') return;
+
+      const lang = this.transloco.getActiveLang();
       document.documentElement.lang = lang;
       this.meta.updateTag({ content: LOCALE_MAP[lang] ?? lang, property: 'og:locale' });
 
