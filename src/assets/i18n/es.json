@@ -75,6 +75,7 @@
     "posts": {
       "actions": {
         "delete": "Eliminar",
+        "duplicate": "Duplicar",
         "edit": "Editar"
       },
       "deleteModal": {

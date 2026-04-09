@@ -77,6 +77,13 @@
                   <a class="btn btn--ghost btn--sm" [routerLink]="['/admin/posts', post.id]">
                     {{ t('admin.posts.actions.edit') }}
                   </a>
+                  <a
+                    class="btn btn--ghost btn--sm"
+                    [routerLink]="['/' + routes.ADMIN_POST_NEW]"
+                    [queryParams]="{ duplicateId: post.id }"
+                  >
+                    {{ t('admin.posts.actions.duplicate') }}
+                  </a>
                   <button
                     class="btn btn--destructive btn--sm"
                     type="button"

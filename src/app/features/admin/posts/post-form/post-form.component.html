@@ -275,7 +275,11 @@
         }
 
         <div class="post-form__actions">
-          <button class="btn btn--primary" type="submit" [disabled]="saving()">
+          <button
+            class="btn btn--primary"
+            type="submit"
+            [disabled]="saving() || (duplicateId() && !hasChanges())"
+          >
             @if (saving()) {
               {{ t('admin.posts.submit.saving') }}
             } @else if (isEditMode()) {
