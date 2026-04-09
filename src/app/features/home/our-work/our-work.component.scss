@@ -68,6 +68,7 @@
 .post-card {
   aspect-ratio: 1 / 1;
   border-radius: 0;
+  cursor: pointer;
   display: block;
   flex: 0 0 calc(50% - 1.5px);
   overflow: hidden;
@@ -86,7 +87,9 @@
   }
 
   &:hover &__img {
-    transform: scale(1.04);
+    @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+      transform: scale(1.04);
+    }
   }
 
   &__overlay {
@@ -103,10 +106,16 @@
     right: 0;
     top: 0;
     transition: opacity 0.25s ease;
+
+    @media (hover: none) {
+      opacity: 0.85;
+    }
   }
 
   &:hover &__overlay {
-    opacity: 1;
+    @media (hover: hover) {
+      opacity: 1;
+    }
   }
 
   &__caption {
@@ -126,7 +135,6 @@
   }
 
   &--skeleton {
-    animation: shimmer 1.5s infinite;
     aspect-ratio: 1 / 1;
     background: linear-gradient(
       90deg,
@@ -135,15 +143,21 @@
       var(--color-surface) 75%
     );
     background-size: 200% 100%;
+
+    @media (prefers-reduced-motion: no-preference) {
+      animation: shimmer 1.5s infinite;
+    }
   }
 }
 
-@keyframes shimmer {
-  0% {
-    background-position: 200% 0;
-  }
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes shimmer {
+    0% {
+      background-position: 200% 0;
+    }
 
-  100% {
-    background-position: -200% 0;
+    100% {
+      background-position: -200% 0;
+    }
   }
 }

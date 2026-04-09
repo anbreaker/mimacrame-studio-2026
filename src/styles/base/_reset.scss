@@ -42,6 +42,12 @@ select {
   font: inherit;
 }
 
+a,
+button,
+[role="button"] {
+  touch-action: manipulation;
+}
+
 p,
 h1,
 h2,

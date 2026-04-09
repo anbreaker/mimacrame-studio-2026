@@ -21,6 +21,7 @@
     flex-direction: column;
     gap: 0.25rem;
     justify-content: center;
+    min-height: 2.75rem;
     padding: var(--space-sm) 0;
     text-decoration: none;
     transition: color 0.2s;
@@ -51,7 +52,9 @@
   &__item--active &__logo,
   &__item:hover &__logo {
     opacity: 1;
-    transform: scale(1.2);
+    @media (prefers-reduced-motion: no-preference) {
+      transform: scale(1.2);
+    }
   }
 
   &__label {
