@@ -1,12 +1,14 @@
-import { computed, Injectable, signal } from '@angular/core';
+import { computed, effect, inject, Injectable, signal, untracked } from '@angular/core';
 
 import { STORAGE_KEYS } from '@core/const/storage-keys.const';
 import { CartItem } from '@core/interfaces/cart.interface';
 import { Product } from '@core/interfaces/product.interface';
+import { AuthStore } from '@core/store/auth.store';
 
 @Injectable({ providedIn: 'root' })
 export class CartStore {
-  private readonly _items = signal<CartItem[]>(this.loadFromStorage());
+  private readonly authStore = inject(AuthStore);
+  private readonly _items = signal<CartItem[]>([]);
 
   readonly isEmpty = computed(() => this._items().length === 0);
   readonly itemCount = computed(() =>
@@ -19,6 +21,37 @@ export class CartStore {
 
   readonly items = this._items.asReadonly();
 
+  constructor() {
+    // Reload cart whenever the authenticated user changes (including logout → login as different user)
+    effect(() => {
+      const uid = this.authStore.user()?.uid ?? null;
+
+      untracked(() => this._items.set(this._loadFromStorage(this._storageKey(uid))));
+    });
+  }
+
+  private _currentKey(): string {
+    return this._storageKey(this.authStore.user()?.uid ?? null);
+  }
+
+  private _loadFromStorage(key: string): CartItem[] {
+    try {
+      const stored = localStorage.getItem(key);
+      return stored ? (JSON.parse(stored) as CartItem[]) : [];
+    } catch {
+      return [];
+    }
+  }
+
+  private _persist(items: CartItem[]): void {
+    this._items.set(items);
+    localStorage.setItem(this._currentKey(), JSON.stringify(items));
+  }
+
+  private _storageKey(uid: string | null): string {
+    return uid ? `${STORAGE_KEYS.Cart}_${uid}` : `${STORAGE_KEYS.Cart}_anonymous`;
+  }
+
   addItem(product: Product, quantity = 1): void {
     const current = this._items();
     const existingIndex = current.findIndex((item) => item.product.id === product.id);
@@ -30,29 +63,15 @@ export class CartStore {
           )
         : [...current, { product, quantity }];
 
-    this.persist(updated);
+    this._persist(updated);
   }
 
   clear(): void {
-    this.persist([]);
-  }
-
-  private loadFromStorage(): CartItem[] {
-    try {
-      const stored = localStorage.getItem(STORAGE_KEYS.Cart);
-      return stored ? (JSON.parse(stored) as CartItem[]) : [];
-    } catch {
-      return [];
-    }
-  }
-
-  private persist(items: CartItem[]): void {
-    this._items.set(items);
-    localStorage.setItem(STORAGE_KEYS.Cart, JSON.stringify(items));
+    this._persist([]);
   }
 
   removeItem(productId: string): void {
-    this.persist(this._items().filter((item) => item.product.id !== productId));
+    this._persist(this._items().filter((item) => item.product.id !== productId));
   }
 
   updateQuantity(productId: string, quantity: number): void {
@@ -63,6 +82,6 @@ export class CartStore {
             item.product.id === productId ? { ...item, quantity } : item
           );
 
-    this.persist(updated);
+    this._persist(updated);
   }
 }

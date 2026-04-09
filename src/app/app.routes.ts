@@ -38,6 +38,12 @@ const clientRoutes: Routes = [
     path: ROUTES.LOGIN,
   },
   {
+    canActivate: [clientGuard],
+    loadComponent: async () =>
+      (await import('./features/checkout/checkout.component')).CheckoutComponent,
+    path: ROUTES.CHECKOUT,
+  },
+  {
     loadComponent: async () =>
       (await import('./features/client/register/client-register.component'))
         .ClientRegisterComponent,

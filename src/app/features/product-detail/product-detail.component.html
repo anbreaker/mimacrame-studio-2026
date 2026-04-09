@@ -214,14 +214,16 @@
         </div>
 
         <!-- CTAs -->
-        <div class="detail__actions">
-          <button class="detail__add-btn" (click)="addToCart()">
-            {{ t('productDetail.addToCart') }}
-          </button>
-          <button class="detail__buy-btn" (click)="buyNow()">
-            {{ t('productDetail.buyNow') }}
-          </button>
-        </div>
+        @if (!isAdmin()) {
+          <div class="detail__actions">
+            <button class="detail__add-btn" (click)="addToCart()">
+              {{ t('productDetail.addToCart') }}
+            </button>
+            <button class="detail__buy-btn" (click)="buyNow()">
+              {{ t('productDetail.buyNow') }}
+            </button>
+          </div>
+        }
 
         <!-- Accordions -->
         <details class="detail__accordion">

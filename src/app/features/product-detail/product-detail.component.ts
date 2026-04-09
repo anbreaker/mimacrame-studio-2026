@@ -20,6 +20,7 @@ import { MEDIA_TYPE, MediaType } from '@core/const/media-type.const';
 import { ROUTES } from '@core/const/routes';
 import { ProductService } from '@core/services/product.service';
 import { SeoService } from '@core/services/seo.service';
+import { AuthStore } from '@core/store/auth.store';
 import { CartStore } from '@core/store/cart.store';
 
 type MediaItem = { type: MediaType; url: string };
@@ -33,6 +34,7 @@ type MediaItem = { type: MediaType; url: string };
   templateUrl: './product-detail.component.html',
 })
 export class ProductDetailComponent {
+  private readonly authStore = inject(AuthStore);
   private readonly cartStore = inject(CartStore);
   private readonly productService = inject(ProductService);
   private readonly route = inject(ActivatedRoute);
@@ -105,6 +107,7 @@ export class ProductDetailComponent {
 
   private touchStartX = 0;
 
+  protected readonly isAdmin = this.authStore.isAdmin;
   protected readonly routes = ROUTES;
 
   constructor() {

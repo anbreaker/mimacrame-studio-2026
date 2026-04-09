@@ -289,6 +289,7 @@
   "checkout": {
     "empty": {
       "cta": "Ver colección",
+      "subtitle": "Descubre nuestra colección de macramé artesanal.",
       "text": "Tu carrito está vacío."
     },
     "errors": {
