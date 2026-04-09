@@ -17,6 +17,7 @@ export interface Order {
   customerEmail: string;
   id: string;
   items: CartItem[];
+  lang: string;
   shippingAddress: ShippingAddress;
   status: OrderStatus;
   stripePaymentIntentId: string;

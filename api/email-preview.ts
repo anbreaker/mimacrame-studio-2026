@@ -1,26 +1,26 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
-import {
-  buildAdminEmailHtml,
-  buildCustomerEmailHtml,
-  type OrderData,
-} from './_email-templates.js';
+import { buildAdminEmailHtml, buildCustomerEmailHtml, type OrderData } from './email-templates.js';
 
 const SAMPLE_ORDER: OrderData = {
   customerEmail: 'cliente@ejemplo.com',
   items: [
     {
       product: {
-        images: ['https://res.cloudinary.com/dwtqnscxw/image/upload/w_120,h_120,c_fill/v1/mimacrame-uploads/sample'],
-        name: { es: 'Macramé Boho Grande', en: 'Large Boho Macramé' },
+        images: [
+          'https://res.cloudinary.com/dwtqnscxw/image/upload/w_120,h_120,c_fill/v1/mimacrame-uploads/sample',
+        ],
+        name: { en: 'Large Boho Macramé', es: 'Macramé Boho Grande' },
         price: 45,
       },
       quantity: 1,
     },
     {
       product: {
-        images: ['https://res.cloudinary.com/dwtqnscxw/image/upload/w_120,h_120,c_fill/v1/mimacrame-uploads/sample'],
-        name: { es: 'Colgante de pared', en: 'Wall Hanger' },
+        images: [
+          'https://res.cloudinary.com/dwtqnscxw/image/upload/w_120,h_120,c_fill/v1/mimacrame-uploads/sample',
+        ],
+        name: { en: 'Wall Hanger', es: 'Colgante de pared' },
         price: 28,
       },
       quantity: 2,

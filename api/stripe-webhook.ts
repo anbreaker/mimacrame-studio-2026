@@ -8,8 +8,9 @@ import {
   buildAdminEmailHtml,
   buildCustomerEmailHtml,
   buildOrderRef,
+  getTranslations,
   type OrderData,
-} from './_email-templates.js';
+} from './email-templates.js';
 
 export const config = {
   api: {
@@ -103,6 +104,7 @@ async function handlePaymentSucceeded(paymentIntent: Stripe.PaymentIntent): Prom
   const orderData: OrderData = {
     customerEmail: order['customerEmail'] as string | undefined,
     items: order['items'],
+    lang: order['lang'] as string | undefined,
     shippingAddress: order['shippingAddress'],
     total: order['total'] as number | undefined,
   };
@@ -125,19 +127,17 @@ async function sendCustomerEmail(
 
   const fromEmail = process.env['RESEND_FROM_EMAIL'] ?? 'noreply@mimacrame.com';
 
+  const t = getTranslations(order.lang);
+
   await getResend().emails.send({
     from: `Mimacramé Studio <${fromEmail}>`,
     html: buildCustomerEmailHtml(order, orderRef),
-    subject: `Tu pedido está confirmado — ${orderRef}`,
+    subject: t.customerSubject(orderRef),
     to: order.customerEmail,
   });
 }
 
-async function sendAdminEmail(
-  order: OrderData,
-  orderId: string,
-  orderRef: string
-): Promise<void> {
+async function sendAdminEmail(order: OrderData, orderId: string, orderRef: string): Promise<void> {
   const adminEmail = process.env['ADMIN_EMAIL'];
 
   if (!adminEmail) {
@@ -147,10 +147,12 @@ async function sendAdminEmail(
 
   const fromEmail = process.env['RESEND_FROM_EMAIL'] ?? 'noreply@mimacrame.com';
 
+  const t = getTranslations(order.lang);
+
   await getResend().emails.send({
     from: `Mimacramé Studio <${fromEmail}>`,
     html: buildAdminEmailHtml(order, orderRef),
-    subject: `Nuevo pedido recibido — ${orderRef}`,
+    subject: t.adminSubject(orderRef),
     to: adminEmail,
   });
 }

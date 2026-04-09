@@ -205,6 +205,7 @@ export class CheckoutComponent implements OnDestroy {
         this.orderService.create({
           customerEmail: data.email,
           items: this.cartStore.items(),
+          lang: this.activeLang(),
           shippingAddress: {
             city: data.city,
             country: data.country,
