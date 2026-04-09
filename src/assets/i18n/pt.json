@@ -389,10 +389,11 @@
       "title": "Nossas favoritas"
     },
     "hero": {
-      "cta": "Ver coleção",
+      "cta": "Explorar Coleção",
+      "cta2": "Nossa História",
       "eyebrow": "Feito à mão · Badajoz, Espanha",
-      "subtitle": "Macramé artesanal feito à mão, peça por peça",
-      "title": "Joalharia que conta\na sua história"
+      "subtitle": "Peças tecidas à mão com a intenção de perdurar. Cada nó é um verso, cada design um legado de artesanato contemporâneo.",
+      "title": "Joalharia que conta <em>a sua história</em>"
     },
     "nuestroTrabajo": {
       "ctaButton": "@mimacrame",

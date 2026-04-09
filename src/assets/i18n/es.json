@@ -389,10 +389,11 @@
       "title": "Nuestras favoritas"
     },
     "hero": {
-      "cta": "Ver colección",
+      "cta": "Explorar Colección",
+      "cta2": "Nuestra Historia",
       "eyebrow": "Hecho a mano · Badajoz, Extremadura",
-      "subtitle": "Macramé artesanal hecho a mano, pieza a pieza",
-      "title": "Joyería que cuenta\ntu historia"
+      "subtitle": "Piezas tejidas a mano con la intención de perdurar. Cada nudo es un verso, cada diseño un legado de artesanía contemporánea.",
+      "title": "Joyería que cuenta <em>tu historia</em>"
     },
     "nuestroTrabajo": {
       "ctaButton": "@mimacrame",

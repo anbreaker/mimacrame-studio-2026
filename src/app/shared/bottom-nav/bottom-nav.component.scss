@@ -52,6 +52,7 @@
   &__item--active &__logo,
   &__item:hover &__logo {
     opacity: 1;
+
     @media (prefers-reduced-motion: no-preference) {
       transform: scale(1.2);
     }

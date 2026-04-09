@@ -12,11 +12,28 @@
   background: linear-gradient(135deg, var(--color-background) 0%, #1a2d42 100%);
   display: flex;
   justify-content: center;
-  min-height: 100svh;
+
+  min-height: clamp(820px, 70svh, 720px);
+
   overflow: hidden;
   position: relative;
 
+  @media (min-width: 768px) {
+    min-height: 94svh;
+  }
+
   &::before {
+    background-image: url('/assets/images/home.webp');
+    background-position: center;
+    background-size: cover;
+    content: '';
+    inset: 0;
+    mix-blend-mode: luminosity;
+    opacity: 0.28;
+    position: absolute;
+  }
+
+  &::after {
     background:
       radial-gradient(
         ellipse at 20% 80%,
@@ -30,11 +47,12 @@
       );
     content: '';
     inset: 0;
+    pointer-events: none;
     position: absolute;
   }
 
   &__content {
-    max-width: 37.5rem;
+    max-width: 43.75rem;
     padding: var(--space-xl);
     position: relative;
     text-align: center;
@@ -61,6 +79,11 @@
     @media (min-width: 768px) {
       font-size: var(--font-size-4xl);
     }
+
+    em {
+      color: var(--color-accent);
+      font-style: italic;
+    }
   }
 
   &__subtitle {
@@ -70,8 +93,16 @@
     margin-bottom: var(--space-2xl);
   }
 
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    justify-content: center;
+  }
+
   &__cta {
     background-color: var(--color-primary);
+    border: 1.5px solid var(--color-primary);
     border-radius: var(--radius-sm);
     color: white;
     display: inline-block;
@@ -81,12 +112,30 @@
     text-decoration: none;
     transition:
       background-color 0.2s,
+      border-color 0.2s,
       transform 0.15s;
 
     &:hover {
       background-color: var(--color-primary-hover);
+      border-color: var(--color-primary-hover);
+
       @media (prefers-reduced-motion: no-preference) {
         transform: translateY(-0.125rem);
+      }
+    }
+
+    &--outline {
+      background-color: transparent;
+      border-color: rgba(255, 255, 255, 0.6);
+      color: aliceblue;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-color: aliceblue;
+
+        @media (prefers-reduced-motion: no-preference) {
+          transform: translateY(-0.125rem);
+        }
       }
     }
   }
@@ -154,6 +203,7 @@
 
   &:hover {
     border-color: var(--color-primary);
+
     @media (prefers-reduced-motion: no-preference) {
       transform: translateY(-0.125rem);
     }
@@ -283,12 +333,30 @@
 }
 
 .process {
-  background-color: var(--color-surface-alt);
+  background-color: var(--color-background);
   padding: var(--space-3xl) var(--space-md);
 
   &__inner {
     margin: 0 auto;
     max-width: 60rem;
+  }
+
+  &__header {
+    margin-bottom: var(--space-3xl);
+    text-align: center;
+
+    .section-title {
+      margin-bottom: 0;
+    }
+  }
+
+  &__eyebrow {
+    color: var(--color-primary);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    letter-spacing: 0.12em;
+    margin-bottom: var(--space-sm);
+    text-transform: uppercase;
   }
 
   &__steps {
@@ -297,19 +365,34 @@
     grid-template-columns: 1fr;
 
     @media (min-width: 768px) {
+      gap: var(--space-xl);
       grid-template-columns: repeat(3, 1fr);
     }
   }
 
   &__step {
-    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    max-width: 20rem;
     text-align: center;
+    width: 100%;
+
+    &-header {
+      align-items: center;
+      display: flex;
+      height: 5rem;
+      justify-content: center;
+      margin-bottom: var(--space-lg);
+      position: relative;
+    }
 
     &-title {
-      color: var(--color-text);
+      color: var(--color-accent);
       font-family: var(--font-serif);
       font-size: var(--font-size-lg);
       margin-bottom: var(--space-sm);
+      margin-top: var(--space-sm);
     }
 
     &-text {
@@ -320,12 +403,32 @@
   }
 
   &__number {
-    color: var(--color-primary);
-    display: block;
+    color: var(--color-text);
     font-family: var(--font-serif);
-    font-size: var(--font-size-3xl);
+    font-size: 8rem;
     font-weight: var(--font-weight-bold);
-    margin-bottom: var(--space-md);
-    opacity: 0.4;
+    left: 50%;
+    line-height: 1;
+    opacity: 0.05;
+    pointer-events: none;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    user-select: none;
+    z-index: 0;
+  }
+
+  &__icon {
+    align-items: center;
+    background-color: var(--color-surface-alt);
+    border-radius: 50%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: var(--color-primary);
+    display: flex;
+    height: 3.5rem;
+    justify-content: center;
+    position: relative;
+    width: 3.5rem;
+    z-index: 1;
   }
 }

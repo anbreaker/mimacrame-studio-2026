@@ -389,10 +389,11 @@
       "title": "Our favorites"
     },
     "hero": {
-      "cta": "View collection",
+      "cta": "Explore Collection",
+      "cta2": "Our Story",
       "eyebrow": "Handmade · Badajoz, Spain",
-      "subtitle": "Handcrafted macramé, piece by piece",
-      "title": "Jewelry that tells\nyour story"
+      "subtitle": "Pieces woven by hand with the intention to last. Each knot is a verse, each design a legacy of contemporary craftsmanship.",
+      "title": "Jewelry that tells <em>your story</em>"
     },
     "nuestroTrabajo": {
       "ctaButton": "@mimacrame",
