@@ -393,7 +393,8 @@
       "cta2": "Nuestra Historia",
       "eyebrow": "Hecho a mano · Badajoz, Extremadura",
       "subtitle": "Piezas tejidas a mano con la intención de perdurar. Cada nudo es un verso, cada diseño un legado de artesanía contemporánea.",
-      "title": "Joyería que cuenta <em>tu historia</em>"
+      "title": "Joyería que cuenta",
+      "titleEm": "tu historia"
     },
     "nuestroTrabajo": {
       "ctaButton": "@mimacrame",

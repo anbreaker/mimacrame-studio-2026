@@ -12,9 +12,7 @@
   background: linear-gradient(135deg, var(--color-background) 0%, #1a2d42 100%);
   display: flex;
   justify-content: center;
-
   min-height: clamp(820px, 70svh, 720px);
-
   overflow: hidden;
   position: relative;
 
@@ -80,15 +78,16 @@
       font-size: var(--font-size-4xl);
     }
 
-    em {
-      color: var(--color-accent);
+    &-highlight {
+      color: var(--color-primary-hover);
       font-style: italic;
     }
   }
 
   &__subtitle {
-    color: var(--color-text-muted);
+    color: var(--color-primary-hover);
     font-size: var(--font-size-base);
+    font-weight: bold;
     line-height: var(--line-height-base);
     margin-bottom: var(--space-2xl);
   }
