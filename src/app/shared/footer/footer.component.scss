@@ -21,13 +21,41 @@
     }
   }
 
+  &__brand {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+
+    @media (min-width: 768px) {
+      align-items: flex-start;
+      text-align: left;
+    }
+  }
+
   &__logo {
-    color: var(--color-text);
-    display: block;
-    font-family: var(--font-serif);
-    font-size: var(--font-size-xl);
-    font-weight: var(--font-weight-semibold);
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    line-height: 1;
     margin-bottom: var(--space-sm);
+
+    &-text {
+      color: var(--color-text);
+      font-family: var(--font-serif);
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    &-sub {
+      color: var(--color-text-muted);
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 0.15em;
+      margin-top: var(--space-xs);
+      text-transform: uppercase;
+    }
   }
 
   &__tagline {
@@ -53,9 +81,16 @@
   }
 
   &__links {
+    align-items: center;
     display: flex;
     flex-direction: column;
     gap: var(--space-md);
+    text-align: center;
+
+    @media (min-width: 768px) {
+      align-items: flex-start;
+      text-align: left;
+    }
   }
 
   &__link {

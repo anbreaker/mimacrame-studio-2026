@@ -173,7 +173,7 @@
   &__grid {
     display: grid;
     gap: var(--space-md);
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
 
     @media (min-width: 768px) {
       grid-template-columns: repeat(4, 1fr);
@@ -183,7 +183,7 @@
   &__loading {
     display: grid;
     gap: var(--space-md);
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
 
     @media (min-width: 768px) {
       grid-template-columns: repeat(4, 1fr);

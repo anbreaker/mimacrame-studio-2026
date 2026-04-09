@@ -1,15 +1,18 @@
-<footer class="footer" *transloco="let t; read: 'footer'">
+<footer class="footer" *transloco="let t">
   <div class="footer__inner">
     <!-- Brand -->
     <div class="footer__brand">
-      <span class="footer__logo">Mimacramé</span>
-      <p class="footer__tagline">{{ t('tagline') }}</p>
+      <span class="footer__logo">
+        <span class="footer__logo-text">Mimacramé</span>
+        <span class="footer__logo-sub">Studio</span>
+      </span>
+      <p class="footer__tagline">{{ t('footer.tagline') }}</p>
       <a
         class="footer__instagram"
         href="https://www.instagram.com/mima.crame.estudio?igsh=ejhmdmJ1aXVkNmQ3"
         target="_blank"
         rel="noopener"
-        [attr.aria-label]="t('instagram')"
+        [attr.aria-label]="t('footer.instagram')"
       >
         <svg
           viewBox="0 0 24 24"
@@ -29,15 +32,15 @@
 
     <!-- Links -->
     <nav class="footer__links" aria-label="Enlaces del pie de página">
-      <a class="footer__link" routerLink="/catalogue">{{ t('links.collection') }}</a>
-      <a class="footer__link" routerLink="/">{{ t('links.shipping') }}</a>
-      <a class="footer__link" routerLink="/">{{ t('links.care') }}</a>
-      <a class="footer__link" routerLink="/">{{ t('links.privacy') }}</a>
-      <a class="footer__link" routerLink="/">{{ t('links.contact') }}</a>
+      <a class="footer__link" routerLink="/catalogue">{{ t('footer.links.collection') }}</a>
+      <a class="footer__link" routerLink="/">{{ t('footer.links.shipping') }}</a>
+      <a class="footer__link" routerLink="/">{{ t('footer.links.care') }}</a>
+      <a class="footer__link" routerLink="/">{{ t('footer.links.privacy') }}</a>
+      <a class="footer__link" routerLink="/">{{ t('footer.links.contact') }}</a>
     </nav>
   </div>
 
   <div class="footer__bottom">
-    <p class="footer__copy">&copy; {{ currentYear }} {{ t('copy') }}</p>
+    <p class="footer__copy">&copy; {{ currentYear }} {{ t('footer.copy') }}</p>
   </div>
 </footer>
