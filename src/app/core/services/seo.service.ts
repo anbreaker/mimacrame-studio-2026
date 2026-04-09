@@ -1,7 +1,7 @@
-import { inject, Injectable } from '@angular/core';
+import { effect, inject, Injectable } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { Meta, Title } from '@angular/platform-browser';
-import { filter } from 'rxjs';
-import { TranslocoEvents, TranslocoService } from '@jsverse/transloco';
+import { TranslocoService } from '@jsverse/transloco';
 
 /** Use titleKey/descriptionKey for i18n pages (reactive to language changes).
  *  Use title/description for dynamic DB content (product name, etc.). */
@@ -14,7 +14,6 @@ export interface SeoConfig {
 }
 
 const BASE_TITLE = 'Mimacramé Studio';
-const TRANSLATION_LOAD_SUCCESS = 'translationLoadSuccess';
 const DEFAULT_TITLE_KEY = 'seo.homeTitle';
 const DEFAULT_DESCRIPTION_KEY = 'seo.homeDescription';
 
@@ -30,20 +29,22 @@ export class SeoService {
   private readonly titleService = inject(Title);
   private readonly transloco = inject(TranslocoService);
 
+  private readonly _activeLang = toSignal(this.transloco.langChanges$, {
+    initialValue: this.transloco.getActiveLang(),
+  });
+
   private currentConfig: SeoConfig | null = null;
 
   constructor() {
-    this.transloco.events$
-      .pipe(filter((event: TranslocoEvents) => event.type === TRANSLATION_LOAD_SUCCESS))
-      .subscribe(() => {
-        const lang = this.transloco.getActiveLang();
-        document.documentElement.lang = lang;
-        this.meta.updateTag({ content: LOCALE_MAP[lang] ?? lang, property: 'og:locale' });
+    effect(() => {
+      const lang = this._activeLang();
+      document.documentElement.lang = lang;
+      this.meta.updateTag({ content: LOCALE_MAP[lang] ?? lang, property: 'og:locale' });
 
-        if (this.currentConfig) {
-          this.applyConfig(this.currentConfig);
-        }
-      });
+      if (this.currentConfig) {
+        this.applyConfig(this.currentConfig);
+      }
+    });
   }
 
   private applyConfig(config: SeoConfig): void {

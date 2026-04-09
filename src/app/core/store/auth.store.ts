@@ -1,5 +1,5 @@
 import { computed, effect, inject, Injectable, signal, untracked } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 
 import { AppUser } from '@core/interfaces/user.interface';
@@ -23,25 +23,32 @@ export class AuthStore {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
 
+  private readonly _authReady = signal(false);
   private readonly _errorKey = signal<string | null>(initialState.error);
   private readonly _isCheckingAdmin = signal(false);
   private readonly _isLoading = signal(initialState.isLoading);
-  private readonly _user = signal<AppUser | null>(initialState.user);
+  private readonly _currentUser = toSignal(this.authService.currentUser$);
 
-  readonly displayName = computed(() => this._user()?.displayName ?? this._user()?.email ?? null);
-  readonly isAdmin = computed(() => this._user()?.isAdmin ?? false);
-  readonly isLoggedIn = computed(() => this._user() !== null);
+  readonly user = computed(() => this._currentUser() ?? null);
+  readonly displayName = computed(() => this.user()?.displayName ?? this.user()?.email ?? null);
+  readonly isAdmin = computed(() => this.user()?.isAdmin ?? false);
+  readonly isLoggedIn = computed(() => this._currentUser() !== null);
 
   readonly errorKey = this._errorKey.asReadonly();
   readonly isLoading = this._isLoading.asReadonly();
-  readonly user = this._user.asReadonly();
 
   constructor() {
-    this.authService.currentUser$.pipe(takeUntilDestroyed()).subscribe((user) => {
-      this._user.set(user);
-      this._isLoading.set(false);
+    // Set isLoading false once Firebase auth state is known (first emission only)
+    effect(() => {
+      if (this._currentUser() !== undefined && !this._authReady()) {
+        untracked(() => {
+          this._authReady.set(true);
+          this._isLoading.set(false);
+        });
+      }
     });
 
+    // Admin check effect (unchanged — logout() MUST stay as subscribe: called inside effect)
     effect(() => {
       const user = this.user();
       const isChecking = this._isCheckingAdmin();
