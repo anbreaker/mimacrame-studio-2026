@@ -129,8 +129,9 @@
       color: aliceblue;
 
       &:hover {
-        background-color: rgba(255, 255, 255, 0.1);
-        border-color: aliceblue;
+        background-color: rgb(from var(--color-primary) r g b / 4%);
+        border-color: var(--color-primary);
+        color: var(--color-primary);
 
         @media (prefers-reduced-motion: no-preference) {
           transform: translateY(-0.125rem);
