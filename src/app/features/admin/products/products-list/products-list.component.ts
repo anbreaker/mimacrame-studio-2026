@@ -88,6 +88,10 @@ export class ProductsListComponent {
     }
   }
 
+  protected onSearch(event: Event): void {
+    this.searchQuery.set((event.target as HTMLInputElement).value);
+  }
+
   protected requestDelete(productId: string): void {
     this.confirmDeleteId.set(productId);
   }

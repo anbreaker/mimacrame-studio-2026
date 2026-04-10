@@ -27,7 +27,7 @@
           type="search"
           [placeholder]="t('admin.products.search')"
           [value]="searchQuery()"
-          (input)="searchQuery.set($any($event.target).value)"
+          (input)="onSearch($event)"
         />
       </div>
 

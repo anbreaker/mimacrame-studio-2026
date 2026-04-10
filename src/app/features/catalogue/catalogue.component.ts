@@ -46,8 +46,8 @@ export class CatalogueComponent implements OnInit {
     this.store.clearFilters();
   }
 
-  protected onSearch(query: string): void {
-    this.localSearchQuery.set(query);
+  protected onSearch(event: Event): void {
+    this.localSearchQuery.set((event.target as HTMLInputElement).value);
   }
 
   protected selectCategory(category: ProductCategory | null): void {
