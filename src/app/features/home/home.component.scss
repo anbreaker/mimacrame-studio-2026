@@ -291,7 +291,18 @@
 
 .editorial {
   align-items: center;
-  background: linear-gradient(135deg, #1a2d42 0%, var(--color-background) 100%);
+  background:
+    radial-gradient(
+      ellipse at 20% 80%,
+      rgb(from var(--color-primary) r g b / 12%) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse at 80% 20%,
+      rgb(from var(--color-accent) r g b / 8%) 0%,
+      transparent 50%
+    ),
+    linear-gradient(135deg, var(--color-surface) 0%, var(--color-background) 100%);
   display: flex;
   justify-content: center;
   min-height: 22.5rem;
@@ -299,15 +310,54 @@
   padding: var(--space-3xl) var(--space-md);
   position: relative;
 
-  &::before {
-    background: radial-gradient(
-      ellipse at center,
-      rgb(from var(--color-primary) r g b / 15%) 0%,
-      transparent 70%
-    );
-    content: '';
-    inset: 0;
+  &__knot {
+    pointer-events: none;
     position: absolute;
+
+    &--1 {
+      bottom: -1rem;
+      color: var(--color-primary);
+      height: 10rem;
+      left: -2rem;
+      opacity: 0.12;
+      width: 10rem;
+
+      @media (prefers-reduced-motion: no-preference) {
+        animation: float-up 9s ease-in-out infinite;
+      }
+
+      @media (min-width: 768px) {
+        bottom: 1rem;
+        left: 2rem;
+      }
+    }
+
+    &--2 {
+      color: var(--color-accent);
+      height: 7rem;
+      opacity: 0.1;
+      right: 5%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 7rem;
+
+      @media (prefers-reduced-motion: no-preference) {
+        animation: float-down 7s ease-in-out 1s infinite;
+      }
+    }
+
+    &--3 {
+      color: var(--color-primary);
+      height: 4rem;
+      opacity: 0.08;
+      right: 20%;
+      top: 10%;
+      width: 4rem;
+
+      @media (prefers-reduced-motion: no-preference) {
+        animation: float-up 11s ease-in-out 2s infinite;
+      }
+    }
   }
 
   &__content {
@@ -317,6 +367,7 @@
     gap: var(--space-xl);
     position: relative;
     text-align: center;
+    z-index: 1;
   }
 
   &__quote {
@@ -333,7 +384,13 @@
 }
 
 .process {
-  background-color: var(--color-background);
+  background:
+    radial-gradient(
+      ellipse at 50% 100%,
+      rgb(from var(--color-accent) r g b / 6%) 0%,
+      transparent 60%
+    ),
+    var(--color-background);
   padding: var(--space-3xl) var(--space-md);
 
   &__inner {

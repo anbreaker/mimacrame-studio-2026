@@ -39,7 +39,7 @@
     </div>
 
     <div class="process__steps">
-      <div class="process__step">
+      <div class="process__step" appReveal [revealDelay]="0">
         <div class="process__step-header">
           <span class="process__number">01</span>
           <div class="process__icon">
@@ -67,7 +67,7 @@
           {{ t('home.process.step1.text') }}
         </p>
       </div>
-      <div class="process__step">
+      <div class="process__step" appReveal [revealDelay]="150">
         <div class="process__step-header">
           <span class="process__number">02</span>
           <div class="process__icon">
@@ -95,7 +95,7 @@
           {{ t('home.process.step2.text') }}
         </p>
       </div>
-      <div class="process__step">
+      <div class="process__step" appReveal [revealDelay]="300">
         <div class="process__step-header">
           <span class="process__number">03</span>
           <div class="process__icon">
@@ -127,6 +127,17 @@
 
 <!-- Editorial / Look del momento -->
 <section class="editorial">
+  <svg class="editorial__knot editorial__knot--1" viewBox="0 0 80 80" aria-hidden="true">
+    <path d="M40 4 L76 40 L40 76 L4 40 Z" fill="none" stroke="currentColor" stroke-width="1" />
+    <path d="M40 18 L62 40 L40 62 L18 40 Z" fill="none" stroke="currentColor" stroke-width="1.5" />
+  </svg>
+  <svg class="editorial__knot editorial__knot--2" viewBox="0 0 60 60" aria-hidden="true">
+    <path d="M30 3 L57 30 L30 57 L3 30 Z" fill="none" stroke="currentColor" stroke-width="1" />
+    <path d="M30 15 L45 30 L30 45 L15 30 Z" fill="none" stroke="currentColor" stroke-width="1.5" />
+  </svg>
+  <svg class="editorial__knot editorial__knot--3" viewBox="0 0 40 40" aria-hidden="true">
+    <path d="M20 2 L38 20 L20 38 L2 20 Z" fill="none" stroke="currentColor" stroke-width="1.5" />
+  </svg>
   <div class="editorial__content" *transloco="let t">
     <p class="editorial__quote" [innerHTML]="t('home.editorial.quote')"></p>
     <a
@@ -144,9 +155,11 @@
   <div class="categories__inner" *transloco="let t">
     <h2 class="section-title">{{ t('home.categories.title') }}</h2>
     <div class="categories__grid">
-      @for (cat of categories; track cat.key) {
+      @for (cat of categories; track cat.key; let i = $index) {
         <a
           class="category-card"
+          appReveal
+          [revealDelay]="i * 80"
           [routerLink]="['/' + routes.CATALOGUE]"
           [queryParams]="{ category: cat.key }"
         >

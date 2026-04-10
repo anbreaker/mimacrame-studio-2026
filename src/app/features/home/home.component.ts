@@ -7,6 +7,7 @@ import { ROUTES } from '@core/const/routes';
 import { SeoService } from '@core/services/seo.service';
 import { CatalogueStore } from '@core/store/catalogue.store';
 import { OurWorkComponent } from '@features/home/our-work/our-work.component';
+import { RevealDirective } from '@shared/directives/reveal.directive';
 import { ProductCardComponent } from '@shared/product-card/product-card.component';
 
 const CATEGORY_ITEMS = [
@@ -20,7 +21,7 @@ const CATEGORY_ITEMS = [
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [OurWorkComponent, ProductCardComponent, RouterLink, TranslocoDirective],
+  imports: [OurWorkComponent, ProductCardComponent, RevealDirective, RouterLink, TranslocoDirective],
   selector: 'app-home',
   standalone: true,
   styleUrl: './home.component.scss',
