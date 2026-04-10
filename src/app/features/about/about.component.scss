@@ -23,7 +23,11 @@
   &::after {
     background:
       linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
-      radial-gradient(ellipse at 30% 70%, rgb(from var(--color-primary) r g b / 18%) 0%, transparent 60%);
+      radial-gradient(
+        ellipse at 30% 70%,
+        rgb(from var(--color-primary) r g b / 18%) 0%,
+        transparent 60%
+      );
     content: '';
     inset: 0;
     pointer-events: none;
@@ -141,7 +145,11 @@
 
 .about-values {
   background:
-    radial-gradient(ellipse at 50% 50%, rgb(from var(--color-primary) r g b / 6%) 0%, transparent 65%),
+    radial-gradient(
+      ellipse at 50% 50%,
+      rgb(from var(--color-primary) r g b / 6%) 0%,
+      transparent 65%
+    ),
     var(--color-surface);
   padding: 0 var(--space-md);
   position: relative;
@@ -245,25 +253,27 @@
   }
 }
 
-@keyframes float-up {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-14px) rotate(4deg); }
-}
-
-@keyframes float-down {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(10px) rotate(-3deg); }
-}
-
 @keyframes shimmer {
-  0% { left: -100%; }
-  100% { left: 200%; }
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 200%;
+  }
 }
 
 .about-cta {
   background:
-    radial-gradient(ellipse at 20% 80%, rgb(from var(--color-primary) r g b / 12%) 0%, transparent 55%),
-    radial-gradient(ellipse at 80% 20%, rgb(from var(--color-accent) r g b / 8%) 0%, transparent 50%),
+    radial-gradient(
+      ellipse at 20% 80%,
+      rgb(from var(--color-primary) r g b / 12%) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse at 80% 20%,
+      rgb(from var(--color-accent) r g b / 8%) 0%,
+      transparent 50%
+    ),
     var(--color-background);
   overflow: hidden;
   padding: clamp(var(--space-3xl), 15svh, 8rem) var(--space-md);
@@ -285,6 +295,11 @@
 
       @media (prefers-reduced-motion: no-preference) {
         animation: float-up 9s ease-in-out infinite;
+      }
+
+      @media (min-width: 768px) {
+        bottom: 1rem;
+        left: 2rem;
       }
     }
 
@@ -334,11 +349,6 @@
     font-size: var(--font-size-xl);
     font-style: italic;
     line-height: var(--line-height-base);
-    opacity: 0;
-    transform: translateY(1.5rem);
-    transition:
-      opacity 0.7s ease,
-      transform 0.7s ease;
 
     @media (min-width: 768px) {
       font-size: var(--font-size-2xl);
@@ -346,13 +356,8 @@
   }
 
   &__btn {
-    opacity: 0;
     overflow: hidden;
     position: relative;
-    transform: translateY(1.5rem);
-    transition:
-      opacity 0.7s ease 0.2s,
-      transform 0.7s ease 0.2s;
 
     &::after {
       background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), transparent);
@@ -368,14 +373,6 @@
       &::after {
         animation: shimmer 3s ease-in-out 2s infinite;
       }
-    }
-  }
-
-  &.is-visible {
-    .about-cta__text,
-    .about-cta__btn {
-      opacity: 1;
-      transform: translateY(0);
     }
   }
 }
