@@ -1,4 +1,5 @@
 export const ROUTES = {
+  ABOUT: 'about',
   ACCOUNT: 'account',
   ACCOUNT_ORDERS: 'account/orders',
   ACCOUNT_PROFILE: 'account/profile',

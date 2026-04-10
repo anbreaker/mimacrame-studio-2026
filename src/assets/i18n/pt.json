@@ -474,7 +474,43 @@
     },
     "viewImage": "Ver imagem {{ index }}"
   },
+  "about": {
+    "bio": {
+      "eyebrow": "A artesã",
+      "paragraph": "Por trás de cada peça há horas de dedicação, fio a fio, nó a nó. O meu nome é Mi, e desde Badajoz crio joalharia artesanal de macramé com a intenção de que cada design conte uma história. Começou como um hobby e tornou-se a minha forma de ver o mundo: lenta, cuidadosa e cheia de significado.",
+      "title": "Uma história tecida à mão"
+    },
+    "cta": {
+      "label": "Explorar a coleção",
+      "text": "Cada peça está à espera de encontrar a sua história. Qual será a sua?"
+    },
+    "hero": {
+      "eyebrow": "A artesã por trás de cada peça",
+      "subtitle": "Desde Badajoz, com fio de algodão e seda natural, crio peças únicas feitas à mão que perduram no tempo.",
+      "title": "Feita com",
+      "titleHighlight": "amor e paciência"
+    },
+    "values": {
+      "items": {
+        "craft": {
+          "text": "Cada nó é feito à mão, um a um. Sem atalhos, sem máquinas. Apenas tempo, técnica e dedicação.",
+          "title": "Artesanato puro"
+        },
+        "materials": {
+          "text": "Trabalhamos com fio de algodão encerado e seda natural. Materiais que se sentem bem na pele e duram anos.",
+          "title": "Materiais naturais"
+        },
+        "story": {
+          "text": "Não vendemos acessórios, criamos memórias. Peças que acompanham momentos e se tornam parte da sua história.",
+          "title": "Cada peça, uma história"
+        }
+      },
+      "title": "A nossa filosofia"
+    }
+  },
   "seo": {
+    "aboutDescription": "Conheça a história do Mimacramé Studio. Joalharia artesanal de macramé feita à mão em Badajoz com fio de algodão e seda natural.",
+    "aboutTitle": "A Nossa História — Mimacramé Studio",
     "catalogueDescription": "Explore nossa coleção de joalharia artesanal de macramé.",
     "catalogueTitle": "Coleção",
     "homeDescription": "Joalharia artesanal de macramé feita em Badajoz. Pulseiras, pingentes, brincos, tornozeleiras e conjuntos únicos.",

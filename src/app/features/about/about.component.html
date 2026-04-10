@@ -1,0 +1,69 @@
+<!-- Hero -->
+<section class="about-hero" *transloco="let t">
+  <div class="about-hero__content">
+    <p class="about-hero__eyebrow">{{ t('about.hero.eyebrow') }}</p>
+    <h1 class="about-hero__title">
+      {{ t('about.hero.title') }}<br />
+      <span class="about-hero__title-highlight">{{ t('about.hero.titleHighlight') }}</span>
+    </h1>
+    <p class="about-hero__subtitle">{{ t('about.hero.subtitle') }}</p>
+  </div>
+</section>
+
+<!-- Bio -->
+<section class="about-bio" *transloco="let t">
+  <div class="about-bio__inner">
+    <div class="about-bio__image-wrapper" aria-hidden="true">
+      <div class="about-bio__image-placeholder"></div>
+    </div>
+    <div class="about-bio__text">
+      <p class="about-bio__eyebrow">{{ t('about.bio.eyebrow') }}</p>
+      <h2 class="about-bio__title">{{ t('about.bio.title') }}</h2>
+      <p class="about-bio__paragraph">{{ t('about.bio.text') }}</p>
+    </div>
+  </div>
+</section>
+
+<!-- Valores -->
+<section class="about-values" *transloco="let t">
+  <div class="about-values__inner">
+    <h2 class="section-title">{{ t('about.values.title') }}</h2>
+    <div class="about-values__grid">
+      @for (value of values; track value) {
+        <div class="about-values__item">
+          <div class="about-values__icon">
+            @switch (value) {
+              @case ('craft') {
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="24" height="24">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                </svg>
+              }
+              @case ('materials') {
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="24" height="24">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg>
+              }
+              @case ('story') {
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="24" height="24">
+                  <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
+                </svg>
+              }
+            }
+          </div>
+          <h3 class="about-values__item-title">{{ t('about.values.items.' + value + '.title') }}</h3>
+          <p class="about-values__item-text">{{ t('about.values.items.' + value + '.text') }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="about-cta" *transloco="let t">
+  <div class="about-cta__inner">
+    <p class="about-cta__text">{{ t('about.cta.text') }}</p>
+    <a class="btn btn--primary" [routerLink]="['/' + routes.CATALOGUE]">
+      {{ t('about.cta.label') }}
+    </a>
+  </div>
+</section>

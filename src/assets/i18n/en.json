@@ -474,7 +474,43 @@
     },
     "viewImage": "View image {{ index }}"
   },
+  "about": {
+    "bio": {
+      "eyebrow": "The artisan",
+      "paragraph": "Behind every piece are hours of dedication, thread by thread, knot by knot. My name is Mi, and from Badajoz I create handcrafted macramé jewelry with the intention that each design tells a story. It started as a hobby and became my way of seeing the world: slow, careful and full of meaning.",
+      "title": "A story woven by hand"
+    },
+    "cta": {
+      "label": "Explore the collection",
+      "text": "Each piece is waiting to find its story. Which one will be yours?"
+    },
+    "hero": {
+      "eyebrow": "The artisan behind every piece",
+      "subtitle": "From Badajoz, with cotton and natural silk thread, I create unique handmade pieces that stand the test of time.",
+      "title": "Made with",
+      "titleHighlight": "love and patience"
+    },
+    "values": {
+      "items": {
+        "craft": {
+          "text": "Every knot is made by hand, one by one. No shortcuts, no machines. Just time, technique and dedication.",
+          "title": "Pure craftsmanship"
+        },
+        "materials": {
+          "text": "We work with waxed cotton thread and natural silk. Materials that feel good on the skin and last for years.",
+          "title": "Natural materials"
+        },
+        "story": {
+          "text": "We don't sell accessories, we create memories. Pieces that accompany moments and become part of your story.",
+          "title": "Every piece, a story"
+        }
+      },
+      "title": "Our philosophy"
+    }
+  },
   "seo": {
+    "aboutDescription": "Discover the story behind Mimacramé Studio. Handcrafted macramé jewelry made in Badajoz with cotton and natural silk thread.",
+    "aboutTitle": "Our Story — Mimacramé Studio",
     "catalogueDescription": "Explore our collection of handcrafted macramé jewelry.",
     "catalogueTitle": "Collection",
     "homeDescription": "Handcrafted macramé jewelry made in Badajoz. Bracelets, pendants, earrings, anklets and unique sets.",

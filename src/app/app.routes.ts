@@ -20,6 +20,10 @@ const publicRoutes: Routes = [
     path: ROUTES.PRODUCT_ID,
   },
   {
+    loadComponent: async () => (await import('./features/about/about.component')).AboutComponent,
+    path: ROUTES.ABOUT,
+  },
+  {
     loadComponent: async () => (await import('./features/cart/cart.component')).CartComponent,
     path: ROUTES.CART,
   },

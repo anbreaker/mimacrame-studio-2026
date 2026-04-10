@@ -474,7 +474,43 @@
     },
     "viewImage": "Ver imagen {{ index }}"
   },
+  "about": {
+    "bio": {
+      "eyebrow": "La artesana",
+      "paragraph": "Detrás de cada pieza hay horas de dedicación, hilo a hilo, nudo a nudo. Mi nombre es Mi, y desde Badajoz creo joyería artesanal de macramé con la intención de que cada diseño cuente una historia. Empecé como un hobby y se convirtió en mi forma de ver el mundo: lenta, cuidadosa y llena de significado.",
+      "title": "Una historia tejida a mano"
+    },
+    "cta": {
+      "label": "Explorar la colección",
+      "text": "Cada pieza está esperando a encontrar su historia. ¿Cuál será la tuya?"
+    },
+    "hero": {
+      "eyebrow": "La artesana detrás de cada pieza",
+      "subtitle": "Desde Badajoz, con hilo de algodón y seda natural, creo piezas únicas hechas a mano que perduran en el tiempo.",
+      "title": "Hecha con",
+      "titleHighlight": "amor y paciencia"
+    },
+    "values": {
+      "items": {
+        "craft": {
+          "text": "Cada nudo se hace a mano, uno a uno. No hay atajos, no hay máquinas. Solo tiempo, técnica y dedicación.",
+          "title": "Artesanía pura"
+        },
+        "materials": {
+          "text": "Trabajamos con hilo de algodón encerado y seda natural. Materiales que se sienten bien en la piel y duran años.",
+          "title": "Materiales naturales"
+        },
+        "story": {
+          "text": "No vendemos accesorios, creamos recuerdos. Piezas que acompañan momentos y se convierten en parte de tu historia.",
+          "title": "Cada pieza, una historia"
+        }
+      },
+      "title": "Nuestra filosofía"
+    }
+  },
   "seo": {
+    "aboutDescription": "Conoce la historia de Mimacramé Studio. Joyería artesanal de macramé hecha a mano en Badajoz con hilo de algodón y seda natural.",
+    "aboutTitle": "Nuestra Historia — Mimacramé Studio",
     "catalogueDescription": "Explora nuestra colección de joyería artesanal de macramé.",
     "catalogueTitle": "Colección",
     "homeDescription": "Joyería artesanal de macramé hecha a mano en Badajoz. Pulseras, colgantes, pendientes, tobilleras y conjuntos únicos.",
