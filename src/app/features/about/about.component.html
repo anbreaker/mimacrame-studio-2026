@@ -19,7 +19,11 @@
     <div class="about-bio__text">
       <p class="about-bio__eyebrow">{{ t('about.bio.eyebrow') }}</p>
       <h2 class="about-bio__title">{{ t('about.bio.title') }}</h2>
-      <p class="about-bio__paragraph">{{ t('about.bio.text') }}</p>
+      <p class="about-bio__paragraph">{{ t('about.bio.p1') }}</p>
+      <p class="about-bio__paragraph">{{ t('about.bio.p2') }}</p>
+      <p class="about-bio__paragraph">{{ t('about.bio.p3') }}</p>
+      <p class="about-bio__paragraph">{{ t('about.bio.p4') }}</p>
+      <p class="about-bio__paragraph">{{ t('about.bio.p5') }}</p>
     </div>
   </div>
 </section>
@@ -27,7 +31,14 @@
 <!-- Valores -->
 <section class="about-values" *transloco="let t">
   <div class="about-values__inner">
-    <h2 class="section-title">{{ t('about.values.title') }}</h2>
+    <div class="about-values__header">
+      <h2 class="about-values__title">{{ t('about.values.title') }}</h2>
+      <svg class="about-values__ornament" viewBox="0 0 160 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <line x1="0" y1="10" x2="62" y2="10" stroke="currentColor" stroke-width="1" stroke-opacity="0.4"/>
+        <path d="M80 2 L94 10 L80 18 L66 10 Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        <line x1="98" y1="10" x2="160" y2="10" stroke="currentColor" stroke-width="1" stroke-opacity="0.4"/>
+      </svg>
+    </div>
     <div class="about-values__grid">
       @for (value of values; track value) {
         <div class="about-values__item">
@@ -59,10 +70,23 @@
 </section>
 
 <!-- CTA -->
-<section class="about-cta" *transloco="let t">
+<section class="about-cta" #ctaSection [class.is-visible]="ctaVisible()" *transloco="let t">
+  <!-- Knots decorativos -->
+  <svg class="about-cta__knot about-cta__knot--1" viewBox="0 0 80 80" aria-hidden="true">
+    <path d="M40 4 L76 40 L40 76 L4 40 Z" fill="none" stroke="currentColor" stroke-width="1"/>
+    <path d="M40 18 L62 40 L40 62 L18 40 Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  </svg>
+  <svg class="about-cta__knot about-cta__knot--2" viewBox="0 0 60 60" aria-hidden="true">
+    <path d="M30 3 L57 30 L30 57 L3 30 Z" fill="none" stroke="currentColor" stroke-width="1"/>
+    <path d="M30 15 L45 30 L30 45 L15 30 Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  </svg>
+  <svg class="about-cta__knot about-cta__knot--3" viewBox="0 0 40 40" aria-hidden="true">
+    <path d="M20 2 L38 20 L20 38 L2 20 Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  </svg>
+
   <div class="about-cta__inner">
     <p class="about-cta__text">{{ t('about.cta.text') }}</p>
-    <a class="btn btn--primary" [routerLink]="['/' + routes.CATALOGUE]">
+    <a class="btn btn--primary about-cta__btn" [routerLink]="['/' + routes.CATALOGUE]">
       {{ t('about.cta.label') }}
     </a>
   </div>
