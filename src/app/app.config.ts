@@ -43,8 +43,12 @@ export const appConfig: ApplicationConfig = {
     }),
     provideRouter(
       routes,
-      withViewTransitions(),
-      withInMemoryScrolling({ scrollPositionRestoration: 'top' })
+      withViewTransitions({
+        onViewTransitionCreated: ({ transition }) => {
+          transition.ready.then(() => window.scrollTo({ behavior: 'instant', top: 0 }));
+        },
+      }),
+      withInMemoryScrolling({ scrollPositionRestoration: 'disabled' })
     ),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
