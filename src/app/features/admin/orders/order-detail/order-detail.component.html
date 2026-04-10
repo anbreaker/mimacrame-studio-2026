@@ -1,0 +1,162 @@
+<div class="admin-layout" *transloco="let t">
+  <app-admin-nav />
+  <main class="admin-main">
+    <div class="admin-main__inner">
+
+      @if (isLoading()) {
+        <div class="order-detail-skeleton">
+          <div class="order-detail-skeleton__header"></div>
+          <div class="order-detail-skeleton__card"></div>
+          <div class="order-detail-skeleton__card"></div>
+          <div class="order-detail-skeleton__card"></div>
+        </div>
+      } @else if (!order()) {
+        <p class="admin-empty">{{ t('admin.orders.detail.notFound') }}</p>
+      } @else {
+        <!-- Back + header -->
+        <div class="order-detail__topbar">
+          <a class="order-detail__back" [routerLink]="['/' + routes.ADMIN_ORDERS]">
+            {{ t('admin.orders.detail.back') }}
+          </a>
+          <div class="order-detail__heading">
+            <h1 class="admin-page-title">{{ orderRef() }}</h1>
+            <span class="status-chip" [attr.data-status]="order()!.status">
+              {{ t('admin.orders.statuses.' + order()!.status) }}
+            </span>
+          </div>
+        </div>
+
+        <div class="order-detail__grid">
+
+          <!-- Customer -->
+          <div class="detail-card">
+            <h2 class="detail-card__title">{{ t('admin.orders.detail.customer') }}</h2>
+            <dl class="detail-dl">
+              <dt>Email</dt>
+              <dd>{{ order()!.customerEmail }}</dd>
+              @if (order()!.userId) {
+                <dt>UID</dt>
+                <dd class="detail-dl__mono">{{ order()!.userId }}</dd>
+              }
+            </dl>
+          </div>
+
+          <!-- Dates -->
+          <div class="detail-card">
+            <h2 class="detail-card__title">{{ t('admin.orders.detail.dates') }}</h2>
+            <dl class="detail-dl">
+              <dt>{{ t('admin.orders.detail.created') }}</dt>
+              <dd>{{ toDate(order()!.createdAt) | date: 'dd/MM/yyyy HH:mm' }}</dd>
+              <dt>{{ t('admin.orders.detail.updated') }}</dt>
+              <dd>{{ toDate(order()!.updatedAt) | date: 'dd/MM/yyyy HH:mm' }}</dd>
+            </dl>
+          </div>
+
+          <!-- Payment -->
+          <div class="detail-card">
+            <h2 class="detail-card__title">{{ t('admin.orders.detail.payment') }}</h2>
+            <dl class="detail-dl">
+              <dt>Stripe PI</dt>
+              <dd class="detail-dl__mono">{{ order()!.stripePaymentIntentId }}</dd>
+            </dl>
+            <a
+              class="detail-card__link"
+              href="https://dashboard.stripe.com/payments/{{ order()!.stripePaymentIntentId }}"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {{ t('admin.orders.detail.viewStripe') }}
+            </a>
+          </div>
+
+          <!-- Shipping address -->
+          <div class="detail-card">
+            <h2 class="detail-card__title">{{ t('admin.orders.detail.shipping') }}</h2>
+            <address class="detail-address">
+              <strong>{{ order()!.shippingAddress.fullName }}</strong>
+              <span>{{ order()!.shippingAddress.street }}</span>
+              <span>
+                {{ order()!.shippingAddress.postalCode }} {{ order()!.shippingAddress.city }},
+                {{ order()!.shippingAddress.province }}
+              </span>
+              <span>{{ order()!.shippingAddress.country }}</span>
+              <span>{{ order()!.shippingAddress.phone }}</span>
+            </address>
+          </div>
+
+          <!-- Items -->
+          <div class="detail-card detail-card--full">
+            <h2 class="detail-card__title">{{ t('admin.orders.detail.items') }}</h2>
+            <ul class="detail-items">
+              @for (item of order()!.items; track item.product.id) {
+                <li class="detail-item">
+                  <img
+                    class="detail-item__img"
+                    [src]="item.product.images[0] || 'assets/images/placeholder-product.jpg'"
+                    [alt]="item.product.name.es"
+                  />
+                  <span class="detail-item__name">{{ item.product.name.es }}</span>
+                  <span class="detail-item__qty">× {{ item.quantity }}</span>
+                  <span class="detail-item__price">
+                    {{ item.product.price * item.quantity | currency: 'EUR' : 'symbol' : '1.2-2' : 'es' }}
+                  </span>
+                </li>
+              }
+            </ul>
+            <div class="detail-total">
+              <span>Total</span>
+              <span>{{ order()!.total | currency: 'EUR' : 'symbol' : '1.2-2' : 'es' }}</span>
+            </div>
+          </div>
+
+          <!-- Status management -->
+          <div class="detail-card detail-card--full">
+            <h2 class="detail-card__title">{{ t('admin.orders.changeStatus') }}</h2>
+            <div class="admin-dropdown" [class.admin-dropdown--open]="openStatusDropdown()">
+              @if (openStatusDropdown()) {
+                <div class="admin-dropdown__backdrop" (click)="openStatusDropdown.set(false)"></div>
+              }
+              <button
+                type="button"
+                class="admin-dropdown__trigger"
+                (click)="openStatusDropdown.update(v => !v)"
+              >
+                <span>
+                  {{ statusEmoji[order()!.status] }}
+                  {{ t('admin.orders.statuses.' + order()!.status) }}
+                </span>
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  width="14"
+                  height="14"
+                  class="admin-dropdown__chevron"
+                >
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
+              </button>
+              @if (openStatusDropdown()) {
+                <ul class="admin-dropdown__menu" role="listbox">
+                  @for (status of statusKeys; track status) {
+                    <li
+                      class="admin-dropdown__option"
+                      [class.admin-dropdown__option--selected]="order()!.status === status"
+                      role="option"
+                      (click)="selectStatus(order()!.id, status)"
+                    >
+                      {{ statusEmoji[status] }} {{ t('admin.orders.statuses.' + status) }}
+                    </li>
+                  }
+                </ul>
+              }
+            </div>
+          </div>
+
+        </div>
+      }
+
+    </div>
+  </main>
+</div>

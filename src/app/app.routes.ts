@@ -117,6 +117,12 @@ const adminRoutes: Routes = [
       },
       {
         loadComponent: async () =>
+          (await import('./features/admin/orders/order-detail/order-detail.component'))
+            .OrderDetailComponent,
+        path: 'orders/:id',
+      },
+      {
+        loadComponent: async () =>
           (await import('./features/admin/posts/posts-list/posts-list.component'))
             .PostsListComponent,
         path: 'posts',

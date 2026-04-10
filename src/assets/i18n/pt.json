@@ -146,7 +146,20 @@
         "refunded": "Reembolsado",
         "shipped": "Enviado"
       },
-      "title": "Pedidos"
+      "title": "Pedidos",
+      "detail": {
+        "back": "← Pedidos",
+        "customer": "Cliente",
+        "dates": "Datas",
+        "created": "Criado",
+        "updated": "Última atualização",
+        "items": "Artigos",
+        "notFound": "Pedido não encontrado.",
+        "payment": "Pagamento",
+        "shipping": "Endereço de entrega",
+        "viewStripe": "Ver no Stripe →"
+      },
+      "viewDetail": "Ver pedido"
     },
     "productForm": {
       "basicInfo": {

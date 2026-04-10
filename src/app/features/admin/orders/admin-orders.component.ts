@@ -1,6 +1,7 @@
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { RouterLink } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { TranslocoDirective } from '@jsverse/transloco';
 
@@ -13,7 +14,7 @@ type FilterStatus = OrderStatus | typeof FILTER_ALL;
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [AdminNavComponent, CurrencyPipe, DatePipe, TranslocoDirective],
+  imports: [AdminNavComponent, CurrencyPipe, DatePipe, RouterLink, TranslocoDirective],
   selector: 'app-admin-orders',
   standalone: true,
   styleUrl: './admin-orders.component.scss',

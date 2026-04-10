@@ -32,23 +32,46 @@
         <div class="orders-list">
           @for (order of filteredOrders(); track order.id) {
             <div class="order-card">
-              <div class="order-card__header" (click)="toggleExpand(order.id)">
-                <span class="order-card__ref">#{{ order.id.slice(0, 6).toUpperCase() }}</span>
-                <span class="order-card__total">
-                  {{ order.total | currency: 'EUR' : 'symbol' : '1.2-2' : 'es' }}
-                </span>
-                <span class="status-chip" [attr.data-status]="order.status">
-                  {{ t('admin.orders.statuses.' + order.status) }}
-                </span>
-                <span class="order-card__date">
-                  {{ toDate(order.createdAt) | date: 'dd/MM/yy' }}
-                </span>
-                <span
-                  class="order-card__chevron"
-                  [class.order-card__chevron--open]="expandedOrderId() === order.id"
+              <div class="order-card__header">
+                <!-- Col 1: expandable -->
+                <div class="order-card__main" (click)="toggleExpand(order.id)" role="button">
+                  <span class="order-card__ref">#{{ order.id.slice(0, 6).toUpperCase() }}</span>
+                  <span class="order-card__total">
+                    {{ order.total | currency: 'EUR' : 'symbol' : '1.2-2' : 'es' }}
+                  </span>
+                  <span class="status-chip" [attr.data-status]="order.status">
+                    {{ t('admin.orders.statuses.' + order.status) }}
+                  </span>
+                  <span class="order-card__date">
+                    {{ toDate(order.createdAt) | date: 'dd/MM/yy' }}
+                  </span>
+                  <span
+                    class="order-card__chevron"
+                    [class.order-card__chevron--open]="expandedOrderId() === order.id"
+                  >
+                    ↓
+                  </span>
+                </div>
+                <!-- Col 2: navigate to detail -->
+                <a
+                  class="order-card__nav-btn"
+                  [routerLink]="['/admin/orders', order.id]"
+                  aria-label="Ver detalle del pedido"
                 >
-                  ↓
-                </span>
+                  <span>{{ t('admin.orders.viewDetail') }}</span>
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    width="15"
+                    height="15"
+                  >
+                    <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
+                    <polyline points="15 3 21 3 21 9" />
+                    <line x1="10" y1="14" x2="21" y2="3" />
+                  </svg>
+                </a>
               </div>
 
               @if (expandedOrderId() === order.id) {

@@ -146,7 +146,20 @@
         "refunded": "Refunded",
         "shipped": "Shipped"
       },
-      "title": "Orders"
+      "title": "Orders",
+      "detail": {
+        "back": "← Orders",
+        "customer": "Customer",
+        "dates": "Dates",
+        "created": "Created",
+        "updated": "Last updated",
+        "items": "Items",
+        "notFound": "Order not found.",
+        "payment": "Payment",
+        "shipping": "Shipping address",
+        "viewStripe": "View in Stripe →"
+      },
+      "viewDetail": "View order"
     },
     "productForm": {
       "basicInfo": {
