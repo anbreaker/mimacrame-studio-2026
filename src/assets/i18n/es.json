@@ -366,7 +366,10 @@
     "forbidden": "No tienes permisos para realizar esta acción.",
     "network": "Sin conexión. Comprueba tu internet.",
     "notFound": "El recurso no se ha encontrado.",
-    "server": "Error del servidor. Inténtalo de nuevo."
+    "server": "Error del servidor. Inténtalo de nuevo.",
+    "emailInvalid": "El email no es válido.",
+    "emailRequired": "El email es obligatorio.",
+    "passwordRequired": "La contraseña es obligatoria."
   },
   "footer": {
     "copy": "Mimacramé Studio · Badajoz, Extremadura",
