@@ -284,8 +284,9 @@ export function buildContactAdminEmailHtml(data: {
   message: string;
   name: string;
   subject: string;
+  translatedMessage?: string;
 }): string {
-  const t = getContactTranslations(data.lang);
+  const t = getContactTranslations('es');
   const body = `
     <h1 style="margin:0 0 24px;font-family:Georgia,serif;font-size:22px;color:#f5efe8;">
       ${t.adminTitle(data.name)}
@@ -299,10 +300,19 @@ export function buildContactAdminEmailHtml(data: {
       <p style="margin:0 0 8px;font-size:13px;text-transform:uppercase;letter-spacing:1px;color:#9baab8;">${t.subjectLabel}</p>
       <p style="margin:0;font-size:15px;color:#f5efe8;">${data.subject}</p>
     </div>
-    <div style="background:#1c2e42;border-radius:6px;padding:20px;border-left:3px solid #ff6b3d;">
+    <div style="background:#1c2e42;border-radius:6px;padding:20px;border-left:3px solid #ff6b3d;${data.translatedMessage ? '' : ''}">
       <p style="margin:0 0 8px;font-size:13px;text-transform:uppercase;letter-spacing:1px;color:#9baab8;">${t.messageLabel}</p>
       <p style="margin:0;font-size:15px;color:#f5efe8;line-height:1.7;white-space:pre-wrap;">${data.message}</p>
     </div>
+    ${
+      data.translatedMessage
+        ? `
+    <div style="background:#1c2e42;border-radius:6px;padding:20px;margin-top:12px;border-left:3px solid #ffb830;">
+      <p style="margin:0 0 8px;font-size:12px;text-transform:uppercase;letter-spacing:1px;color:#9baab8;">Traducción automática (ES)</p>
+      <p style="margin:0;font-size:15px;color:#f5efe8;line-height:1.7;white-space:pre-wrap;">${data.translatedMessage}</p>
+    </div>`
+        : ''
+    }
   `;
   return buildEmailLayout(t.adminTitle(data.name), body, t.footer);
 }

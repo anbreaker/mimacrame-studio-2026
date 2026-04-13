@@ -7,6 +7,7 @@ import {
   buildContactConfirmEmailHtml,
   buildContactConfirmSubject,
 } from './email-templates';
+import { translateToSpanish } from './translate';
 
 const ALLOWED_ORIGIN = process.env['ALLOWED_ORIGIN'] ?? '*';
 const CORS_ALLOWED_HEADERS = 'Content-Type, Authorization';
@@ -94,20 +95,28 @@ export default async function handler(
   const adminEmail = process.env['ADMIN_EMAIL'] ?? '';
   const resend = getResend();
 
-  await Promise.all([
+  const translatedMessage = await translateToSpanish(message, lang);
+
+  const [adminResult, confirmResult] = await Promise.all([
     resend.emails.send({
-      from: 'Mimacrame Studio <noreply@mimacramestudio.com>',
-      html: buildContactAdminEmailHtml({ email, lang, message, name, subject }),
+      from: 'Mimacrame Studio <onboarding@resend.dev>',
+      html: buildContactAdminEmailHtml({ email, lang, message, name, subject, translatedMessage: translatedMessage ?? undefined }),
       subject: buildContactAdminSubject(name, lang),
       to: adminEmail,
     }),
     resend.emails.send({
-      from: 'Mimacrame Studio <noreply@mimacramestudio.com>',
+      from: 'Mimacrame Studio <onboarding@resend.dev>',
       html: buildContactConfirmEmailHtml({ lang, message, name, subject }),
       subject: buildContactConfirmSubject(lang),
       to: email,
     }),
   ]);
+
+  if (adminResult.error || confirmResult.error) {
+    console.error('[contact] Resend error:', adminResult.error ?? confirmResult.error);
+    httpResponse.status(500).json({ error: 'Failed to send email' });
+    return;
+  }
 
   httpResponse.status(200).json({ success: true });
 }

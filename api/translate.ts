@@ -22,6 +22,40 @@ function isValidTargetLang(value: unknown): value is TargetLang {
   return VALID_TARGET_LANGS.includes(value as TargetLang);
 }
 
+export async function translateToSpanish(
+  text: string,
+  lang: string | undefined
+): Promise<string | null> {
+  if (!lang || lang === 'es') return null;
+
+  const apiKey = process.env['DEEPL_API_KEY'];
+  if (!apiKey) return null;
+
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), DEEPL_TIMEOUT_MS);
+
+  try {
+    const response = await fetch(DEEPL_API_URL, {
+      body: JSON.stringify({ target_lang: 'ES', text: [text] }),
+      headers: {
+        Authorization: `DeepL-Auth-Key ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+      signal: controller.signal,
+    });
+
+    if (!response.ok) return null;
+
+    const data = (await response.json()) as DeepLResponse;
+    return data.translations[0]?.text ?? null;
+  } catch {
+    return null;
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
 export default async function handler(
   httpRequest: VercelRequest,
   httpResponse: VercelResponse
@@ -46,7 +80,7 @@ export default async function handler(
     return;
   }
 
-  const { text, targetLang } = httpRequest.body as { text: unknown; targetLang: unknown };
+  const { targetLang, text } = httpRequest.body as { text: unknown; targetLang: unknown };
 
   if (!text || typeof text !== 'string' || text.trim() === '') {
     httpResponse.status(400).json({ error: 'Missing or empty text' });
@@ -63,22 +97,24 @@ export default async function handler(
 
   try {
     const deeplResponse = await fetch(DEEPL_API_URL, {
-      method: 'POST',
+      body: JSON.stringify({
+        source_lang: 'ES',
+        target_lang: targetLang,
+        text: [text],
+      }),
       headers: {
         Authorization: `DeepL-Auth-Key ${apiKey}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        text: [text],
-        target_lang: targetLang,
-        source_lang: 'ES',
-      }),
+      method: 'POST',
       signal: controller.signal,
     });
 
     if (!deeplResponse.ok) {
       if (deeplResponse.status === 429) {
-        httpResponse.status(429).json({ error: 'Translation rate limit reached. Try again later.' });
+        httpResponse
+          .status(429)
+          .json({ error: 'Translation rate limit reached. Try again later.' });
         return;
       }
       if (deeplResponse.status === 456) {
