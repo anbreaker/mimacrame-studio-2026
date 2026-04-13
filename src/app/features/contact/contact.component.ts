@@ -11,9 +11,11 @@ import {
 import { firstValueFrom } from 'rxjs';
 import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
 
+import { Lang } from '@core/const/lang.const';
 import { ContactService } from '@core/services/contact.service';
 import { SeoService } from '@core/services/seo.service';
 import { AuthStore } from '@core/store/auth.store';
+import { RevealDirective } from '@shared/directives/reveal.directive';
 
 interface ContactFormData {
   email: string;
@@ -25,7 +27,7 @@ interface ContactFormData {
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormField, TranslocoDirective],
+  imports: [FormField, RevealDirective, TranslocoDirective],
   selector: 'app-contact',
   standalone: true,
   styleUrl: './contact.component.scss',
@@ -104,7 +106,7 @@ export class ContactComponent {
         this.contactService.send({
           email: data.email,
           honeypot: data.honeypot,
-          lang: this.activeLang() as 'es' | 'en' | 'pt',
+          lang: this.activeLang() as Lang,
           message: data.message,
           name: data.name,
           sentByUid: user?.uid,
