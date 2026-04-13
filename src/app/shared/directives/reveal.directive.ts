@@ -1,11 +1,11 @@
 import {
   afterNextRender,
   computed,
+  DestroyRef,
   Directive,
   ElementRef,
   inject,
   input,
-  OnDestroy,
   signal,
 } from '@angular/core';
 
@@ -18,33 +18,25 @@ import {
   selector: '[appReveal]',
   standalone: true,
 })
-export class RevealDirective implements OnDestroy {
-  private readonly el = inject(ElementRef<HTMLElement>);
-  readonly visible = signal(false);
+export class RevealDirective {
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly elementRef = inject(ElementRef<HTMLElement>);
 
+  readonly visible = signal(false);
   readonly revealDelay = input<number>(0);
   readonly delayStyle = computed(() => `${this.revealDelay()}ms`);
 
   readonly threshold = input<number>(0.15);
-  private observer: IntersectionObserver | null = null;
 
   constructor() {
     afterNextRender(() => {
-      this.observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            this.visible.set(true);
-            this.observer?.disconnect();
-          }
-        },
+      const observer = new IntersectionObserver(
+        ([entry]) => this.visible.set(entry.isIntersecting),
         { threshold: this.threshold() }
       );
 
-      this.observer.observe(this.el.nativeElement);
+      observer.observe(this.elementRef.nativeElement);
+      this.destroyRef.onDestroy(() => observer.disconnect());
     });
-  }
-
-  ngOnDestroy(): void {
-    this.observer?.disconnect();
   }
 }
