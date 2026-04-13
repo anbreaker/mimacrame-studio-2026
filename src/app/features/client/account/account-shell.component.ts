@@ -46,7 +46,7 @@ export class AccountShellComponent {
 
   protected readonly isSubPage = computed(() => {
     const url = this.currentUrl() || '';
-    return url.includes('/profile') || url.includes('/orders');
+    return url.includes('/profile') || url.includes('/orders') || url.includes('/contact');
   });
 
   constructor() {

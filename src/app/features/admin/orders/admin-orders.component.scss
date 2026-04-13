@@ -37,7 +37,6 @@
   text-align: center;
 }
 
-// Status filter pills
 .status-filters {
   display: flex;
   gap: var(--space-sm);
@@ -75,7 +74,6 @@
   }
 }
 
-// Orders list
 .orders-list {
   display: flex;
   flex-direction: column;
@@ -88,8 +86,8 @@
   border-radius: var(--radius-md);
 
   &__header {
-    display: flex;
     align-items: stretch;
+    display: flex;
   }
 
   &__main {
@@ -126,7 +124,9 @@
     justify-content: center;
     padding: 0 var(--space-lg);
     text-decoration: none;
-    transition: background-color 0.2s, color 0.2s;
+    transition:
+      background-color 0.2s,
+      color 0.2s;
     white-space: nowrap;
 
     &:hover {
@@ -315,7 +315,6 @@
   }
 }
 
-// Status chip
 .status-chip {
   border-radius: var(--radius-pill);
   display: inline-block;
@@ -329,22 +328,27 @@
     background: rgb(from var(--color-status-pending) r g b / 15%);
     color: var(--color-status-pending);
   }
+
   &[data-status='paid'] {
     background: rgb(from var(--color-success) r g b / 15%);
     color: var(--color-success);
   }
+
   &[data-status='processing'] {
     background: rgb(from var(--color-status-processing) r g b / 15%);
     color: var(--color-status-processing);
   }
+
   &[data-status='shipped'] {
     background: rgb(from var(--color-status-shipped) r g b / 15%);
     color: var(--color-status-shipped);
   }
+
   &[data-status='delivered'] {
     background: rgb(from var(--color-success) r g b / 15%);
     color: var(--color-success);
   }
+
   &[data-status='cancelled'] {
     background: rgb(from var(--color-status-cancelled) r g b / 15%);
     color: var(--color-status-cancelled);

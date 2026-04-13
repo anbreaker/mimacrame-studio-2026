@@ -52,6 +52,24 @@
         </svg>
         {{ t('account.shell.myOrders') }}
       </a>
+      <a
+        class="account__nav-link"
+        routerLink="/account/contact"
+        routerLinkActive="account__nav-link--active"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          width="18"
+          height="18"
+        >
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+          <polyline points="22,6 12,13 2,6" />
+        </svg>
+        {{ t('account.shell.myContact') }}
+      </a>
     </nav>
 
     <button class="account__logout" type="button" (click)="logout()">

@@ -8,10 +8,7 @@
     <span class="profile__avatar-initial">{{ avatarInitial() }}</span>
   </div>
 
-  <form
-    class="profile__form"
-    (submit)="$event.preventDefault(); save()"
-  >
+  <form class="profile__form" (submit)="$event.preventDefault(); save()">
     <!-- Contact Group -->
     <div class="profile__group">
       <h3 class="profile__group-title">{{ t('checkout.sections.contact') }}</h3>

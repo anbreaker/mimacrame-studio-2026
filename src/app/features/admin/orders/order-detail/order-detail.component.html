@@ -2,7 +2,6 @@
   <app-admin-nav />
   <main class="admin-main">
     <div class="admin-main__inner">
-
       @if (isLoading()) {
         <div class="order-detail-skeleton">
           <div class="order-detail-skeleton__header"></div>
@@ -27,7 +26,6 @@
         </div>
 
         <div class="order-detail__grid">
-
           <!-- Customer -->
           <div class="detail-card">
             <h2 class="detail-card__title">{{ t('admin.orders.detail.customer') }}</h2>
@@ -98,7 +96,10 @@
                   <span class="detail-item__name">{{ item.product.name.es }}</span>
                   <span class="detail-item__qty">× {{ item.quantity }}</span>
                   <span class="detail-item__price">
-                    {{ item.product.price * item.quantity | currency: 'EUR' : 'symbol' : '1.2-2' : 'es' }}
+                    {{
+                      item.product.price * item.quantity
+                        | currency: 'EUR' : 'symbol' : '1.2-2' : 'es'
+                    }}
                   </span>
                 </li>
               }
@@ -153,10 +154,8 @@
               }
             </div>
           </div>
-
         </div>
       }
-
     </div>
   </main>
 </div>

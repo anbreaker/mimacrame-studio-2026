@@ -18,6 +18,13 @@
       >
         {{ t('navbar.collection') }}
       </a>
+      <a
+        class="navbar__link"
+        [routerLink]="['/' + routes.CONTACT]"
+        routerLinkActive="navbar__link--active"
+      >
+        {{ t('navbar.contact') }}
+      </a>
     </nav>
 
     <!-- Right: Actions -->
@@ -54,7 +61,11 @@
       </a>
 
       @if (!authStore.isAdmin()) {
-        <a class="navbar__action" [routerLink]="['/' + routes.CART]" [attr.aria-label]="t('navbar.cart')">
+        <a
+          class="navbar__action"
+          [routerLink]="['/' + routes.CART]"
+          [attr.aria-label]="t('navbar.cart')"
+        >
           <svg
             class="navbar__icon"
             viewBox="0 0 24 24"
