@@ -1,5 +1,46 @@
 {
+  "about": {
+    "bio": {
+      "eyebrow": "La artesana",
+      "p1": "Soy Raquel Antúnez Durán, creadora de este estudio donde el arte se teje despacio, con intención y alma.",
+      "p2": "Mi universo creativo nace de una mirada sensible hacia la belleza de lo cotidiano. Durante años he contado historias a través de la fotografía, la palabra y la voz: capturando la luz, la emoción y la esencia de cada instante. Mi trabajo siempre ha estado guiado por una misma intención: conectar con lo auténtico y transformar lo invisible en algo que se pueda sentir.",
+      "p3": "Esa misma sensibilidad vive hoy en cada pieza que creo con mis manos. Vengo de un linaje de hilanderas, de mujeres que entendían el valor del tiempo, del cuidado y de los pequeños gestos. Desde ahí nace mi forma de crear: como un ritual íntimo, pausado y lleno de significado.",
+      "p4": "En este espacio doy vida a piezas de micromacramé y joyería artesanal tejidas a mano con hilo encerado, piedras naturales y materiales elegidos con cuidado y consciencia. Cada collar, pulsera, tobillera o amuleto está pensado para acompañarte, para recordarte algo importante o simplemente para hacerte sentir más cerca de ti.",
+      "p5": "Me inspiran la naturaleza y la delicadeza de lo imperfecto. La energía silenciosa de los minerales. Y la certeza de que los objetos también pueden guardar memoria, intención y emoción. Más que accesorios, aquí encontrarás pequeñas historias tejidas hilo a hilo — hechas para perdurar, para acompañar, para no olvidarse.",
+      "title": "Una historia tejida a mano"
+    },
+    "cta": {
+      "label": "Explorar la colección",
+      "text": "Cada pieza está esperando a encontrar su historia. ¿Cuál será la tuya?"
+    },
+    "hero": {
+      "eyebrow": "La artesana detrás de cada pieza",
+      "subtitle": "Desde Badajoz, con hilo de algodón y seda natural, creo piezas únicas hechas a mano que perduran en el tiempo.",
+      "title": "Hecha con",
+      "titleHighlight": "amor y paciencia"
+    },
+    "values": {
+      "items": {
+        "craft": {
+          "text": "Cada nudo se hace a mano, uno a uno. No hay atajos, no hay máquinas. Solo tiempo, técnica y dedicación.",
+          "title": "Artesanía pura"
+        },
+        "materials": {
+          "text": "Trabajamos con hilo de algodón encerado y seda natural. Materiales que se sienten bien en la piel y duran años.",
+          "title": "Materiales naturales"
+        },
+        "story": {
+          "text": "No vendemos accesorios, creamos recuerdos. Piezas que acompañan momentos y se convierten en parte de tu historia.",
+          "title": "Cada pieza, una historia"
+        }
+      },
+      "title": "Nuestra filosofía"
+    }
+  },
   "account": {
+    "contact": {
+      "myContact": "Contacto"
+    },
     "orders": {
       "created": "Realizado",
       "emptyHint": "Cuando realices tu primera compra, aparecerá aquí.",
@@ -39,6 +80,7 @@
     "shell": {
       "back": "Volver",
       "logout": "Cerrar sesión",
+      "myContact": "Contacto",
       "myOrders": "Mis pedidos",
       "myProfile": "Mi perfil"
     }
@@ -362,6 +404,41 @@
     "error": "Ha ocurrido un error",
     "loading": "Cargando..."
   },
+  "contact": {
+    "account": {
+      "empty": "Aún no has enviado ningún mensaje.",
+      "history": "Mensajes enviados",
+      "subtitle": "Envíanos un mensaje desde tu cuenta",
+      "title": "Contacto"
+    },
+    "fields": {
+      "email": "Tu email",
+      "message": "Mensaje",
+      "name": "Tu nombre",
+      "subject": "Asunto"
+    },
+    "placeholders": {
+      "email": "tu@email.com",
+      "message": "Cuéntanos en qué podemos ayudarte...",
+      "name": "Ej: María García",
+      "subject": "Ej: Consulta sobre un pedido"
+    },
+    "errors": {
+      "email": "Introduce un email válido.",
+      "message": "El mensaje debe tener al menos 10 caracteres.",
+      "name": "El nombre debe tener al menos 2 caracteres.",
+      "send": "Error al enviar el mensaje. Inténtalo de nuevo.",
+      "subject": "El asunto debe tener al menos 3 caracteres."
+    },
+    "submit": {
+      "send": "Enviar mensaje",
+      "sending": "Enviando..."
+    },
+    "eyebrow": "Hecho a mano · Badajoz, Extremadura",
+    "success": "¡Mensaje enviado! Te responderemos pronto.",
+    "subtitle": "¿Tienes alguna pregunta? Estamos aquí para ayudarte.",
+    "title": "Contacto"
+  },
   "errors": {
     "forbidden": "No tienes permisos para realizar esta acción.",
     "network": "Sin conexión. Comprueba tu internet.",
@@ -397,12 +474,7 @@
     },
     "editorial": {
       "cta": "Ver conjuntos",
-      "quote": "Apila, combina,\nhazlo tuyo"
-    },
-    "featured": {
-      "cta": "Ver toda la colección",
-      "empty": "Pronto llegarán nuevas piezas.",
-      "title": "Nuestras favoritas"
+      "quote": "Apila, combina, hazlo tuyo"
     },
     "hero": {
       "cta": "Explorar Colección",
@@ -439,6 +511,7 @@
     "account": "Mi cuenta",
     "cart": "Carrito de compra",
     "collection": "Colección",
+    "contact": "Contacto",
     "login": "Iniciar sesión"
   },
   "notFound": {
@@ -489,44 +562,6 @@
       "title": "Envíos y devoluciones"
     },
     "viewImage": "Ver imagen {{ index }}"
-  },
-  "about": {
-    "bio": {
-      "eyebrow": "La artesana",
-      "p1": "Soy Raquel Antúnez Durán, creadora de este estudio donde el arte se teje despacio, con intención y alma.",
-      "p2": "Mi universo creativo nace de una mirada sensible hacia la belleza de lo cotidiano. Durante años he contado historias a través de la fotografía, la palabra y la voz: capturando la luz, la emoción y la esencia de cada instante. Mi trabajo siempre ha estado guiado por una misma intención: conectar con lo auténtico y transformar lo invisible en algo que se pueda sentir.",
-      "p3": "Esa misma sensibilidad vive hoy en cada pieza que creo con mis manos. Vengo de un linaje de hilanderas, de mujeres que entendían el valor del tiempo, del cuidado y de los pequeños gestos. Desde ahí nace mi forma de crear: como un ritual íntimo, pausado y lleno de significado.",
-      "p4": "En este espacio doy vida a piezas de micromacramé y joyería artesanal tejidas a mano con hilo encerado, piedras naturales y materiales elegidos con cuidado y consciencia. Cada collar, pulsera, tobillera o amuleto está pensado para acompañarte, para recordarte algo importante o simplemente para hacerte sentir más cerca de ti.",
-      "p5": "Me inspiran la naturaleza y la delicadeza de lo imperfecto. La energía silenciosa de los minerales. Y la certeza de que los objetos también pueden guardar memoria, intención y emoción. Más que accesorios, aquí encontrarás pequeñas historias tejidas hilo a hilo — hechas para perdurar, para acompañar, para no olvidarse.",
-      "title": "Una historia tejida a mano"
-    },
-    "cta": {
-      "label": "Explorar la colección",
-      "text": "Cada pieza está esperando a encontrar su historia. ¿Cuál será la tuya?"
-    },
-    "hero": {
-      "eyebrow": "La artesana detrás de cada pieza",
-      "subtitle": "Desde Badajoz, con hilo de algodón y seda natural, creo piezas únicas hechas a mano que perduran en el tiempo.",
-      "title": "Hecha con",
-      "titleHighlight": "amor y paciencia"
-    },
-    "values": {
-      "items": {
-        "craft": {
-          "text": "Cada nudo se hace a mano, uno a uno. No hay atajos, no hay máquinas. Solo tiempo, técnica y dedicación.",
-          "title": "Artesanía pura"
-        },
-        "materials": {
-          "text": "Trabajamos con hilo de algodón encerado y seda natural. Materiales que se sienten bien en la piel y duran años.",
-          "title": "Materiales naturales"
-        },
-        "story": {
-          "text": "No vendemos accesorios, creamos recuerdos. Piezas que acompañan momentos y se convierten en parte de tu historia.",
-          "title": "Cada pieza, una historia"
-        }
-      },
-      "title": "Nuestra filosofía"
-    }
   },
   "seo": {
     "aboutDescription": "Conoce la historia de Mimacramé Studio. Joyería artesanal de macramé hecha a mano en Badajoz con hilo de algodón y seda natural.",

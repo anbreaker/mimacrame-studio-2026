@@ -1,5 +1,46 @@
 {
+  "about": {
+    "bio": {
+      "eyebrow": "The artisan",
+      "p1": "I am Raquel Antúnez Durán, the creator of this studio where art is woven slowly, with intention and soul.",
+      "p2": "My creative universe is born from a sensitive gaze towards the beauty of everyday life. For years I have told stories through photography, words and voice: capturing light, emotion and the essence of each instant. My work has always been guided by the same intention: to connect with the authentic and transform the invisible into something that can be felt.",
+      "p3": "That same sensitivity lives today in every piece I create with my hands. I come from a lineage of spinners, of women who understood the value of time, care and small gestures. From there comes my way of creating: as an intimate ritual, unhurried and full of meaning.",
+      "p4": "In this space I bring to life micramé pieces and handcrafted jewelry woven by hand with waxed thread, natural stones and materials chosen with care and awareness. Each necklace, bracelet, anklet or amulet is designed to accompany you, to remind you of something important or simply to make you feel closer to yourself.",
+      "p5": "I am inspired by nature and the delicacy of the imperfect. The silent energy of minerals. And the certainty that objects can also hold memory, intention and emotion. More than accessories, here you will find small stories woven thread by thread — made to last, to accompany, to never be forgotten.",
+      "title": "A story woven by hand"
+    },
+    "cta": {
+      "label": "Explore the collection",
+      "text": "Each piece is waiting to find its story. Which one will be yours?"
+    },
+    "hero": {
+      "eyebrow": "The artisan behind every piece",
+      "subtitle": "From Badajoz, with cotton and natural silk thread, I create unique handmade pieces that stand the test of time.",
+      "title": "Made with",
+      "titleHighlight": "love and patience"
+    },
+    "values": {
+      "items": {
+        "craft": {
+          "text": "Every knot is made by hand, one by one. No shortcuts, no machines. Just time, technique and dedication.",
+          "title": "Pure craftsmanship"
+        },
+        "materials": {
+          "text": "We work with waxed cotton thread and natural silk. Materials that feel good on the skin and last for years.",
+          "title": "Natural materials"
+        },
+        "story": {
+          "text": "We don't sell accessories, we create memories. Pieces that accompany moments and become part of your story.",
+          "title": "Every piece, a story"
+        }
+      },
+      "title": "Our philosophy"
+    }
+  },
   "account": {
+    "contact": {
+      "myContact": "Contact"
+    },
     "orders": {
       "created": "Placed",
       "emptyHint": "When you make your first purchase, it will appear here.",
@@ -39,6 +80,7 @@
     "shell": {
       "back": "Back",
       "logout": "Sign out",
+      "myContact": "Contact",
       "myOrders": "My orders",
       "myProfile": "My profile"
     }
@@ -362,6 +404,41 @@
     "error": "An error occurred",
     "loading": "Loading..."
   },
+  "contact": {
+    "account": {
+      "empty": "You haven't sent any messages yet.",
+      "history": "Sent messages",
+      "subtitle": "Send us a message from your account",
+      "title": "Contact"
+    },
+    "fields": {
+      "email": "Your email",
+      "message": "Message",
+      "name": "Your name",
+      "subject": "Subject"
+    },
+    "placeholders": {
+      "email": "you@email.com",
+      "message": "Tell us how we can help you...",
+      "name": "e.g. Maria Garcia",
+      "subject": "e.g. Order enquiry"
+    },
+    "errors": {
+      "email": "Please enter a valid email.",
+      "message": "Message must be at least 10 characters.",
+      "name": "Name must be at least 2 characters.",
+      "send": "Error sending the message. Please try again.",
+      "subject": "Subject must be at least 3 characters."
+    },
+    "submit": {
+      "send": "Send message",
+      "sending": "Sending..."
+    },
+    "eyebrow": "Handmade · Badajoz, Extremadura",
+    "success": "Message sent! We'll get back to you soon.",
+    "subtitle": "Have a question? We're here to help.",
+    "title": "Contact"
+  },
   "errors": {
     "forbidden": "You don't have permission to perform this action.",
     "network": "No connection. Please check your internet.",
@@ -397,12 +474,7 @@
     },
     "editorial": {
       "cta": "View sets",
-      "quote": "Stack, mix,\nmake it yours"
-    },
-    "featured": {
-      "cta": "View full collection",
-      "empty": "New pieces coming soon.",
-      "title": "Our favorites"
+      "quote": "Stack, mix, make it yours"
     },
     "hero": {
       "cta": "Explore Collection",
@@ -439,6 +511,7 @@
     "account": "My account",
     "cart": "Shopping cart",
     "collection": "Collection",
+    "contact": "Contact",
     "login": "Sign in"
   },
   "notFound": {
@@ -489,44 +562,6 @@
       "title": "Shipping and returns"
     },
     "viewImage": "View image {{ index }}"
-  },
-  "about": {
-    "bio": {
-      "eyebrow": "The artisan",
-      "p1": "I am Raquel Antúnez Durán, the creator of this studio where art is woven slowly, with intention and soul.",
-      "p2": "My creative universe is born from a sensitive gaze towards the beauty of everyday life. For years I have told stories through photography, words and voice: capturing light, emotion and the essence of each instant. My work has always been guided by the same intention: to connect with the authentic and transform the invisible into something that can be felt.",
-      "p3": "That same sensitivity lives today in every piece I create with my hands. I come from a lineage of spinners, of women who understood the value of time, care and small gestures. From there comes my way of creating: as an intimate ritual, unhurried and full of meaning.",
-      "p4": "In this space I bring to life micramé pieces and handcrafted jewelry woven by hand with waxed thread, natural stones and materials chosen with care and awareness. Each necklace, bracelet, anklet or amulet is designed to accompany you, to remind you of something important or simply to make you feel closer to yourself.",
-      "p5": "I am inspired by nature and the delicacy of the imperfect. The silent energy of minerals. And the certainty that objects can also hold memory, intention and emotion. More than accessories, here you will find small stories woven thread by thread — made to last, to accompany, to never be forgotten.",
-      "title": "A story woven by hand"
-    },
-    "cta": {
-      "label": "Explore the collection",
-      "text": "Each piece is waiting to find its story. Which one will be yours?"
-    },
-    "hero": {
-      "eyebrow": "The artisan behind every piece",
-      "subtitle": "From Badajoz, with cotton and natural silk thread, I create unique handmade pieces that stand the test of time.",
-      "title": "Made with",
-      "titleHighlight": "love and patience"
-    },
-    "values": {
-      "items": {
-        "craft": {
-          "text": "Every knot is made by hand, one by one. No shortcuts, no machines. Just time, technique and dedication.",
-          "title": "Pure craftsmanship"
-        },
-        "materials": {
-          "text": "We work with waxed cotton thread and natural silk. Materials that feel good on the skin and last for years.",
-          "title": "Natural materials"
-        },
-        "story": {
-          "text": "We don't sell accessories, we create memories. Pieces that accompany moments and become part of your story.",
-          "title": "Every piece, a story"
-        }
-      },
-      "title": "Our philosophy"
-    }
   },
   "seo": {
     "aboutDescription": "Discover the story behind Mimacramé Studio. Handcrafted macramé jewelry made in Badajoz with cotton and natural silk thread.",

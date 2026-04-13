@@ -29,5 +29,17 @@ service cloud.firestore {
       allow create: if request.auth != null; // Any logged-in user can create an order
       allow update, delete: if isAdmin(); // Only admin can update order status or delete
     }
+
+    // Contact Messages Collection
+    match /contact-messages/{messageId} {
+      // Admin can read all messages
+      allow read: if isAdmin();
+      // Logged-in users can read only their own messages
+      allow read: if request.auth != null && isOwner(resource.data.sentByUid);
+      // Only logged-in users can create messages (sentByUid must match their uid)
+      allow create: if request.auth != null && request.resource.data.sentByUid == request.auth.uid;
+      // Nobody can update or delete
+      allow update, delete: if false;
+    }
   }
 }

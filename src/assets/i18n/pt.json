@@ -1,5 +1,46 @@
 {
+  "about": {
+    "bio": {
+      "eyebrow": "A artesã",
+      "p1": "Sou Raquel Antúnez Durán, criadora deste estúdio onde a arte se tece devagar, com intenção e alma.",
+      "p2": "O meu universo criativo nasce de um olhar sensível sobre a beleza do quotidiano. Durante anos contei histórias através da fotografia, da palavra e da voz: capturando a luz, a emoção e a essência de cada instante. O meu trabalho sempre foi guiado pela mesma intenção: conectar com o autêntico e transformar o invisível em algo que se possa sentir.",
+      "p3": "Essa mesma sensibilidade vive hoje em cada peça que crio com as minhas mãos. Venho de uma linhagem de fiadeiras, de mulheres que entendiam o valor do tempo, do cuidado e dos pequenos gestos. Daí nasce a minha forma de criar: como um ritual íntimo, pausado e cheio de significado.",
+      "p4": "Neste espaço dou vida a peças de micromacramé e joalharia artesanal tecidas à mão com fio encerado, pedras naturais e materiais escolhidos com cuidado e consciência. Cada colar, pulseira, tornozeleira ou amuleto está pensado para te acompanhar, para te recordar algo importante ou simplesmente para te fazer sentir mais perto de ti.",
+      "p5": "Inspiro-me na natureza e na delicadeza do imperfeito. A energia silenciosa dos minerais. E a certeza de que os objetos também podem guardar memória, intenção e emoção. Mais do que acessórios, aqui encontrarás pequenas histórias tecidas fio a fio — feitas para perdurar, para acompanhar, para nunca se esquecer.",
+      "title": "Uma história tecida à mão"
+    },
+    "cta": {
+      "label": "Explorar a coleção",
+      "text": "Cada peça está à espera de encontrar a sua história. Qual será a sua?"
+    },
+    "hero": {
+      "eyebrow": "A artesã por trás de cada peça",
+      "subtitle": "Desde Badajoz, com fio de algodão e seda natural, crio peças únicas feitas à mão que perduram no tempo.",
+      "title": "Feita com",
+      "titleHighlight": "amor e paciência"
+    },
+    "values": {
+      "items": {
+        "craft": {
+          "text": "Cada nó é feito à mão, um a um. Sem atalhos, sem máquinas. Apenas tempo, técnica e dedicação.",
+          "title": "Artesanato puro"
+        },
+        "materials": {
+          "text": "Trabalhamos com fio de algodão encerado e seda natural. Materiais que se sentem bem na pele e duram anos.",
+          "title": "Materiais naturais"
+        },
+        "story": {
+          "text": "Não vendemos acessórios, criamos memórias. Peças que acompanham momentos e se tornam parte da sua história.",
+          "title": "Cada peça, uma história"
+        }
+      },
+      "title": "A nossa filosofia"
+    }
+  },
   "account": {
+    "contact": {
+      "myContact": "Contacto"
+    },
     "orders": {
       "created": "Realizado",
       "emptyHint": "Quando fizer sua primeira compra, ela aparecerá aqui.",
@@ -39,6 +80,7 @@
     "shell": {
       "back": "Voltar",
       "logout": "Sair",
+      "myContact": "Contacto",
       "myOrders": "Meus pedidos",
       "myProfile": "Meu perfil"
     }
@@ -362,6 +404,41 @@
     "error": "Ocorreu um erro",
     "loading": "Carregando..."
   },
+  "contact": {
+    "account": {
+      "empty": "Você ainda não enviou nenhuma mensagem.",
+      "history": "Mensagens enviadas",
+      "subtitle": "Envie-nos uma mensagem da sua conta",
+      "title": "Contacto"
+    },
+    "fields": {
+      "email": "Seu email",
+      "message": "Mensagem",
+      "name": "Seu nome",
+      "subject": "Assunto"
+    },
+    "placeholders": {
+      "email": "voce@email.com",
+      "message": "Conte-nos como podemos ajudá-lo...",
+      "name": "Ex: Maria Garcia",
+      "subject": "Ex: Consulta sobre um pedido"
+    },
+    "errors": {
+      "email": "Introduza um email válido.",
+      "message": "A mensagem deve ter pelo menos 10 caracteres.",
+      "name": "O nome deve ter pelo menos 2 caracteres.",
+      "send": "Erro ao enviar a mensagem. Tente novamente.",
+      "subject": "O assunto deve ter pelo menos 3 caracteres."
+    },
+    "submit": {
+      "send": "Enviar mensagem",
+      "sending": "Enviando..."
+    },
+    "eyebrow": "Artesanal · Badajoz, Extremadura",
+    "success": "Mensagem enviada! Responderemos em breve.",
+    "subtitle": "Tem alguma dúvida? Estamos aqui para ajudar.",
+    "title": "Contacto"
+  },
   "errors": {
     "forbidden": "Você não tem permissão para realizar esta ação.",
     "network": "Sem conexão. Verifique sua internet.",
@@ -397,12 +474,7 @@
     },
     "editorial": {
       "cta": "Ver conjuntos",
-      "quote": "Empilhe, misture,\nfaça-o seu"
-    },
-    "featured": {
-      "cta": "Ver toda a coleção",
-      "empty": "Novas peças chegarão em breve.",
-      "title": "Nossas favoritas"
+      "quote": "Empilhe, misture, faça-o seu"
     },
     "hero": {
       "cta": "Explorar Coleção",
@@ -439,6 +511,7 @@
     "account": "Minha conta",
     "cart": "Carrinho de compras",
     "collection": "Coleção",
+    "contact": "Contacto",
     "login": "Iniciar sessão"
   },
   "notFound": {
@@ -489,44 +562,6 @@
       "title": "Envios e devoluções"
     },
     "viewImage": "Ver imagem {{ index }}"
-  },
-  "about": {
-    "bio": {
-      "eyebrow": "A artesã",
-      "p1": "Sou Raquel Antúnez Durán, criadora deste estúdio onde a arte se tece devagar, com intenção e alma.",
-      "p2": "O meu universo criativo nasce de um olhar sensível sobre a beleza do quotidiano. Durante anos contei histórias através da fotografia, da palavra e da voz: capturando a luz, a emoção e a essência de cada instante. O meu trabalho sempre foi guiado pela mesma intenção: conectar com o autêntico e transformar o invisível em algo que se possa sentir.",
-      "p3": "Essa mesma sensibilidade vive hoje em cada peça que crio com as minhas mãos. Venho de uma linhagem de fiadeiras, de mulheres que entendiam o valor do tempo, do cuidado e dos pequenos gestos. Daí nasce a minha forma de criar: como um ritual íntimo, pausado e cheio de significado.",
-      "p4": "Neste espaço dou vida a peças de micromacramé e joalharia artesanal tecidas à mão com fio encerado, pedras naturais e materiais escolhidos com cuidado e consciência. Cada colar, pulseira, tornozeleira ou amuleto está pensado para te acompanhar, para te recordar algo importante ou simplesmente para te fazer sentir mais perto de ti.",
-      "p5": "Inspiro-me na natureza e na delicadeza do imperfeito. A energia silenciosa dos minerais. E a certeza de que os objetos também podem guardar memória, intenção e emoção. Mais do que acessórios, aqui encontrarás pequenas histórias tecidas fio a fio — feitas para perdurar, para acompanhar, para nunca se esquecer.",
-      "title": "Uma história tecida à mão"
-    },
-    "cta": {
-      "label": "Explorar a coleção",
-      "text": "Cada peça está à espera de encontrar a sua história. Qual será a sua?"
-    },
-    "hero": {
-      "eyebrow": "A artesã por trás de cada peça",
-      "subtitle": "Desde Badajoz, com fio de algodão e seda natural, crio peças únicas feitas à mão que perduram no tempo.",
-      "title": "Feita com",
-      "titleHighlight": "amor e paciência"
-    },
-    "values": {
-      "items": {
-        "craft": {
-          "text": "Cada nó é feito à mão, um a um. Sem atalhos, sem máquinas. Apenas tempo, técnica e dedicação.",
-          "title": "Artesanato puro"
-        },
-        "materials": {
-          "text": "Trabalhamos com fio de algodão encerado e seda natural. Materiais que se sentem bem na pele e duram anos.",
-          "title": "Materiais naturais"
-        },
-        "story": {
-          "text": "Não vendemos acessórios, criamos memórias. Peças que acompanham momentos e se tornam parte da sua história.",
-          "title": "Cada peça, uma história"
-        }
-      },
-      "title": "A nossa filosofia"
-    }
   },
   "seo": {
     "aboutDescription": "Conheça a história do Mimacramé Studio. Joalharia artesanal de macramé feita à mão em Badajoz com fio de algodão e seda natural.",
