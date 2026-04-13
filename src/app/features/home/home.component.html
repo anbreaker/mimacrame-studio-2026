@@ -125,7 +125,7 @@
   </div>
 </section>
 
-<!-- Editorial / Look del momento -->
+<!-- Editorial + Categories -->
 <section class="editorial">
   <svg class="editorial__knot editorial__knot--1" viewBox="0 0 80 80" aria-hidden="true">
     <path d="M40 4 L76 40 L40 76 L4 40 Z" fill="none" stroke="currentColor" stroke-width="1" />
@@ -139,7 +139,27 @@
     <path d="M20 2 L38 20 L20 38 L2 20 Z" fill="none" stroke="currentColor" stroke-width="1.5" />
   </svg>
   <div class="editorial__content" *transloco="let t">
-    <p class="editorial__quote" [innerHTML]="t('home.editorial.quote')"></p>
+    <h2 class="editorial__quote">
+      {{ t('home.editorial.quote') }}
+      <br />
+      <span class="editorial__quote-highlight">{{ t('home.categories.title') }}</span>
+    </h2>
+    <div class="editorial__categories">
+      <div class="categories__grid">
+        @for (cat of categories; track cat.key; let i = $index) {
+          <a
+            class="category-card"
+            appReveal
+            [revealDelay]="i * 80"
+            [routerLink]="['/' + routes.CATALOGUE]"
+            [queryParams]="{ category: cat.key }"
+          >
+            <span class="category-card__emoji" aria-hidden="true">{{ cat.emoji }}</span>
+            <span class="category-card__label">{{ t('home.categories.items.' + cat.key) }}</span>
+          </a>
+        }
+      </div>
+    </div>
     <a
       class="btn btn--primary"
       [routerLink]="['/' + routes.CATALOGUE]"
@@ -147,55 +167,6 @@
     >
       {{ t('home.editorial.cta') }}
     </a>
-  </div>
-</section>
-
-<!-- Categories -->
-<section class="categories">
-  <div class="categories__inner" *transloco="let t">
-    <h2 class="section-title">{{ t('home.categories.title') }}</h2>
-    <div class="categories__grid">
-      @for (cat of categories; track cat.key; let i = $index) {
-        <a
-          class="category-card"
-          appReveal
-          [revealDelay]="i * 80"
-          [routerLink]="['/' + routes.CATALOGUE]"
-          [queryParams]="{ category: cat.key }"
-        >
-          <span class="category-card__emoji" aria-hidden="true">{{ cat.emoji }}</span>
-          <span class="category-card__label">{{ t('home.categories.items.' + cat.key) }}</span>
-        </a>
-      }
-    </div>
-  </div>
-</section>
-
-<!-- Featured products -->
-<section class="featured">
-  <div class="featured__inner" *transloco="let t">
-    <h2 class="section-title">{{ t('home.featured.title') }}</h2>
-
-    @if (catalogueStore.isLoading()) {
-      <div class="featured__loading">
-        @for (_ of [1, 2, 3, 4]; track $index) {
-          <div class="product-skeleton"></div>
-        }
-      </div>
-    } @else if (featuredProducts.length > 0) {
-      <div class="featured__grid">
-        @for (product of featuredProducts; track product.id) {
-          <app-product-card [product]="product" />
-        }
-      </div>
-      <div class="featured__cta">
-        <a class="btn btn--primary" [routerLink]="['/' + routes.CATALOGUE]">
-          {{ t('home.featured.cta') }}
-        </a>
-      </div>
-    } @else {
-      <p class="featured__empty">{{ t('home.featured.empty') }}</p>
-    }
   </div>
 </section>
 

@@ -5,10 +5,11 @@ import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
 import { Lang } from '@core/const/lang.const';
 import { LocalizedString } from '@core/interfaces/product.interface';
 import { CuratedPostsService } from '@core/services/curated-posts.service';
+import { RevealDirective } from '@shared/directives/reveal.directive';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [TranslocoDirective],
+  imports: [RevealDirective, TranslocoDirective],
   selector: 'app-our-work',
   standalone: true,
   styleUrl: './our-work.component.scss',
@@ -25,13 +26,16 @@ export class OurWorkComponent {
   protected readonly posts = computed(() => this._posts().slice(0, 6));
 
   protected readonly hasPosts = computed(() => this.posts().length > 0);
+
   protected readonly isLoading = computed(() => this._posts() === undefined);
+
   private readonly activeLang = toSignal(this.transloco.langChanges$, {
     initialValue: this.transloco.getActiveLang(),
   });
 
   protected resolveLocalized(value: LocalizedString | string): string {
     if (typeof value === 'string') return value;
+
     const lang = this.activeLang() as Lang;
     return value[lang] || value['es'] || '';
   }
