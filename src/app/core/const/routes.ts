@@ -1,6 +1,7 @@
 export const ROUTES = {
   ABOUT: 'about',
   ACCOUNT: 'account',
+  ACCOUNT_CONTACT: 'account/contact',
   ACCOUNT_ORDERS: 'account/orders',
   ACCOUNT_PROFILE: 'account/profile',
   ADMIN: 'admin',
@@ -16,6 +17,7 @@ export const ROUTES = {
   CART: 'cart',
   CATALOGUE: 'catalogue',
   CHECKOUT: 'checkout',
+  CONTACT: 'contact',
   HOME: '',
   LOGIN: 'login',
   ORDER_CONFIRMED: 'order-confirmed',

@@ -1,0 +1,175 @@
+.account-contact {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.account-contact__title {
+  color: var(--color-text);
+  font-family: var(--font-serif);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+}
+
+.account-contact__subtitle {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-base);
+  margin-top: calc(-1 * var(--space-md));
+}
+
+.account-contact__success {
+  background-color: rgb(from var(--color-primary) r g b / 12%);
+  border: 1px solid rgb(from var(--color-primary) r g b / 30%);
+  border-radius: var(--radius-sm);
+  color: var(--color-primary-hover);
+  font-size: var(--font-size-sm);
+  padding: var(--space-sm) var(--space-md);
+}
+
+.account-contact__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.account-contact__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.account-contact__label {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.account-contact__input,
+.account-contact__textarea {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: var(--font-size-sm);
+  outline: none;
+  padding: var(--space-sm) var(--space-md);
+  transition: border-color 0.2s ease;
+  width: 100%;
+
+  &:focus {
+    border-color: var(--color-primary);
+  }
+
+  &::placeholder {
+    color: var(--color-text-muted);
+    opacity: 0.5;
+  }
+}
+
+.account-contact__textarea {
+  resize: vertical;
+}
+
+.account-contact__error {
+  color: var(--color-error, #e05050);
+  font-size: var(--font-size-xs);
+}
+
+.account-contact__send-error {
+  background-color: rgb(from var(--color-error, #e05050) r g b / 10%);
+  border: 1px solid rgb(from var(--color-error, #e05050) r g b / 30%);
+  border-radius: var(--radius-sm);
+  color: var(--color-error, #e05050);
+  font-size: var(--font-size-xs);
+  padding: var(--space-sm) var(--space-md);
+}
+
+.account-contact__submit {
+  align-self: flex-start;
+  background-color: var(--color-primary);
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  padding: var(--space-sm) var(--space-lg);
+  transition:
+    background-color 0.2s ease,
+    opacity 0.2s ease;
+
+  &:hover:not(:disabled) {
+    background-color: var(--color-primary-hover);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+.account-contact__history {
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-xl);
+}
+
+.account-contact__history-title {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.08em;
+  margin-bottom: var(--space-md);
+  text-transform: uppercase;
+}
+
+.account-contact__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.account-contact__item {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+}
+
+.account-contact__item-header {
+  align-items: center;
+  display: flex;
+  gap: var(--space-sm);
+  justify-content: space-between;
+}
+
+.account-contact__item-subject {
+  color: var(--color-text);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.account-contact__item-date {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+  white-space: nowrap;
+}
+
+.account-contact__item-message {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-base);
+  white-space: pre-wrap;
+}
+
+.account-contact__empty {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}

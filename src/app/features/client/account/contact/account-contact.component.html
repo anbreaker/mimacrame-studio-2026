@@ -1,0 +1,109 @@
+<div class="account-contact" *transloco="let t">
+  <h1 class="account-contact__title">{{ t('account.contact.title') }}</h1>
+  <p class="account-contact__subtitle">{{ t('account.contact.subtitle') }}</p>
+
+  @if (isSuccess()) {
+    <div class="account-contact__success" role="status">
+      {{ t('contact.success') }}
+    </div>
+  }
+
+  <form class="account-contact__form" (ngSubmit)="submit()" novalidate>
+    <div class="account-contact__field">
+      <label class="account-contact__label" for="ac-name">{{ t('contact.fields.name') }}</label>
+      <input
+        id="ac-name"
+        class="account-contact__input"
+        type="text"
+        [formField]="contactForm.name"
+        [placeholder]="t('contact.placeholders.name')"
+        autocomplete="name"
+      />
+      @if (contactForm.name().touched() && !contactForm.name().valid()) {
+        <span class="account-contact__error" role="alert">{{ t('contact.errors.name') }}</span>
+      }
+    </div>
+
+    <div class="account-contact__field">
+      <label class="account-contact__label" for="ac-email">{{ t('contact.fields.email') }}</label>
+      <input
+        id="ac-email"
+        class="account-contact__input"
+        type="email"
+        [formField]="contactForm.email"
+        [placeholder]="t('contact.placeholders.email')"
+        autocomplete="email"
+      />
+      @if (contactForm.email().touched() && !contactForm.email().valid()) {
+        <span class="account-contact__error" role="alert">{{ t('contact.errors.email') }}</span>
+      }
+    </div>
+
+    <div class="account-contact__field">
+      <label class="account-contact__label" for="ac-subject">
+        {{ t('contact.fields.subject') }}
+      </label>
+      <input
+        id="ac-subject"
+        class="account-contact__input"
+        type="text"
+        [formField]="contactForm.subject"
+        [placeholder]="t('contact.placeholders.subject')"
+      />
+      @if (contactForm.subject().touched() && !contactForm.subject().valid()) {
+        <span class="account-contact__error" role="alert">{{ t('contact.errors.subject') }}</span>
+      }
+    </div>
+
+    <div class="account-contact__field">
+      <label class="account-contact__label" for="ac-message">
+        {{ t('contact.fields.message') }}
+      </label>
+      <textarea
+        id="ac-message"
+        class="account-contact__textarea"
+        rows="5"
+        [formField]="contactForm.message"
+        [placeholder]="t('contact.placeholders.message')"
+      ></textarea>
+      @if (contactForm.message().touched() && !contactForm.message().valid()) {
+        <span class="account-contact__error" role="alert">{{ t('contact.errors.message') }}</span>
+      }
+    </div>
+
+    @if (hasError()) {
+      <div class="account-contact__send-error" role="alert">
+        {{ t('contact.errors.send') }}
+      </div>
+    }
+
+    <button class="account-contact__submit" type="submit" [disabled]="!canSubmit()">
+      @if (isSubmitting()) {
+        {{ t('contact.submit.sending') }}
+      } @else {
+        {{ t('contact.submit.send') }}
+      }
+    </button>
+  </form>
+
+  @if (messages()?.length) {
+    <section class="account-contact__history">
+      <h2 class="account-contact__history-title">{{ t('contact.account.history') }}</h2>
+      <ul class="account-contact__list">
+        @for (msg of messages(); track msg.id) {
+          <li class="account-contact__item">
+            <div class="account-contact__item-header">
+              <span class="account-contact__item-subject">{{ msg.subject }}</span>
+              <span class="account-contact__item-date">
+                {{ toDate(msg.createdAt) | date: 'dd/MM/yyyy' }}
+              </span>
+            </div>
+            <p class="account-contact__item-message">{{ msg.message }}</p>
+          </li>
+        }
+      </ul>
+    </section>
+  } @else if (messages()?.length === 0) {
+    <p class="account-contact__empty">{{ t('contact.account.empty') }}</p>
+  }
+</div>

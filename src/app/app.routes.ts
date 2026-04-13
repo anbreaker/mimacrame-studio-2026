@@ -25,6 +25,11 @@ const publicRoutes: Routes = [
     path: ROUTES.ABOUT,
   },
   {
+    loadComponent: async () =>
+      (await import('./features/contact/contact.component')).ContactComponent,
+    path: ROUTES.CONTACT,
+  },
+  {
     loadComponent: async () => (await import('./features/cart/cart.component')).CartComponent,
     path: ROUTES.CART,
   },
@@ -68,6 +73,12 @@ const clientRoutes: Routes = [
           (await import('./features/client/account/orders/account-orders.component'))
             .AccountOrdersComponent,
         path: 'orders',
+      },
+      {
+        loadComponent: async () =>
+          (await import('./features/client/account/contact/account-contact.component'))
+            .AccountContactComponent,
+        path: 'contact',
       },
     ],
     loadComponent: async () =>

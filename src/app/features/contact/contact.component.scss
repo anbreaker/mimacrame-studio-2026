@@ -1,0 +1,188 @@
+.contact {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+}
+
+.contact__hero {
+  align-items: center;
+  background: linear-gradient(160deg, var(--color-background) 0%, #1a2d42 100%);
+  display: flex;
+  justify-content: center;
+  min-height: clamp(280px, 40svh, 440px);
+  overflow: hidden;
+  padding: var(--space-3xl) var(--space-md);
+  position: relative;
+  text-align: center;
+
+  &::before {
+    background-image: url('/assets/images/home.webp');
+    background-position: center 30%;
+    background-size: cover;
+    content: '';
+    inset: 0;
+    mix-blend-mode: luminosity;
+    opacity: 0.12;
+    position: absolute;
+  }
+
+  &::after {
+    background:
+      linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+      radial-gradient(
+        ellipse at 30% 70%,
+        rgb(from var(--color-primary) r g b / 15%) 0%,
+        transparent 60%
+      );
+    content: '';
+    inset: 0;
+    pointer-events: none;
+    position: absolute;
+  }
+}
+
+.contact__hero-content {
+  max-width: 43.75rem;
+  position: relative;
+  z-index: 1;
+}
+
+.contact__eyebrow {
+  color: var(--color-accent);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.12em;
+  margin-bottom: var(--space-md);
+  text-transform: uppercase;
+}
+
+.contact__title {
+  color: var(--color-text);
+  font-family: var(--font-serif);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-heading);
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+
+  @media (min-width: 768px) {
+    font-size: var(--font-size-4xl);
+  }
+}
+
+.contact__title-highlight {
+  color: var(--color-primary-hover);
+  font-style: italic;
+}
+
+.contact__body {
+  background-color: var(--color-background);
+  flex: 1;
+  padding: var(--space-3xl) var(--space-md);
+}
+
+.contact__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  margin: 0 auto;
+  max-width: 36rem;
+}
+
+.contact__honeypot {
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+  position: absolute;
+}
+
+.contact__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.contact__label {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.contact__input,
+.contact__textarea {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: var(--font-size-base);
+  outline: none;
+  padding: var(--space-sm) var(--space-md);
+  transition: border-color 0.2s ease;
+  width: 100%;
+
+  &:focus {
+    border-color: var(--color-primary);
+  }
+
+  &::placeholder {
+    color: var(--color-text-muted);
+    opacity: 0.5;
+  }
+}
+
+.contact__textarea {
+  resize: vertical;
+}
+
+.contact__error {
+  color: var(--color-error, #e05050);
+  font-size: var(--font-size-xs);
+}
+
+.contact__send-error {
+  background-color: rgb(from var(--color-error, #e05050) r g b / 10%);
+  border: 1px solid rgb(from var(--color-error, #e05050) r g b / 30%);
+  border-radius: var(--radius-sm);
+  color: var(--color-error, #e05050);
+  font-size: var(--font-size-sm);
+  padding: var(--space-sm) var(--space-md);
+}
+
+.contact__submit {
+  align-self: flex-start;
+  background-color: var(--color-primary);
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  cursor: pointer;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  padding: var(--space-sm) var(--space-xl);
+  transition:
+    background-color 0.2s ease,
+    opacity 0.2s ease;
+
+  &:hover:not(:disabled) {
+    background-color: var(--color-primary-hover);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+.contact__success {
+  margin: 0 auto;
+  max-width: 36rem;
+  text-align: center;
+}
+
+.contact__success-text {
+  color: var(--color-text);
+  font-family: var(--font-serif);
+  font-size: var(--font-size-xl);
+  font-style: italic;
+  line-height: var(--line-height-base);
+}

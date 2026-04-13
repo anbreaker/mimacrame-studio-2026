@@ -224,6 +224,122 @@ function buildEmailLayout(
 </html>`;
 }
 
+// ── Contact email templates ───────────────────────────────────────────────────
+interface ContactEmailTranslations {
+  adminSubject: (name: string) => string;
+  adminTitle: (name: string) => string;
+  confirmBody: string;
+  confirmHeader: string;
+  confirmSubject: string;
+  footer: string;
+  fromLabel: string;
+  messageLabel: string;
+  subjectLabel: string;
+}
+
+const CONTACT_TRANSLATIONS: Record<Lang, ContactEmailTranslations> = {
+  en: {
+    adminSubject: (name) => `New contact message from ${name}`,
+    adminTitle: (name) => `New message from ${name}`,
+    confirmBody: 'We have received your message and will get back to you as soon as possible.',
+    confirmHeader: 'We received your message',
+    confirmSubject: 'We received your message — Mimacramé Studio',
+    footer: 'Made with care, woven with love',
+    fromLabel: 'From',
+    messageLabel: 'Message',
+    subjectLabel: 'Subject',
+  },
+  es: {
+    adminSubject: (name) => `Nuevo mensaje de contacto de ${name}`,
+    adminTitle: (name) => `Nuevo mensaje de ${name}`,
+    confirmBody: 'Hemos recibido tu mensaje y te responderemos lo antes posible.',
+    confirmHeader: 'Recibimos tu mensaje',
+    confirmSubject: 'Hemos recibido tu mensaje — Mimacramé Studio',
+    footer: 'Hecho con mimo, tejido con amor',
+    fromLabel: 'De',
+    messageLabel: 'Mensaje',
+    subjectLabel: 'Asunto',
+  },
+  pt: {
+    adminSubject: (name) => `Nova mensagem de contacto de ${name}`,
+    adminTitle: (name) => `Nova mensagem de ${name}`,
+    confirmBody: 'Recebemos a sua mensagem e responderemos o mais breve possível.',
+    confirmHeader: 'Recebemos a sua mensagem',
+    confirmSubject: 'Recebemos a sua mensagem — Mimacramé Studio',
+    footer: 'Feito com carinho, tecido com amor',
+    fromLabel: 'De',
+    messageLabel: 'Mensagem',
+    subjectLabel: 'Assunto',
+  },
+};
+
+export function getContactTranslations(lang?: string): ContactEmailTranslations {
+  const key = AVAILABLE_LANGS.includes(lang as Lang) ? (lang as Lang) : DEFAULT_LANG;
+  return CONTACT_TRANSLATIONS[key];
+}
+
+export function buildContactAdminEmailHtml(data: {
+  email: string;
+  lang?: string;
+  message: string;
+  name: string;
+  subject: string;
+}): string {
+  const t = getContactTranslations(data.lang);
+  const body = `
+    <h1 style="margin:0 0 24px;font-family:Georgia,serif;font-size:22px;color:#f5efe8;">
+      ${t.adminTitle(data.name)}
+    </h1>
+    <div style="background:#1c2e42;border-radius:6px;padding:20px;margin-bottom:20px;">
+      <p style="margin:0 0 8px;font-size:13px;text-transform:uppercase;letter-spacing:1px;color:#9baab8;">${t.fromLabel}</p>
+      <p style="margin:0;font-size:15px;color:#f5efe8;font-weight:600;">${data.name}</p>
+      <p style="margin:4px 0 0;font-size:14px;color:#9baab8;">${data.email}</p>
+    </div>
+    <div style="background:#1c2e42;border-radius:6px;padding:20px;margin-bottom:20px;">
+      <p style="margin:0 0 8px;font-size:13px;text-transform:uppercase;letter-spacing:1px;color:#9baab8;">${t.subjectLabel}</p>
+      <p style="margin:0;font-size:15px;color:#f5efe8;">${data.subject}</p>
+    </div>
+    <div style="background:#1c2e42;border-radius:6px;padding:20px;border-left:3px solid #ff6b3d;">
+      <p style="margin:0 0 8px;font-size:13px;text-transform:uppercase;letter-spacing:1px;color:#9baab8;">${t.messageLabel}</p>
+      <p style="margin:0;font-size:15px;color:#f5efe8;line-height:1.7;white-space:pre-wrap;">${data.message}</p>
+    </div>
+  `;
+  return buildEmailLayout(t.adminTitle(data.name), body, t.footer);
+}
+
+export function buildContactConfirmEmailHtml(data: {
+  lang?: string;
+  message: string;
+  name: string;
+  subject: string;
+}): string {
+  const t = getContactTranslations(data.lang);
+  const body = `
+    <h1 style="margin:0 0 16px;font-family:Georgia,serif;font-size:22px;color:#f5efe8;">
+      ${t.confirmHeader}
+    </h1>
+    <p style="margin:0 0 24px;font-size:15px;color:#9baab8;line-height:1.6;">
+      ${t.confirmBody}
+    </p>
+    <div style="background:#1c2e42;border-radius:6px;padding:20px;border-left:3px solid #ff6b3d;">
+      <p style="margin:0 0 8px;font-size:13px;text-transform:uppercase;letter-spacing:1px;color:#9baab8;">${t.subjectLabel}</p>
+      <p style="margin:0 0 16px;font-size:14px;color:#f5efe8;">${data.subject}</p>
+      <p style="margin:0 0 8px;font-size:13px;text-transform:uppercase;letter-spacing:1px;color:#9baab8;">${t.messageLabel}</p>
+      <p style="margin:0;font-size:14px;color:#f5efe8;line-height:1.7;white-space:pre-wrap;">${data.message}</p>
+    </div>
+  `;
+  return buildEmailLayout(t.confirmHeader, body, t.footer);
+}
+
+export function buildContactAdminSubject(name: string, lang?: string): string {
+  return getContactTranslations(lang).adminSubject(name);
+}
+
+export function buildContactConfirmSubject(lang?: string): string {
+  return getContactTranslations(lang).confirmSubject;
+}
+
+// ── Order email templates ─────────────────────────────────────────────────────
 export function buildCustomerEmailHtml(order: OrderData, orderRef: string): string {
   const t = getTranslations(order.lang);
   const items = order.items ?? [];
