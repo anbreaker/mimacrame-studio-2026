@@ -39,7 +39,8 @@
   },
   "account": {
     "contact": {
-      "myContact": "Contacto"
+      "title": "Contacto",
+      "subtitle": "Envíanos un mensaje desde tu cuenta"
     },
     "orders": {
       "created": "Realizado",
@@ -437,7 +438,11 @@
     "eyebrow": "Hecho a mano · Badajoz, Extremadura",
     "success": "¡Mensaje enviado! Te responderemos pronto.",
     "subtitle": "¿Tienes alguna pregunta? Estamos aquí para ayudarte.",
-    "title": "Contacto"
+    "title": "Contacto",
+    "info": {
+      "heading": "Hablemos de artesanía",
+      "body": "Cada pieza de Mimacramé es un viaje de paciencia y diseño. Ya sea que busques una obra personalizada para tu hogar o quieras saber más sobre nuestros talleres, estamos encantadas de escucharte."
+    }
   },
   "errors": {
     "forbidden": "No tienes permisos para realizar esta acción.",

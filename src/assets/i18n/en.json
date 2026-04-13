@@ -39,7 +39,8 @@
   },
   "account": {
     "contact": {
-      "myContact": "Contact"
+      "title": "Contact",
+      "subtitle": "Send us a message from your account"
     },
     "orders": {
       "created": "Placed",
@@ -437,7 +438,11 @@
     "eyebrow": "Handmade · Badajoz, Extremadura",
     "success": "Message sent! We'll get back to you soon.",
     "subtitle": "Have a question? We're here to help.",
-    "title": "Contact"
+    "title": "Contact",
+    "info": {
+      "heading": "Let's talk about craft",
+      "body": "Every Mimacramé piece is a journey of patience and design. Whether you are looking for a custom piece for your home or want to learn more about our workshops, we would love to hear from you."
+    }
   },
   "errors": {
     "forbidden": "You don't have permission to perform this action.",

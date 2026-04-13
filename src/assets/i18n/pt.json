@@ -39,7 +39,8 @@
   },
   "account": {
     "contact": {
-      "myContact": "Contacto"
+      "title": "Contacto",
+      "subtitle": "Envie-nos uma mensagem da sua conta"
     },
     "orders": {
       "created": "Realizado",
@@ -437,7 +438,11 @@
     "eyebrow": "Artesanal · Badajoz, Extremadura",
     "success": "Mensagem enviada! Responderemos em breve.",
     "subtitle": "Tem alguma dúvida? Estamos aqui para ajudar.",
-    "title": "Contacto"
+    "title": "Contacto",
+    "info": {
+      "heading": "Vamos falar sobre artesanato",
+      "body": "Cada peça da Mimacramé é uma jornada de paciência e design. Seja para encomendar uma peça personalizada ou saber mais sobre os nossos workshops, adoramos ouvir de si."
+    }
   },
   "errors": {
     "forbidden": "Você não tem permissão para realizar esta ação.",
