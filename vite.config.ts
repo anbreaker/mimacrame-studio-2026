@@ -72,5 +72,14 @@ export default defineConfig(({ mode }) => ({
   build: {
     emptyOutDir: true,
     outDir: resolve(__dirname, 'www'),
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          angular: ['@angular/core', '@angular/common', '@angular/router', '@angular/forms'],
+          firebase: ['@angular/fire', 'firebase'],
+          rxjs: ['rxjs'],
+        },
+      },
+    },
   },
 }));

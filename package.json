@@ -73,6 +73,7 @@
     "lint:fix": "eslint \"src/**/*.{ts,js}\" --fix && eslint \"*.json\" --fix",
     "lint:prod": "NODE_ENV=production eslint \"src/**/*.{ts,js}\" && NODE_ENV=production eslint \"*.json\"",
     "ng": "ng",
+    "serve:dist": "npx serve -s www",
     "start": "vite --mode dev",
     "test": "vitest run",
     "test:ui": "vitest --ui",
