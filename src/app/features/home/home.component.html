@@ -1,5 +1,13 @@
 <!-- Hero -->
 <section class="hero" *transloco="let t">
+  <img
+    class="hero__image"
+    ngSrc="/assets/images/home.webp"
+    fill
+    priority
+    alt=""
+    aria-hidden="true"
+  />
   <div class="hero__overlay"></div>
   <div class="hero__content">
     <p class="hero__eyebrow">{{ t('home.hero.eyebrow') }}</p>
@@ -30,7 +38,7 @@
   </div>
 </section>
 
-<!-- About / Proceso -->
+<!-- About / Process -->
 <section class="process">
   <div class="process__inner" *transloco="let t">
     <div class="process__header">

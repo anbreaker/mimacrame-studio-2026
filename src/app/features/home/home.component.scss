@@ -20,15 +20,11 @@
     min-height: 94svh;
   }
 
-  &::before {
-    background-image: url('/assets/images/home.webp');
-    background-position: center;
-    background-size: cover;
-    content: '';
-    inset: 0;
+  &__image {
     mix-blend-mode: luminosity;
+    object-fit: cover;
     opacity: 0.28;
-    position: absolute;
+    z-index: 0;
   }
 
   &::after {
@@ -129,7 +125,7 @@
       color: aliceblue;
 
       &:hover {
-        background-color: rgb(from var(--color-primary) r g b / 4%);
+        background-color: var(--color-primary-light);
         border-color: var(--color-primary);
         color: var(--color-primary);
 

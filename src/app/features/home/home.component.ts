@@ -1,3 +1,4 @@
+import { NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslocoDirective } from '@jsverse/transloco';
@@ -19,7 +20,7 @@ const CATEGORY_ITEMS = [
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [OurWorkComponent, RevealDirective, RouterLink, TranslocoDirective],
+  imports: [NgOptimizedImage, OurWorkComponent, RevealDirective, RouterLink, TranslocoDirective],
   selector: 'app-home',
   standalone: true,
   styleUrl: './home.component.scss',
