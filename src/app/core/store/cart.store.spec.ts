@@ -14,7 +14,7 @@ const USER_KEY = `${STORAGE_KEYS.Cart}_user-123`;
 function makeProduct(id: string, price: number): Product {
   return {
     active: true,
-    category: 'pendants',
+    category: 'necklaces',
     createdAt: new Date(),
     description: { en: 'Desc', es: 'Desc', pt: 'Desc' },
     estimatedDays: 7,
