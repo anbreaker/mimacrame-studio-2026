@@ -1,0 +1,108 @@
+<main class="care" *transloco="let t">
+  <!-- Hero — full viewport width -->
+  <div class="care__hero">
+    <svg class="care__knot care__knot--1" viewBox="0 0 80 80" aria-hidden="true">
+      <path d="M40 4 L76 40 L40 76 L4 40 Z" fill="none" stroke="currentColor" stroke-width="1" />
+      <path
+        d="M40 18 L62 40 L40 62 L18 40 Z"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+      />
+    </svg>
+    <svg class="care__knot care__knot--2" viewBox="0 0 60 60" aria-hidden="true">
+      <path d="M30 3 L57 30 L30 57 L3 30 Z" fill="none" stroke="currentColor" stroke-width="1" />
+      <path
+        d="M30 15 L45 30 L30 45 L15 30 Z"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+      />
+    </svg>
+
+    <div class="care__hero-inner">
+      <a class="care__back" routerLink="/" appReveal [attr.aria-label]="t('care.back')">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          width="16"
+          height="16"
+          aria-hidden="true"
+        >
+          <path d="M19 12H5M12 5l-7 7 7 7" />
+        </svg>
+        {{ t('care.back') }}
+      </a>
+
+      <header class="care__header" appReveal [revealDelay]="50">
+        <div class="care__icon" aria-hidden="true">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            width="28"
+            height="28"
+          >
+            <path
+              d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+            />
+          </svg>
+        </div>
+        <p class="care__eyebrow">{{ t('care.eyebrow') }}</p>
+        <h1 class="care__title">{{ t('care.title') }}</h1>
+        <span class="care__divider" aria-hidden="true"></span>
+        <p class="care__updated">{{ t('care.lastUpdated') }}</p>
+      </header>
+
+      <p class="care__intro" appReveal [revealDelay]="150">{{ t('care.intro') }}</p>
+    </div>
+  </div>
+
+  <!-- Sections — centered container -->
+  <div class="care__container">
+    <div class="care__sections">
+      @for (section of t('care.sections'); track $index) {
+        <section class="care__card" appReveal [revealDelay]="$index * 80">
+          <h2 class="care__card-title">{{ section.title }}</h2>
+          @if (section.emailLink) {
+            <p class="care__card-text">
+              {{ section.contentBefore }}
+              <a class="care__email-link" href="mailto:{{ section.emailLink }}">
+                {{ section.emailLink }}
+              </a>
+              {{ section.contentAfter }}
+            </p>
+          } @else {
+            <p class="care__card-text">{{ section.content }}</p>
+          }
+        </section>
+      }
+    </div>
+
+    <div class="care__contact" appReveal [revealDelay]="100">
+      <div class="care__contact-inner">
+        <svg
+          class="care__contact-icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          width="24"
+          height="24"
+          aria-hidden="true"
+        >
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+        </svg>
+        <p class="care__contact-text">{{ t('care.ctaText') }}</p>
+        <a class="btn btn--primary" routerLink="/contact">{{ t('care.ctaLabel') }}</a>
+      </div>
+    </div>
+  </div>
+</main>

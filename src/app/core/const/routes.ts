@@ -14,6 +14,7 @@ export const ROUTES = {
   ADMIN_PRODUCT_EDIT: 'admin/products/:id',
   ADMIN_PRODUCT_NEW: 'admin/products/new',
   ADMIN_PRODUCTS: 'admin/products',
+  CARE: 'care',
   CART: 'cart',
   CATALOGUE: 'catalogue',
   CHECKOUT: 'checkout',
@@ -25,6 +26,7 @@ export const ROUTES = {
   PRODUCT: 'product',
   PRODUCT_ID: 'product/:id',
   REGISTER: 'register',
+  SHIPPING: 'shipping',
 } as const;
 
 export type RouteKey = keyof typeof ROUTES;

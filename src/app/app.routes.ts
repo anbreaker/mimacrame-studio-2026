@@ -31,6 +31,15 @@ const publicRoutes: Routes = [
   },
   {
     loadComponent: async () =>
+      (await import('./features/shipping/shipping.component')).ShippingComponent,
+    path: ROUTES.SHIPPING,
+  },
+  {
+    loadComponent: async () => (await import('./features/care/care.component')).CareComponent,
+    path: ROUTES.CARE,
+  },
+  {
+    loadComponent: async () =>
       (await import('./features/contact/contact.component')).ContactComponent,
     path: ROUTES.CONTACT,
   },

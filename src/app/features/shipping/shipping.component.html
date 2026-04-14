@@ -1,0 +1,109 @@
+<main class="shipping" *transloco="let t">
+  <!-- Hero — full viewport width -->
+  <div class="shipping__hero">
+    <svg class="shipping__knot shipping__knot--1" viewBox="0 0 80 80" aria-hidden="true">
+      <path d="M40 4 L76 40 L40 76 L4 40 Z" fill="none" stroke="currentColor" stroke-width="1" />
+      <path
+        d="M40 18 L62 40 L40 62 L18 40 Z"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+      />
+    </svg>
+    <svg class="shipping__knot shipping__knot--2" viewBox="0 0 60 60" aria-hidden="true">
+      <path d="M30 3 L57 30 L30 57 L3 30 Z" fill="none" stroke="currentColor" stroke-width="1" />
+      <path
+        d="M30 15 L45 30 L30 45 L15 30 Z"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+      />
+    </svg>
+
+    <div class="shipping__hero-inner">
+      <a class="shipping__back" routerLink="/" appReveal [attr.aria-label]="t('shipping.back')">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          width="16"
+          height="16"
+          aria-hidden="true"
+        >
+          <path d="M19 12H5M12 5l-7 7 7 7" />
+        </svg>
+        {{ t('shipping.back') }}
+      </a>
+
+      <header class="shipping__header" appReveal [revealDelay]="50">
+        <div class="shipping__icon" aria-hidden="true">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            width="28"
+            height="28"
+          >
+            <path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3" />
+            <rect x="9" y="11" width="14" height="10" rx="2" />
+            <circle cx="12" cy="21" r="1" />
+            <circle cx="20" cy="21" r="1" />
+          </svg>
+        </div>
+        <p class="shipping__eyebrow">{{ t('shipping.eyebrow') }}</p>
+        <h1 class="shipping__title">{{ t('shipping.title') }}</h1>
+        <span class="shipping__divider" aria-hidden="true"></span>
+        <p class="shipping__updated">{{ t('shipping.lastUpdated') }}</p>
+      </header>
+
+      <p class="shipping__intro" appReveal [revealDelay]="150">{{ t('shipping.intro') }}</p>
+    </div>
+  </div>
+
+  <!-- Sections — centered container -->
+  <div class="shipping__container">
+    <div class="shipping__sections">
+      @for (section of t('shipping.sections'); track $index) {
+        <section class="shipping__card" appReveal [revealDelay]="$index * 80">
+          <h2 class="shipping__card-title">{{ section.title }}</h2>
+          @if (section.emailLink) {
+            <p class="shipping__card-text">
+              {{ section.contentBefore }}
+              <a class="shipping__email-link" href="mailto:{{ section.emailLink }}">
+                {{ section.emailLink }}
+              </a>
+              {{ section.contentAfter }}
+            </p>
+          } @else {
+            <p class="shipping__card-text">{{ section.content }}</p>
+          }
+        </section>
+      }
+    </div>
+
+    <div class="shipping__contact" appReveal [revealDelay]="100">
+      <div class="shipping__contact-inner">
+        <svg
+          class="shipping__contact-icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          width="24"
+          height="24"
+          aria-hidden="true"
+        >
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+        </svg>
+        <p class="shipping__contact-text">{{ t('shipping.ctaText') }}</p>
+        <a class="btn btn--primary" routerLink="/contact">{{ t('shipping.ctaLabel') }}</a>
+      </div>
+    </div>
+  </div>
+</main>
