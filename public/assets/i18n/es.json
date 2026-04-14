@@ -495,9 +495,9 @@
   "home": {
     "categories": {
       "items": {
-        "anklets": "Tobilleras",
         "bracelets": "Pulseras",
         "earrings": "Pendientes",
+        "necklaces": "Collares",
         "pendants": "Colgantes",
         "rings": "Anillos",
         "sets": "Conjuntos"

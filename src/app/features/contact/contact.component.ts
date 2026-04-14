@@ -92,7 +92,9 @@ export class ContactComponent {
     }
   }
 
-  protected async submit(): Promise<void> {
+  protected async submit(event: Event): Promise<void> {
+    event.preventDefault();
+
     if (!this.canSubmit()) return;
 
     this.isSubmitting.set(true);
