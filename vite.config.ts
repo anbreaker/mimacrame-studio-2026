@@ -28,7 +28,7 @@ export default defineConfig(({ mode }) => ({
     angular({
       tsconfig: resolve(__dirname, 'tsconfig.app.json'),
     }),
-    ...(mode === 'dev' ? [fileReplacementsPlugin()] : []),
+    ...(['dev', 'devfull'].includes(mode) ? [fileReplacementsPlugin()] : []),
   ],
 
   envPrefix: 'NG_APP_',
@@ -37,7 +37,7 @@ export default defineConfig(({ mode }) => ({
     hmr: true,
     open: true,
     port: 4200,
-    ...(mode === 'dev' && {
+    ...(['dev', 'devfull'].includes(mode) && {
       proxy: {
         '/api': {
           changeOrigin: true,
