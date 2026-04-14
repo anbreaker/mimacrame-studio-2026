@@ -296,6 +296,33 @@
     "collection": "Collection",
     "home": "Home"
   },
+  "care": {
+    "eyebrow": "Made to last a lifetime",
+    "back": "Home",
+    "ctaText": "Do you have any questions about caring for your piece?",
+    "ctaLabel": "Contact us",
+    "title": "Piece Care Guide",
+    "lastUpdated": "Last updated: April 14, 2026",
+    "intro": "Macramé is a textile art that, with proper care, can stay beautiful for a very long time. Follow these recommendations to keep your piece in its best condition.",
+    "sections": [
+      {
+        "title": "1. Cleaning",
+        "content": "If your piece needs cleaning, hand washing with cold or warm water and mild soap is the best option. Avoid machine washing or using harsh detergents that can damage the fibers. Let it dry in the shade, laid flat or hanging, without wringing it out."
+      },
+      {
+        "title": "2. Sun and moisture exposure",
+        "content": "Avoid prolonged exposure to direct sunlight, as it can fade natural fibers. Similarly, store your pieces in dry, well-ventilated places to prevent moisture or mold from forming."
+      },
+      {
+        "title": "3. Storage",
+        "content": "If you are not going to use your piece for a while, fold it carefully or roll it gently and store it in a breathable fabric bag. Avoid sealed plastic bags that retain moisture and do not allow the material to breathe."
+      },
+      {
+        "title": "4. Repairs",
+        "content": "If over time a knot loosens or a fiber gets damaged, you can contact us to arrange a repair. We love our creations and want them to keep accompanying you."
+      }
+    ]
+  },
   "cart": {
     "empty": {
       "cta": "View collection",
@@ -622,5 +649,34 @@
       "submitButton": "Sign in",
       "submitButtonLoading": "Signing in..."
     }
+  },
+  "shipping": {
+    "eyebrow": "Everything you need to know",
+    "back": "Home",
+    "ctaText": "Do you have questions about your shipping or want to process a return?",
+    "ctaLabel": "Contact us",
+    "title": "Shipping & Returns",
+    "lastUpdated": "Last updated: April 14, 2026",
+    "intro": "Every Mimacramé Studio piece is carefully prepared before it reaches you. Here you will find all the information about delivery times, costs, and what to do if something goes wrong.",
+    "sections": [
+      {
+        "title": "1. Preparation time",
+        "content": "Each piece is handmade to order. Preparation time is 5 to 10 business days from payment confirmation. During peak seasons (special dates, holidays) this may be extended; we will let you know at the time of purchase."
+      },
+      {
+        "title": "2. Shipping",
+        "content": "We ship nationwide. The cost and delivery time depend on your location and the selected courier service. Shipping costs are calculated automatically at checkout. Once dispatched, you will receive a tracking number to follow your order."
+      },
+      {
+        "title": "3. International shipping",
+        "content": "At the moment we only ship within the national territory. If you are abroad and would like to purchase a piece, feel free to contact us so we can explore options together."
+      },
+      {
+        "title": "4. Returns & exchanges",
+        "contentBefore": "We accept returns within 7 calendar days of receiving your order, as long as the piece is in its original, unused condition. Return shipping costs are the buyer's responsibility. To start the process, write to us at ",
+        "emailLink": "info@mimacrame.com",
+        "contentAfter": " with your order number and the reason for the return."
+      }
+    ]
   }
 }

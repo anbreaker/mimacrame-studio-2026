@@ -296,6 +296,33 @@
     "collection": "Coleção",
     "home": "Início"
   },
+  "care": {
+    "eyebrow": "Feito para durar a vida toda",
+    "back": "Início",
+    "ctaText": "Tem alguma dúvida sobre os cuidados com sua peça?",
+    "ctaLabel": "Fale conosco",
+    "title": "Cuidados com sua Peça",
+    "lastUpdated": "Última atualização: 14 de abril de 2026",
+    "intro": "O macramê é uma arte têxtil que, com os cuidados adequados, pode durar muito tempo. Siga estas recomendações para manter sua peça em ótimo estado.",
+    "sections": [
+      {
+        "title": "1. Limpeza",
+        "content": "Se sua peça precisar de limpeza, lavar à mão com água fria ou morna e sabão neutro é a melhor opção. Evite lavar à máquina ou usar detergentes agressivos que possam danificar as fibras. Deixe secar à sombra, estendida ou pendurada, sem torcer."
+      },
+      {
+        "title": "2. Exposição ao sol e umidade",
+        "content": "Evite a exposição prolongada ao sol direto, pois pode descolorir as fibras naturais. Da mesma forma, guarde suas peças em locais secos e ventilados para evitar o aparecimento de umidade ou mofo."
+      },
+      {
+        "title": "3. Armazenamento",
+        "content": "Se não for usar sua peça por um tempo, dobre-a com cuidado ou enrole-a suavemente e guarde em uma bolsa de tecido respirável. Evite sacos plásticos fechados que retêm umidade e não permitem que o material respire."
+      },
+      {
+        "title": "4. Reparos",
+        "content": "Se com o tempo algum nó se soltar ou uma fibra se danificar, entre em contato conosco para combinar um reparo. Amamos nossas criações e queremos que continuem com você."
+      }
+    ]
+  },
   "cart": {
     "empty": {
       "cta": "Ver coleção",
@@ -622,5 +649,34 @@
       "submitButton": "Entrar",
       "submitButtonLoading": "Entrando..."
     }
+  },
+  "shipping": {
+    "eyebrow": "Tudo o que você precisa saber",
+    "back": "Início",
+    "ctaText": "Tem dúvidas sobre o seu envio ou quer solicitar uma devolução?",
+    "ctaLabel": "Fale conosco",
+    "title": "Envios e Devoluções",
+    "lastUpdated": "Última atualização: 14 de abril de 2026",
+    "intro": "Cada peça do Mimacramé Studio é preparada com cuidado antes de chegar até você. Aqui você encontra todas as informações sobre prazos, custos e como proceder em caso de qualquer problema.",
+    "sections": [
+      {
+        "title": "1. Prazo de preparação",
+        "content": "Cada peça é artesanal e feita sob encomenda. O prazo de preparação é de 5 a 10 dias úteis a partir da confirmação do pagamento. Em épocas de alta demanda (datas especiais, temporadas) pode ser estendido; informaremos no momento da compra."
+      },
+      {
+        "title": "2. Envios",
+        "content": "Realizamos envios para todo o território nacional. O custo e o prazo de entrega dependem da sua localização e do serviço de entrega selecionado. O custo de envio é calculado automaticamente ao finalizar a compra. Após o despacho, você receberá um número de rastreamento para acompanhar seu pedido."
+      },
+      {
+        "title": "3. Envios internacionais",
+        "content": "No momento, realizamos envios apenas dentro do território nacional. Se você estiver no exterior e quiser adquirir uma peça, entre em contato conosco para avaliarmos opções juntos."
+      },
+      {
+        "title": "4. Devoluções e trocas",
+        "contentBefore": "Aceitamos devoluções em até 7 dias corridos a partir do recebimento do pedido, desde que a peça esteja em seu estado original e sem uso. O custo do envio de devolução é de responsabilidade do comprador. Para iniciar o processo, escreva para ",
+        "emailLink": "info@mimacrame.com",
+        "contentAfter": " informando o número do pedido e o motivo."
+      }
+    ]
   }
 }
