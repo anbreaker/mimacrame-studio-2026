@@ -1,6 +1,26 @@
 {
   "buildCommand": "vite build",
   "devCommand": "node -e \"require('http').createServer((req,res)=>res.end('')).listen(process.env.PORT)\"",
+  "headers": [
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/favicon.ico",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ],
   "outputDirectory": "www",
   "rewrites": [
     {
