@@ -23,7 +23,13 @@ export class CatalogueComponent implements OnInit {
   protected readonly isTransitioning = signal(false);
   protected readonly localSearchQuery = signal('');
 
-  protected readonly categoryKeys = Object.values(PRODUCT_CATEGORY);
+  protected readonly categoryKeys = [
+    PRODUCT_CATEGORY.Necklaces,
+    PRODUCT_CATEGORY.Choker,
+    PRODUCT_CATEGORY.Miscellaneous,
+    PRODUCT_CATEGORY.Bracelets,
+    PRODUCT_CATEGORY.Anklets,
+  ];
 
   protected readonly PRODUCT_CATEGORY = PRODUCT_CATEGORY;
 
