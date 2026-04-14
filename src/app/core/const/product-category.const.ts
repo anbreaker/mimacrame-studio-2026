@@ -1,7 +1,7 @@
 export const PRODUCT_CATEGORY = {
-  Anklets: 'anklets',
   Bracelets: 'bracelets',
   Earrings: 'earrings',
+  Necklaces: 'necklaces',
   Pendants: 'pendants',
   Rings: 'rings',
   Sets: 'sets',

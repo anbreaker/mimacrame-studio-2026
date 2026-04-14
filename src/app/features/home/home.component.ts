@@ -14,7 +14,7 @@ const CATEGORY_ITEMS = [
   { emoji: '✨', key: PRODUCT_CATEGORY.Pendants },
   { emoji: '💎', key: PRODUCT_CATEGORY.Earrings },
   { emoji: '💍', key: PRODUCT_CATEGORY.Rings },
-  { emoji: '🌊', key: PRODUCT_CATEGORY.Anklets },
+  { emoji: '📿', key: PRODUCT_CATEGORY.Necklaces },
   { emoji: '🎁', key: PRODUCT_CATEGORY.Sets },
 ] as const;
 

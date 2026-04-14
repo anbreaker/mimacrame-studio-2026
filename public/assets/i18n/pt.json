@@ -495,9 +495,9 @@
   "home": {
     "categories": {
       "items": {
-        "anklets": "Tornozeleiras",
         "bracelets": "Pulseiras",
         "earrings": "Brincos",
+        "necklaces": "Colares",
         "pendants": "Pingentes",
         "rings": "Anéis",
         "sets": "Conjuntos"
