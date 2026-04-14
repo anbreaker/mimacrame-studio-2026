@@ -124,7 +124,7 @@
           </div>
         } @else {
           <div class="contact__card" appReveal [revealDelay]="100">
-            <form class="contact__form" (ngSubmit)="submit()" novalidate>
+            <form class="contact__form" (submit)="submit($event)" novalidate>
               <input
                 class="contact__honeypot"
                 type="text"
