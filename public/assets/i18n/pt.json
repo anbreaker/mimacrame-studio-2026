@@ -496,11 +496,10 @@
     "categories": {
       "items": {
         "bracelets": "Pulseiras",
+        "choker": "Gargantilha",
         "earrings": "Brincos",
         "necklaces": "Colares",
-        "pendants": "Pingentes",
-        "rings": "Anéis",
-        "sets": "Conjuntos"
+        "rings": "Anéis"
       },
       "title": "Explore a coleção"
     },
@@ -634,6 +633,7 @@
     "homeTitle": "Mimacramé Studio — Joalharia Artesanal"
   },
   "shared": {
+    "brandTagline": "Artesanato",
     "loginForm": {
       "divider": "ou continue com",
       "emailLabel": "Email",

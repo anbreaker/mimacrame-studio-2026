@@ -496,11 +496,10 @@
     "categories": {
       "items": {
         "bracelets": "Bracelets",
+        "choker": "Choker",
         "earrings": "Earrings",
         "necklaces": "Necklaces",
-        "pendants": "Pendants",
-        "rings": "Rings",
-        "sets": "Sets"
+        "rings": "Rings"
       },
       "title": "Explore the collection"
     },
@@ -630,10 +629,11 @@
     "aboutTitle": "Our Story — Mimacramé Studio",
     "catalogueDescription": "Explore our collection of handcrafted macramé jewelry.",
     "catalogueTitle": "Collection",
-    "homeDescription": "Handcrafted macramé jewelry made in Badajoz. Bracelets, pendants, earrings, necklaces and unique sets.",
+    "homeDescription": "Handcrafted macramé jewelry made in Badajoz. Bracelets, necklaces, chokers, earrings and unique sets.",
     "homeTitle": "Mimacramé Studio — Handcrafted Jewelry"
   },
   "shared": {
+    "brandTagline": "Crafted",
     "loginForm": {
       "divider": "or continue with",
       "emailLabel": "Email",
