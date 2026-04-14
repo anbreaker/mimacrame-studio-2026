@@ -495,11 +495,11 @@
   "home": {
     "categories": {
       "items": {
+        "anklets": "Tornozeleiras",
         "bracelets": "Pulseiras",
         "choker": "Gargantilha",
-        "earrings": "Brincos",
-        "necklaces": "Colares",
-        "rings": "Anéis"
+        "miscellaneous": "Diversos",
+        "necklaces": "Colares"
       },
       "title": "Explore a coleção"
     },

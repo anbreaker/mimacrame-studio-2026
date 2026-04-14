@@ -1,9 +1,9 @@
 export const PRODUCT_CATEGORY = {
+  Anklets: 'anklets',
   Bracelets: 'bracelets',
   Choker: 'choker',
-  Earrings: 'earrings',
+  Miscellaneous: 'miscellaneous',
   Necklaces: 'necklaces',
-  Rings: 'rings',
 } as const;
 
 export type ProductCategory = (typeof PRODUCT_CATEGORY)[keyof typeof PRODUCT_CATEGORY];

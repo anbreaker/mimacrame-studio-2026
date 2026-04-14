@@ -10,11 +10,11 @@ import { OurWorkComponent } from '@features/home/our-work/our-work.component';
 import { RevealDirective } from '@shared/directives/reveal.directive';
 
 const CATEGORY_ITEMS = [
-  { emoji: '💍', key: PRODUCT_CATEGORY.Rings },
-  { emoji: '📿', key: PRODUCT_CATEGORY.Bracelets },
-  { emoji: '💎', key: PRODUCT_CATEGORY.Earrings },
-  { emoji: '🔮', key: PRODUCT_CATEGORY.Necklaces },
+  { emoji: '🧵', key: PRODUCT_CATEGORY.Necklaces },
   { emoji: '✨', key: PRODUCT_CATEGORY.Choker },
+  { emoji: '🎒', key: PRODUCT_CATEGORY.Miscellaneous },
+  { emoji: '📿', key: PRODUCT_CATEGORY.Bracelets },
+  { emoji: '👣', key: PRODUCT_CATEGORY.Anklets },
 ] as const;
 
 @Component({

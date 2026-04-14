@@ -495,9 +495,11 @@
   "home": {
     "categories": {
       "items": {
+        "anklets": "Anklets",
         "bracelets": "Bracelets",
         "choker": "Choker",
         "earrings": "Earrings",
+        "miscellaneous": "Miscellaneous",
         "necklaces": "Necklaces",
         "rings": "Rings"
       },

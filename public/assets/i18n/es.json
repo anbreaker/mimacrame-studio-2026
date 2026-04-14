@@ -495,11 +495,11 @@
   "home": {
     "categories": {
       "items": {
+        "anklets": "Tobilleras",
         "bracelets": "Pulseras",
         "choker": "Gargantilla",
-        "earrings": "Pendientes",
-        "necklaces": "Colgantes",
-        "rings": "Anillos"
+        "miscellaneous": "Miscelánea",
+        "necklaces": "Colgantes"
       },
       "title": "Explora la colección"
     },
