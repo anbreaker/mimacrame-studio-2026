@@ -547,6 +547,35 @@
       "title": "¡Tu pedido está en camino!"
     }
   },
+  "privacy": {
+    "eyebrow": "Tu privacidad importa",
+    "back": "Inicio",
+    "ctaText": "¿Querés ejercer tus derechos o tenés preguntas sobre tus datos?",
+    "ctaLabel": "Contactanos",
+    "title": "Política de Privacidad",
+    "lastUpdated": "Última actualización: 14 de abril de 2026",
+    "intro": "En Mimacramé Studio, nos tomamos muy en serio la privacidad y seguridad de tus datos. Esta política describe cómo recopilamos, usamos y protegemos tu información.",
+    "sections": [
+      {
+        "title": "1. Datos que recopilamos",
+        "content": "Recopilamos la información que nos proporcionas al realizar un pedido, como tu nombre, dirección de correo electrónico, dirección de envío y número de teléfono. No almacenamos datos de tarjetas de crédito; todos los pagos se procesan de forma segura a través de nuestros proveedores de pago (Stripe)."
+      },
+      {
+        "title": "2. Uso de la información",
+        "content": "Utilizamos tus datos exclusivamente para gestionar y enviar tus pedidos, enviarte confirmaciones o contactarte si surge alguna incidencia con tu compra."
+      },
+      {
+        "title": "3. Protección de tus datos",
+        "content": "Tus datos personales se conservan de forma segura y nunca se venden ni se ceden a terceros con fines de marketing. Solo compartimos tu dirección con las empresas de mensajería necesarias para hacerte llegar tu pedido."
+      },
+      {
+        "title": "4. Tus derechos",
+        "contentBefore": "Puedes solicitar en cualquier momento el acceso, rectificación o eliminación de tus datos personales enviando un correo a ",
+        "emailLink": "info@mimacrame.com",
+        "contentAfter": " o a través de nuestro formulario de contacto."
+      }
+    ]
+  },
   "productCard": {
     "quickAdd": "Añadir al carrito"
   },
