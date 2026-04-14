@@ -26,6 +26,11 @@ const publicRoutes: Routes = [
   },
   {
     loadComponent: async () =>
+      (await import('./features/privacy/privacy.component')).PrivacyComponent,
+    path: ROUTES.PRIVACY,
+  },
+  {
+    loadComponent: async () =>
       (await import('./features/contact/contact.component')).ContactComponent,
     path: ROUTES.CONTACT,
   },

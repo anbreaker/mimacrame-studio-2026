@@ -21,6 +21,7 @@ export const ROUTES = {
   HOME: '',
   LOGIN: 'login',
   ORDER_CONFIRMED: 'order-confirmed',
+  PRIVACY: 'privacy',
   PRODUCT: 'product',
   PRODUCT_ID: 'product/:id',
   REGISTER: 'register',
