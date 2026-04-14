@@ -2,9 +2,9 @@
   <div class="navbar__inner" [class.navbar__inner--full]="isAdminRoute()">
     <!-- Left: Logo -->
     <a class="navbar__logo" [routerLink]="['/' + routes.HOME]">
-      <span class="navbar__logo-texts">
+      <span class="navbar__logo-texts" *transloco="let t">
         <span class="navbar__logo-text">Mimacramé</span>
-        <span class="navbar__logo-sub">Studio</span>
+        <span class="navbar__logo-sub">{{ t('shared.brandTagline') }}</span>
       </span>
       <img
         class="navbar__logo-img"
