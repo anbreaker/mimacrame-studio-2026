@@ -16,6 +16,7 @@ import { provideTransloco } from '@jsverse/transloco';
 import { AVAILABLE_LANGS, DEFAULT_LANG } from '@core/const/lang.const';
 import { authInterceptor } from '@core/interceptor/auth.interceptor';
 import { errorInterceptor } from '@core/interceptor/error.interceptor';
+import { mockApiInterceptor } from '@core/interceptor/mock-api.interceptor';
 import { I18nService } from '@core/services/i18n.service';
 import { I18nTranslationService } from '@core/services/i18n-loader.service';
 import { environment } from '@environments/environment';
@@ -28,7 +29,11 @@ export const appConfig: ApplicationConfig = {
     provideZonelessChangeDetection(),
     provideAppInitializer(() => inject(I18nService).initialize()),
     provideHttpClient(
-      withInterceptors([authInterceptor, errorInterceptor]),
+      withInterceptors([
+        authInterceptor,
+        errorInterceptor,
+        ...(import.meta.env['MODE'] === 'dev' ? [mockApiInterceptor] : []),
+      ]),
       withInterceptorsFromDi()
     ),
     provideTransloco({
