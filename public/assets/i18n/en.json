@@ -375,6 +375,10 @@
       {
         "title": "4. Repairs",
         "content": "If over time a knot loosens or a fiber gets damaged, you can contact us to arrange a repair. We love our creations and want them to keep accompanying you."
+      },
+      {
+        "title": "5. The uniqueness of your piece",
+        "content": "Every Mimacramé Studio creation is one of a kind. Natural materials present variations in tone, texture, and finish that make each piece different from any other. These differences are not imperfections — they are the signature of handmade craft. For this reason, we do not process exchanges or returns for variations inherent to natural materials. Each piece is, in itself, an unrepeatable work of art."
       }
     ]
   },
@@ -707,10 +711,15 @@
     "prevImage": "Previous image",
     "quantity": "Quantity",
     "shipping": {
-      "content": "Free shipping on orders over €40. Delivery in 3-5 business days. We accept returns within 14 days of receipt.",
+      "content": "We ship nationwide. The crafting time is artisanal and specific to each piece — you can find it indicated on this page. Throughout the process, we will keep you updated on your order status. We do not accept returns or exchanges except in cases of damage or error; contact us in that case and we will sort it out together.",
       "title": "Shipping and returns"
     },
-    "viewImage": "View image {{ index }}"
+    "viewImage": "View image {{ index }}",
+    "artisanBadge": "Handmade",
+    "aboutThisPiece": {
+      "title": "About this piece",
+      "content": "Every Mimacramé Studio piece is unique and one-of-a-kind, crafted by hand knot by knot. The artisanal process, natural materials, and human touch mean no two creations are ever exactly alike. Small variations in color, texture, or finish are part of its charm and the best proof of its authenticity."
+    }
   },
   "seo": {
     "aboutDescription": "Discover the story behind Mimacramé Studio. Handcrafted macramé jewelry made in Badajoz with cotton and natural silk thread.",
@@ -760,10 +769,14 @@
         "content": "At the moment we only ship within the national territory. If you are abroad and would like to purchase a piece, feel free to contact us so we can explore options together."
       },
       {
-        "title": "4. Returns & exchanges",
-        "contentBefore": "We accept returns within 7 calendar days of receiving your order, as long as the piece is in its original, unused condition. Return shipping costs are the buyer's responsibility. To start the process, write to us at ",
+        "title": "4. Return policy",
+        "contentBefore": "Due to the artisanal, made-to-order nature of each piece, we do not accept returns or exchanges. Every creation is unique and crafted especially for you. If you received a damaged piece or one that does not match your order, write to us at ",
         "emailLink": "info@mimacrame.com",
-        "contentAfter": " with your order number and the reason for the return."
+        "contentAfter": " with your order number and we will take care of it."
+      },
+      {
+        "title": "5. Artisan pieces and natural variations",
+        "content": "Each Mimacramé Studio piece is unique and handmade with natural materials. Variations in color, texture, or size compared to the photos are not defects — they are the essence of handmade craft. For this reason, we do not accept returns or exchanges based on differences inherent to natural materials. At the time of purchase, you can indicate your material preferences so the artisan can take them into account."
       }
     ]
   }

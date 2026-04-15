@@ -375,6 +375,10 @@
       {
         "title": "4. Reparos",
         "content": "Se com o tempo algum nó se soltar ou uma fibra se danificar, entre em contato conosco para combinar um reparo. Amamos nossas criações e queremos que continuem com você."
+      },
+      {
+        "title": "5. A singularidade da sua peça",
+        "content": "Cada criação do Mimacramé Studio é única. Os materiais naturais apresentam variações de tonalidade, textura e acabamento que fazem com que nenhuma peça seja igual à outra. Essas diferenças não são imperfeições, são a assinatura do artesanato. Por isso, não realizamos trocas nem devoluções por variações inerentes aos materiais naturais. Cada peça é, em si mesma, uma obra irrepetível."
       }
     ]
   },
@@ -705,10 +709,15 @@
     "prevImage": "Imagem anterior",
     "quantity": "Quantidade",
     "shipping": {
-      "content": "Envio gratuito a partir de €40. Entrega em 3-5 dias úteis. Aceitamos devoluções nos 14 dias seguintes à receção.",
+      "content": "Enviamos para todo o território nacional. O tempo de elaboração é artesanal e específico de cada peça — você o encontra indicado nesta página. Ao longo do processo, manteremos você informado sobre o status do seu pedido. Não realizamos devoluções nem trocas, exceto em caso de dano ou erro no envio; nesse caso, entre em contato e resolvemos juntos.",
       "title": "Envios e devoluções"
     },
-    "viewImage": "Ver imagem {{ index }}"
+    "viewImage": "Ver imagem {{ index }}",
+    "artisanBadge": "Feito à mão",
+    "aboutThisPiece": {
+      "title": "Sobre esta peça",
+      "content": "Cada peça do Mimacramé Studio é única e irrepetível, criada à mão nó a nó. O processo artesanal, os materiais naturais e o trabalho humano fazem com que nenhuma criação seja exatamente igual à outra. Pequenas variações de cor, textura ou acabamento fazem parte do seu encanto e são a melhor prova da sua autenticidade."
+    }
   },
   "seo": {
     "aboutDescription": "Conheça a história do Mimacramé Studio. Joalharia artesanal de macramé feita à mão em Badajoz com fio de algodão e seda natural.",
@@ -758,10 +767,14 @@
         "content": "No momento, realizamos envios apenas dentro do território nacional. Se você estiver no exterior e quiser adquirir uma peça, entre em contato conosco para avaliarmos opções juntos."
       },
       {
-        "title": "4. Devoluções e trocas",
-        "contentBefore": "Aceitamos devoluções em até 7 dias corridos a partir do recebimento do pedido, desde que a peça esteja em seu estado original e sem uso. O custo do envio de devolução é de responsabilidade do comprador. Para iniciar o processo, escreva para ",
+        "title": "4. Política de devoluções",
+        "contentBefore": "Pela natureza artesanal e feita sob encomenda de cada peça, não realizamos devoluções nem trocas. Cada criação é única e elaborada especialmente para você. Se recebeu uma peça danificada ou que não corresponde ao seu pedido, escreva para ",
         "emailLink": "info@mimacrame.com",
-        "contentAfter": " informando o número do pedido e o motivo."
+        "contentAfter": " com o número do pedido e cuidaremos disso juntos."
+      },
+      {
+        "title": "5. Peças artesanais e variações naturais",
+        "content": "Cada peça do Mimacramé Studio é única e feita à mão com materiais naturais. Variações de cor, textura ou tamanho em relação às imagens não são defeitos, mas sim a essência do artesanato. Por esta razão, não aceitamos devoluções ou trocas por diferenças inerentes aos materiais naturais. No momento da compra, você pode indicar suas preferências de materiais para que a artesã as leve em consideração."
       }
     ]
   }

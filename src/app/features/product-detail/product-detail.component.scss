@@ -255,11 +255,32 @@
     gap: var(--space-md);
   }
 
+  &__meta {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
   &__category {
     color: var(--color-primary);
     font-size: var(--font-size-xs);
     font-weight: var(--font-weight-semibold);
     letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  &__artisan-badge {
+    align-items: center;
+    background-color: color-mix(in srgb, var(--color-primary) 10%, transparent);
+    border-radius: var(--radius-pill);
+    color: var(--color-primary);
+    display: inline-flex;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    gap: 0.25rem;
+    letter-spacing: 0.06em;
+    padding: 0.2rem var(--space-sm);
     text-transform: uppercase;
   }
 

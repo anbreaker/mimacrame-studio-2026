@@ -157,9 +157,17 @@
 
       <!-- Info -->
       <div class="detail__info">
-        <span class="detail__category">
-          {{ t('home.categories.items.' + product()!.category) }}
-        </span>
+        <div class="detail__meta">
+          <span class="detail__category">
+            {{ t('home.categories.items.' + product()!.category) }}
+          </span>
+          <span class="detail__artisan-badge" aria-label="{{ t('productDetail.artisanBadge') }}">
+            <svg viewBox="0 0 16 16" fill="currentColor" width="9" height="9" aria-hidden="true">
+              <path d="M8 0 L9.6 6 L16 8 L9.6 10 L8 16 L6.4 10 L0 8 L6.4 6 Z" />
+            </svg>
+            {{ t('productDetail.artisanBadge') }}
+          </span>
+        </div>
 
         <div class="detail__name-row">
           <h1 class="detail__name">{{ localizedName() }}</h1>
@@ -226,6 +234,13 @@
         }
 
         <!-- Accordions -->
+        <details class="detail__accordion">
+          <summary class="detail__accordion-title">
+            {{ t('productDetail.aboutThisPiece.title') }}
+          </summary>
+          <p class="detail__accordion-content">{{ t('productDetail.aboutThisPiece.content') }}</p>
+        </details>
+
         <details class="detail__accordion">
           <summary class="detail__accordion-title">
             {{ t('productDetail.materials.title') }}
