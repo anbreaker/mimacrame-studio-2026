@@ -164,7 +164,7 @@ export class AdminMaterialFormComponent {
     this.formData.update((data) => ({ ...data, category }));
   }
 
-  protected toggleAvailable(): void {
-    this.formData.update((data) => ({ ...data, available: !data.available }));
+  protected setAvailable(value: boolean): void {
+    this.formData.update((data) => ({ ...data, available: value }));
   }
 }

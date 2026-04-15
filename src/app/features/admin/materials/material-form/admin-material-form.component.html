@@ -94,21 +94,34 @@
           }
         </div>
 
-        <!-- Available toggle -->
-        <div class="material-form__field material-form__field--row">
+        <!-- Available buttons -->
+        <div class="material-form__field">
           <span class="material-form__label">{{ t('admin.materialForm.fields.available') }}</span>
-          <button
-            type="button"
-            class="material-form__toggle"
-            [class.material-form__toggle--active]="formData().available"
-            (click)="toggleAvailable()"
-          >
-            {{
-              formData().available
-                ? t('admin.materials.available')
-                : t('admin.materials.unavailable')
-            }}
-          </button>
+          <div class="material-form__availability">
+            <button
+              type="button"
+              class="material-form__avail-btn material-form__avail-btn--yes"
+              [class.material-form__avail-btn--active]="formData().available"
+              (click)="setAvailable(true)"
+            >
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13" aria-hidden="true">
+                <polyline points="2 8 6 12 14 4" />
+              </svg>
+              {{ t('admin.materials.available') }}
+            </button>
+            <button
+              type="button"
+              class="material-form__avail-btn material-form__avail-btn--no"
+              [class.material-form__avail-btn--active]="!formData().available"
+              (click)="setAvailable(false)"
+            >
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13" aria-hidden="true">
+                <line x1="3" y1="3" x2="13" y2="13" />
+                <line x1="13" y1="3" x2="3" y2="13" />
+              </svg>
+              {{ t('admin.materials.unavailable') }}
+            </button>
+          </div>
         </div>
 
         <!-- Error -->
