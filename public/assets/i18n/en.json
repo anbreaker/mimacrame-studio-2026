@@ -332,7 +332,8 @@
       "errors": {
         "required": "This field is required",
         "upload": "Error uploading image",
-        "save": "Error saving material"
+        "save": "Error saving material",
+        "allLangsRequired": "Fill in name and description in all languages (ES, EN, PT)"
       },
       "translate": {
         "autoTranslate": "Auto-translate from ES",

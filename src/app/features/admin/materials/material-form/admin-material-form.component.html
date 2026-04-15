@@ -11,7 +11,7 @@
         </a>
       </div>
 
-      <form class="material-form" (ngSubmit)="save()">
+      <form class="material-form" (submit)="$event.preventDefault(); save()">
         <!-- Language tabs -->
         <div class="lang-tabs">
           @for (lang of availableLangs; track lang) {
@@ -22,7 +22,7 @@
               (click)="activeLang.set(lang)"
             >
               {{ lang.toUpperCase() }}
-              @if (nameByLang()[lang].trim() === '') {
+              @if (nameByLang()[lang].trim() === '' || descriptionByLang()[lang].trim() === '') {
                 <span class="lang-tabs__dot"></span>
               }
             </button>
@@ -175,11 +175,19 @@
           <textarea
             id="material-description"
             class="material-form__textarea"
+            [class.material-form__textarea--error]="
+              submitAttempted() && descriptionByLang()[activeLang()].trim() === ''
+            "
             rows="3"
             [value]="descriptionByLang()[activeLang()]"
             (input)="onDescriptionInput($event)"
             [placeholder]="t('admin.materialForm.fields.descriptionPlaceholder')"
           ></textarea>
+          @if (submitAttempted() && descriptionByLang()[activeLang()].trim() === '') {
+            <span class="material-form__error">
+              {{ t('admin.materialForm.errors.required') }}
+            </span>
+          }
         </div>
 
         <!-- Available — segmented control -->
@@ -228,14 +236,23 @@
           </div>
         </div>
 
-        <!-- Error -->
+        <!-- Errors -->
+        @if (submitAttempted() && !isFormValid()) {
+          <p class="material-form__response-error">
+            {{ t('admin.materialForm.errors.allLangsRequired') }}
+          </p>
+        }
         @if (responseError()) {
           <p class="material-form__response-error">{{ t(responseError()!) }}</p>
         }
 
         <!-- Submit -->
         <div class="material-form__footer">
-          <button class="admin-btn admin-btn--primary" type="submit" [disabled]="saving()">
+          <button
+            class="admin-btn admin-btn--primary"
+            type="submit"
+            [disabled]="saving() || (submitAttempted() && !isFormValid())"
+          >
             {{ saving() ? t('common.saving') : t('admin.materialForm.save') }}
           </button>
         </div>

@@ -332,7 +332,8 @@
       "errors": {
         "required": "Este campo es obligatorio",
         "upload": "Error al subir la imagen",
-        "save": "Error al guardar el material"
+        "save": "Error al guardar el material",
+        "allLangsRequired": "Completá nombre y descripción en todos los idiomas (ES, EN, PT)"
       },
       "translate": {
         "autoTranslate": "Auto-traducir desde ES",

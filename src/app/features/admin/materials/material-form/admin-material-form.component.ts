@@ -69,7 +69,16 @@ export class AdminMaterialFormComponent {
 
   protected readonly isFormValid = computed(() => {
     const { category, imageUrl } = this.formData();
-    return this.nameByLang()[LANG.Es].trim() !== '' && category !== null && imageUrl !== '';
+
+    const name = this.nameByLang();
+    const description = this.descriptionByLang();
+
+    const allNamesFilledIn =
+      name.es.trim() !== '' && name.en.trim() !== '' && name.pt.trim() !== '';
+    const allDescriptionsFilledIn =
+      description.es.trim() !== '' && description.en.trim() !== '' && description.pt.trim() !== '';
+
+    return allNamesFilledIn && allDescriptionsFilledIn && category !== null && imageUrl !== '';
   });
 
   private readonly _materialData = toSignal(
@@ -167,7 +176,13 @@ export class AdminMaterialFormComponent {
 
   protected async save(): Promise<void> {
     this.submitAttempted.set(true);
-    if (!this.isFormValid()) return;
+    if (!this.isFormValid()) {
+      document.querySelector('.material-form__response-error')?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+      });
+      return;
+    }
 
     this.saving.set(true);
     this.responseError.set(null);
