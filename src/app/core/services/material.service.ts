@@ -48,10 +48,9 @@ export class MaterialService {
     return runInInjectionContext(
       this.injector,
       () =>
-        collectionData(
-          query(this.materialsRef, where('available', '==', true), orderBy('category')),
-          { idField: 'id' }
-        ) as Observable<Material[]>
+        collectionData(query(this.materialsRef, where('available', '==', true)), {
+          idField: 'id',
+        }) as Observable<Material[]>
     );
   }
 

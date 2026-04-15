@@ -18,14 +18,18 @@
                 <img
                   class="materials__item-img"
                   [src]="material.imageUrl"
-                  [alt]="material.name[activeLang()]"
+                  [alt]="localize(material.name, activeLang())"
                   loading="lazy"
                 />
               </div>
               <div class="materials__item-info">
-                <span class="materials__item-name">{{ material.name[activeLang()] }}</span>
+                <span class="materials__item-name">
+                  {{ localize(material.name, activeLang()) }}
+                </span>
                 @if (material.description) {
-                  <span class="materials__item-desc">{{ material.description[activeLang()] }}</span>
+                  <span class="materials__item-desc">
+                    {{ localize(material.description, activeLang()) }}
+                  </span>
                 }
               </div>
             </li>
@@ -44,14 +48,18 @@
                 <img
                   class="materials__item-img"
                   [src]="material.imageUrl"
-                  [alt]="material.name[activeLang()]"
+                  [alt]="localize(material.name, activeLang())"
                   loading="lazy"
                 />
               </div>
               <div class="materials__item-info">
-                <span class="materials__item-name">{{ material.name[activeLang()] }}</span>
+                <span class="materials__item-name">
+                  {{ localize(material.name, activeLang()) }}
+                </span>
                 @if (material.description) {
-                  <span class="materials__item-desc">{{ material.description[activeLang()] }}</span>
+                  <span class="materials__item-desc">
+                    {{ localize(material.description, activeLang()) }}
+                  </span>
                 }
               </div>
             </li>
@@ -70,14 +78,18 @@
                 <img
                   class="materials__item-img"
                   [src]="material.imageUrl"
-                  [alt]="material.name[activeLang()]"
+                  [alt]="localize(material.name, activeLang())"
                   loading="lazy"
                 />
               </div>
               <div class="materials__item-info">
-                <span class="materials__item-name">{{ material.name[activeLang()] }}</span>
+                <span class="materials__item-name">
+                  {{ localize(material.name, activeLang()) }}
+                </span>
                 @if (material.description) {
-                  <span class="materials__item-desc">{{ material.description[activeLang()] }}</span>
+                  <span class="materials__item-desc">
+                    {{ localize(material.description, activeLang()) }}
+                  </span>
                 }
               </div>
             </li>

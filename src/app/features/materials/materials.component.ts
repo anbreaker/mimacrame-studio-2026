@@ -3,6 +3,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
 
 import { MATERIAL_CATEGORY } from '@core/interfaces/material.interface';
+import { LocalizedString } from '@core/interfaces/product.interface';
 import { MaterialService } from '@core/services/material.service';
 import { SeoService } from '@core/services/seo.service';
 
@@ -19,20 +20,20 @@ export class MaterialsComponent {
   private readonly seoService = inject(SeoService);
   private readonly transloco = inject(TranslocoService);
 
-  private readonly _materials = toSignal(this.materialService.getAvailable(), { initialValue: [] });
+  private readonly _materials = toSignal(this.materialService.getAvailable());
 
   protected readonly colors = computed(() =>
-    this._materials().filter((material) => material.category === MATERIAL_CATEGORY.Color)
+    (this._materials() ?? []).filter((material) => material.category === MATERIAL_CATEGORY.Color)
   );
 
   protected readonly isLoading = computed(() => this._materials() === undefined);
 
   protected readonly stones = computed(() =>
-    this._materials().filter((material) => material.category === MATERIAL_CATEGORY.Stone)
+    (this._materials() ?? []).filter((material) => material.category === MATERIAL_CATEGORY.Stone)
   );
 
   protected readonly threads = computed(() =>
-    this._materials().filter((material) => material.category === MATERIAL_CATEGORY.Thread)
+    (this._materials() ?? []).filter((material) => material.category === MATERIAL_CATEGORY.Thread)
   );
 
   protected readonly activeLang = toSignal(this.transloco.langChanges$, {
@@ -41,5 +42,13 @@ export class MaterialsComponent {
 
   constructor() {
     this.seoService.update({ titleKey: 'materials.title' });
+  }
+
+  protected localize(value: LocalizedString | string | undefined, lang: string): string {
+    if (!value) return '';
+
+    if (typeof value === 'string') return value;
+
+    return value[lang as keyof LocalizedString] ?? value.es ?? '';
   }
 }
