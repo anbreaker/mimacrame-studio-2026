@@ -231,6 +231,9 @@
             {{ t('productDetail.materials.title') }}
           </summary>
           <p class="detail__accordion-content">{{ t('productDetail.materials.content') }}</p>
+          <a class="detail__accordion-link" [routerLink]="['/' + routes.MATERIALS]">
+            {{ t('productDetail.materials.galleryLink') }} →
+          </a>
         </details>
 
         <details class="detail__accordion">

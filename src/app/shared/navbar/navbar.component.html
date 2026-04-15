@@ -23,6 +23,13 @@
       >
         {{ t('navbar.collection') }}
       </a>
+      <a
+        class="navbar__link"
+        [routerLink]="['/' + routes.MATERIALS]"
+        routerLinkActive="navbar__link--active"
+      >
+        {{ t('navbar.materials') }}
+      </a>
     </nav>
 
     <!-- Right: Actions -->
