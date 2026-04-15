@@ -17,12 +17,12 @@
               <img
                 class="materials__item-img"
                 [src]="material.imageUrl"
-                [alt]="material.name"
+                [alt]="material.name[activeLang()]"
                 loading="lazy"
               />
-              <span class="materials__item-name">{{ material.name }}</span>
+              <span class="materials__item-name">{{ material.name[activeLang()] }}</span>
               @if (material.description) {
-                <span class="materials__item-desc">{{ material.description }}</span>
+                <span class="materials__item-desc">{{ material.description[activeLang()] }}</span>
               }
             </li>
           }
@@ -39,12 +39,12 @@
               <img
                 class="materials__item-img"
                 [src]="material.imageUrl"
-                [alt]="material.name"
+                [alt]="material.name[activeLang()]"
                 loading="lazy"
               />
-              <span class="materials__item-name">{{ material.name }}</span>
+              <span class="materials__item-name">{{ material.name[activeLang()] }}</span>
               @if (material.description) {
-                <span class="materials__item-desc">{{ material.description }}</span>
+                <span class="materials__item-desc">{{ material.description[activeLang()] }}</span>
               }
             </li>
           }
@@ -61,12 +61,12 @@
               <img
                 class="materials__item-img"
                 [src]="material.imageUrl"
-                [alt]="material.name"
+                [alt]="material.name[activeLang()]"
                 loading="lazy"
               />
-              <span class="materials__item-name">{{ material.name }}</span>
+              <span class="materials__item-name">{{ material.name[activeLang()] }}</span>
               @if (material.description) {
-                <span class="materials__item-desc">{{ material.description }}</span>
+                <span class="materials__item-desc">{{ material.description[activeLang()] }}</span>
               }
             </li>
           }

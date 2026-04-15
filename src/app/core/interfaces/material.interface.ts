@@ -1,3 +1,5 @@
+import { LocalizedString } from '@core/interfaces/product.interface';
+
 export const MATERIAL_CATEGORY = {
   Color: 'color',
   Stone: 'stone',
@@ -9,10 +11,10 @@ export type MaterialCategory = (typeof MATERIAL_CATEGORY)[keyof typeof MATERIAL_
 export interface Material {
   available: boolean;
   category: MaterialCategory;
-  description?: string;
+  description?: LocalizedString;
   id: string;
   imageUrl: string;
-  name: string;
+  name: LocalizedString;
 }
 
 export type MaterialCreate = Omit<Material, 'id'>;

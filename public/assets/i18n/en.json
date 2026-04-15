@@ -333,6 +333,10 @@
         "required": "This field is required",
         "upload": "Error uploading image",
         "save": "Error saving material"
+      },
+      "translate": {
+        "autoTranslate": "Auto-translate from ES",
+        "translating": "Translating..."
       }
     }
   },

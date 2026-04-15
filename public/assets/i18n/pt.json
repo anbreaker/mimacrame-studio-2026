@@ -333,6 +333,10 @@
         "required": "Este campo é obrigatório",
         "upload": "Erro ao enviar a imagem",
         "save": "Erro ao guardar o material"
+      },
+      "translate": {
+        "autoTranslate": "Auto-traduzir do ES",
+        "translating": "Traduzindo..."
       }
     }
   },

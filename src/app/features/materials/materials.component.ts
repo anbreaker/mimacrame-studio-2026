@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { TranslocoDirective } from '@jsverse/transloco';
+import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
 
 import { MATERIAL_CATEGORY } from '@core/interfaces/material.interface';
 import { MaterialService } from '@core/services/material.service';
@@ -17,6 +17,7 @@ import { SeoService } from '@core/services/seo.service';
 export class MaterialsComponent {
   private readonly materialService = inject(MaterialService);
   private readonly seoService = inject(SeoService);
+  private readonly transloco = inject(TranslocoService);
 
   private readonly _materials = toSignal(this.materialService.getAvailable(), { initialValue: [] });
 
@@ -33,6 +34,10 @@ export class MaterialsComponent {
   protected readonly threads = computed(() =>
     this._materials().filter((material) => material.category === MATERIAL_CATEGORY.Thread)
   );
+
+  protected readonly activeLang = toSignal(this.transloco.langChanges$, {
+    initialValue: this.transloco.getActiveLang(),
+  });
 
   constructor() {
     this.seoService.update({ titleKey: 'materials.title' });

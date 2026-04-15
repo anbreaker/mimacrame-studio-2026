@@ -47,11 +47,11 @@
               <img
                 class="material-card__img"
                 [src]="material.imageUrl"
-                [alt]="material.name"
+                [alt]="material.name.es"
                 loading="lazy"
               />
               <div class="material-card__body">
-                <span class="material-card__name">{{ material.name }}</span>
+                <span class="material-card__name">{{ material.name.es }}</span>
                 <span class="material-card__category">
                   {{ t('admin.materials.categories.' + material.category) }}
                 </span>
