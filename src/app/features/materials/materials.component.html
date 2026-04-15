@@ -1,0 +1,76 @@
+<div class="materials" *transloco="let t">
+  <div class="materials__header">
+    <p class="materials__eyebrow">{{ t('materials.eyebrow') }}</p>
+    <h1 class="materials__title">{{ t('materials.title') }}</h1>
+    <p class="materials__intro">{{ t('materials.intro') }}</p>
+  </div>
+
+  @if (isLoading()) {
+    <p class="materials__loading">{{ t('common.loading') }}</p>
+  } @else {
+    @if (stones().length > 0) {
+      <section class="materials__section">
+        <h2 class="materials__section-title">{{ t('materials.categories.stone') }}</h2>
+        <ul class="materials__grid">
+          @for (material of stones(); track material.id) {
+            <li class="materials__item">
+              <img
+                class="materials__item-img"
+                [src]="material.imageUrl"
+                [alt]="material.name"
+                loading="lazy"
+              />
+              <span class="materials__item-name">{{ material.name }}</span>
+            </li>
+          }
+        </ul>
+      </section>
+    }
+
+    @if (threads().length > 0) {
+      <section class="materials__section">
+        <h2 class="materials__section-title">{{ t('materials.categories.thread') }}</h2>
+        <ul class="materials__grid">
+          @for (material of threads(); track material.id) {
+            <li class="materials__item">
+              <img
+                class="materials__item-img"
+                [src]="material.imageUrl"
+                [alt]="material.name"
+                loading="lazy"
+              />
+              <span class="materials__item-name">{{ material.name }}</span>
+            </li>
+          }
+        </ul>
+      </section>
+    }
+
+    @if (colors().length > 0) {
+      <section class="materials__section">
+        <h2 class="materials__section-title">{{ t('materials.categories.color') }}</h2>
+        <ul class="materials__grid">
+          @for (material of colors(); track material.id) {
+            <li class="materials__item">
+              <img
+                class="materials__item-img"
+                [src]="material.imageUrl"
+                [alt]="material.name"
+                loading="lazy"
+              />
+              <span class="materials__item-name">{{ material.name }}</span>
+            </li>
+          }
+        </ul>
+      </section>
+    }
+
+    @if (stones().length === 0 && threads().length === 0 && colors().length === 0) {
+      <p class="materials__empty">{{ t('materials.empty') }}</p>
+    }
+  }
+
+  <div class="materials__note">
+    <p>{{ t('materials.note') }}</p>
+  </div>
+</div>
