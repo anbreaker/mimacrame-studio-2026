@@ -14,16 +14,20 @@
         <ul class="materials__grid">
           @for (material of stones(); track material.id) {
             <li class="materials__item">
-              <img
-                class="materials__item-img"
-                [src]="material.imageUrl"
-                [alt]="material.name[activeLang()]"
-                loading="lazy"
-              />
-              <span class="materials__item-name">{{ material.name[activeLang()] }}</span>
-              @if (material.description) {
-                <span class="materials__item-desc">{{ material.description[activeLang()] }}</span>
-              }
+              <div class="materials__item-img-wrapper">
+                <img
+                  class="materials__item-img"
+                  [src]="material.imageUrl"
+                  [alt]="material.name[activeLang()]"
+                  loading="lazy"
+                />
+              </div>
+              <div class="materials__item-info">
+                <span class="materials__item-name">{{ material.name[activeLang()] }}</span>
+                @if (material.description) {
+                  <span class="materials__item-desc">{{ material.description[activeLang()] }}</span>
+                }
+              </div>
             </li>
           }
         </ul>
@@ -36,16 +40,20 @@
         <ul class="materials__grid">
           @for (material of threads(); track material.id) {
             <li class="materials__item">
-              <img
-                class="materials__item-img"
-                [src]="material.imageUrl"
-                [alt]="material.name[activeLang()]"
-                loading="lazy"
-              />
-              <span class="materials__item-name">{{ material.name[activeLang()] }}</span>
-              @if (material.description) {
-                <span class="materials__item-desc">{{ material.description[activeLang()] }}</span>
-              }
+              <div class="materials__item-img-wrapper">
+                <img
+                  class="materials__item-img"
+                  [src]="material.imageUrl"
+                  [alt]="material.name[activeLang()]"
+                  loading="lazy"
+                />
+              </div>
+              <div class="materials__item-info">
+                <span class="materials__item-name">{{ material.name[activeLang()] }}</span>
+                @if (material.description) {
+                  <span class="materials__item-desc">{{ material.description[activeLang()] }}</span>
+                }
+              </div>
             </li>
           }
         </ul>
@@ -58,16 +66,20 @@
         <ul class="materials__grid">
           @for (material of colors(); track material.id) {
             <li class="materials__item">
-              <img
-                class="materials__item-img"
-                [src]="material.imageUrl"
-                [alt]="material.name[activeLang()]"
-                loading="lazy"
-              />
-              <span class="materials__item-name">{{ material.name[activeLang()] }}</span>
-              @if (material.description) {
-                <span class="materials__item-desc">{{ material.description[activeLang()] }}</span>
-              }
+              <div class="materials__item-img-wrapper">
+                <img
+                  class="materials__item-img"
+                  [src]="material.imageUrl"
+                  [alt]="material.name[activeLang()]"
+                  loading="lazy"
+                />
+              </div>
+              <div class="materials__item-info">
+                <span class="materials__item-name">{{ material.name[activeLang()] }}</span>
+                @if (material.description) {
+                  <span class="materials__item-desc">{{ material.description[activeLang()] }}</span>
+                }
+              </div>
             </li>
           }
         </ul>
