@@ -89,12 +89,14 @@
   &__top {
     display: grid;
     gap: var(--space-lg);
-    grid-template-columns: auto 1fr;
+    grid-template-columns: 1fr auto;
   }
 
   &__img-col {
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
+    order: 2;
   }
 
   &__meta-col {
