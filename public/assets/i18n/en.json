@@ -113,7 +113,8 @@
       "logout": "Sign out",
       "orders": "Orders",
       "posts": "Posts",
-      "products": "Products"
+      "products": "Products",
+      "materials": "Materials"
     },
     "posts": {
       "actions": {

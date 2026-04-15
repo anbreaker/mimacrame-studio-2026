@@ -113,7 +113,8 @@
       "logout": "Cerrar sesión",
       "orders": "Pedidos",
       "posts": "Posts",
-      "products": "Productos"
+      "products": "Productos",
+      "materials": "Materiales"
     },
     "posts": {
       "actions": {

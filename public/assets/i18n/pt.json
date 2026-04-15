@@ -113,7 +113,8 @@
       "logout": "Sair",
       "orders": "Pedidos",
       "posts": "Posts",
-      "products": "Produtos"
+      "products": "Produtos",
+      "materials": "Materiais"
     },
     "posts": {
       "actions": {
