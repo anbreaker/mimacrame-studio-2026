@@ -192,14 +192,27 @@
       "title": "Orders",
       "detail": {
         "back": "← Orders",
+        "conversation": {
+          "empty": "No messages sent for this order yet.",
+          "error": "Failed to send message. Please try again.",
+          "placeholder": "Write a message to the buyer...",
+          "send": "Send message",
+          "sending": "Sending...",
+          "title": "Conversation with buyer"
+        },
+        "created": "Created",
         "customer": "Customer",
         "dates": "Dates",
-        "created": "Created",
-        "updated": "Last updated",
         "items": "Items",
+        "materialPreference": {
+          "custom": "Described their preferences",
+          "title": "Material preference",
+          "trustArtisan": "Trusts the artisan's vision"
+        },
         "notFound": "Order not found.",
         "payment": "Payment",
         "shipping": "Shipping address",
+        "updated": "Last updated",
         "viewStripe": "View in Stripe →"
       },
       "viewDetail": "View order"

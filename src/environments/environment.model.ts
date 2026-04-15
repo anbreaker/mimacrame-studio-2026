@@ -25,6 +25,7 @@ export interface CloudinaryConfig {
 }
 
 export interface Environment {
+  adminSecret: string;
   apiUrl: string;
   cloudinary: CloudinaryConfig;
   enableDebug: boolean;

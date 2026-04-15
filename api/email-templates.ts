@@ -349,6 +349,36 @@ export function buildContactConfirmSubject(lang?: string): string {
   return getContactTranslations(lang).confirmSubject;
 }
 
+// ── Artisan reply email templates ─────────────────────────────────────────────
+
+export function buildArtisanReplyEmailHtml(data: {
+  message: string;
+  orderRef: string;
+}): string {
+  const body = `
+    <h1 style="margin:0 0 8px;font-family:Georgia,serif;font-size:22px;color:#f5efe8;">
+      Mimacramé Studio te respondió 🧵
+    </h1>
+    <p style="margin:0 0 24px;font-size:14px;color:#9baab8;">
+      Pedido: <strong style="color:#f5efe8;">${data.orderRef}</strong>
+    </p>
+    <div style="background:#1c2e42;border-radius:6px;padding:20px;border-left:3px solid #ffb830;">
+      <p style="margin:0 0 8px;font-size:13px;text-transform:uppercase;letter-spacing:1px;color:#9baab8;">
+        Mensaje de la artesana
+      </p>
+      <p style="margin:0;font-size:15px;color:#f5efe8;line-height:1.7;white-space:pre-wrap;">${data.message}</p>
+    </div>
+    <p style="margin:24px 0 0;font-size:13px;color:#9baab8;line-height:1.6;">
+      Si tenés alguna consulta adicional, podés responder directamente a este email o escribirnos desde nuestra web.
+    </p>
+  `;
+  return buildEmailLayout('Tu pedido · Mimacramé Studio', body, EMAIL_TRANSLATIONS.es.footer);
+}
+
+export function buildArtisanReplySubject(orderRef: string): string {
+  return `Mimacramé Studio te respondió sobre tu pedido ${orderRef}`;
+}
+
 // ── Order email templates ─────────────────────────────────────────────────────
 export function buildCustomerEmailHtml(order: OrderData, orderRef: string): string {
   const t = getTranslations(order.lang);

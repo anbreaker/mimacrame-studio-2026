@@ -110,6 +110,76 @@
             </div>
           </div>
 
+          <!-- Material preference -->
+          @if (order()!.materialPreference) {
+            <div class="detail-card detail-card--full">
+              <h2 class="detail-card__title">{{ t('admin.orders.detail.materialPreference.title') }}</h2>
+              <div class="detail-material">
+                @if (order()!.materialPreference === 'trust_artisan') {
+                  <p class="detail-material__badge detail-material__badge--trust">
+                    {{ t('admin.orders.detail.materialPreference.trustArtisan') }}
+                  </p>
+                } @else {
+                  <p class="detail-material__badge detail-material__badge--custom">
+                    {{ t('admin.orders.detail.materialPreference.custom') }}
+                  </p>
+                  @if (order()!.materialDescription) {
+                    <p class="detail-material__description">{{ order()!.materialDescription }}</p>
+                  }
+                }
+              </div>
+            </div>
+          }
+
+          <!-- Conversation -->
+          <div class="detail-card detail-card--full">
+            <h2 class="detail-card__title">{{ t('admin.orders.detail.conversation.title') }}</h2>
+
+            @if (messages().length === 0) {
+              <p class="detail-conversation__empty">
+                {{ t('admin.orders.detail.conversation.empty') }}
+              </p>
+            } @else {
+              <ul class="detail-conversation__messages">
+                @for (msg of messages(); track msg.id) {
+                  <li class="detail-conversation__message">
+                    <p class="detail-conversation__message-content">{{ msg.content }}</p>
+                    <span class="detail-conversation__message-date">
+                      {{ toDate(msg.createdAt) | date: 'dd/MM/yyyy HH:mm' }}
+                    </span>
+                  </li>
+                }
+              </ul>
+            }
+
+            <div class="detail-conversation__reply">
+              <textarea
+                class="detail-conversation__textarea"
+                [placeholder]="t('admin.orders.detail.conversation.placeholder')"
+                [value]="replyText()"
+                (input)="replyText.set($any($event.target).value)"
+                rows="3"
+              ></textarea>
+              @if (replyError()) {
+                <p class="detail-conversation__error">
+                  {{ t('admin.orders.detail.conversation.error') }}
+                </p>
+              }
+              <button
+                class="detail-conversation__send"
+                type="button"
+                [disabled]="!replyText().trim() || isSendingReply()"
+                (click)="sendReply()"
+              >
+                {{
+                  isSendingReply()
+                    ? t('admin.orders.detail.conversation.sending')
+                    : t('admin.orders.detail.conversation.send')
+                }}
+              </button>
+            </div>
+          </div>
+
           <!-- Status management -->
           <div class="detail-card detail-card--full">
             <h2 class="detail-card__title">{{ t('admin.orders.changeStatus') }}</h2>

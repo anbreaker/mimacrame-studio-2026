@@ -192,14 +192,27 @@
       "title": "Pedidos",
       "detail": {
         "back": "← Pedidos",
+        "conversation": {
+          "empty": "Ainda não enviou nenhuma mensagem para este pedido.",
+          "error": "Erro ao enviar a mensagem. Tente novamente.",
+          "placeholder": "Escreva uma mensagem para o comprador...",
+          "send": "Enviar mensagem",
+          "sending": "Enviando...",
+          "title": "Conversa com o comprador"
+        },
+        "created": "Criado",
         "customer": "Cliente",
         "dates": "Datas",
-        "created": "Criado",
-        "updated": "Última atualização",
         "items": "Artigos",
+        "materialPreference": {
+          "custom": "Descreveu as suas preferências",
+          "title": "Preferência de materiais",
+          "trustArtisan": "Confia na visão da artesã"
+        },
         "notFound": "Pedido não encontrado.",
         "payment": "Pagamento",
         "shipping": "Endereço de entrega",
+        "updated": "Última atualização",
         "viewStripe": "Ver no Stripe →"
       },
       "viewDetail": "Ver pedido"

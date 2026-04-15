@@ -1,6 +1,7 @@
 import { ENV, Environment } from './environment.model';
 
 export const environment: Environment = {
+  adminSecret: import.meta.env['NG_APP_ADMIN_SECRET'] ?? '',
   apiUrl: import.meta.env['NG_APP_API_URL'] ?? 'https://preprod-api.example.com',
   cloudinary: {
     cloudName: import.meta.env['NG_APP_CLOUDINARY_CLOUD_NAME'] ?? '',

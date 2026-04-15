@@ -1,6 +1,7 @@
 import { ENV, Environment } from './environment.model';
 
 export const environment: Environment = {
+  adminSecret: '',
   apiUrl: 'http://localhost:3000',
   cloudinary: { cloudName: '', uploadPreset: '' },
   enableDebug: false,
