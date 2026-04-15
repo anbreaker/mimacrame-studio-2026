@@ -44,6 +44,11 @@ const publicRoutes: Routes = [
     path: ROUTES.CONTACT,
   },
   {
+    loadComponent: async () =>
+      (await import('./features/materials/materials.component')).MaterialsComponent,
+    path: ROUTES.MATERIALS,
+  },
+  {
     loadComponent: async () => (await import('./features/cart/cart.component')).CartComponent,
     path: ROUTES.CART,
   },
@@ -161,6 +166,24 @@ const adminRoutes: Routes = [
         loadComponent: async () =>
           (await import('./features/admin/posts/post-form/post-form.component')).PostFormComponent,
         path: 'posts/:id',
+      },
+      {
+        loadComponent: async () =>
+          (await import('./features/admin/materials/materials-list/admin-materials-list.component'))
+            .AdminMaterialsListComponent,
+        path: 'materials',
+      },
+      {
+        loadComponent: async () =>
+          (await import('./features/admin/materials/material-form/admin-material-form.component'))
+            .AdminMaterialFormComponent,
+        path: 'materials/new',
+      },
+      {
+        loadComponent: async () =>
+          (await import('./features/admin/materials/material-form/admin-material-form.component'))
+            .AdminMaterialFormComponent,
+        path: 'materials/:id',
       },
       { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
     ],

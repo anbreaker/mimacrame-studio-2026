@@ -1,0 +1,113 @@
+<div class="admin-layout" *transloco="let t">
+  <app-admin-nav />
+  <main class="admin-main">
+    <div class="admin-main__inner">
+      <div class="admin-page-header">
+        <h1 class="admin-page-title">
+          {{ isEditMode() ? t('admin.materialForm.titleEdit') : t('admin.materialForm.titleNew') }}
+        </h1>
+        <a class="admin-btn admin-btn--outline" [routerLink]="['/' + routes.ADMIN_MATERIALS]">
+          {{ t('admin.materialForm.back') }}
+        </a>
+      </div>
+
+      <form class="material-form" (ngSubmit)="save()">
+        <!-- Name -->
+        <div class="material-form__field">
+          <label class="material-form__label" for="material-name">
+            {{ t('admin.materialForm.fields.name') }}
+          </label>
+          <input
+            id="material-name"
+            class="material-form__input"
+            [class.material-form__input--error]="submitAttempted() && formData().name.trim() === ''"
+            type="text"
+            [value]="formData().name"
+            (input)="onNameInput($event)"
+          />
+          @if (submitAttempted() && formData().name.trim() === '') {
+            <span class="material-form__error">{{ t('admin.materialForm.errors.required') }}</span>
+          }
+        </div>
+
+        <!-- Category -->
+        <div class="material-form__field">
+          <label class="material-form__label">{{ t('admin.materialForm.fields.category') }}</label>
+          <div class="material-form__category-group">
+            @for (cat of categories; track cat) {
+              <button
+                type="button"
+                class="material-form__category-btn"
+                [class.material-form__category-btn--active]="formData().category === cat"
+                (click)="selectCategory(cat)"
+              >
+                {{ t('admin.materials.categories.' + cat) }}
+              </button>
+            }
+          </div>
+          @if (submitAttempted() && formData().category === null) {
+            <span class="material-form__error">{{ t('admin.materialForm.errors.required') }}</span>
+          }
+        </div>
+
+        <!-- Image -->
+        <div class="material-form__field">
+          <label class="material-form__label">{{ t('admin.materialForm.fields.image') }}</label>
+          @if (formData().imageUrl) {
+            <img class="material-form__preview" [src]="formData().imageUrl" alt="preview" />
+          }
+          <label class="material-form__upload-btn">
+            @if (uploadService.isUploading()) {
+              {{
+                t('admin.materialForm.uploading', {
+                  pct: uploadService.percentage() | number: '1.0-0',
+                })
+              }}
+            } @else {
+              {{ t('admin.materialForm.fields.uploadImage') }}
+            }
+            <input
+              type="file"
+              accept="image/*"
+              class="material-form__file-input"
+              [disabled]="uploadService.isUploading()"
+              (change)="onFileChange($event)"
+            />
+          </label>
+          @if (submitAttempted() && formData().imageUrl === '') {
+            <span class="material-form__error">{{ t('admin.materialForm.errors.required') }}</span>
+          }
+        </div>
+
+        <!-- Available toggle -->
+        <div class="material-form__field material-form__field--row">
+          <span class="material-form__label">{{ t('admin.materialForm.fields.available') }}</span>
+          <button
+            type="button"
+            class="material-form__toggle"
+            [class.material-form__toggle--active]="formData().available"
+            (click)="toggleAvailable()"
+          >
+            {{
+              formData().available
+                ? t('admin.materials.available')
+                : t('admin.materials.unavailable')
+            }}
+          </button>
+        </div>
+
+        <!-- Error -->
+        @if (responseError()) {
+          <p class="material-form__response-error">{{ t(responseError()!) }}</p>
+        }
+
+        <!-- Submit -->
+        <div class="material-form__footer">
+          <button class="admin-btn admin-btn--primary" type="submit" [disabled]="saving()">
+            {{ saving() ? t('common.saving') : t('admin.materialForm.save') }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+</div>

@@ -1,0 +1,134 @@
+<div class="admin-layout" *transloco="let t">
+  <app-admin-nav />
+  <main class="admin-main">
+    <div class="admin-main__inner">
+      <div class="admin-page-header">
+        <h1 class="admin-page-title">{{ t('admin.materials.title') }}</h1>
+        <a class="admin-btn admin-btn--primary" [routerLink]="['/admin/materials/new']">
+          {{ t('admin.materials.new') }}
+        </a>
+      </div>
+
+      <!-- Delete confirm modal -->
+      @if (confirmDeleteId()) {
+        <div class="admin-modal-backdrop" (click)="cancelDelete()">
+          <div class="admin-modal" (click)="$event.stopPropagation()">
+            <p class="admin-modal__text">{{ t('admin.materials.deleteModal.text') }}</p>
+            <div class="admin-modal__actions">
+              <button class="admin-btn admin-btn--danger" (click)="confirmDelete()">
+                {{ t('admin.materials.deleteModal.confirm') }}
+              </button>
+              <button class="admin-btn admin-btn--outline" (click)="cancelDelete()">
+                {{ t('admin.materials.deleteModal.cancel') }}
+              </button>
+            </div>
+          </div>
+        </div>
+      }
+
+      @if (isLoading()) {
+        <div class="materials-grid">
+          @for (row of [1, 2, 3, 4, 5, 6]; track row) {
+            <div class="material-card material-card--skeleton">
+              <div class="material-card__img-skeleton"></div>
+              <div class="material-card__text-skeleton"></div>
+              <div class="material-card__text-skeleton material-card__text-skeleton--short"></div>
+            </div>
+          }
+        </div>
+      } @else if (materials().length === 0) {
+        <div class="admin-empty">
+          <p>{{ t('admin.materials.empty') }}</p>
+        </div>
+      } @else {
+        <div class="materials-grid">
+          @for (material of materials(); track material.id) {
+            <div class="material-card">
+              <img
+                class="material-card__img"
+                [src]="material.imageUrl"
+                [alt]="material.name"
+                loading="lazy"
+              />
+              <div class="material-card__body">
+                <span class="material-card__name">{{ material.name }}</span>
+                <span class="material-card__category">
+                  {{ t('admin.materials.categories.' + material.category) }}
+                </span>
+              </div>
+              <div class="material-card__actions">
+                <button
+                  class="material-card__toggle"
+                  [class.material-card__toggle--active]="material.available"
+                  (click)="toggleAvailable(material.id, material.available)"
+                  [attr.aria-label]="t('admin.materials.actions.toggle')"
+                >
+                  {{
+                    material.available
+                      ? t('admin.materials.available')
+                      : t('admin.materials.unavailable')
+                  }}
+                </button>
+                <div class="material-card__icon-actions">
+                  <button
+                    class="admin-icon-btn"
+                    (click)="duplicate(material)"
+                    [attr.aria-label]="t('admin.materials.actions.duplicate')"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      width="16"
+                      height="16"
+                    >
+                      <rect x="9" y="9" width="13" height="13" rx="2" />
+                      <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
+                    </svg>
+                  </button>
+                  <a
+                    class="admin-icon-btn"
+                    [routerLink]="['/admin/materials', material.id]"
+                    [attr.aria-label]="t('admin.materials.actions.edit')"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      width="16"
+                      height="16"
+                    >
+                      <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" />
+                      <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
+                    </svg>
+                  </a>
+                  <button
+                    class="admin-icon-btn admin-icon-btn--danger"
+                    (click)="requestDelete(material.id)"
+                    [attr.aria-label]="t('admin.materials.actions.delete')"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      width="16"
+                      height="16"
+                    >
+                      <polyline points="3 6 5 6 21 6" />
+                      <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6" />
+                      <path d="M10 11v6M14 11v6" />
+                      <path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </main>
+</div>
