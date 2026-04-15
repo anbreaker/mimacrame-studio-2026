@@ -113,7 +113,9 @@
           <!-- Material preference -->
           @if (order()!.materialPreference) {
             <div class="detail-card detail-card--full">
-              <h2 class="detail-card__title">{{ t('admin.orders.detail.materialPreference.title') }}</h2>
+              <h2 class="detail-card__title">
+                {{ t('admin.orders.detail.materialPreference.title') }}
+              </h2>
               <div class="detail-material">
                 @if (order()!.materialPreference === 'trust_artisan') {
                   <p class="detail-material__badge detail-material__badge--trust">

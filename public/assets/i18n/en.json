@@ -288,6 +288,48 @@
         "status": "Status"
       },
       "title": "Products"
+    },
+    "materials": {
+      "title": "Materials",
+      "new": "Add material",
+      "empty": "No materials yet.",
+      "available": "Available",
+      "unavailable": "Unavailable",
+      "categories": {
+        "stone": "Stone",
+        "thread": "Thread",
+        "color": "Color"
+      },
+      "actions": {
+        "toggle": "Toggle availability",
+        "edit": "Edit",
+        "delete": "Delete",
+        "duplicate": "Duplicate"
+      },
+      "deleteModal": {
+        "cancel": "Cancel",
+        "confirm": "Delete",
+        "text": "Delete this material? This action cannot be undone."
+      }
+    },
+    "materialForm": {
+      "titleNew": "New material",
+      "titleEdit": "Edit material",
+      "back": "Back",
+      "save": "Save",
+      "uploading": "Uploading {{ pct }}%...",
+      "fields": {
+        "name": "Name",
+        "category": "Category",
+        "image": "Image",
+        "uploadImage": "Upload image",
+        "available": "Available"
+      },
+      "errors": {
+        "required": "This field is required",
+        "upload": "Error uploading image",
+        "save": "Error saving material"
+      }
     }
   },
   "adminLogin": {
@@ -457,7 +499,9 @@
     "cancel": "Cancel",
     "confirm": "Confirm",
     "error": "An error occurred",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "saving": "Saving...",
+    "close": "Close"
   },
   "contact": {
     "account": {
@@ -515,7 +559,8 @@
       "collection": "Collection",
       "contact": "Contact",
       "privacy": "Privacy Policy",
-      "shipping": "Shipping & Returns"
+      "shipping": "Shipping & Returns",
+      "materials": "Materials"
     },
     "tagline": "Handcrafted macramé jewelry, piece by piece."
   },
@@ -568,12 +613,25 @@
       "title": "How your piece is born"
     }
   },
+  "materials": {
+    "eyebrow": "Materials",
+    "title": "Materials gallery",
+    "intro": "These are the materials I work with. Natural stones, threads and color palettes to inspire you before your order.",
+    "categories": {
+      "stone": "Natural stones",
+      "thread": "Threads",
+      "color": "Color palette"
+    },
+    "empty": "New materials coming soon.",
+    "note": "This gallery is for reference. The artisan may suggest custom combinations during the conversation after your order."
+  },
   "navbar": {
     "account": "My account",
     "cart": "Shopping cart",
     "collection": "Collection",
     "contact": "Contact",
-    "login": "Sign in"
+    "login": "Sign in",
+    "materials": "Materials"
   },
   "notFound": {
     "cta": "Back to home",
@@ -642,7 +700,8 @@
     "estimatedDays": "Handcrafted: {{ count }} business days",
     "materials": {
       "content": "Handmade with waxed cotton thread and natural silk. To preserve your piece, avoid contact with water and store it in a dry place.",
-      "title": "Materials and care"
+      "title": "Materials and care",
+      "galleryLink": "View available materials"
     },
     "nextImage": "Next image",
     "prevImage": "Previous image",

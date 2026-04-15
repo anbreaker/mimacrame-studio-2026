@@ -288,6 +288,48 @@
         "status": "Estado"
       },
       "title": "Produtos"
+    },
+    "materials": {
+      "title": "Materiais",
+      "new": "Adicionar material",
+      "empty": "Ainda não há materiais.",
+      "available": "Disponível",
+      "unavailable": "Indisponível",
+      "categories": {
+        "stone": "Pedra",
+        "thread": "Fio",
+        "color": "Cor"
+      },
+      "actions": {
+        "toggle": "Alternar disponibilidade",
+        "edit": "Editar",
+        "delete": "Eliminar",
+        "duplicate": "Duplicar"
+      },
+      "deleteModal": {
+        "cancel": "Cancelar",
+        "confirm": "Eliminar",
+        "text": "Eliminar este material? Esta ação não pode ser desfeita."
+      }
+    },
+    "materialForm": {
+      "titleNew": "Novo material",
+      "titleEdit": "Editar material",
+      "back": "Voltar",
+      "save": "Guardar",
+      "uploading": "A enviar {{ pct }}%...",
+      "fields": {
+        "name": "Nome",
+        "category": "Categoria",
+        "image": "Imagem",
+        "uploadImage": "Enviar imagem",
+        "available": "Disponível"
+      },
+      "errors": {
+        "required": "Este campo é obrigatório",
+        "upload": "Erro ao enviar a imagem",
+        "save": "Erro ao guardar o material"
+      }
     }
   },
   "adminLogin": {
@@ -457,7 +499,9 @@
     "cancel": "Cancelar",
     "confirm": "Confirmar",
     "error": "Ocorreu um erro",
-    "loading": "Carregando..."
+    "loading": "Carregando...",
+    "saving": "A guardar...",
+    "close": "Fechar"
   },
   "contact": {
     "account": {
@@ -515,7 +559,8 @@
       "collection": "Coleção",
       "contact": "Contato",
       "privacy": "Política de privacidade",
-      "shipping": "Envios e devoluções"
+      "shipping": "Envios e devoluções",
+      "materials": "Materiais"
     },
     "tagline": "Joalharia de macramé artesanal feita à mão, peça por peça."
   },
@@ -566,12 +611,25 @@
       "title": "Como nasce a sua peça"
     }
   },
+  "materials": {
+    "eyebrow": "Materiais",
+    "title": "Galeria de materiais",
+    "intro": "Estes são os materiais com que trabalho. Pedras naturais, fios e paletas de cores para te inspirares antes do teu pedido.",
+    "categories": {
+      "stone": "Pedras naturais",
+      "thread": "Fios",
+      "color": "Paleta de cores"
+    },
+    "empty": "Novos materiais em breve.",
+    "note": "Esta galeria é orientativa. A artesã pode sugerir combinações personalizadas durante a conversa após o pedido."
+  },
   "navbar": {
     "account": "Minha conta",
     "cart": "Carrinho de compras",
     "collection": "Coleção",
     "contact": "Contacto",
-    "login": "Iniciar sessão"
+    "login": "Iniciar sessão",
+    "materials": "Materiais"
   },
   "notFound": {
     "cta": "Voltar ao início",
@@ -640,7 +698,8 @@
     "estimatedDays": "Artesanato: {{ count }} dias úteis",
     "materials": {
       "content": "Feito à mão com fio de algodão encerado e seda natural. Para conservar a sua peça evite o contacto com água e guarde-a num local seco.",
-      "title": "Materiais e cuidados"
+      "title": "Materiais e cuidados",
+      "galleryLink": "Ver materiais disponíveis"
     },
     "nextImage": "Imagem seguinte",
     "prevImage": "Imagem anterior",

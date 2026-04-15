@@ -288,6 +288,48 @@
         "status": "Estado"
       },
       "title": "Productos"
+    },
+    "materials": {
+      "title": "Materiales",
+      "new": "Añadir material",
+      "empty": "No hay materiales todavía.",
+      "available": "Disponible",
+      "unavailable": "No disponible",
+      "categories": {
+        "stone": "Piedra",
+        "thread": "Hilo",
+        "color": "Color"
+      },
+      "actions": {
+        "toggle": "Cambiar disponibilidad",
+        "edit": "Editar",
+        "delete": "Eliminar",
+        "duplicate": "Duplicar"
+      },
+      "deleteModal": {
+        "cancel": "Cancelar",
+        "confirm": "Eliminar",
+        "text": "¿Eliminar este material? Esta acción no se puede deshacer."
+      }
+    },
+    "materialForm": {
+      "titleNew": "Nuevo material",
+      "titleEdit": "Editar material",
+      "back": "Volver",
+      "save": "Guardar",
+      "uploading": "Subiendo {{ pct }}%...",
+      "fields": {
+        "name": "Nombre",
+        "category": "Categoría",
+        "image": "Imagen",
+        "uploadImage": "Subir imagen",
+        "available": "Disponible"
+      },
+      "errors": {
+        "required": "Este campo es obligatorio",
+        "upload": "Error al subir la imagen",
+        "save": "Error al guardar el material"
+      }
     }
   },
   "adminLogin": {
@@ -457,7 +499,9 @@
     "cancel": "Cancelar",
     "confirm": "Confirmar",
     "error": "Ha ocurrido un error",
-    "loading": "Cargando..."
+    "loading": "Cargando...",
+    "saving": "Guardando...",
+    "close": "Cerrar"
   },
   "contact": {
     "account": {
@@ -515,7 +559,8 @@
       "collection": "Colección",
       "contact": "Contacto",
       "privacy": "Política de privacidad",
-      "shipping": "Envíos y devoluciones"
+      "shipping": "Envíos y devoluciones",
+      "materials": "Materiales"
     },
     "tagline": "Joyería artesanal de macramé hecha a mano, pieza a pieza."
   },
@@ -566,12 +611,25 @@
       "title": "Así nace tu pieza"
     }
   },
+  "materials": {
+    "eyebrow": "Materiales",
+    "title": "Galería de materiales",
+    "intro": "Estos son los materiales con los que trabajo. Piedras naturales, hilos y paletas de color para que te inspires antes de tu pedido.",
+    "categories": {
+      "stone": "Piedras naturales",
+      "thread": "Hilos",
+      "color": "Paleta de colores"
+    },
+    "empty": "Próximamente nuevos materiales.",
+    "note": "Esta galería es orientativa. El artesano puede sugerir combinaciones personalizadas durante la conversación posterior al pedido."
+  },
   "navbar": {
     "account": "Mi cuenta",
     "cart": "Carrito de compra",
     "collection": "Colección",
     "contact": "Contacto",
-    "login": "Iniciar sesión"
+    "login": "Iniciar sesión",
+    "materials": "Materiales"
   },
   "notFound": {
     "cta": "Volver al inicio",
@@ -640,7 +698,8 @@
     "estimatedDays": "Fabricación artesanal: {{ count }} días hábiles",
     "materials": {
       "content": "Hecho a mano con hilo de algodón encerado y seda natural. Para conservar tu pieza evita el contacto con agua y guárdala en un lugar seco.",
-      "title": "Materiales y cuidados"
+      "title": "Materiales y cuidados",
+      "galleryLink": "Ver materiales disponibles"
     },
     "nextImage": "Imagen siguiente",
     "prevImage": "Imagen anterior",

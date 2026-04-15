@@ -305,7 +305,9 @@
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-medium);
     padding: var(--space-sm) var(--space-xl);
-    transition: background-color 0.2s, opacity 0.2s;
+    transition:
+      background-color 0.2s,
+      opacity 0.2s;
 
     &:hover:not(:disabled) {
       background-color: var(--color-primary-hover);
