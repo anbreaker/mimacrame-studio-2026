@@ -178,31 +178,94 @@
     }
   }
 
-  &__preview {
-    border-radius: var(--radius-md);
-    max-height: 12rem;
+  &__img-area {
+    display: flex;
+  }
+
+  &__img-card {
+    border-radius: var(--radius-sm);
+    height: 8rem;
+    overflow: hidden;
+    position: relative;
+    width: 8rem;
+  }
+
+  &__img-thumb {
+    height: 100%;
     object-fit: cover;
     width: 100%;
   }
 
-  &__upload-btn {
+  &__img-overlay {
     align-items: center;
-    background-color: var(--color-background);
-    border: 1.5px dashed var(--color-border);
+    background: rgb(0 0 0 / 0%);
+    bottom: 0;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    justify-content: center;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: background 0.2s;
+
+    svg {
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    &:hover {
+      background: rgb(0 0 0 / 55%);
+
+      svg {
+        opacity: 1;
+      }
+    }
+
+    &--loading {
+      background: rgb(0 0 0 / 55%);
+      pointer-events: none;
+    }
+  }
+
+  &__img-upload {
+    align-items: center;
+    border: 2px dashed var(--color-border);
     border-radius: var(--radius-sm);
     color: var(--color-text-muted);
     cursor: pointer;
     display: flex;
-    font-size: var(--font-size-sm);
+    flex-direction: column;
+    gap: var(--space-xs);
+    height: 8rem;
     justify-content: center;
-    padding: var(--space-md);
-    text-align: center;
-    transition: border-color 0.2s;
+    transition:
+      border-color 0.2s,
+      color 0.2s;
+    width: 8rem;
 
     &:hover {
       border-color: var(--color-primary);
       color: var(--color-primary);
     }
+
+    &--loading {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+  }
+
+  &__img-text {
+    font-size: var(--font-size-xs);
+    text-align: center;
+  }
+
+  &__img-progress {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
   }
 
   &__file-input {
@@ -211,7 +274,8 @@
 
   &__availability {
     display: flex;
-    gap: var(--space-sm);
+    flex-direction: row-reverse;
+    gap: var(--space-md);
   }
 
   &__avail-btn {

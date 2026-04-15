@@ -326,7 +326,8 @@
         "uploadImage": "Upload image",
         "available": "Available",
         "description": "Description",
-        "descriptionPlaceholder": "Describe the material: color, texture, origin, ideal uses..."
+        "descriptionPlaceholder": "Describe the material: color, texture, origin, ideal uses...",
+        "replaceImage": "Replace image"
       },
       "errors": {
         "required": "This field is required",

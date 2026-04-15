@@ -326,7 +326,8 @@
         "uploadImage": "Subir imagen",
         "available": "Disponible",
         "description": "Descripción",
-        "descriptionPlaceholder": "Describí el material: color, textura, origen, usos ideales..."
+        "descriptionPlaceholder": "Describí el material: color, textura, origen, usos ideales...",
+        "replaceImage": "Reemplazar imagen"
       },
       "errors": {
         "required": "Este campo es obligatorio",

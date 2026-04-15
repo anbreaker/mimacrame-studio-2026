@@ -68,27 +68,88 @@
         <!-- Image -->
         <div class="material-form__field">
           <label class="material-form__label">{{ t('admin.materialForm.fields.image') }}</label>
-          @if (formData().imageUrl) {
-            <img class="material-form__preview" [src]="formData().imageUrl" alt="preview" />
-          }
-          <label class="material-form__upload-btn">
-            @if (uploadService.isUploading()) {
-              {{
-                t('admin.materialForm.uploading', {
-                  pct: uploadService.percentage() | number: '1.0-0',
-                })
-              }}
+          <div class="material-form__img-area">
+            @if (formData().imageUrl) {
+              <div class="material-form__img-card">
+                <img
+                  class="material-form__img-thumb"
+                  [src]="formData().imageUrl"
+                  alt="preview"
+                />
+                <label
+                  class="material-form__img-overlay"
+                  [class.material-form__img-overlay--loading]="uploadService.isUploading()"
+                  [title]="t('admin.materialForm.fields.replaceImage')"
+                >
+                  @if (uploadService.isUploading()) {
+                    <span class="material-form__img-progress">
+                      {{ uploadService.percentage() | number: '1.0-0' }}%
+                    </span>
+                  } @else {
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      width="20"
+                      height="20"
+                    >
+                      <path
+                        d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"
+                      />
+                      <path
+                        d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"
+                      />
+                    </svg>
+                  }
+                  <input
+                    type="file"
+                    accept="image/*"
+                    class="material-form__file-input"
+                    [disabled]="uploadService.isUploading()"
+                    (change)="onFileChange($event)"
+                  />
+                </label>
+              </div>
             } @else {
-              {{ t('admin.materialForm.fields.uploadImage') }}
+              <label
+                class="material-form__img-upload"
+                [class.material-form__img-upload--loading]="uploadService.isUploading()"
+              >
+                @if (uploadService.isUploading()) {
+                  <span class="material-form__img-progress">
+                    {{ uploadService.percentage() | number: '1.0-0' }}%
+                  </span>
+                  <span class="material-form__img-text">
+                    {{ t('admin.materialForm.uploading', { pct: uploadService.percentage() | number: '1.0-0' }) }}
+                  </span>
+                } @else {
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    width="22"
+                    height="22"
+                    aria-hidden="true"
+                  >
+                    <line x1="12" y1="5" x2="12" y2="19" />
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                  </svg>
+                  <span class="material-form__img-text">
+                    {{ t('admin.materialForm.fields.uploadImage') }}
+                  </span>
+                }
+                <input
+                  type="file"
+                  accept="image/*"
+                  class="material-form__file-input"
+                  [disabled]="uploadService.isUploading()"
+                  (change)="onFileChange($event)"
+                />
+              </label>
             }
-            <input
-              type="file"
-              accept="image/*"
-              class="material-form__file-input"
-              [disabled]="uploadService.isUploading()"
-              (change)="onFileChange($event)"
-            />
-          </label>
+          </div>
           @if (submitAttempted() && formData().imageUrl === '') {
             <span class="material-form__error">{{ t('admin.materialForm.errors.required') }}</span>
           }
