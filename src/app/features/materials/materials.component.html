@@ -13,7 +13,10 @@
         <h2 class="materials__section-title">{{ t('materials.categories.stone') }}</h2>
         <ul class="materials__grid">
           @for (material of stones(); track material.id) {
-            <li class="materials__item">
+            <li
+              class="materials__item"
+              (click)="openLightbox(material.imageUrl, localize(material.name, activeLang()))"
+            >
               <div class="materials__item-img-wrapper">
                 <img
                   class="materials__item-img"
@@ -43,7 +46,10 @@
         <h2 class="materials__section-title">{{ t('materials.categories.thread') }}</h2>
         <ul class="materials__grid">
           @for (material of threads(); track material.id) {
-            <li class="materials__item">
+            <li
+              class="materials__item"
+              (click)="openLightbox(material.imageUrl, localize(material.name, activeLang()))"
+            >
               <div class="materials__item-img-wrapper">
                 <img
                   class="materials__item-img"
@@ -73,7 +79,10 @@
         <h2 class="materials__section-title">{{ t('materials.categories.color') }}</h2>
         <ul class="materials__grid">
           @for (material of colors(); track material.id) {
-            <li class="materials__item">
+            <li
+              class="materials__item"
+              (click)="openLightbox(material.imageUrl, localize(material.name, activeLang()))"
+            >
               <div class="materials__item-img-wrapper">
                 <img
                   class="materials__item-img"
@@ -107,3 +116,29 @@
     <p>{{ t('materials.note') }}</p>
   </div>
 </div>
+
+@if (lightboxUrl()) {
+  <div class="lightbox" (click)="closeLightbox()" role="dialog" aria-modal="true">
+    <div class="lightbox__content" (click)="$event.stopPropagation()">
+      <img
+        class="lightbox__img"
+        [class.lightbox__img--visible]="lightboxVisible()"
+        [src]="lightboxUrl()!"
+        [alt]="lightboxAlt()"
+      />
+    </div>
+    <button class="lightbox__close" (click)="closeLightbox()">
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        width="20"
+        height="20"
+      >
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    </button>
+  </div>
+}

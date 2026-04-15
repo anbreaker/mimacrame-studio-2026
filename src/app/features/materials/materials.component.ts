@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  HostListener,
+  inject,
+  signal,
+} from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
 
@@ -19,6 +26,12 @@ export class MaterialsComponent {
   private readonly materialService = inject(MaterialService);
   private readonly seoService = inject(SeoService);
   private readonly transloco = inject(TranslocoService);
+
+  protected readonly lightboxAlt = signal<string>('');
+
+  protected readonly lightboxUrl = signal<string | null>(null);
+
+  protected readonly lightboxVisible = signal(false);
 
   private readonly _materials = toSignal(this.materialService.getAvailable());
 
@@ -44,11 +57,25 @@ export class MaterialsComponent {
     this.seoService.update({ titleKey: 'materials.title' });
   }
 
+  protected closeLightbox(): void {
+    this.lightboxUrl.set(null);
+  }
+
   protected localize(value: LocalizedString | string | undefined, lang: string): string {
     if (!value) return '';
-
     if (typeof value === 'string') return value;
-
     return value[lang as keyof LocalizedString] ?? value.es ?? '';
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscape(): void {
+    this.closeLightbox();
+  }
+
+  protected openLightbox(url: string, alt: string): void {
+    this.lightboxUrl.set(url);
+    this.lightboxAlt.set(alt);
+    this.lightboxVisible.set(false);
+    requestAnimationFrame(() => this.lightboxVisible.set(true));
   }
 }
