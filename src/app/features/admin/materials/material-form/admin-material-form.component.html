@@ -12,63 +12,12 @@
       </div>
 
       <form class="material-form" (ngSubmit)="save()">
-        <!-- Name -->
-        <div class="material-form__field">
-          <label class="material-form__label" for="material-name">
-            {{ t('admin.materialForm.fields.name') }}
-          </label>
-          <input
-            id="material-name"
-            class="material-form__input"
-            [class.material-form__input--error]="submitAttempted() && formData().name.trim() === ''"
-            type="text"
-            [value]="formData().name"
-            (input)="onNameInput($event)"
-          />
-          @if (submitAttempted() && formData().name.trim() === '') {
-            <span class="material-form__error">{{ t('admin.materialForm.errors.required') }}</span>
-          }
-        </div>
 
-        <!-- Description -->
-        <div class="material-form__field">
-          <label class="material-form__label" for="material-description">
-            {{ t('admin.materialForm.fields.description') }}
-          </label>
-          <textarea
-            id="material-description"
-            class="material-form__textarea"
-            rows="3"
-            [value]="formData().description"
-            (input)="onDescriptionInput($event)"
-            [placeholder]="t('admin.materialForm.fields.descriptionPlaceholder')"
-          ></textarea>
-        </div>
+        <!-- Top row: image + name/category -->
+        <div class="material-form__top">
 
-        <!-- Category -->
-        <div class="material-form__field">
-          <label class="material-form__label">{{ t('admin.materialForm.fields.category') }}</label>
-          <div class="material-form__category-group">
-            @for (cat of categories; track cat) {
-              <button
-                type="button"
-                class="material-form__category-btn"
-                [class.material-form__category-btn--active]="formData().category === cat"
-                (click)="selectCategory(cat)"
-              >
-                {{ t('admin.materials.categories.' + cat) }}
-              </button>
-            }
-          </div>
-          @if (submitAttempted() && formData().category === null) {
-            <span class="material-form__error">{{ t('admin.materialForm.errors.required') }}</span>
-          }
-        </div>
-
-        <!-- Image -->
-        <div class="material-form__field">
-          <label class="material-form__label">{{ t('admin.materialForm.fields.image') }}</label>
-          <div class="material-form__img-area">
+          <!-- Image -->
+          <div class="material-form__img-col">
             @if (formData().imageUrl) {
               <div class="material-form__img-card">
                 <img
@@ -94,12 +43,8 @@
                       width="20"
                       height="20"
                     >
-                      <path
-                        d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"
-                      />
-                      <path
-                        d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"
-                      />
+                      <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" />
+                      <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
                     </svg>
                   }
                   <input
@@ -115,13 +60,11 @@
               <label
                 class="material-form__img-upload"
                 [class.material-form__img-upload--loading]="uploadService.isUploading()"
+                [class.material-form__img-upload--error]="submitAttempted() && formData().imageUrl === ''"
               >
                 @if (uploadService.isUploading()) {
                   <span class="material-form__img-progress">
                     {{ uploadService.percentage() | number: '1.0-0' }}%
-                  </span>
-                  <span class="material-form__img-text">
-                    {{ t('admin.materialForm.uploading', { pct: uploadService.percentage() | number: '1.0-0' }) }}
                   </span>
                 } @else {
                   <svg
@@ -150,33 +93,84 @@
               </label>
             }
           </div>
-          @if (submitAttempted() && formData().imageUrl === '') {
-            <span class="material-form__error">{{ t('admin.materialForm.errors.required') }}</span>
-          }
+
+          <!-- Name + Category -->
+          <div class="material-form__meta-col">
+            <div class="material-form__field">
+              <label class="material-form__label" for="material-name">
+                {{ t('admin.materialForm.fields.name') }}
+              </label>
+              <input
+                id="material-name"
+                class="material-form__input"
+                [class.material-form__input--error]="submitAttempted() && formData().name.trim() === ''"
+                type="text"
+                [value]="formData().name"
+                (input)="onNameInput($event)"
+              />
+              @if (submitAttempted() && formData().name.trim() === '') {
+                <span class="material-form__error">{{ t('admin.materialForm.errors.required') }}</span>
+              }
+            </div>
+
+            <div class="material-form__field">
+              <label class="material-form__label">{{ t('admin.materialForm.fields.category') }}</label>
+              <div class="material-form__category-group">
+                @for (cat of categories; track cat) {
+                  <button
+                    type="button"
+                    class="material-form__category-btn"
+                    [class.material-form__category-btn--active]="formData().category === cat"
+                    (click)="selectCategory(cat)"
+                  >
+                    {{ t('admin.materials.categories.' + cat) }}
+                  </button>
+                }
+              </div>
+              @if (submitAttempted() && formData().category === null) {
+                <span class="material-form__error">{{ t('admin.materialForm.errors.required') }}</span>
+              }
+            </div>
+          </div>
         </div>
 
-        <!-- Available buttons -->
+        <!-- Description -->
+        <div class="material-form__field">
+          <label class="material-form__label" for="material-description">
+            {{ t('admin.materialForm.fields.description') }}
+          </label>
+          <textarea
+            id="material-description"
+            class="material-form__textarea"
+            rows="3"
+            [value]="formData().description"
+            (input)="onDescriptionInput($event)"
+            [placeholder]="t('admin.materialForm.fields.descriptionPlaceholder')"
+          ></textarea>
+        </div>
+
+        <!-- Available — segmented control -->
         <div class="material-form__field">
           <span class="material-form__label">{{ t('admin.materialForm.fields.available') }}</span>
-          <div class="material-form__availability">
+          <div class="material-form__segment">
             <button
               type="button"
-              class="material-form__avail-btn material-form__avail-btn--yes"
-              [class.material-form__avail-btn--active]="formData().available"
+              class="material-form__seg-btn material-form__seg-btn--yes"
+              [class.material-form__seg-btn--active]="formData().available"
               (click)="setAvailable(true)"
             >
-              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13" aria-hidden="true">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" width="13" height="13" aria-hidden="true">
                 <polyline points="2 8 6 12 14 4" />
               </svg>
               {{ t('admin.materials.available') }}
             </button>
             <button
               type="button"
-              class="material-form__avail-btn material-form__avail-btn--no"
-              [class.material-form__avail-btn--active]="!formData().available"
+              class="material-form__seg-btn material-form__seg-btn--no"
+              [class.material-form__seg-btn--active]="!formData().available"
               (click)="setAvailable(false)"
             >
-              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13" aria-hidden="true">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" width="13" height="13" aria-hidden="true">
                 <line x1="3" y1="3" x2="13" y2="13" />
                 <line x1="13" y1="3" x2="3" y2="13" />
               </svg>
@@ -196,6 +190,7 @@
             {{ saving() ? t('common.saving') : t('admin.materialForm.save') }}
           </button>
         </div>
+
       </form>
     </div>
   </main>

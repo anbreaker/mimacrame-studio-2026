@@ -86,16 +86,28 @@
   gap: var(--space-xl);
   padding: var(--space-xl);
 
+  &__top {
+    display: grid;
+    gap: var(--space-lg);
+    grid-template-columns: auto 1fr;
+  }
+
+  &__img-col {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__meta-col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    min-width: 0;
+  }
+
   &__field {
     display: flex;
     flex-direction: column;
     gap: var(--space-sm);
-
-    &--row {
-      align-items: center;
-      flex-direction: row;
-      justify-content: space-between;
-    }
   }
 
   &__label {
@@ -256,6 +268,11 @@
       opacity: 0.5;
       pointer-events: none;
     }
+
+    &--error {
+      border-color: var(--color-danger);
+      color: var(--color-danger);
+    }
   }
 
   &__img-text {
@@ -272,17 +289,21 @@
     display: none;
   }
 
-  &__availability {
-    display: flex;
-    flex-direction: row-reverse;
-    gap: var(--space-md);
+  &__segment {
+    background-color: var(--color-background);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    display: grid;
+    gap: 0.25rem;
+    grid-template-columns: 1fr 1fr;
+    padding: 0.25rem;
   }
 
-  &__avail-btn {
+  &__seg-btn {
     align-items: center;
     background: transparent;
-    border: 1.5px solid var(--color-border);
-    border-radius: var(--radius-sm);
+    border: none;
+    border-radius: calc(var(--radius-sm) - 2px);
     color: var(--color-text-muted);
     cursor: pointer;
     display: inline-flex;
@@ -290,31 +311,28 @@
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-medium);
     gap: var(--space-xs);
-    padding: var(--space-sm) var(--space-md);
-    transition: all 0.2s;
+    justify-content: center;
+    padding: var(--space-sm);
+    transition: all 0.15s;
 
     &--yes {
-      &:hover {
-        border-color: var(--color-success);
+      &:not(.material-form__seg-btn--active):hover {
         color: var(--color-success);
       }
 
-      &.material-form__avail-btn--active {
-        background-color: rgb(from var(--color-success) r g b / 12%);
-        border-color: var(--color-success);
+      &.material-form__seg-btn--active {
+        background-color: rgb(from var(--color-success) r g b / 14%);
         color: var(--color-success);
       }
     }
 
     &--no {
-      &:hover {
-        border-color: var(--color-danger);
+      &:not(.material-form__seg-btn--active):hover {
         color: var(--color-danger);
       }
 
-      &.material-form__avail-btn--active {
-        background-color: rgb(from var(--color-danger) r g b / 12%);
-        border-color: var(--color-danger);
+      &.material-form__seg-btn--active {
+        background-color: rgb(from var(--color-danger) r g b / 14%);
         color: var(--color-danger);
       }
     }
