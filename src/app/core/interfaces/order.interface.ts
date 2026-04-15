@@ -2,6 +2,8 @@ import { OrderStatus } from '@core/const/order-status.const';
 
 import { CartItem } from './cart.interface';
 
+export type MaterialPreference = 'trust_artisan' | 'custom';
+
 export interface ShippingAddress {
   city: string;
   country: string;
@@ -18,6 +20,8 @@ export interface Order {
   id: string;
   items: CartItem[];
   lang: string;
+  materialDescription?: string;
+  materialPreference?: MaterialPreference;
   shippingAddress: ShippingAddress;
   status: OrderStatus;
   stripePaymentIntentId: string;
