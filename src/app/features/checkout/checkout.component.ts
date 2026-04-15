@@ -26,6 +26,7 @@ import { StripeService } from '@core/services/stripe.service';
 import { AuthStore } from '@core/store/auth.store';
 import { CartStore } from '@core/store/cart.store';
 import { LocalizePipe } from '@shared/pipes/localize.pipe';
+import { MaterialsModalComponent } from '@shared/materials-modal/materials-modal.component';
 
 import { CHECKOUT_ERROR, CheckoutError } from './checkout-error.const';
 
@@ -45,7 +46,7 @@ const SHIPPING_COST = 4.95;
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CurrencyPipe, FormField, LocalizePipe, RouterLink, TranslocoDirective],
+  imports: [CurrencyPipe, FormField, LocalizePipe, MaterialsModalComponent, RouterLink, TranslocoDirective],
   selector: 'app-checkout',
   standalone: true,
   styleUrl: './checkout.component.scss',
@@ -74,8 +75,9 @@ export class CheckoutComponent implements OnDestroy {
   });
 
   protected readonly clientSecret = signal<string | null>(null);
-  protected readonly errorKey = signal<CheckoutError | null>(null);
 
+  protected readonly errorKey = signal<CheckoutError | null>(null);
+  protected readonly isMaterialsModalOpen = signal(false);
   protected readonly isPaymentReady = signal(false);
   protected readonly isProcessing = signal(false);
   protected readonly materialDescription = signal('');
@@ -105,10 +107,10 @@ export class CheckoutComponent implements OnDestroy {
   );
 
   protected readonly isMaterialPreferenceValid = computed(() => {
-    const pref = this.materialPreference();
-    if (pref === null) return false;
+    const materialPreferenceValue = this.materialPreference();
+    if (materialPreferenceValue === null) return false;
 
-    if (pref === 'custom') return this.materialDescription().trim().length > 0;
+    if (materialPreferenceValue === 'custom') return this.materialDescription().trim().length > 0;
     return true;
   });
 
@@ -188,11 +190,9 @@ export class CheckoutComponent implements OnDestroy {
       if (container) {
         await this.stripeService.mountPaymentElement(clientSecret, container);
 
-        if (!this.stripeService.error()) {
-          this.isPaymentReady.set(true);
-        } else {
-          this.errorKey.set(CHECKOUT_ERROR.Generic);
-        }
+        !this.stripeService.error()
+          ? this.isPaymentReady.set(true)
+          : this.errorKey.set(CHECKOUT_ERROR.Generic);
       }
     } catch {
       this.errorKey.set(CHECKOUT_ERROR.Generic);

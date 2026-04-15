@@ -165,9 +165,13 @@
     }
 
     &-gallery-link {
+      background: none;
+      border: none;
       color: var(--color-primary);
+      cursor: pointer;
       font-size: var(--font-size-sm);
-      text-decoration: none;
+      padding: 0;
+      text-align: left;
 
       &:hover {
         text-decoration: underline;
@@ -432,3 +436,4 @@
     }
   }
 }
+

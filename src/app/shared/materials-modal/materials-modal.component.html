@@ -1,0 +1,96 @@
+<div class="materials-modal__backdrop" (click)="close()" *transloco="let t">
+  <div
+    class="materials-modal__panel"
+    role="dialog"
+    aria-modal="true"
+    (click)="$event.stopPropagation()"
+  >
+    <!-- Header -->
+    <div class="materials-modal__header">
+      <h2 class="materials-modal__title">{{ t('materials.title') }}</h2>
+      <button
+        class="materials-modal__close"
+        type="button"
+        (click)="close()"
+        [attr.aria-label]="t('common.close')"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          width="18"
+          height="18"
+          aria-hidden="true"
+        >
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Body -->
+    <div class="materials-modal__body">
+      @if (isEmpty()) {
+        <p class="materials-modal__empty">{{ t('materials.empty') }}</p>
+      } @else {
+        @if (stones().length > 0) {
+          <section class="materials-modal__section">
+            <h3 class="materials-modal__section-title">{{ t('materials.categories.stone') }}</h3>
+            <div class="materials-modal__grid">
+              @for (material of stones(); track material.id) {
+                <div class="materials-modal__item">
+                  <img
+                    class="materials-modal__img"
+                    [src]="material.imageUrl"
+                    [alt]="material.name"
+                    loading="lazy"
+                  />
+                  <span class="materials-modal__name">{{ material.name }}</span>
+                </div>
+              }
+            </div>
+          </section>
+        }
+
+        @if (threads().length > 0) {
+          <section class="materials-modal__section">
+            <h3 class="materials-modal__section-title">{{ t('materials.categories.thread') }}</h3>
+            <div class="materials-modal__grid">
+              @for (material of threads(); track material.id) {
+                <div class="materials-modal__item">
+                  <img
+                    class="materials-modal__img"
+                    [src]="material.imageUrl"
+                    [alt]="material.name"
+                    loading="lazy"
+                  />
+                  <span class="materials-modal__name">{{ material.name }}</span>
+                </div>
+              }
+            </div>
+          </section>
+        }
+
+        @if (colors().length > 0) {
+          <section class="materials-modal__section">
+            <h3 class="materials-modal__section-title">{{ t('materials.categories.color') }}</h3>
+            <div class="materials-modal__grid">
+              @for (material of colors(); track material.id) {
+                <div class="materials-modal__item">
+                  <img
+                    class="materials-modal__img"
+                    [src]="material.imageUrl"
+                    [alt]="material.name"
+                    loading="lazy"
+                  />
+                  <span class="materials-modal__name">{{ material.name }}</span>
+                </div>
+              }
+            </div>
+          </section>
+        }
+      }
+    </div>
+  </div>
+</div>

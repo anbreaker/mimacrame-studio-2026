@@ -198,13 +198,13 @@
                 (input)="materialDescription.set($any($event.target).value)"
                 rows="3"
               ></textarea>
-              <a
+              <button
                 class="checkout__material-gallery-link"
-                [routerLink]="['/' + routes.MATERIALS]"
-                target="_blank"
+                type="button"
+                (click)="isMaterialsModalOpen.set(true)"
               >
                 {{ t('checkout.materialPreference.materialsLink') }} →
-              </a>
+              </button>
             </div>
           }
         </section>
@@ -292,4 +292,9 @@
       </aside>
     </div>
   </div>
+}
+
+<!-- Materials modal -->
+@if (isMaterialsModalOpen()) {
+  <app-materials-modal (closed)="isMaterialsModalOpen.set(false)" />
 }
