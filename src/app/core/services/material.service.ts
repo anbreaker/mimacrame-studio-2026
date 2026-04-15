@@ -3,6 +3,7 @@ import {
   addDoc,
   collection,
   collectionData,
+  deleteDoc,
   doc,
   Firestore,
   orderBy,
@@ -22,6 +23,15 @@ export class MaterialService {
 
   create(data: MaterialCreate): Observable<string> {
     return from(addDoc(this.materialsRef, data)).pipe(map((ref) => ref.id));
+  }
+
+  delete(id: string): Observable<void> {
+    return from(deleteDoc(doc(this.firestore, COLLECTIONS.Materials, id)));
+  }
+
+  duplicate(material: Material): Observable<string> {
+    const { ...data } = material;
+    return this.create(data);
   }
 
   getAll(): Observable<Material[]> {

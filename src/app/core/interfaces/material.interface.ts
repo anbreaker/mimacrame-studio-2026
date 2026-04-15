@@ -1,4 +1,10 @@
-export type MaterialCategory = 'stone' | 'thread' | 'color';
+export const MATERIAL_CATEGORY = {
+  Color: 'color',
+  Stone: 'stone',
+  Thread: 'thread',
+} as const;
+
+export type MaterialCategory = (typeof MATERIAL_CATEGORY)[keyof typeof MATERIAL_CATEGORY];
 
 export interface Material {
   available: boolean;
