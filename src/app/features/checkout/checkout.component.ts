@@ -18,6 +18,7 @@ import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
 
 import { ORDER_STATUS } from '@core/const/order-status.const';
 import { ROUTES } from '@core/const/routes';
+import { MaterialPreference } from '@core/interfaces/order.interface';
 import { OrderService } from '@core/services/order.service';
 import { PaymentService } from '@core/services/payment.service';
 import { SeoService } from '@core/services/seo.service';
@@ -74,8 +75,11 @@ export class CheckoutComponent implements OnDestroy {
 
   protected readonly clientSecret = signal<string | null>(null);
   protected readonly errorKey = signal<CheckoutError | null>(null);
+
   protected readonly isPaymentReady = signal(false);
   protected readonly isProcessing = signal(false);
+  protected readonly materialDescription = signal('');
+  protected readonly materialPreference = signal<MaterialPreference | null>(null);
   protected readonly paymentIntentId = signal<string | null>(null);
 
   protected readonly checkoutForm = form(this.checkoutModel, (schemaPath) => {
@@ -100,9 +104,18 @@ export class CheckoutComponent implements OnDestroy {
       this.checkoutForm.phone().valid()
   );
 
+  protected readonly isMaterialPreferenceValid = computed(() => {
+    const pref = this.materialPreference();
+    if (pref === null) return false;
+
+    if (pref === 'custom') return this.materialDescription().trim().length > 0;
+    return true;
+  });
+
   protected readonly canSubmit = computed(
     () =>
       this.isFormValid() &&
+      this.isMaterialPreferenceValid() &&
       this.isPaymentReady() &&
       this.stripeService.isComplete() &&
       !this.isProcessing()
@@ -201,11 +214,14 @@ export class CheckoutComponent implements OnDestroy {
       // Create the order before confirming payment so the orderId can be
       // included in the return_url — required for redirect-based methods
       // (PayPal, Bizum) that navigate away from the app during payment.
+      const pref = this.materialPreference()!;
       const orderId = await firstValueFrom(
         this.orderService.create({
           customerEmail: data.email,
           items: this.cartStore.items(),
           lang: this.activeLang(),
+          ...(pref === 'custom' && { materialDescription: this.materialDescription().trim() }),
+          materialPreference: pref,
           shippingAddress: {
             city: data.city,
             country: data.country,

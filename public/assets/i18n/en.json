@@ -410,6 +410,20 @@
       "subtotal": "Subtotal",
       "total": "Total"
     },
+    "materialPreference": {
+      "title": "Material preferences",
+      "hint": "Each piece is unique and handmade. Tell us how you'd like yours.",
+      "trustArtisan": {
+        "label": "I trust the artisan's vision",
+        "description": "Raquel will choose the best materials and colours for your piece."
+      },
+      "custom": {
+        "label": "I want to describe my preferences",
+        "description": "Tell her what colours or stones you like and she'll keep it in mind.",
+        "placeholder": "E.g. I love earthy tones, natural stones and cream threads..."
+      },
+      "materialsLink": "View available materials"
+    },
     "title": "Complete order"
   },
   "clientLogin": {

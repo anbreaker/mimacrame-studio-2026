@@ -146,6 +146,69 @@
           </div>
         </section>
 
+        <!-- Material preference -->
+        <section class="checkout__section">
+          <h2 class="checkout__section-title">{{ t('checkout.materialPreference.title') }}</h2>
+          <p class="checkout__material-hint">{{ t('checkout.materialPreference.hint') }}</p>
+
+          <div class="checkout__material-options">
+            <label
+              class="checkout__material-option"
+              [class.checkout__material-option--active]="materialPreference() === 'trust_artisan'"
+              (click)="materialPreference.set('trust_artisan')"
+            >
+              <input
+                type="radio"
+                name="materialPreference"
+                value="trust_artisan"
+                [checked]="materialPreference() === 'trust_artisan'"
+                class="checkout__material-radio"
+              />
+              <span class="checkout__material-option-content">
+                <strong>{{ t('checkout.materialPreference.trustArtisan.label') }}</strong>
+                <span>{{ t('checkout.materialPreference.trustArtisan.description') }}</span>
+              </span>
+            </label>
+
+            <label
+              class="checkout__material-option"
+              [class.checkout__material-option--active]="materialPreference() === 'custom'"
+              (click)="materialPreference.set('custom')"
+            >
+              <input
+                type="radio"
+                name="materialPreference"
+                value="custom"
+                [checked]="materialPreference() === 'custom'"
+                class="checkout__material-radio"
+              />
+              <span class="checkout__material-option-content">
+                <strong>{{ t('checkout.materialPreference.custom.label') }}</strong>
+                <span>{{ t('checkout.materialPreference.custom.description') }}</span>
+              </span>
+            </label>
+          </div>
+
+          @if (materialPreference() === 'custom') {
+            <div class="checkout__material-description">
+              <textarea
+                class="checkout__material-textarea"
+                [placeholder]="t('checkout.materialPreference.custom.placeholder')"
+                [value]="materialDescription()"
+                (input)="materialDescription.set($any($event.target).value)"
+                rows="3"
+              ></textarea>
+              <a
+                class="checkout__material-gallery-link"
+                [routerLink]="['/' + routes.MATERIALS]"
+                target="_blank"
+              >
+                {{ t('checkout.materialPreference.materialsLink') }} →
+              </a>
+            </div>
+          }
+        </section>
+
         <!-- Payment — Stripe Payment Element -->
         <section class="checkout__section">
           <h2 class="checkout__section-title">{{ t('checkout.sections.payment') }}</h2>

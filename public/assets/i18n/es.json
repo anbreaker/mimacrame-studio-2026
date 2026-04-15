@@ -410,6 +410,20 @@
       "subtotal": "Subtotal",
       "total": "Total"
     },
+    "materialPreference": {
+      "title": "Preferencia de materiales",
+      "hint": "Cada pieza es única y hecha a mano. Contanos cómo querés la tuya.",
+      "trustArtisan": {
+        "label": "Confío en la visión de la artesana",
+        "description": "Raquel elegirá los mejores materiales y colores para tu pieza."
+      },
+      "custom": {
+        "label": "Quiero describir mis preferencias",
+        "description": "Contale qué colores o piedras te gustan y lo tendrá en cuenta.",
+        "placeholder": "Ej: me gustan los tonos tierra, las piedras naturales y los hilos crema..."
+      },
+      "materialsLink": "Ver materiales disponibles"
+    },
     "title": "Finalizar pedido"
   },
   "clientLogin": {
