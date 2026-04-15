@@ -21,6 +21,9 @@
                 loading="lazy"
               />
               <span class="materials__item-name">{{ material.name }}</span>
+              @if (material.description) {
+                <span class="materials__item-desc">{{ material.description }}</span>
+              }
             </li>
           }
         </ul>
@@ -40,6 +43,9 @@
                 loading="lazy"
               />
               <span class="materials__item-name">{{ material.name }}</span>
+              @if (material.description) {
+                <span class="materials__item-desc">{{ material.description }}</span>
+              }
             </li>
           }
         </ul>
@@ -59,6 +65,9 @@
                 loading="lazy"
               />
               <span class="materials__item-name">{{ material.name }}</span>
+              @if (material.description) {
+                <span class="materials__item-desc">{{ material.description }}</span>
+              }
             </li>
           }
         </ul>

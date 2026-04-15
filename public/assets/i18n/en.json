@@ -324,7 +324,9 @@
         "category": "Category",
         "image": "Image",
         "uploadImage": "Upload image",
-        "available": "Available"
+        "available": "Available",
+        "description": "Description",
+        "descriptionPlaceholder": "Describe the material: color, texture, origin, ideal uses..."
       },
       "errors": {
         "required": "This field is required",

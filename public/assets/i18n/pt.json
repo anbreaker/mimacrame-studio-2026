@@ -324,7 +324,9 @@
         "category": "Categoria",
         "image": "Imagem",
         "uploadImage": "Enviar imagem",
-        "available": "Disponível"
+        "available": "Disponível",
+        "description": "Descrição",
+        "descriptionPlaceholder": "Descreva o material: cor, textura, origem, usos ideais..."
       },
       "errors": {
         "required": "Este campo é obrigatório",

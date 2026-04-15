@@ -22,6 +22,7 @@ import { AdminNavComponent } from '@shared/admin-nav/admin-nav.component';
 interface MaterialFormData {
   available: boolean;
   category: MaterialCategory | null;
+  description: string;
   imageUrl: string;
   name: string;
 }
@@ -43,6 +44,7 @@ export class AdminMaterialFormComponent {
   protected readonly formData = signal<MaterialFormData>({
     available: true,
     category: null,
+    description: '',
     imageUrl: '',
     name: '',
   });
@@ -91,6 +93,7 @@ export class AdminMaterialFormComponent {
           this.formData.set({
             available: materialData.available,
             category: materialData.category,
+            description: materialData.description ?? '',
             imageUrl: materialData.imageUrl,
             name: materialData.name,
           });
@@ -114,6 +117,11 @@ export class AdminMaterialFormComponent {
     }
   }
 
+  protected onDescriptionInput(event: Event): void {
+    const value = (event.target as HTMLTextAreaElement).value;
+    this.formData.update((data) => ({ ...data, description: value }));
+  }
+
   protected onNameInput(event: Event): void {
     const value = (event.target as HTMLInputElement).value;
     this.formData.update((data) => ({ ...data, name: value }));
@@ -127,10 +135,16 @@ export class AdminMaterialFormComponent {
     this.responseError.set(null);
 
     const id = this._materialId();
-    const { available, category, imageUrl, name } = this.formData();
+    const { available, category, description, imageUrl, name } = this.formData();
     if (!category) return;
 
-    const payload = { available, category, imageUrl, name: name.trim() };
+    const payload = {
+      available,
+      category,
+      imageUrl,
+      name: name.trim(),
+      ...(description.trim() && { description: description.trim() }),
+    };
 
     const save$: Observable<string | void> =
       this.isEditMode() && id

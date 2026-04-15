@@ -9,6 +9,7 @@ export type MaterialCategory = (typeof MATERIAL_CATEGORY)[keyof typeof MATERIAL_
 export interface Material {
   available: boolean;
   category: MaterialCategory;
+  description?: string;
   id: string;
   imageUrl: string;
   name: string;

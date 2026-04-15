@@ -30,6 +30,21 @@
           }
         </div>
 
+        <!-- Description -->
+        <div class="material-form__field">
+          <label class="material-form__label" for="material-description">
+            {{ t('admin.materialForm.fields.description') }}
+          </label>
+          <textarea
+            id="material-description"
+            class="material-form__textarea"
+            rows="3"
+            [value]="formData().description"
+            (input)="onDescriptionInput($event)"
+            [placeholder]="t('admin.materialForm.fields.descriptionPlaceholder')"
+          ></textarea>
+        </div>
+
         <!-- Category -->
         <div class="material-form__field">
           <label class="material-form__label">{{ t('admin.materialForm.fields.category') }}</label>
